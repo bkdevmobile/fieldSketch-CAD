@@ -6,6 +6,8 @@ Pierwsze założenie technologiczne: **React Native + Expo + TypeScript**. Pierw
 
 W prototypie użytkownik podaje długość w krokach. Aplikacja przelicza je na centymetry przy roboczym założeniu **1 krok = 75 cm**, pokazując wynik jako szacunkowy.
 
+Prototyp zapisuje lokalnie trwałe logi do analizy dokładności pomiarów. Użytkownik może je przeglądać i kopiować ich treść z aplikacji.
+
 ## Struktura projektu
 
 ```text

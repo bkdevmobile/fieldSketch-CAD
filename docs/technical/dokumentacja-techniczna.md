@@ -1,6 +1,6 @@
 # Dokumentacja techniczna FieldSketch CAD
 
-Wersja 0.2. Data: 18 października 2026. Etap: projekt rozwiązania przed implementacją.
+Wersja 0.3. Data: 18 października 2026. Etap: projekt rozwiązania przed implementacją.
 
 ## 1 Cel i status decyzji
 
@@ -14,6 +14,7 @@ Aplikacja umożliwi tworzenie pomocniczych obrysów 2D w terenie, korektę geome
 | Długość w prototypie | Ręcznie podana liczba kroków, przeliczana na centymetry; 1 krok = 75 cm | Decyzja użytkownika o krokach; proponowany przelicznik |
 | Platforma początkowa | Android | Wymaganie źródłowe |
 | Dane | Offline, lokalnie, bez backendu i kont | Zakres źródłowy prototypu |
+| Logi pomiarowe | Trwały zapis w pamięci wewnętrznej aplikacji, podgląd i kopiowanie treści | Decyzja użytkownika, wymagane od P0 |
 | Języki | TypeScript oraz Kotlin dla sensorów | Propozycja techniczna |
 | Uruchamianie | Expo development build z expo-dev-client | Propozycja dla własnego kodu natywnego |
 | Dokładność | Ustalana po P0 dla konkretnego scenariusza | Decyzja otwarta |
@@ -23,7 +24,7 @@ Aplikacja umożliwi tworzenie pomocniczych obrysów 2D w terenie, korektę geome
 
 ### P0 Walidacja kierunku
 
-Minimalna aplikacja zawiera podgląd tylnej kamery z celownikiem, orientację telefonu, wykrywanie sensorów, rejestrację prób i eksport diagnostyki CSV/JSON. Porównuje kierunek magnetyczny i względny, stabilizację, powrót po obrocie oraz zachowanie po zmianie stanowiska. Edytor CAD nie jest warunkiem ukończenia P0.
+Minimalna aplikacja zawiera podgląd tylnej kamery z celownikiem, orientację telefonu, wykrywanie sensorów, rejestrację prób, trwałe logi lokalne z możliwością kopiowania treści oraz eksport diagnostyki CSV/JSON. Porównuje kierunek magnetyczny i względny, stabilizację, powrót po obrocie oraz zachowanie po zmianie stanowiska. Edytor CAD nie jest warunkiem ukończenia P0.
 
 Wynikiem jest raport z opisem urządzeń, wersji aplikacji, procedury i rozkładu błędów. Przejście do P1 wymaga oceny użyteczności kierunku i wyboru warunków pomiaru.
 
@@ -56,6 +57,7 @@ Silnik geometrii nie importuje React Native, Expo, bazy ani sensorów. Repozytor
 | Rysunek 2D | react-native-svg, react-native-gesture-handler | Obrys, etykiety, zoom i przesuwanie |
 | Dane | expo-sqlite | Zapis lokalny i migracje |
 | Pliki | expo-file-system, expo-sharing | Diagnostyka, kopia projektu i eksport |
+| Schowek | expo-clipboard | Kopiowanie tekstowej treści loga przez użytkownika |
 | Testy | Jest w konfiguracji zgodnej z Expo | Domena i integracje |
 
 Dokładne wersje należy wybrać przy inicjalizacji. React Native musi odpowiadać wybranemu stabilnemu Expo SDK; zależności natywne instalować przez `npx expo install`, kontrolować przez Expo Doctor i utrzymywać jeden plik blokady zależności. Własny moduł natywny wymaga development build, zamiast polegania na Expo Go [T1, T2]. Skia jest alternatywą dla SVG, jeżeli pomiar wydajności uzasadni zmianę renderera.
@@ -167,6 +169,32 @@ Migracje mają numery i testy na poprzedniej wersji. Nie usuwać bazy po błędz
 
 Proponowana kopia projektu JSON zawiera wersję schematu, metadane, obserwacje, ograniczenia i geometrię; import weryfikuje odwołania i wersję. Zdjęcia i diagnostyka wymagają osobnego dołączenia lub jawnej informacji o ich braku. DXF nie jest kopią projektu.
 
+### Lokalne logi do analizy dokładności
+
+Wymaganie użytkownika: prototyp automatycznie zapisuje logi pomiarowe w trwałej pamięci wewnętrznej aplikacji. Zapis nie może ograniczać się do RAM, konsoli deweloperskiej ani katalogu cache. Logi są dostępne offline po zamknięciu i ponownym uruchomieniu aplikacji. P0 prowadzi samodzielne sesje diagnostyczne, a P1 wiąże sesje z projektem i obserwacjami.
+
+Każdy rekord ma `logSchemaVersion`, numer kolejny, typ zdarzenia, czas UTC i czas monotoniczny oraz identyfikatory sesji, obserwacji i rewizji, jeśli istnieją. Rejestrujemy:
+
+- Nagłówek sesji: urządzenie, Android, wersja aplikacji i algorytmu, dostępne sensory, aktywny tryb, parametry próbkowania, układ odniesienia i transformacja osi kamery.
+- Próbki orientacji: oryginalne wartości zdarzeń, kwaternion lub macierz z opisaną konwencją, kierunek poziomy, pochylenie, obrót ekranu, accuracy, rzeczywiste odstępy i liczba utraconych próbek.
+- Przechwycenie kierunku: zakres próbek, średnia kołowa, rozrzut, czas stabilizacji, aktywne progi, ostrzeżenia, powtórzenie lub odrzucenie próby.
+- Dane długości: wpisana liczba kroków, użyte 75 cm na krok, wynik w cm i m oraz poprawki wejścia.
+- Geometria: punkty i współrzędne surowe oraz skorygowane, zastosowane więzy, operacje edycji, reszty, wektor i norma niedomknięcia. Zapis obejmuje wartości przed i po korekcie.
+- Przerwania i błędy: tło, restart sesji, zmiana odniesienia, brak sensora, błąd pliku i przerwy w rejestracji; bez maskowania brakujących danych.
+- Kontekst próby wpisany przez testera: obiekt, otoczenie, oznaczenie operatora i opcjonalne niezależne długości lub kierunki odniesienia wraz z metodą ich uzyskania. Te wartości służą diagnostyce i nie zastępują wejścia w krokach.
+
+Bez niezależnego odniesienia log pozwala analizować powtarzalność, stabilność i spójność, lecz nie wyznacza samodzielnie rzeczywistego błędu pomiaru. Wartość nieznana jest oznaczona jako brak danych, zamiast zera. Próby z referencją pozwalają oddzielnie porównać kierunek i przeliczenie kroków.
+
+Zdarzenia i próbki zapisujemy w porcjach JSONL z metadanymi w SQLite. Zatwierdzenie obserwacji wymusza utrwalenie powiązanej partii; przy przejściu do tła opróżniamy bufor. Po awarii zachowujemy kompletne rekordy, a niedokończony ogon oznaczamy jako przerwę. Proponowany limit logów prototypu to 100 MiB: przed jego osiągnięciem aplikacja ostrzega, a po osiągnięciu zatrzymuje rejestrację z widocznym komunikatem. Nie usuwa wcześniejszych sesji automatycznie. Użytkownik może usunąć wybraną sesję po potwierdzeniu; nie usuwa to geometrii projektu.
+
+### Podgląd i kopiowanie loga
+
+Ekran „Logi pomiarowe” pokazuje listę sesji z datą, projektem lub oznaczeniem próby, rozmiarem i statusem kompletności. Szczegóły udostępniają przewijany tekst oraz przycisk **„Kopiuj treść loga”**. Akcja kopiuje pełną treść wybranej sesji z nagłówkiem i danymi, a nie tylko podsumowanie lub widoczny fragment. Log diagnostyczny nie jest automatycznie wysyłany.
+
+Kopiowanie aktywnej sesji najpierw utrwala bufor i ustala migawkę do wskazanego numeru rekordu. Podgląd może być stronicowany, ale kopiowanie nie może po cichu obcinać tekstu. Przy dużym logu aplikacja udostępnia ponumerowane części do osobnego skopiowania; każda zawiera identyfikator sesji, numer części, liczbę części i zakres rekordów. Granicę rozmiaru pojedynczej operacji należy zweryfikować na urządzeniach; eksport pliku pozostaje dodatkową możliwością.
+
+Do zapisu tekstu w schowku używamy `Clipboard.setStringAsync` z expo-clipboard [T10]. Komunikat „Skopiowano log” pojawia się po potwierdzonym sukcesie; błąd pozostawia log i umożliwia ponowienie lub kopiowanie częściami. Kopiowanie nie wymaga odczytywania wcześniejszej zawartości schowka.
+
 ## 8 Geometria i edycja
 
 Wewnątrz systemu stosujemy metry i radiany. P1=(0,0), X rośnie w prawo, Y do góry. Kąt theta jest liczony od +X przeciwnie do ruchu wskazówek zegara. Odwrócenie Y następuje wyłącznie podczas rysowania na ekranie.
@@ -241,6 +269,8 @@ Testy konwersji obejmują 1 krok = 75 cm, 10 kroków = 750 cm = 7,5 m = 7500 mm 
 
 Testy integracyjne obejmują transakcje, migracje, ponowne otwarcie, korektę bez utraty obserwacji, kopię JSON i niezależne parsowanie DXF. Testy telefonu obejmują tło, obrót ekranu, brak kamery lub magnetometru i zgodność celownika. Emulator służy do UI; nie potwierdza dokładności sensorów.
 
+Akceptacja logów od P0: sesja jest dostępna po restarcie i bez sieci; zawiera metadane, próbki i powiązanie z przechwyconym kierunkiem; tekst można skopiować i wkleić do innej aplikacji bez utraty rekordów i polskich znaków. Dla dużej sesji sprawdzić kompletność ponumerowanych części, dla aktywnej sesji spójność migawki, a dla przerwanej sesji oznaczenie braków. W P1 dodatkowo weryfikować zapis kroków, przelicznika, korekt i błędu zamknięcia. Błąd zapisu lub schowka nie może wyświetlać komunikatu sukcesu.
+
 Bramki źródłowe P1: obrys 4–8 punktów i powrót do projektu; jawne reszty; DXF w minimum dwóch CAD; brak awarii w 20 pełnych sesjach na urządzeniu docelowym; tryb ręczny; rozkład błędu z minimum trzech otoczeń; co najmniej pięciu testerów kończących proces i rozpoznających wątpliwe wyniki.
 
 Plan terenowy obejmuje prostokąty 2 × 3 m i 5 × 8 m oraz obrys nieregularny z minimum sześcioma narożnikami. Pomiary odniesienia obejmują wszystkie boki, minimum dwie przekątne i dodatkowe wiązania. Powtórzyć próby różnymi operatorami i orientacjami telefonu. Kierunek badać przez 10 wskazań jednego celu, odczekanie 0/30/120 s, obrót i powrót oraz zmianę stanowiska. Otoczenia: teren otwarty, ściana, samochód lub metalowe ogrodzenie.
@@ -250,7 +280,7 @@ Raportować błąd punktów po wyrównaniu układów wyłącznie translacją i o
 ## 12 Kolejność realizacji i decyzje otwarte
 
 1. Zainicjalizować Expo w `app/`, przypiąć wersje, przygotować development build i moduł orientacji.
-2. Dostarczyć P0 z kamerą, diagnostyką i eksportem, następnie wykonać próby terenowe.
+2. Dostarczyć P0 z kamerą, trwałymi logami, podglądem i kopiowaniem treści oraz eksportem, następnie wykonać próby terenowe.
 3. Wybrać domyślny kierunek, progi stabilności i obsługiwane warunki na podstawie raportu.
 4. Wdrożyć model projektu, trwałość, geometrię, tryb ręczny i podgląd 2D.
 5. Dodać edycję, przekątne, ograniczenia, jakość i DXF.
@@ -273,3 +303,4 @@ Sprawdzone 18 października 2026. Adresy `latest` są zmienne; przy inicjalizacj
 - T7 [Expo Sharing](https://docs.expo.dev/versions/latest/sdk/sharing/) — udostępnianie plików.
 - T8 [ezdxf DXF units](https://ezdxf.readthedocs.io/en/stable/concepts/units.html) — INSUNITS i skalowanie współrzędnych.
 - T9 [Szpala i in. 2022, parametry zwykłego chodu i Nordic Walking](https://onlinelibrary.wiley.com/doi/10.1155/2022/7905120) — tabela 2, długość prawego kroku podczas zwykłego chodu u 11 mężczyzn: 74,00 ± 8,68 cm; punkt odniesienia dla roboczego zaokrąglenia do 75 cm, nie średnia całej populacji.
+- T10 [Expo Clipboard](https://docs.expo.dev/versions/latest/sdk/clipboard/) — zapis tekstu do schowka przez setStringAsync.

@@ -10,6 +10,7 @@ Założenia do inicjalizacji:
 - Długość w prototypie podawana ręcznie w krokach: 1 krok = 75 cm; wynik prezentowany w cm i traktowany jako oszacowanie.
 - Expo development build z `expo-dev-client` i lokalnym modułem Kotlin przez Expo Modules API.
 - Pierwszy przyrost P0: celownik, orientacja telefonu, diagnostyka i eksport CSV/JSON.
+- Od P0: logi dokładności w trwałej pamięci wewnętrznej aplikacji, dostępne po restarcie, ekran podglądu i przycisk „Kopiuj treść loga”.
 - Zgodne wersje Expo SDK, React Native i bibliotek przypięte przy inicjalizacji.
 
 Architekturę i plan realizacji opisuje [dokument techniczny](../docs/technical/dokumentacja-techniczna.md).
