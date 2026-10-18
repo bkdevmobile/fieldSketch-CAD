@@ -1,0 +1,12 @@
+apply plugin: 'com.android.library'
+apply plugin: 'expo-module-gradle-plugin'
+
+group = 'pl.fieldsketch.orientation'
+version = '0.1.0'
+
+android {
+  namespace 'pl.fieldsketch.orientation'
+  defaultConfig { versionCode 1; versionName '0.1.0' }
+}
+
+dependencies { testImplementation 'junit:junit:4.13.2' }

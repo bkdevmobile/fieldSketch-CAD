@@ -1,12 +1,18 @@
 # Dokumentacja techniczna FieldSketch CAD
 
-Wersja 0.3. Data: 18 października 2026. Etap: projekt rozwiązania przed implementacją.
+Wersja 0.4. Data: 18 października 2026. Architektura docelowa oraz pierwszy przyrost implementacji.
+
+## Aktualny zakres implementacji
+
+Kod prototypu w `app/` realizuje pomiar i prosty obrys: kamera, trzy tryby kierunku, kroki, projekty SQLite, cofnięcie ostatniego boku, zamknięcie, pole, obwód i trwałe logi z kopiowaniem oraz eksportem JSONL/CSV. [Instrukcja prototypu](prototyp.md) rozróżnia dostępne funkcje i dalszy zakres. DXF, przekątne kontrolne, pełna edycja i solver poniżej pozostają projektem dalszego P1.
+
+Pierwsza implementacja przechowuje migawki projektów, niezmienne obserwacje i operacje w SQLite, a próbki JSONL zapisuje natywnie. Dane surowe i skorygowane nie są jeszcze osobnymi edytowalnymi obrysami; prototyp nie wykonuje dopasowania. Metadane logów są w plikach towarzyszących. Sumy kontrolne i import kopii projektu opisane w architekturze docelowej nie należą do tego przyrostu.
 
 ## 1 Cel i status decyzji
 
 Aplikacja umożliwi tworzenie pomocniczych obrysów 2D w terenie, korektę geometrii oraz eksport do DXF. **React Native z Expo jest pierwszym, wiążącym założeniem użytkownika.** Android, praca offline i podział na P0 oraz P1 wynikają z dokumentacji biznesowej.
 
-Źródło wymagań: [dokumentacja biznesowa wersja 1.0](../business/FieldSketch_CAD_dokumentacja_biznesowa_i_prototyp.docx), szczególnie sekcje 3–10. [Analiza biznesowa](analiza-biznesowa.md) opisuje ryzyka i luki. Dobór bibliotek, kontrakty i szczegółowe zasady poniżej są propozycją techniczną. Nie oznaczają wykonanej implementacji ani potwierdzonej dokładności urządzeń.
+Źródło wymagań: [dokumentacja biznesowa wersja 1.0](../business/FieldSketch_CAD_dokumentacja_biznesowa_i_prototyp.docx), szczególnie sekcje 3–10. [Analiza biznesowa](analiza-biznesowa.md) opisuje ryzyka i luki. Dalsze sekcje opisują architekturę docelową; dostarczony przyrost jest wskazany w sekcji Aktualny zakres implementacji. Opis architektury nie oznacza potwierdzonej dokładności urządzeń ani realizacji całego P1.
 
 | Obszar | Ustalenie | Status |
 | --- | --- | --- |
@@ -66,7 +72,7 @@ expo-camera jest proponowanym uproszczeniem względem bezpośredniej integracji 
 
 ## 4 Struktura kodu
 
-Repozytorium przechowuje dokumenty w `docs/business` i `docs/technical`, aplikację w `app`. Obecnie w `app` znajduje się opis przeznaczenia katalogu. Planowana struktura po inicjalizacji, jeszcze niewygenerowana:
+Repozytorium przechowuje dokumenty w `docs/business` i `docs/technical`, aplikację w `app`. W pierwszym przyroście ekrany są w `src/app`, model i geometria w `src/domain`, adaptery w `src/infrastructure`, moduł Kotlin w `modules`. Poniższy podział na features i podmoduły domeny pozostaje strukturą docelową:
 
 ```text
 app/

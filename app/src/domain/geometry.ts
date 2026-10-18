@@ -1,0 +1,85 @@
+import { Capture, id, Observation, Point, Project, STEP_LENGTH_CM, SurveyMode } from './model';
+export function parsePositive(input: string): number {
+  const normalized = input.trim().replace(',', '.');
+  if (!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(normalized)) throw new Error('Wpisz dodatnią liczbę, np. 2,5.');
+  const value = Number(normalized);
+  if (!Number.isFinite(value) || value <= 0) throw new Error('Wartość musi być dodatnia i skończona.');
+  return value;
+}
+export function stepsToLength(steps: number, stepLengthCm = STEP_LENGTH_CM) {
+  if (![steps, stepLengthCm].every(v => Number.isFinite(v) && v > 0) || !Number.isFinite(steps * stepLengthCm))
+    throw new Error('Nieprawidłowa liczba lub długość kroków.');
+  return { lengthCm: steps * stepLengthCm, lengthM: steps * stepLengthCm / 100 };
+}
+export const normalize = (angle: number) => Math.atan2(Math.sin(angle), Math.cos(angle));
+export const distance = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
+export function circularStats(angles: number[]) {
+  if (!angles.length || angles.some(a => !Number.isFinite(a))) throw new Error('Brak poprawnych próbek.');
+  const x = angles.reduce((s, a) => s + Math.cos(a), 0) / angles.length;
+  const y = angles.reduce((s, a) => s + Math.sin(a), 0) / angles.length;
+  const r = Math.min(1, Math.hypot(x, y));
+  return { mean: Math.atan2(y, x), stdDev: r < 1e-12 ? Infinity : Math.sqrt(-2 * Math.log(r)) };
+}
+export function nextPoint(origin: Point, lengthM: number, theta: number): Point {
+  const p = { id: id(), x: origin.x + lengthM * Math.cos(theta), y: origin.y + lengthM * Math.sin(theta) };
+  if (![p.x, p.y].every(Number.isFinite)) throw new Error('Współrzędne poza zakresem obliczeń.');
+  return p;
+}
+export function commitSide(project: Project, steps: number, theta: number, mode: SurveyMode,
+  referenceFrameId: string, capture: Capture | null, closure = false): Project {
+  if (project.closed) throw new Error('Najpierw cofnij zamknięcie obrysu.');
+  if (!Number.isFinite(theta)) throw new Error('Nieprawidłowy kierunek.');
+  if (closure && project.points.length < 3) throw new Error('Zamknięcie wymaga co najmniej trzech punktów.');
+  const from = project.points[project.points.length - 1]!;
+  const predictedEnd = nextPoint(from, stepsToLength(steps).lengthM, theta);
+  const observation: Observation = { id: id(), kind: closure ? 'closure' : 'side', fromPointId: from.id,
+    toPointId: closure ? project.points[0]!.id : predictedEnd.id, stepCount: steps,
+    stepLengthCm: STEP_LENGTH_CM, ...stepsToLength(steps), theta: normalize(theta), mode,
+    referenceFrameId, capture, predictedEnd, createdAt: new Date().toISOString() };
+  return { ...project, mode, geometryRevision: project.geometryRevision + 1, updatedAt: observation.createdAt,
+    points: closure ? project.points : [...project.points, predictedEnd],
+    observations: [...project.observations, observation], activeObservationIds: [...project.activeObservationIds, observation.id],
+    closed: closure, closureObservationId: closure ? observation.id : null };
+}
+export function closeOutline(project: Project): Project {
+  if (project.points.length < 3 || project.closed) throw new Error('Potrzeba otwartego obrysu z minimum trzema punktami.');
+  return { ...project, closed: true, updatedAt: new Date().toISOString(), geometryRevision: project.geometryRevision + 1 };
+}
+export function undoLast(project: Project): Project {
+  if (project.closed) return { ...project, closed: false, closureObservationId: null,
+    activeObservationIds: project.closureObservationId ? project.activeObservationIds.filter(x => x !== project.closureObservationId) : project.activeObservationIds,
+    updatedAt: new Date().toISOString(), geometryRevision: project.geometryRevision + 1 };
+  if (project.points.length < 2) throw new Error('Brak boku do cofnięcia.');
+  return { ...project, points: project.points.slice(0, -1), activeObservationIds: project.activeObservationIds.slice(0, -1),
+    updatedAt: new Date().toISOString(), geometryRevision: project.geometryRevision + 1 };
+}
+const cross = (a: Point, b: Point, c: Point) => (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+function onSegment(a: Point, b: Point, p: Point) {
+  return Math.abs(cross(a, b, p)) < 1e-9 && p.x >= Math.min(a.x, b.x) - 1e-9 && p.x <= Math.max(a.x, b.x) + 1e-9
+    && p.y >= Math.min(a.y, b.y) - 1e-9 && p.y <= Math.max(a.y, b.y) + 1e-9;
+}
+function intersect(a: Point, b: Point, c: Point, d: Point) {
+  const u = cross(a, b, c), v = cross(a, b, d), w = cross(c, d, a), z = cross(c, d, b);
+  return (u * v < 0 && w * z < 0) || onSegment(a, b, c) || onSegment(a, b, d) || onSegment(c, d, a) || onSegment(c, d, b);
+}
+export function selfIntersects(points: Point[], closed: boolean): boolean {
+  const edges = closed ? points.length : points.length - 1;
+  for (let i = 0; i < edges; i++) for (let j = i + 1; j < edges; j++) {
+    if (j === i + 1 || (closed && i === 0 && j === edges - 1)) continue;
+    if (intersect(points[i]!, points[(i + 1) % points.length]!, points[j]!, points[(j + 1) % points.length]!)) return true;
+  }
+  return false;
+}
+export function metrics(project: Project) {
+  const p = project.points; let perimeter = 0, signed = 0;
+  for (let i = 0; i < p.length - (project.closed ? 0 : 1); i++) {
+    const a = p[i]!, b = p[(i + 1) % p.length]!;
+    perimeter += distance(a, b); signed += a.x * b.y - b.x * a.y;
+  }
+  const intersects = selfIntersects(p, project.closed);
+  const closure = project.observations.find(o => o.id === project.closureObservationId);
+  const dx = closure ? closure.predictedEnd.x - p[0]!.x : null;
+  const dy = closure ? closure.predictedEnd.y - p[0]!.y : null;
+  return { perimeter, area: project.closed && !intersects ? Math.abs(signed) / 2 : null,
+    intersects, closure: dx === null || dy === null ? null : { dx, dy, norm: Math.hypot(dx, dy) } };
+}

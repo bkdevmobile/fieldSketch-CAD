@@ -1,6 +1,6 @@
 # FieldSketch CAD
 
-Mobilne narzędzie do tworzenia pomocniczych, wymiarowanych szkiców 2D w terenie i eksportu do DXF.
+Mobilne narzędzie do tworzenia pomocniczych, wymiarowanych szkiców 2D w terenie. Eksport DXF jest planowany w kolejnym etapie.
 
 Pierwsze założenie technologiczne: **React Native + Expo + TypeScript**. Pierwsza platforma: Android, zgodnie z dokumentacją biznesową. Praca offline, bez backendu w prototypie.
 
@@ -21,5 +21,6 @@ app/           katalog przeznaczony na aplikację Expo
 - [Analiza dokumentacji biznesowej](docs/technical/analiza-biznesowa.md)
 - [Dokument techniczny](docs/technical/dokumentacja-techniczna.md)
 - [Katalog aplikacji](app/README.md)
+- [Uruchomienie i test terenowy prototypu](docs/technical/prototyp.md)
 
-Obecny etap: analiza i projekt techniczny. Aplikacja nie została jeszcze zainicjalizowana. Następny etap to P0, czyli walidacja kierunku z czujników na rzeczywistych telefonach.
+Kod pierwszego prototypu znajduje się w `app/`: kamera i sensory, ręczne kąty, kroki, prosty obrys, lokalne projekty i kopiowanie logów. Skrypt `npm run build:apk` tworzy samodzielny APK w `artifacts/`. Dokładność kierunku wymaga walidacji na fizycznym telefonie.

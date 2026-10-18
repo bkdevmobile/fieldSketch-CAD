@@ -1,0 +1,1 @@
+{ "platforms": ["android"], "android": { "modules": ["pl.fieldsketch.orientation.FieldSketchOrientationModule"] } }

@@ -1,16 +1,29 @@
 # Aplikacja FieldSketch CAD
 
-Katalog przeznaczony na aplikację **React Native + Expo + TypeScript**.
+Prototyp Android w **React Native 0.85.3 + Expo SDK 56 + TypeScript**, z lokalnym modułem Kotlin. Wersje są przypięte w `package-lock.json`.
 
-Kod i zależności nie zostały jeszcze wygenerowane. Zakres bieżącego etapu obejmuje analizę, dokumentację i organizację repozytorium.
+## Uruchomienie
 
-Założenia do inicjalizacji:
+W katalogu `app`, na Windows z Node 20.19.x, JDK i Android SDK 36:
 
-- Android jako pierwsza platforma, działanie offline.
-- Długość w prototypie podawana ręcznie w krokach: 1 krok = 75 cm; wynik prezentowany w cm i traktowany jako oszacowanie.
-- Expo development build z `expo-dev-client` i lokalnym modułem Kotlin przez Expo Modules API.
-- Pierwszy przyrost P0: celownik, orientacja telefonu, diagnostyka i eksport CSV/JSON.
-- Od P0: logi dokładności w trwałej pamięci wewnętrznej aplikacji, dostępne po restarcie, ekran podglądu i przycisk „Kopiuj treść loga”.
-- Zgodne wersje Expo SDK, React Native i bibliotek przypięte przy inicjalizacji.
+```powershell
+npm ci
+npm run typecheck
+npm test
+npm run build:apk
+```
 
-Architekturę i plan realizacji opisuje [dokument techniczny](../docs/technical/dokumentacja-techniczna.md).
+Wynik: `../artifacts/FieldSketch-CAD-0.1.0.apk`, z osadzonym JavaScript i podpisem deweloperskim do testów. APK obsługuje arm64-v8a i x86_64, Android 7 lub nowszy. Do pomiaru nie wymaga Metro ani internetu. Do pracy deweloperskiej: `npm run android`, potem `npm start`.
+
+## Dostępne funkcje
+
+- Projekty SQLite i automatyczny zapis zatwierdzonych boków.
+- Tylna kamera i celownik; kierunek magnetyczny, względny lub ręczny.
+- Kroki, także ułamkowe: 1 krok = 75 cm, wynik szacunkowy w cm.
+- Obrys SVG, przesuwanie, zoom, cofnięcie ostatniego boku, pole i obwód.
+- Osobne zamknięcie topologiczne i niezależny pomiar niedomknięcia.
+- Trwałe logi JSONL, podgląd, kopiowanie częściami i eksport JSONL/CSV.
+
+Brak DXF, solvera i rozbudowanego edytora w tej wersji. Expo Go nie obsługuje własnego modułu pomiarowego. Nowa sesja sensora przy istniejącym obrysie wymaga ponownego odniesienia na znanym boku.
+
+[Instrukcja użytkowania i próby terenowej](../docs/technical/prototyp.md) opisuje procedurę i ograniczenia, w tym ostrzeżenie Expo Doctor o pamięci Hermes w SDK 56.
