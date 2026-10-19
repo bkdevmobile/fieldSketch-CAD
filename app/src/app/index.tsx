@@ -10,7 +10,7 @@ export default function Projects() {
   const create = () => store.run(async () => {
     if (!name.trim()) throw new Error('Podaj nazwę projektu.');
     if (!store.repo) throw new Error('Baza nie jest jeszcze gotowa.');
-    const project = newProject(name, store.capabilities?.magnetic ? 'magnetic' : 'manual');
+    const project = newProject(name, store.capabilities?.relative ? 'relative' : 'manual');
     await store.repo.save(project, 'create'); await store.refresh(); setName('');
     router.push({ pathname: '/project', params: { id: project.id } });
   });
@@ -25,7 +25,7 @@ export default function Projects() {
     <View style={s.card}><Text style={s.h2}>Nowy projekt</Text>
       <Field label="Nazwa projektu" value={name} onChangeText={setName} placeholder="np. Taras przy domu" />
       <Button label="Rozpocznij pomiar" onPress={create} disabled={store.busy || !store.repo} />
-      <Text style={s.muted}>1 krok = 75 cm · długości szacunkowe</Text>
+      <Text style={s.muted}>Długość w m/cm lub kroki · 1 krok = {store.settings.stepLengthCm} cm</Text>
     </View>
     <View style={s.row}><Text style={s.h2}>Twoje projekty</Text><Text style={s.muted}>{store.projects.length}</Text></View>
     {!store.projects.length && <Text style={s.muted}>Pierwszy obrys zaczyna się od punktu P1. Utwórz projekt powyżej.</Text>}
@@ -35,6 +35,7 @@ export default function Projects() {
       <Button label="Usuń projekt" secondary danger onPress={() => remove(p.id)} disabled={store.busy} />
     </View>)}
     <Button label="Logi pomiarowe" secondary onPress={() => router.push('/logs')} />
+    <Button label="Ustawienia" secondary onPress={() => router.push('/settings')} />
     <Text style={s.muted}>{store.capabilities?.device ?? 'Sprawdzanie urządzenia…'}{store.capabilities && ` · Android ${store.capabilities.android}`}</Text>
     <Text style={s.muted}>Szkic pomocniczy. Dokładność kierunku i kroków wymaga kontroli w terenie.</Text>
   </Page>;

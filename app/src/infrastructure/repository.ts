@@ -1,4 +1,5 @@
-import type { Project } from '../domain/model';
+import { DEFAULT_SETTINGS, Project, UserSettings } from '../domain/model';
+import type { SurveyDraft } from '../domain/survey';
 
 export interface Database {
   execAsync(sql: string): Promise<void>;
@@ -11,7 +12,7 @@ export class ProjectRepository {
   async initialize() {
     const rows = await this.db.getAllAsync<{ user_version: number }>('PRAGMA user_version');
     const version = rows[0]?.user_version ?? 0;
-    if (version > 1) throw new Error('Baza pochodzi z nowszej wersji aplikacji. Dane pozostawiono bez zmian.');
+    if (version > 3) throw new Error('Baza pochodzi z nowszej wersji aplikacji. Dane pozostawiono bez zmian.');
     if (version === 0) await this.db.withTransactionAsync(async () => {
       await this.db.execAsync(`
         CREATE TABLE projects (id TEXT PRIMARY KEY, name TEXT NOT NULL, updated_at TEXT NOT NULL, body TEXT NOT NULL);
@@ -20,6 +21,21 @@ export class ProjectRepository {
         PRAGMA user_version=1;
       `);
     });
+    if (version < 2) await this.db.withTransactionAsync(async () => {
+      await this.db.execAsync('CREATE TABLE survey_drafts (project_id TEXT PRIMARY KEY, body TEXT NOT NULL); PRAGMA user_version=2;');
+    });
+    if (version < 3) await this.db.withTransactionAsync(async () => {
+      await this.db.execAsync('CREATE TABLE user_settings (id INTEGER PRIMARY KEY CHECK(id=1), body TEXT NOT NULL); PRAGMA user_version=3;');
+    });
+  }
+  async settings(): Promise<UserSettings> {
+    const rows = await this.db.getAllAsync<{ body: string }>('SELECT body FROM user_settings WHERE id=1');
+    return rows[0] ? JSON.parse(rows[0].body) : { ...DEFAULT_SETTINGS };
+  }
+  async saveSettings(settings: UserSettings) {
+    if (!Number.isFinite(settings.stepLengthCm) || settings.stepLengthCm <= 0 || !['m', 'cm'].includes(settings.unit))
+      throw new Error('Podaj dodatnią długość kroku i poprawną jednostkę.');
+    await this.db.runAsync('INSERT INTO user_settings (id,body) VALUES (1,?) ON CONFLICT(id) DO UPDATE SET body=excluded.body', JSON.stringify(settings));
   }
   async list(): Promise<Project[]> {
     const rows = await this.db.getAllAsync<{ body: string }>('SELECT body FROM projects ORDER BY updated_at DESC');
@@ -50,11 +66,24 @@ export class ProjectRepository {
       project.id, project.name, project.updatedAt, serialized);
       await this.db.runAsync('INSERT INTO operations (project_id,revision,kind,body) VALUES (?,?,?,?)',
         project.id, project.geometryRevision, kind, serialized);
+      await this.db.runAsync('DELETE FROM survey_drafts WHERE project_id=?', project.id);
     });
+  }
+  async loadDraft(projectId: string): Promise<SurveyDraft | null> {
+    const rows = await this.db.getAllAsync<{ body: string }>('SELECT body FROM survey_drafts WHERE project_id=?', projectId);
+    return rows[0] ? JSON.parse(rows[0].body) : null;
+  }
+  async saveDraft(projectId: string, draft: SurveyDraft) {
+    await this.db.runAsync(`INSERT INTO survey_drafts (project_id,body)
+      SELECT id,? FROM projects WHERE id=? AND json_extract(body, '$.geometryRevision')=?
+      ON CONFLICT(project_id) DO UPDATE SET body=excluded.body`, JSON.stringify(draft), projectId, draft.revision);
+  }
+  async removeDraft(projectId: string) {
+    await this.db.runAsync('DELETE FROM survey_drafts WHERE project_id=?', projectId);
   }
   async remove(id: string) {
     await this.db.withTransactionAsync(async () => {
-      for (const table of ['observations', 'operations']) await this.db.runAsync(`DELETE FROM ${table} WHERE project_id=?`, id);
+      for (const table of ['observations', 'operations', 'survey_drafts']) await this.db.runAsync(`DELETE FROM ${table} WHERE project_id=?`, id);
       await this.db.runAsync('DELETE FROM projects WHERE id=?', id);
     });
   }

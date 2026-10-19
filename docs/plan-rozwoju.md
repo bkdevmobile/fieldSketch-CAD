@@ -15,3 +15,7 @@ Najważniejsza decyzja na etapie 1: czy pomiar kierunku telefonem i długości k
 ## Postęp etapu 2
 
 19 października 2026 zaakceptowano [wizard pomiaru i decyzje UI](technical/wizard-pomiaru.md): cykl Kierunek → Długość → Zapisz punkt, korekty, krokomierz Start/Stop, szkic na żywo i zakończenie. Jest to projekt do implementacji. Pozostają użytkownik docelowy, ostateczny zakres pierwszej wersji, wstępny model zarabiania i szczegółowy układ ekranów. Ustalenia UI przyjęto przed zakończeniem rozważań o monetyzacji; nie określają jeszcze podziału funkcji darmowych i płatnych.
+
+Rozpoczęto implementację pierwszego przyrostu zaakceptowanego wizarda: kierunek i korekta, ręczna długość m/cm, zapis punktu, szkic na żywo i stały dolny pasek akcji. Szczegółowy postęp i pozostały zakres opisuje [projekt wizarda](technical/wizard-pomiaru.md).
+
+Drugi przyrost dodaje edycję ostatniego boku z historią, eksport PNG, ustawienia długości kroku i natywny krokomierz Start/Stop. Testy programowe i emulator nie zamykają walidacji fizycznego liczenia kroków. Następna próba powinna objąć zaktualizowany APK na telefonie użytkownika.

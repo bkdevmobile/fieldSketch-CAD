@@ -1,7 +1,8 @@
 import initSqlJs, { Database as SqlDb } from 'sql.js';
 import { Database, ProjectRepository } from '../src/infrastructure/repository';
 import { newProject } from '../src/domain/model';
-import { commitSide, undoLast } from '../src/domain/geometry';
+import { commitSide, editLastSide, undoLast } from '../src/domain/geometry';
+import type { SurveyDraft } from '../src/domain/survey';
 class SqlAdapter implements Database {
   constructor(readonly raw: SqlDb) {}
   async execAsync(sql: string) { this.raw.exec(sql); }
@@ -46,4 +47,46 @@ test('nowszy schemat nie jest kasowany', async () => {
   await expect(new ProjectRepository(db).initialize()).rejects.toThrow('nowszej');
   expect((await db.getAllAsync<{ user_version: number }>('PRAGMA user_version'))[0]!.user_version).toBe(99);
   db.raw.close();
+});
+
+test('migracja starej bazy zachowuje projekt, a etap roboczy przetrwa restart', async () => {
+  const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
+  await db.execAsync(`CREATE TABLE projects (id TEXT PRIMARY KEY, name TEXT NOT NULL, updated_at TEXT NOT NULL, body TEXT NOT NULL);
+    CREATE TABLE observations (id TEXT PRIMARY KEY, project_id TEXT NOT NULL, body TEXT NOT NULL);
+    CREATE TABLE operations (id INTEGER PRIMARY KEY AUTOINCREMENT, project_id TEXT NOT NULL, revision INTEGER NOT NULL, kind TEXT NOT NULL, body TEXT NOT NULL);
+    PRAGMA user_version=1;`);
+  const p = newProject('Stary projekt', 'relative');
+  await db.runAsync('INSERT INTO projects VALUES (?,?,?,?)', p.id, p.name, p.updatedAt, JSON.stringify(p));
+  const repo = new ProjectRepository(db); await repo.initialize();
+  expect(await repo.load(p.id)).toEqual(p);
+  const draft: SurveyDraft = { revision: 0, step: 'length', length: '4,50', unit: 'm', steps: '', lengthSource: 'manual', turn: '90', turnSide: 'left' };
+  await repo.saveDraft(p.id, draft);
+  const reopened = new SqlAdapter(new SQL.Database(db.raw.export()));
+  const next = new ProjectRepository(reopened); await next.initialize();
+  expect(await next.loadDraft(p.id)).toEqual(draft);
+  await next.save(commitSide(p, 4, 0, 'relative', 's1', null), 'side_added');
+  expect(await next.loadDraft(p.id)).toBeNull();
+  await next.saveDraft(p.id, draft);
+  expect(await next.loadDraft(p.id)).toBeNull(); // delayed write from the previous geometry revision
+  await next.saveDraft(p.id, { ...draft, revision: 1 }); await next.remove(p.id);
+  expect(await next.loadDraft(p.id)).toBeNull();
+  db.raw.close(); reopened.raw.close();
+});
+
+test('ustawienia i korekta przetrwają restart bez zmiany źródłowych kroków', async () => {
+  const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
+  const repo = new ProjectRepository(db); await repo.initialize();
+  expect(await repo.settings()).toEqual({ unit: 'm', stepLengthCm: 75 });
+  const original = commitSide(newProject('Historia', 'manual'), 4, 0, 'manual', 's1', null);
+  await repo.save(original, 'side_added');
+  await repo.saveSettings({ unit: 'cm', stepLengthCm: 82 });
+  const corrected = editLastSide(original, { source: 'manual', value: 320, unit: 'cm' }, 0);
+  await repo.save(corrected, 'side_corrected');
+  const reopened = new SqlAdapter(new SQL.Database(db.raw.export())), next = new ProjectRepository(reopened);
+  await next.initialize();
+  expect(await next.settings()).toEqual({ unit: 'cm', stepLengthCm: 82 });
+  expect((await next.load(original.id))!.observations[0]).toEqual(original.observations[0]);
+  expect((await next.load(original.id))!.observations.at(-1)!.lengthM).toBe(3.2);
+  await expect(next.saveSettings({ unit: 'm', stepLengthCm: 0 })).rejects.toThrow();
+  db.raw.close(); reopened.raw.close();
 });

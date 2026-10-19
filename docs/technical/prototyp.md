@@ -2,6 +2,16 @@
 
 Wersja aplikacji 0.1.0. Pierwszy przyrost łączy walidację kierunku P0 z prostym obrysem. Nie realizuje całego P1 z dokumentacji koncepcyjnej.
 
+## Aktualizacja: drugi przyrost MVP
+
+Podsumowanie pozwala poprawić ostatni bok i otworzyć podgląd PNG, a następnie systemowe udostępnianie obrazu. Korekta zachowuje historię źródłową. Ustawienia na liście projektów określają domyślną jednostkę i długość kroku.
+
+W kroku długości wybierz „Długość”, aby wpisać m/cm, albo „Kroki”. Na telefonie z detektorem kroków przycisk „Start krokomierza” rozpoczyna nowy pomiar od zera; dolny „Stop” zatrzymuje liczenie. Po zatrzymaniu można poprawić liczbę kroków lub długość kroku, a następnie sprawdzić i zapisać punkt. Bez detektora lub zgody wpisz liczbę kroków ręcznie. Nie przenosimy akceptacji dokładności kierunku na dokładność automatycznego krokomierza.
+
+## Aktualizacja: pierwszy przyrost wizarda
+
+Nowy interfejs prowadzi przez zapis P1, kierunek, korektę, długość i zapis punktu. Długość można wpisać od razu w m/cm albo podać liczbę kroków ręcznie. Przyciski i szkic są w stałym dolnym panelu. Po ponownym otwarciu projektu przywracane są wpisy formularza, ale kierunek trzeba przechwycić ponownie. Opis wcześniejszego formularza poniżej odnosi się do pierwotnego prototypu; aktualny zakres i dalsze wymagania rozróżnia [projekt wizarda](wizard-pomiaru.md).
+
 ## Instalacja
 
 Plik wynikowy po kompilacji: `artifacts/FieldSketch-CAD-0.1.0.apk` w katalogu repozytorium. Przenieś go na telefon i otwórz, zezwalając na instalację z wybranego źródła. Alternatywnie użyj komputera z podłączonym telefonem i włączonym debugowaniem USB:

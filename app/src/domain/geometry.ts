@@ -27,14 +27,33 @@ export function nextPoint(origin: Point, lengthM: number, theta: number): Point 
 }
 export function commitSide(project: Project, steps: number, theta: number, mode: SurveyMode,
   referenceFrameId: string, capture: Capture | null, closure = false): Project {
+  return commitMeasurement(project, { source: 'steps', steps, stepLengthCm: STEP_LENGTH_CM }, theta, mode, referenceFrameId, capture, closure);
+}
+export type LengthMeasurement = { source: 'manual'; value: number; unit: 'm' | 'cm' }
+  | { source: 'steps'; steps: number; stepLengthCm: number; measurementId?: string; detectedSteps?: number };
+export function measurementLength(measurement: LengthMeasurement) {
+  if (measurement.source === 'steps') return stepsToLength(measurement.steps, measurement.stepLengthCm);
+  if (!Number.isFinite(measurement.value) || measurement.value <= 0) throw new Error('Nieprawidłowa długość.');
+  const lengthM = measurement.unit === 'cm' ? measurement.value / 100 : measurement.value;
+  if (!Number.isFinite(lengthM * 100) || lengthM <= 0) throw new Error('Długość poza zakresem obliczeń.');
+  return { lengthM, lengthCm: lengthM * 100 };
+}
+export function commitMeasurement(project: Project, measurement: LengthMeasurement, theta: number, mode: SurveyMode,
+  referenceFrameId: string, capture: Capture | null, closure = false, capturedTheta?: number): Project {
   if (project.closed) throw new Error('Najpierw cofnij zamknięcie obrysu.');
   if (!Number.isFinite(theta)) throw new Error('Nieprawidłowy kierunek.');
+  if (capturedTheta !== undefined && !Number.isFinite(capturedTheta)) throw new Error('Nieprawidłowy kierunek źródłowy.');
   if (closure && project.points.length < 3) throw new Error('Zamknięcie wymaga co najmniej trzech punktów.');
   const from = project.points[project.points.length - 1]!;
-  const predictedEnd = nextPoint(from, stepsToLength(steps).lengthM, theta);
+  const length = measurementLength(measurement);
+  const predictedEnd = nextPoint(from, length.lengthM, theta);
   const observation: Observation = { id: id(), kind: closure ? 'closure' : 'side', fromPointId: from.id,
-    toPointId: closure ? project.points[0]!.id : predictedEnd.id, stepCount: steps,
-    stepLengthCm: STEP_LENGTH_CM, ...stepsToLength(steps), theta: normalize(theta), mode,
+    toPointId: closure ? project.points[0]!.id : predictedEnd.id, lengthSource: measurement.source,
+    stepCount: measurement.source === 'steps' ? measurement.steps : null,
+    stepLengthCm: measurement.source === 'steps' ? measurement.stepLengthCm : null,
+    ...(measurement.source === 'steps' && measurement.measurementId ? { stepMeasurementId: measurement.measurementId, detectedSteps: measurement.detectedSteps } : {}),
+    ...length, theta: normalize(theta), mode,
+    ...(capturedTheta === undefined ? {} : { capturedTheta }),
     referenceFrameId, capture, predictedEnd, createdAt: new Date().toISOString() };
   return { ...project, mode, geometryRevision: project.geometryRevision + 1, updatedAt: observation.createdAt,
     points: closure ? project.points : [...project.points, predictedEnd],
@@ -52,6 +71,26 @@ export function undoLast(project: Project): Project {
   if (project.points.length < 2) throw new Error('Brak boku do cofnięcia.');
   return { ...project, points: project.points.slice(0, -1), activeObservationIds: project.activeObservationIds.slice(0, -1),
     updatedAt: new Date().toISOString(), geometryRevision: project.geometryRevision + 1 };
+}
+export function lastSide(project: Project): Observation | undefined {
+  return project.observations.find(o => o.id === project.activeObservationIds.at(-1) && o.kind === 'side');
+}
+export function editLastSide(project: Project, measurement: LengthMeasurement, theta: number): Project {
+  const original = lastSide(project);
+  if (!original || project.points.length < 2) throw new Error('Brak ostatniego boku do poprawienia.');
+  if (project.closureObservationId) throw new Error('Najpierw cofnij niezależny pomiar zamknięcia.');
+  if (!Number.isFinite(theta)) throw new Error('Nieprawidłowy kierunek.');
+  const length = measurementLength(measurement);
+  const from = project.points.at(-2)!, oldEnd = project.points.at(-1)!;
+  const end = { ...nextPoint(from, length.lengthM, theta), id: oldEnd.id };
+  const observation: Observation = { ...original, id: id(), supersedesId: original.id,
+    capturedTheta: original.capturedTheta ?? original.theta, theta: normalize(theta), ...length,
+    lengthSource: measurement.source, stepCount: measurement.source === 'steps' ? measurement.steps : null,
+    stepLengthCm: measurement.source === 'steps' ? measurement.stepLengthCm : null,
+    predictedEnd: end, createdAt: new Date().toISOString() };
+  return { ...project, points: [...project.points.slice(0, -1), end],
+    observations: [...project.observations, observation], activeObservationIds: [...project.activeObservationIds.slice(0, -1), observation.id],
+    geometryRevision: project.geometryRevision + 1, updatedAt: observation.createdAt };
 }
 const cross = (a: Point, b: Point, c: Point) => (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
 function onSegment(a: Point, b: Point, p: Point) {

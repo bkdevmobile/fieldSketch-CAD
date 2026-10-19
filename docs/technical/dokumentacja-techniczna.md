@@ -1,6 +1,6 @@
 # Dokumentacja techniczna FieldSketch CAD
 
-Wersja 0.5. Data: 19 października 2026. Architektura docelowa oraz pierwszy przyrost implementacji.
+Wersja 0.6. Data: 19 października 2026. Architektura docelowa oraz pierwszy przyrost implementacji.
 
 ## Aktualny zakres implementacji
 
@@ -10,7 +10,7 @@ Pierwsza implementacja przechowuje migawki projektów, niezmienne obserwacje i o
 
 ## Zaakceptowany projekt następnego interfejsu
 
-[Wizard pomiaru](wizard-pomiaru.md) opisuje decyzje użytkownika z 19 października 2026: pierwszy punkt, cykl Kierunek → Długość → Zapisz punkt, korekty, automatyczny krokomierz, szkic na żywo, zakończenie i zapis etapu roboczego. W zakresie nowego UI dokument ten zastępuje wcześniejsze propozycje przebiegu poniżej. Jest projektem do implementacji; obecny prototyp nadal korzysta z ręcznego wpisywania kroków. Testy trybu względnego dają według użytkownika akceptowalną dokładność; automatyczny krokomierz wymaga osobnej walidacji.
+[Wizard pomiaru](wizard-pomiaru.md) opisuje decyzje użytkownika z 19 października 2026: pierwszy punkt, cykl Kierunek → Długość → Zapisz punkt, korekty, automatyczny krokomierz, szkic na żywo, zakończenie i zapis etapu roboczego. W zakresie nowego UI dokument ten zastępuje wcześniejsze propozycje przebiegu poniżej. Projekt jest wdrażany etapami. Pierwszy przyrost zawiera wizard, korektę kąta, ręczną długość m/cm lub ręczną liczbę kroków, stały dolny panel i zapis roboczego formularza w SQLite. Drugi przyrost dodaje edycję ostatniego boku z historią obserwacji, eksport PNG, ustawienia w bazie SQLite v3 i natywny detektor kroków Start/Stop; fizyczna dokładność krokomierza wymaga osobnej walidacji. Długość ręczna jest zapisywana z jawnym źródłem; niezmienność obserwacji pozostaje zachowana. Pozostały zakres rozróżnia sekcja Postęp implementacji w dokumencie wizarda. Testy trybu względnego dają według użytkownika akceptowalną dokładność; automatyczny krokomierz wymaga osobnej walidacji.
 
 ## 1 Cel i status decyzji
 

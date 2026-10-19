@@ -1,0 +1,74 @@
+import React, { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
+import { router, useLocalSearchParams } from 'expo-router';
+import { Button, Field, fmt, Page, s } from '../components/ui';
+import { OutlineCanvas } from '../components/OutlineCanvas';
+import { editLastSide, lastSide, LengthMeasurement, measurementLength, parsePositive } from '../domain/geometry';
+import { convertLengthInput, headingFromTurn, previousHeading, turnFromHeading } from '../domain/survey';
+import { useStore } from '../infrastructure/store';
+
+export default function EditSide() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const store = useStore(), project = store.projects.find(p => p.id === id);
+  const original = project && lastSide(project);
+  const [length, setLength] = useState(''), [unit, setUnit] = useState<'m' | 'cm'>('m');
+  const [source, setSource] = useState<'manual' | 'steps'>('manual'), [steps, setSteps] = useState('');
+  const [stepLength, setStepLength] = useState('75');
+  const [turn, setTurn] = useState('0'), [side, setSide] = useState<'left' | 'right'>('left');
+  const [fitKey, setFitKey] = useState(0);
+  useEffect(() => {
+    if (!project || !original) return;
+    setLength(String(original.lengthM).replace('.', ','));
+    setSource(original.lengthSource === 'manual' ? 'manual' : 'steps');
+    setSteps(String(original.stepCount ?? '')); setStepLength(String(original.stepLengthCm ?? store.settings.stepLengthCm));
+    const previous = previousHeading({ ...project, points: project.points.slice(0, -1) });
+    const values = turnFromHeading(previous, original.theta); setTurn(values.turn); setSide(values.turnSide);
+  }, [original?.id]);
+  if (!project || !original || project.closureObservationId) return <Page title="Korekta boku">
+    <Text style={s.text}>{project?.closureObservationId ? 'Najpierw cofnij niezależny pomiar zamknięcia w projekcie.' : 'Brak boku do poprawienia.'}</Text>
+  </Page>;
+  let preview = project, valid = false, error = '';
+  let measurement: LengthMeasurement | undefined, theta = 0;
+  try {
+    measurement = source === 'manual' ? { source: 'manual', value: parsePositive(length), unit }
+      : { source: 'steps', steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength) };
+    theta = project.points.length === 2 ? original.theta : headingFromTurn(previousHeading({ ...project, points: project.points.slice(0, -1) }), turn, side);
+    preview = editLastSide(project, measurement, theta); valid = true;
+  } catch (e) { error = e instanceof Error ? e.message : String(e); }
+  const save = () => store.run(async () => {
+    if (!measurement || !valid) throw new Error('Uzupełnij poprawny kąt i długość.');
+    const next = editLastSide(project, measurement, theta);
+    const opened = store.sessionProject !== id || !store.sessionId;
+    if (opened) await store.start(project, 'manual');
+    try {
+      await store.log('side_corrected_intent', { revisionBefore: project.geometryRevision, observation: next.observations.at(-1) });
+      await store.repo!.save(next, 'side_corrected'); await store.refresh();
+      await store.log('side_corrected_committed', { geometryRevision: next.geometryRevision });
+    } finally { if (opened) await store.stop(); }
+    router.replace({ pathname: '/outline', params: { id } });
+  });
+  return <Page title="Popraw ostatni bok" subtitle={`P${project.points.length - 1} → P${project.points.length}`} compactHeader
+    footer={<><Button label="Zapisz poprawki" onPress={save} disabled={store.busy || !valid} />
+      <Button label="Anuluj" secondary onPress={() => router.back()} disabled={store.busy} /></>}>
+    <View style={s.card}>
+      {project.points.length === 2 ? <Text style={s.text}>Pierwszy bok zachowuje kierunek odniesienia.</Text> : <>
+        <Field label="Kąt skrętu (°)" numeric value={turn} onChangeText={setTurn} onEndEditing={() => setFitKey(v => v + 1)} />
+        <View style={s.row}><Button label="W lewo" secondary={side !== 'left'} onPress={() => { setSide('left'); setFitKey(v => v + 1); }} />
+          <Button label="W prawo" secondary={side !== 'right'} onPress={() => { setSide('right'); setFitKey(v => v + 1); }} /></View>
+      </>}
+      <View style={s.row}><Button label="Długość" secondary={source !== 'manual'} onPress={() => {
+        if (source === 'steps') { try { setLength(String(measurementLength({ source: 'steps', steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength) }).lengthM * (unit === 'cm' ? 100 : 1)).replace('.', ',')); } catch { } }
+        setSource('manual');
+      }} /><Button label="Kroki" secondary={source !== 'steps'} onPress={() => setSource('steps')} /></View>
+      {source === 'manual' ? <><Field label={`Długość boku (${unit})`} numeric value={length} onChangeText={setLength} onEndEditing={() => setFitKey(v => v + 1)} />
+        <View style={s.row}>{(['m', 'cm'] as const).map(next => <Button key={next} label={next} secondary={unit !== next}
+          onPress={() => store.run(async () => { setLength(convertLengthInput(length, unit, next)); setUnit(next); })} />)}</View></>
+        : <><Field label="Liczba kroków" numeric value={steps} onChangeText={setSteps} onEndEditing={() => setFitKey(v => v + 1)} />
+          <Field label="Długość kroku dla tego boku (cm)" numeric value={stepLength} onChangeText={setStepLength} onEndEditing={() => setFitKey(v => v + 1)} /></>}
+      {!!error && <Text style={s.warningText}>{error}</Text>}
+      {valid && measurement && <Text style={s.text}>Długość: {fmt(measurementLength(measurement).lengthM, 2)} m</Text>}
+    </View>
+    <OutlineCanvas project={preview} fitKey={fitKey} />
+    <Text style={s.muted}>Wcześniejsze punkty pozostają na miejscu. Zmieniasz końcowy punkt boku; pomiar źródłowy pozostaje w historii.</Text>
+  </Page>;
+}

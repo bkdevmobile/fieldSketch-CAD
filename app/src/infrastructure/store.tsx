@@ -1,13 +1,15 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import * as SQLite from 'expo-sqlite';
-import { Project, SurveyMode } from '../domain/model';
+import { DEFAULT_SETTINGS, Project, SurveyMode, UserSettings } from '../domain/model';
 import { ProjectRepository } from './repository';
 import { Capabilities, LiveSample, orientation } from './native';
 
 interface Store {
   projects: Project[]; repo: ProjectRepository | null; error: string; busy: boolean;
   capabilities: Capabilities | null; live: LiveSample | null; sessionId: string | null; sessionProject: string | null;
+  settings: UserSettings;
+  updateSettings(settings: UserSettings): Promise<void>;
   refresh(): Promise<void>;
   run(task: () => Promise<void>): Promise<void>;
   start(project: Project, mode: SurveyMode): Promise<string>;
@@ -18,6 +20,7 @@ const Context = createContext<Store | null>(null);
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [repo, setRepo] = useState<ProjectRepository | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
+  const [settings, setSettings] = useState<UserSettings>({ ...DEFAULT_SETTINGS });
   const [error, setError] = useState(''); const [busy, setBusy] = useState(false);
   const lock = useRef(false);
   const [capabilities, setCapabilities] = useState<Capabilities | null>(null);
@@ -33,7 +36,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         const repository = new ProjectRepository(db);
         await repository.initialize();
         const saved = await repository.list();
-        if (mounted) { setRepo(repository); setProjects(saved); }
+        const preferences = await repository.settings();
+        if (mounted) { setSettings(preferences); setRepo(repository); setProjects(saved); }
         const cap = await orientation().getCapabilities();
         if (mounted) setCapabilities(cap);
       } catch (e) { if (mounted) setError(message(e)); }
@@ -64,7 +68,11 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   };
   const stop = async () => { await orientation().stopSession(); setSessionId(null); setSessionProject(null); setLive(null); };
   const log = async (type: string, data: object) => { await orientation().appendEvent(type, JSON.stringify(data)); };
-  return <Context.Provider value={{ projects, repo, error, busy, capabilities, live, sessionId, sessionProject, refresh, run, start, stop, log }}>{children}</Context.Provider>;
+  const updateSettings = async (next: UserSettings) => {
+    if (!repo) throw new Error('Baza nie jest jeszcze gotowa.');
+    await repo.saveSettings(next); setSettings(next);
+  };
+  return <Context.Provider value={{ projects, repo, error, busy, capabilities, live, sessionId, sessionProject, settings, updateSettings, refresh, run, start, stop, log }}>{children}</Context.Provider>;
 }
 export const message = (e: unknown) => e instanceof Error ? e.message : String(e);
 export function useStore() { const store = useContext(Context); if (!store) throw new Error('Missing provider'); return store; }

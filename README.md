@@ -23,4 +23,4 @@ app/           katalog przeznaczony na aplikację Expo
 - [Katalog aplikacji](app/README.md)
 - [Uruchomienie i test terenowy prototypu](docs/technical/prototyp.md)
 
-Kod pierwszego prototypu znajduje się w `app/`: kamera i sensory, ręczne kąty, kroki, prosty obrys, lokalne projekty i kopiowanie logów. Skrypt `npm run build:apk` tworzy samodzielny APK w `artifacts/`. Użytkownik potwierdził 19 października 2026 akceptowalny poziom dokładności wykonanych testów w trybie „względny”. Następny etap to projektowanie działania aplikacji i UI.
+Kod pierwszego prototypu znajduje się w `app/`: kamera i sensory, ręczne kąty, kroki, prosty obrys, lokalne projekty i kopiowanie logów. Skrypt `npm run build:apk` tworzy samodzielny APK w `artifacts/`. Użytkownik potwierdził 19 października 2026 akceptowalny poziom dokładności wykonanych testów w trybie „względny”. Rozpoczęto implementację zaakceptowanego [wizarda pomiaru](docs/technical/wizard-pomiaru.md): kierunek, korekta, długość m/cm i zapis punktu, ze stałym dolnym panelem szkicu i akcji.
