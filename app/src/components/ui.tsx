@@ -2,31 +2,50 @@ import React, { useEffect, useRef } from 'react';
 import { ActivityIndicator, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStore } from '../infrastructure/store';
-export const colors = { ink: '#142B28', muted: '#60706A', green: '#136B53', mint: '#E4F1EA', bg: '#F5F6F0', line: '#DCE3DB', amber: '#8D4D14', white: '#FFFFFF' };
-export function Page({ title, subtitle, children, footer, overlay, resetKey, compactHeader = false }: {
-  title: string; subtitle?: string; children: React.ReactNode; footer?: React.ReactNode; overlay?: React.ReactNode; resetKey?: string; compactHeader?: boolean;
+import type { LucideIcon } from 'lucide-react-native';
+export const colors = { ink: '#183A2C', muted: '#607267', green: '#1B684B', mint: '#E7EEE2', bg: '#F5F4EE', line: '#DBE4D9', amber: '#8D4D14', white: '#FFFEFA', onGreen: '#FFFFFF', ready: '#177043' };
+export function Page({ title, subtitle, children, footer, overlay, heading, resetKey, compactHeader = false }: {
+  title: string; subtitle?: string; children: React.ReactNode; footer?: React.ReactNode; overlay?: React.ReactNode; heading?: React.ReactNode; resetKey?: string; compactHeader?: boolean;
 }) {
   const { error, busy } = useStore();
   const scroll = useRef<ScrollView>(null);
+  const scrollY = useRef(0);
+  const viewport = useRef<View>(null);
   const container = useRef<View>(null);
+  const hasOverlay = !!overlay;
+  const keepFocusedInputClear = () => {
+    if (!hasOverlay || !Keyboard.isVisible()) return;
+    const input = TextInput.State.currentlyFocusedInput();
+    if (!input) return;
+    viewport.current?.measureInWindow((_, top, __, height) => {
+      input.measureInWindow((___, inputTop, ____, inputHeight) => {
+        // Leave room for the floating sketch above the fixed footer.
+        const safeBottom = top + height - 152;
+        const overlap = inputTop + inputHeight + 8 - safeBottom;
+        if (overlap > 0) scroll.current?.scrollTo({ y: scrollY.current + overlap, animated: false });
+      });
+    });
+  };
   const insets = useSafeAreaInsets();
   const [keyboardOffset, setKeyboardOffset] = React.useState(0);
   const [keyboardVisible, setKeyboardVisible] = React.useState(Keyboard.isVisible());
   useEffect(() => {
-    const show = Keyboard.addListener('keyboardDidShow', () => setKeyboardVisible(true));
+    const show = Keyboard.addListener('keyboardDidShow', () => { setKeyboardVisible(true); requestAnimationFrame(keepFocusedInputClear); });
     const hide = Keyboard.addListener('keyboardDidHide', () => setKeyboardVisible(false));
     return () => { show.remove(); hide.remove(); };
-  }, []);
+  }, [hasOverlay]);
   useEffect(() => { scroll.current?.scrollTo({ y: 0, animated: false }); }, [resetKey]);
   return <SafeAreaView style={s.safe} edges={['left', 'right', 'bottom']}>
     <View ref={container} style={{ flex: 1 }} onLayout={() => container.current?.measureInWindow((_, y) =>
       setKeyboardOffset(y + (Platform.OS === 'android' ? insets.top : 0)))}>
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled={keyboardVisible} keyboardVerticalOffset={keyboardOffset}>
-    <View style={{ flex: 1 }}>
-    <ScrollView ref={scroll} style={{ flex: 1 }} keyboardShouldPersistTaps="handled" contentContainerStyle={[s.page, overlay ? { paddingBottom: 200 } : undefined]}>
-    {!compactHeader && <Text style={s.eyebrow}>FIELDSKETCH / PROTOTYP</Text>}
+    <View ref={viewport} style={{ flex: 1 }}>
+    <ScrollView ref={scroll} style={{ flex: 1 }} keyboardShouldPersistTaps="handled" contentContainerStyle={[s.page, overlay ? { paddingBottom: 200 } : undefined]}
+      onScroll={event => { scrollY.current = event.nativeEvent.contentOffset.y; }} scrollEventThrottle={16}
+      onLayout={() => requestAnimationFrame(keepFocusedInputClear)}>
+    {heading ?? <>
     <Text style={compactHeader ? s.h2 : s.title}>{title}</Text>
-    {subtitle && <Text style={s.subtitle}>{subtitle}</Text>}
+    {subtitle && <Text style={s.subtitle}>{subtitle}</Text>}</>}
     {!!error && <View accessibilityRole="alert" style={s.warning}><Text style={s.warningText}>{error}</Text></View>}
     {busy && <ActivityIndicator color={colors.green} />}{children}
   </ScrollView>
@@ -35,12 +54,16 @@ export function Page({ title, subtitle, children, footer, overlay, resetKey, com
   {footer && <View style={s.footer}>{footer}</View>}
   </KeyboardAvoidingView></View></SafeAreaView>;
 }
-export function Button({ label, onPress, secondary = false, disabled = false, danger = false }: {
-  label: string; onPress(): void; secondary?: boolean; disabled?: boolean; danger?: boolean;
+export function Button({ label, onPress, secondary = false, disabled = false, danger = false, quiet = false, compact = false, align = 'center', icon: Icon, iconEnd: IconEnd }: {
+  label: string; onPress(): void; secondary?: boolean; disabled?: boolean; danger?: boolean; quiet?: boolean; compact?: boolean; align?: 'center' | 'start'; icon?: LucideIcon; iconEnd?: LucideIcon;
 }) {
-  return <Pressable accessibilityRole="button" accessibilityState={{ disabled }} disabled={disabled} onPress={onPress}
-    style={({ pressed }) => [s.button, secondary && s.secondary, danger && { backgroundColor: '#F9E6DE' }, (pressed || disabled) && { opacity: disabled ? 0.45 : 0.75 }]}>
-    <Text style={[s.buttonText, secondary && { color: colors.green }, danger && { color: '#963A25' }]}>{label}</Text>
+  const foreground = danger ? '#963A25' : secondary || quiet ? colors.green : colors.onGreen;
+  return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled }} disabled={disabled} onPress={onPress}
+    style={({ pressed }) => [s.button, secondary && s.secondary, quiet && s.quiet, compact && s.compactButton, align === 'start' && { justifyContent: 'flex-start', alignSelf: 'flex-start', paddingHorizontal: 0 },
+      danger && { backgroundColor: '#F9E6DE' }, (pressed || disabled) && { opacity: disabled ? 0.45 : 0.75 }]}>
+    {Icon && <Icon size={18} strokeWidth={1.8} color={foreground} accessible={false} />}
+    <Text style={[s.buttonText, { color: foreground }, compact && { fontSize: 14 }]}>{label}</Text>
+    {IconEnd && <IconEnd size={18} strokeWidth={1.8} color={foreground} accessible={false} />}
   </Pressable>;
 }
 export function Field({ label, value, onChangeText, numeric = false, placeholder = '', onEndEditing, disabled = false }: {
@@ -53,16 +76,21 @@ export function Field({ label, value, onChangeText, numeric = false, placeholder
 export const fmt = (n: number, digits = 1) => n.toLocaleString('pl-PL', { maximumFractionDigits: digits });
 export const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg }, page: { padding: 20, gap: 16, paddingBottom: 36 },
-  footer: { paddingHorizontal: 16, paddingVertical: 10, gap: 8, borderTopWidth: 1, borderColor: colors.line, backgroundColor: colors.bg },
+  footer: { paddingHorizontal: 16, paddingTop: 12, paddingBottom: 8, gap: 4, borderTopWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   eyebrow: { fontSize: 11, letterSpacing: 2, color: colors.green, fontWeight: '800' },
-  title: { fontSize: 32, lineHeight: 36, fontWeight: '800', color: colors.ink },
+  title: { fontSize: 24, lineHeight: 30, fontWeight: '600', color: colors.ink, letterSpacing: -0.5 },
   subtitle: { fontSize: 15, lineHeight: 22, color: colors.muted },
-  card: { backgroundColor: colors.white, borderRadius: 18, borderWidth: 1, borderColor: colors.line, padding: 18, gap: 12 },
-  h2: { fontSize: 20, fontWeight: '700', color: colors.ink }, text: { fontSize: 15, lineHeight: 22, color: colors.ink },
+  card: { backgroundColor: colors.white, borderRadius: 20, borderWidth: 1, borderColor: colors.line, padding: 18, gap: 12 },
+  measurement: { gap: 14 }, workPanel: { backgroundColor: colors.white, borderRadius: 20, borderWidth: 1, borderColor: colors.line, padding: 16, gap: 14 },
+  stepTitle: { fontSize: 24, lineHeight: 30, fontWeight: '700', color: colors.ink, letterSpacing: -0.6 },
+  measureValue: { fontSize: 30, lineHeight: 38, fontWeight: '600', color: colors.ink, fontVariant: ['tabular-nums'], letterSpacing: -0.5 },
+  segment: { flexDirection: 'row', padding: 4, gap: 4, backgroundColor: colors.mint, borderRadius: 16 },
+  h2: { fontSize: 18, fontWeight: '600', color: colors.ink }, text: { fontSize: 15, lineHeight: 22, color: colors.ink },
   muted: { fontSize: 13, lineHeight: 19, color: colors.muted }, row: { flexDirection: 'row', gap: 10, flexWrap: 'wrap', alignItems: 'center' },
-  button: { minHeight: 52, backgroundColor: colors.green, borderRadius: 12, justifyContent: 'center', paddingHorizontal: 18, paddingVertical: 14 },
-  secondary: { backgroundColor: colors.mint }, buttonText: { color: colors.white, fontSize: 16, fontWeight: '700', textAlign: 'center' },
-  label: { color: colors.ink, fontSize: 14, fontWeight: '600' },
+  button: { minHeight: 52, backgroundColor: colors.green, borderRadius: 14, flexDirection: 'row', gap: 8, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 14, paddingVertical: 13 },
+  secondary: { backgroundColor: colors.mint }, quiet: { backgroundColor: 'transparent', minHeight: 44, paddingVertical: 8 }, compactButton: { minHeight: 44, paddingHorizontal: 10, paddingVertical: 10 },
+  buttonText: { color: colors.onGreen, fontSize: 15, fontWeight: '600', textAlign: 'center', flexShrink: 1 },
+  label: { color: colors.muted, fontSize: 13, fontWeight: '600' },
   input: { minHeight: 52, padding: 14, borderColor: colors.line, borderWidth: 1, borderRadius: 12, backgroundColor: colors.white, color: colors.ink, fontSize: 18 },
   warning: { backgroundColor: '#FFF0D9', padding: 14, borderRadius: 12 }, warningText: { color: colors.amber, lineHeight: 21 },
 });

@@ -15,11 +15,11 @@ export function AngleControls({ value, side, onChange, onSideChange, onEndEditin
     })}><Text style={[s.buttonText, { color: side === target ? colors.white : colors.green }]}>{text}</Text></Pressable>;
   return <View style={{ gap: 7 }}>
     <Text style={s.label}>{label}</Text>
-    <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+    <View style={{ flexDirection: 'row', gap: 8, alignItems: 'stretch' }}>
       {direction('left', 'L')}
       <TextInput accessibilityLabel={label} value={value} onChangeText={onChange} onEndEditing={onEndEditing}
         editable={!disabled} accessibilityState={{ disabled }} keyboardType="decimal-pad"
-        style={[s.input, { flex: 1, minWidth: 0, textAlign: 'center' }]} />
+        style={[s.input, { flex: 1, minWidth: 0, paddingVertical: 8, textAlign: 'center', fontSize: 24, fontWeight: '600', fontVariant: ['tabular-nums'] }]} />
       {direction('right', 'P')}
     </View>
   </View>;

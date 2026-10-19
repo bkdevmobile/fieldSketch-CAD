@@ -1,20 +1,29 @@
 import React, { useCallback, useState } from 'react';
-import { Alert, Text, View } from 'react-native';
+import { BackHandler, Pressable, Text, View } from 'react-native';
+import { useDialogs } from '../components/overlays';
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import * as Clipboard from 'expo-clipboard';
 import * as Sharing from 'expo-sharing';
 import { File, Paths } from 'expo-file-system';
-import { Button, fmt, Page, s } from '../components/ui';
+import { Button, colors, fmt, Page, s } from '../components/ui';
+import { ArrowLeft, ChevronLeft, ChevronRight, Copy, Download, FileText, RefreshCw, Trash2 } from 'lucide-react-native';
+import { Badge } from '../components/presentation';
 import { CSV_HEADER, csvRecord } from '../domain/logs';
 import { LogSession, orientation, Snapshot } from '../infrastructure/native';
 import { useStore } from '../infrastructure/store';
 const statusName: Record<string, string> = { running: 'aktywna', complete: 'zakończona', interrupted: 'przerwana' };
 export default function Logs() {
+  const Alert = useDialogs();
   const { projectId } = useLocalSearchParams<{ projectId?: string }>(); const store = useStore();
   const [logs, setLogs] = useState<LogSession[]>([]); const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
   const [text, setText] = useState(''); const [part, setPart] = useState(0);
   const refresh = async () => setLogs((await orientation().listLogs()).filter(l => !projectId || l.projectId === projectId));
   useFocusEffect(useCallback(() => { store.run(refresh); }, [projectId]));
+  useFocusEffect(useCallback(() => {
+    if (!snapshot) return;
+    const back = BackHandler.addEventListener('hardwareBackPress', () => { setSnapshot(null); setText(''); return true; });
+    return () => back.remove();
+  }, [snapshot]));
   const open = (log: LogSession) => store.run(async () => {
     const snap = await orientation().snapshotLog(log.id);
     setSnapshot(snap); setPart(0); setText(await orientation().readLogPart(snap.token, 0));
@@ -55,23 +64,29 @@ export default function Logs() {
       await orientation().deleteLog(log.id); setSnapshot(null); setText(''); await refresh();
     }) },
   ]);
-  return <Page title="Logi pomiarowe" subtitle="Zapisane na telefonie. Dostępne także po restarcie i bez internetu.">
-    <Button label="Odśwież listę sesji" secondary disabled={store.busy} onPress={() => store.run(refresh)} />
+  return <Page title={snapshot ? 'Migawka loga' : 'Logi pomiarowe'} subtitle="Zapisane na telefonie. Dostępne bez internetu."
+    resetKey={snapshot?.token} footer={snapshot && <>
+      <Button label={snapshot.parts > 1 ? `Kopiuj część ${part + 1}` : 'Kopiuj treść loga'} icon={Copy} onPress={copy} disabled={store.busy} />
+      <View style={{ flexDirection: 'row', gap: 8 }}><View style={{ flex: 1 }}><Button label="Pełny JSONL" icon={Download} secondary disabled={store.busy} onPress={() => exportLog(false)} /></View>
+        <View style={{ flex: 1 }}><Button label="Pełny CSV" icon={Download} secondary disabled={store.busy} onPress={() => exportLog(true)} /></View></View>
+    </>}>
+    {!snapshot && <><Button label="Odśwież listę sesji" icon={RefreshCw} quiet disabled={store.busy} onPress={() => store.run(refresh)} />
     {!logs.length && <Text style={s.muted}>Brak logów. Rozpocznij sesję w projekcie, aby zarejestrować pierwszą próbę.</Text>}
     {logs.map(log => <View style={s.card} key={log.id}>
       <Text style={s.h2}>{store.projects.find(p => p.id === log.projectId)?.name ?? 'Sesja pomiarowa'}</Text>
-      <Text style={s.muted}>{new Date(log.createdAt).toLocaleString('pl-PL')} · {statusName[log.status] ?? log.status} · {fmt(log.bytes / 1024)} KiB</Text>
-      <Button label="Otwórz migawkę loga" onPress={() => open(log)} disabled={store.busy} />
-      <Button label="Usuń sesję logów" secondary danger disabled={store.busy || log.status === 'running'} onPress={() => remove(log)} />
-    </View>)}
-    {snapshot && <View style={s.card}><Text style={s.h2}>Treść loga</Text>
-      <Text style={s.muted}>Migawka sesji {snapshot.sessionId} · część {part + 1}/{snapshot.parts}. Nowe próbki nie zmieniają tej migawki.</Text>
-      <Button label={snapshot.parts > 1 ? `Kopiuj treść loga — część ${part + 1}` : 'Kopiuj treść loga'} onPress={copy} disabled={store.busy} />
-      <View style={s.row}><Button label="Poprzednia część" secondary disabled={part === 0 || store.busy} onPress={() => page(part - 1)} />
-        <Button label="Następna część" secondary disabled={part >= snapshot.parts - 1 || store.busy} onPress={() => page(part + 1)} /></View>
-      <Button label="Eksportuj pełny JSONL" secondary disabled={store.busy} onPress={() => exportLog(false)} />
-      <Button label="Eksportuj pełny CSV" secondary disabled={store.busy} onPress={() => exportLog(true)} />
-      <Text selectable style={{ fontFamily: 'monospace', fontSize: 11, lineHeight: 17 }}>{text}</Text>
-    </View>}
+      <Text style={s.muted}>{new Date(log.createdAt).toLocaleString('pl-PL')}</Text>
+      <View style={[s.row, { justifyContent: 'space-between' }]}><Text style={s.muted}>{statusName[log.status] ?? log.status}</Text><Text style={s.muted}>{fmt(log.bytes / 1024)} KiB</Text></View>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}><View style={{ flex: 1 }}><Button label="Otwórz migawkę" icon={FileText} secondary onPress={() => open(log)} disabled={store.busy} /></View>
+        <Pressable accessibilityRole="button" accessibilityLabel="Usuń sesję logów" disabled={store.busy || log.status === 'running'} accessibilityState={{ disabled: store.busy || log.status === 'running' }} onPress={() => remove(log)}
+          style={{ minWidth: 44, minHeight: 48, justifyContent: 'center', alignItems: 'center', opacity: store.busy || log.status === 'running' ? 0.4 : 1 }}><Trash2 size={20} color={colors.muted} /></Pressable></View>
+    </View>)}</>}
+    {snapshot && <>
+      <Button label="Wróć do listy sesji" icon={ArrowLeft} quiet align="start" onPress={() => { setSnapshot(null); setText(''); }} />
+      <Badge label={`Część ${part + 1} z ${snapshot.parts}`} icon={FileText} />
+      <Text style={s.muted}>Migawka sesji {snapshot.sessionId}. Nowe próbki nie zmieniają jej treści.</Text>
+      {snapshot.parts > 1 && <View style={s.row}><Button label="Poprzednia część" icon={ChevronLeft} secondary disabled={part === 0 || store.busy} onPress={() => page(part - 1)} />
+        <Button label="Następna część" iconEnd={ChevronRight} secondary disabled={part >= snapshot.parts - 1 || store.busy} onPress={() => page(part + 1)} /></View>}
+      <View style={[s.card, { backgroundColor: colors.mint }]}><Text selectable style={{ color: colors.muted, fontFamily: 'monospace', fontSize: 12, lineHeight: 19 }}>{text}</Text></View>
+    </>}
   </Page>;
 }

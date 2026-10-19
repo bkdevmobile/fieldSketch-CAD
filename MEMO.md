@@ -1,21 +1,29 @@
 # Stan prac nad FieldSketch CAD
 
-Aktualizacja: 19 października 2026. Stan kodu: commit `91dd0fe` na gałęzi `mvp`.
+Aktualizacja: 19 października 2026. Gałąź `mvp_designed`; poprzednia baza kodu `91dd0fe`, dokumentacja `bf28653`. Bieżący commit wdraża styl Teren, pozostałe ekrany, rozwijane menu, własne dialogi i przeciąganie miniatury.
 
 ## Aktualny rezultat
 
-Działające MVP Android 0.1.0 jest w `app/`. Obejmuje pomiar i prosty obrys offline, bez kont i backendu, eksport PNG oraz trwałą diagnostykę. Najnowszy APK zbudowano pełnym skryptem i zainstalowano na telefonie użytkownika `23124RA7EO` przez `adb install -r`, z zachowaniem danych. Instalacja: `Success`; uruchomienie MainActivity: `Status: ok`, `LaunchState: COLD`.
+Działające MVP Android 0.1.0 jest w `app/`. Obejmuje pomiar i prosty obrys offline, bez kont i backendu, eksport PNG oraz trwałą diagnostykę. Aktualny APK obejmuje Teren na pozostałych ekranach, rozwijane menu, własne dialogi i przeciąganą miniaturę szkicu. Zbudowano go pełnym skryptem i sprawdzono na emulatorze. Następnie zainstalowano na telefonie `23124RA7EO` (`a20fa219`) przez `adb install -r`, zachowując dane. Instalacja Success, uruchomienie Status ok / COLD. Hash aktualnego APK podaje tabela poniżej.
 
 | Artefakt | Wartość |
 | --- | --- |
 | Plik | `artifacts/FieldSketch-CAD-0.1.0.apk` |
-| Rozmiar | 83578411 bajtów |
-| SHA256 | `84FB973DA5B92DEAA24571BC30452C0C1EA649ACB70C2A9B4A4FEC7F0FEB20EE` |
+| Rozmiar | 85197067 bajtów |
+| SHA256 | `F2CF9C895406C1B4436FA0CC16F4C4AD020D2B73579D5EC5D3550F59ECB42C55` |
 | Platforma | Android 7+, target SDK 36, arm64-v8a i x86_64 |
 | Uruchamianie | Osadzony JavaScript, bez Metro i internetu, podpis deweloperski |
-| Log ostatniego budowania | `artifacts/phone-install-build.log` |
+| Log ostatniego budowania | `artifacts/terrain-screens-build.log` |
 
 ## Obowiązujący interfejs
+
+Pozostałe ekrany wdrożono według wizualizacji Teren: osobny formularz nowego projektu, sekcje i segmenty ustawień, podsumowanie z obwodem/polem oraz rozwijanymi współrzędnymi, korekta boku z suwakiem 5°, podgląd PNG, lista logów i osobny stan migawki ze stałymi dolnymi akcjami. Menu główne, menu wiersza projektu i menu pomiaru są kompaktowymi listami przy przycisku; Wstecz i tło je zamykają. Komunikaty i potwierdzenia aplikacji obsługuje `DialogProvider` w stylu Teren. Zgody Androida i udostępnianie pozostają systemowe.
+
+Miniaturę można przeciągać w dwóch osiach, z przyciąganiem do najbliższego z czterech rogów obszaru nad akcjami. Po zmianie etapu, rozmiaru okna lub klawiatury zachowuje róg. Dostępność pozwala przejść do następnego rogu. Przeciągnięcie nie otwiera podglądu. Dotknięcie otwiera wyśrodkowany pionowo dialog na pełną szerokość, zamykany przez Wstecz, tło, krzyżyk lub przycisk powrotu, bez utraty formularza.
+
+Wybrany styl: **Teren** (spośród Teren / Precyzja / Kontrast). Ciepłe tło `#F5F4EE`, jasne panele `#FFFEFA`, tekst `#183A2C`, leśna zieleń `#1B684B`, delikatne wypełnienia `#E7EEE2`. Ikony konturowe `lucide-react-native` 1.59.0, przypięte w package.json/lock; korzystają z istniejącego SVG, bez dodatkowej zgody telefonu. Pomiar ma nagłówek z ikoną mapy, nazwą i odcinkiem oraz nieinteraktywny wskaźnik Kierunek/Długość/Zapis. Panele robocze są zaokrąglone, pola i wyniki większe, a akcje Zakończ i Zmierz ponownie wizualnie lżejsze. Wspólne kontrolki i nagłówki korzystają z nowej palety także na innych ekranach. Nie dodano wyboru stylu w ustawieniach.
+
+Kontrola wyglądu na emulatorze ujawniła zasłanianie przycisków pola przez miniaturę przy klawiaturze. Page przewija teraz aktywne pole nad obszar miniatury po zmianie wysokości viewportu/otwarciu klawiatury. Nawigacja nadal jest poza scrollem. Dopracowano wspólną wysokość pól/przycisków i wyrównanie ponowienia odczytu do lewej, z dala od miniatury.
 
 - Strona główna: nowy projekt i lista wierszy z nazwą, datą ostatniej zmiany oraz menu ⋮ (Otwórz/Usuń). Dotknięcie wiersza otwiera projekt; usunięcie wymaga potwierdzenia. Początkowo 3 najnowsze, „Więcej” dodaje po 10. Limit dotyczy wyświetlania; magazyn nadal pobiera pełną listę z SQLite.
 - Menu nagłówka strony głównej: Ustawienia i Logi pomiarowe.
@@ -42,12 +50,14 @@ Osobna Diagnostyka zawiera uwagi testera, niezależne odniesienie, logi i ręczn
 
 ## Weryfikacja i granice potwierdzenia
 
-- Ostatni pełny przebieg: TypeScript, 44 testy TS, release build i zadanie 7 testów Kotlin bez błędów. Zadanie Kotlin było `UP-TO-DATE`; zapisane raporty zawierają 7 testów, 0 błędów i 0 niepowodzeń.
+- Ostatni pełny przebieg: TypeScript, 47 testów TS (w tym 3 testy pozycjonowania miniatury), release build i zadanie 7 testów Kotlin bez błędów. Zadanie Kotlin było `UP-TO-DATE`; zapisane raporty zawierają 7 testów, 0 błędów i 0 niepowodzeń.
+- Bieżący build na emulatorze: menu główne i projektu jako rozwijane listy; anulowanie usunięcia we własnym dialogu; przeciągnięcie miniatury do wszystkich czterech rogów bez otwarcia; powiększenie jako dialog pełnej szerokości i powrót przez Wstecz; klawiatura z polem kroków nad miniaturą i stałymi akcjami; własne dialogi niezapisanego boku, zakończenia i kopiowania; Wstecz z migawki do listy logów. Obejrzano zrzuty ustawień, podsumowania, korekty, menu, potwierdzenia, powiększenia i klawiatury. Zrzuty tej iteracji: `artifacts/terrain-screens-*.png`. Pomiaru sensorem i liczenia kroków na telefonie w tej iteracji nie testowano.
+- Teren: końcowy build zainstalowano i uruchomiono na emulatorze. Sprawdzono wizualnie nagłówek/etapy, ikonografię, korektę L–kąt–P z suwakiem i rząd krokomierza. Przy otwartej klawiaturze pole i przyciski znalazły się ponad miniaturą, a dolne akcje nad klawiaturą. Ponowienie odczytu nie jest już zasłaniane przez miniaturę. Zrzuty: `artifacts/terrain-angle-final.png`, `artifacts/terrain-keyboard-final.png`. Emulator nadal nie ma detektora; nie potwierdza to fizycznego liczenia kroków.
 - Emulator Pixel 8 API 36: zachowanie projektów po aktualizacji, ręczne m/cm i kroki, odtworzenie formularza, korekta boku, geometria i pole, PNG, menu, lista 3 z 5 projektów → wszystkie 5 po „Więcej”, otwarcie z wiersza/menu i anulowanie usuwania. Zrzut listy sprawdzono wizualnie. Emulator nie ma detektora kroków; nie potwierdza fizycznego liczenia. Został zamknięty po testach.
 - Wcześniejsze próby: offline w trybie samolotowym, zachowanie po force-stop, duży log około 1,54 MiB w 13 częściach oraz systemowe udostępnianie CSV/PNG. Nie wysłano plików do odbiorców. Automatyzacja odczytu wklejenia pokazała tylko 5000 znaków, więc kompletność kopiowania potwierdzają testy podziału rekordów, a nie ten odczyt UI.
 - Użytkownik zaakceptował dokładność wykonanych testów trybu względnego. Brak liczbowego progu i podstaw do uogólnienia na tryb magnetyczny.
 - Użytkownik ocenił krokomierz jako generalnie poprawny, lecz często doliczający 1–2 kroki. Dodano ręczną korektę; przyczyna nie jest naprawiona. Nie odejmujemy automatycznie stałej liczby kroków.
-- Instalacja i uruchomienie najnowszego APK na telefonie są potwierdzone. Pełna próba użytkowa całego ostatniego układu nie jest jeszcze potwierdzona; nie każdy nowy element ma osobną weryfikację UI na emulatorze.
+- Telefon ma aktualny build `F2CF9C…` z pozostałymi ekranami Teren, dialogami i przeciąganiem. ADB potwierdził instalację z zachowaniem danych i uruchomienie 19 października 2026. Próba całego nowego UI i pomiarów na fizycznym telefonie pozostaje do wykonania.
 - Ostatni wynik Expo Doctor: 21/22, znane ostrzeżenie pamięci Hermes w SDK 56. Migracji SDK nie wykonano. To zapis wcześniejszego sprawdzenia, nie nowa kontrola przy aktualizacji dokumentacji.
 
 ## Odtworzenie pracy

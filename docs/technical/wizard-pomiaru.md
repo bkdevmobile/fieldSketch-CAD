@@ -37,7 +37,9 @@ Kroki 2–4 powtarzają się. Bok i punkt końcowy pozostają robocze do zatwier
 
 ## Szkic na żywo
 
-Szkic jest stale widoczny jako pływająca miniatura w prawym dolnym rogu, nad stałym paskiem akcji. Dotknięcie otwiera duży podgląd z zoomem, przesuwaniem i dopasowaniem; „Wróć do pomiaru” lub systemowe Wstecz zamyka podgląd bez utraty etapu. Przy klawiaturze miniatura jest mniejsza. Formularz można przewinąć ponad miniaturę.
+Szkic jest stale widoczny jako pływająca miniatura, początkowo w prawym dolnym rogu nad stałym paskiem akcji. Można ją przeciągać w obu osiach; po puszczeniu przyciąga się do najbliższego z czterech rogów obszaru nad nawigacją. Wybrany róg jest zachowany podczas zmiany etapu, rozmiaru okna i otwierania klawiatury. Przeciągnięcie nie otwiera podglądu. Dostępność udostępnia także akcję przeniesienia do następnego rogu.
+
+Dotknięcie miniatury otwiera dialog na pełną szerokość, wyśrodkowany pionowo na przyciemnionym tle. Zawiera zoom, przesuwanie i dopasowanie. „Wróć do pomiaru”, krzyżyk, dotknięcie tła lub systemowe Wstecz zamyka go bez utraty etapu. Przy klawiaturze miniatura jest mniejsza; zmiana dostępnej wysokości ponownie umieszcza ją w wybranym rogu. Formularz można przewinąć ponad miniaturę.
 
 | Stan | Prezentacja |
 | --- | --- |
@@ -76,6 +78,14 @@ W tej wersji wystarczy eksport szkicu do PNG: czytelny obraz z wymiarami i oznac
 
 Użytkownik wybrał pierwszy wariant: **Prowadzenie krok po kroku**. Formularz aktualnego etapu ma pierwszeństwo w układzie. Po próbie na telefonie pełnoszeroki szkic pod formularzem zastąpiono pływającą miniaturą z powiększaniem.
 
+### Wybrany styl wizualny: Teren
+
+Spośród propozycji Teren / Precyzja / Kontrast użytkownik wybrał **Teren**. Obowiązuje jasne ciepłe tło `#F5F4EE`, panele `#FFFEFA`, tekst `#183A2C`, leśna zieleń akcji `#1B684B`, delikatna zieleń `#E7EEE2` i obramowania `#DBE4D9`. Gotowość sensora ma osobny zielony akcent `#177043`; kolor jest połączony z ikoną i opisem stanu.
+
+Nagłówek pomiaru zawiera ikonę mapy, nazwę projektu, bieżący odcinek i tryb. Pasek Kierunek → Długość → Zapis wyróżnia bieżący etap i oznacza ukończone; jest wskaźnikiem, bez dodatkowej nawigacji. Tytuł etapu znajduje się nad panelem roboczym. Pola liczbowe i wyniki mają wyraźną hierarchię, panele zaokrąglenie 20, a przyciski 12–14 jednostek układu RN. Dolne akcje są na ciepłym jasnym tle; Zakończ i ponowienie odczytu mają mniejszy nacisk wizualny.
+
+Ikony konturowe Lucide towarzyszą akcjom, statusowi i etapom. Ikony dekoracyjne nie powielają etykiet czytnika; przyciski zachowują opisy. Układy `[L] [kąt] [P]` i `[−] [kroki] [+] [Start/Stop]`, krok suwaka 5°, globalne ustawienia oraz reguły zapisu pozostają bez zmian. Miniatura szkicu jest mniejsza, z ikoną powiększania i delikatnym cieniem. Wspólna paleta i podstawowe kontrolki są stosowane także na pozostałych ekranach dla spójności.
+
 **Uwaga do realizacji:** dolne przyciski nawigacji i zatwierdzania muszą zawsze znajdować się poza przewijaną treścią, przyklejone do dołu ekranu. Przewija się zawartość powyżej stałego paska akcji. Treść nie może być zasłaniana przez pasek; trzeba uwzględnić dolny obszar systemowy oraz klawiaturę ekranową, tak aby działania pozostały dostępne podczas edycji pól.
 
 ## Stan implementacji i weryfikacji
@@ -90,7 +100,11 @@ Krokomierz według próby użytkownika działa generalnie poprawnie, ale często
 
 ### Nawigacja i ekran pomiaru
 
-Na stronie głównej przycisk menu ⋮ znajduje się po prawej stronie nagłówka i otwiera Ustawienia oraz Logi pomiarowe. Te działania usunięto z przewijanej listy projektów. Zamknięcie menu przez „Wróć” lub systemowe Wstecz zachowuje wpisaną nazwę nowego projektu.
+Na stronie głównej przycisk menu ⋮ znajduje się po prawej stronie nagłówka i otwiera kompaktową listę Ustawienia / Logi pomiarowe przy przycisku. Menu projektu na liście oraz menu w pomiarze używają tego samego rozwijanego komponentu. Dotknięcie tła i systemowe Wstecz zamykają menu. Nowy projekt ma osobny formularz z nazwą, podsumowaniem globalnych ustawień i stałym przyciskiem utworzenia.
+
+Potwierdzenia usuwania, cofnięcia, ostrzeżeń odczytu, zakończenia, niezapisanego boku, wyboru jednostki i komunikaty aplikacji są własnymi dialogami Teren: ciepłe jasne tło, zielone akcje, wyróżniona akcja destrukcyjna i spokojne anulowanie. Systemowe zgody Androida i systemowe udostępnianie plików nadal obsługuje system operacyjny.
+
+Pozostałe ekrany używają tego samego stylu: ustawienia w trzech sekcjach z wyborem segmentowym; podsumowanie ze szkicem, obwodem/polem i rozwijanymi współrzędnymi; edycja ostatniego boku z L/pole/P, suwakiem co 5° i źródłem długości; podgląd PNG bez kontrolek w samym obrazie. Lista logów i treść migawki są osobnymi stanami; kopiowanie i eksport są w stałym dolnym pasku. Diagnostyka zachowuje dane techniczne i kontekst próby poza pomiarem.
 
 Lista projektów jest prosta: w każdym wierszu nazwa (jedna linia, długie nazwy skracane wielokropkiem), data ostatniej zmiany oraz przycisk ⋮. Dotknięcie nazwy/daty otwiera projekt. Menu danego projektu zawiera „Otwórz” i „Usuń”; usunięcie wymaga dotychczasowego potwierdzenia. Menu jest osobnym przyciskiem i nie otwiera równocześnie pomiaru. Na początku widoczne są 3 ostatnio zmienione projekty. „Więcej” dopisuje do widoku po 10 następnych i znika po wyświetleniu wszystkich. Kolejność: data ostatniej zmiany malejąco. SQLite nadal dostarcza pełną listę do współdzielonego magazynu; limit dotyczy pozycji pokazywanych na stronie głównej.
 

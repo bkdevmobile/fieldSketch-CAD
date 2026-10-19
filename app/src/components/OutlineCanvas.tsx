@@ -6,8 +6,8 @@ import { distance } from '../domain/geometry';
 import { Button, colors, fmt, s } from './ui';
 
 export interface OutlinePreview { theta: number; lengthM?: number }
-export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, thumbnail = false, unit = 'm' }: {
-  project: Project; preview?: OutlinePreview; fitKey?: number; compact?: boolean; thumbnail?: boolean; unit?: 'm' | 'cm';
+export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, thumbnail = false, unit = 'm', canvasHeight }: {
+  project: Project; preview?: OutlinePreview; fitKey?: number; compact?: boolean; thumbnail?: boolean; unit?: 'm' | 'cm'; canvasHeight?: number;
 }) {
   const [zoom, setZoom] = useState(1), [pan, setPan] = useState({ x: 0, y: 0 });
   const [width, setWidth] = useState(320), [fit, setFit] = useState(0);
@@ -17,7 +17,7 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
     const hide = Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false));
     return () => { show.remove(); hide.remove(); };
   }, []);
-  const origin = useRef(pan), height = thumbnail ? keyboardOpen ? 74 : 104 : compact ? keyboardOpen ? 86 : 140 : 330;
+  const origin = useRef(pan), height = canvasHeight ?? (thumbnail ? keyboardOpen ? 74 : 104 : compact ? keyboardOpen ? 86 : 140 : 330);
   const rawBounds = project.points.reduce((b, p) => ({ minX: Math.min(b.minX, p.x), maxX: Math.max(b.maxX, p.x),
     minY: Math.min(b.minY, p.y), maxY: Math.max(b.maxY, p.y) }),
     { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity });
@@ -54,11 +54,11 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
       <Button label="Dopasuj" secondary onPress={() => setFit(v => v + 1)} /></>}
     </View>}
     <View {...(thumbnail ? {} : responder.panHandlers)} onLayout={event => setWidth(event.nativeEvent.layout.width)}
-      style={{ backgroundColor: '#FBFDF9', borderRadius: 16, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' }}>
+      style={{ backgroundColor: colors.bg, borderRadius: thumbnail ? 10 : 18, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' }}>
       <Svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`} accessible={!thumbnail} accessibilityLabel="Szkic obrysu z numerami punktów i roboczym bokiem">
         {Array.from({ length: Math.ceil(Math.max(width, height) / 25) + 1 }, (_, i) => <G key={i}>
-          <Line x1={i * 25} y1={0} x2={i * 25} y2={height} stroke="#E7ECE4" />
-          <Line x1={0} y1={i * 25} x2={width} y2={i * 25} stroke="#E7ECE4" /></G>)}
+          <Line x1={i * 25} y1={0} x2={i * 25} y2={height} stroke={colors.line} />
+          <Line x1={0} y1={i * 25} x2={width} y2={i * 25} stroke={colors.line} /></G>)}
         <Polyline points={points.map(p => `${p.sx},${p.sy}`).join(' ')} fill={project.closed ? '#DDEFE580' : 'none'} stroke={colors.green} strokeWidth={2.5} />
         {project.closed && points.length >= 3 && <Line x1={points.at(-1)!.sx} y1={points.at(-1)!.sy}
           x2={points[0]!.sx} y2={points[0]!.sy} stroke={colors.green} strokeWidth={2.5}

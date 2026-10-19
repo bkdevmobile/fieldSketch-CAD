@@ -8,6 +8,7 @@ import { ExportSketch } from '../components/ExportSketch';
 import { Button, Page, s } from '../components/ui';
 import { sketchExport } from '../domain/sketchExport';
 import { useStore } from '../infrastructure/store';
+import { Share2 } from 'lucide-react-native';
 
 export default function Export() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -30,8 +31,8 @@ export default function Export() {
     if (!file.exists || file.size === 0) throw new Error('Nie udało się zapisać obrazu PNG.');
     await Sharing.shareAsync(file.uri, { mimeType: 'image/png', dialogTitle: 'Udostępnij szkic PNG' });
   });
-  return <Page title="Podgląd PNG" subtitle={snapshot.name} footer={<Button label="Udostępnij PNG" onPress={share} disabled={store.busy} />}>
-    <View onLayout={event => setWidth(event.nativeEvent.layout.width)}><ExportSketch ref={image} project={snapshot} displayWidth={width} /></View>
-    <Text style={s.muted}>{drawing.width} × {drawing.height} px · szkic i wymiary</Text>
+  return <Page title="Podgląd PNG" subtitle={snapshot.name} footer={<Button label="Udostępnij PNG" icon={Share2} onPress={share} disabled={store.busy} />}>
+    <View style={[s.card, { padding: 10, borderRadius: 8 }]}><View onLayout={event => setWidth(event.nativeEvent.layout.width)}><ExportSketch ref={image} project={snapshot} displayWidth={width} /></View></View>
+    <Text style={[s.muted, { textAlign: 'center' }]}>{drawing.width} × {drawing.height} px · szkic i wymiary</Text>
   </Page>;
 }

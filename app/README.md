@@ -17,6 +17,10 @@ Wynik: `../artifacts/FieldSketch-CAD-0.1.0.apk`, z osadzonym JavaScript i podpis
 
 ## Dostępne funkcje
 
+- Wybrany styl **Teren**: ciepłe jasne tło, leśna zieleń, łagodne panele i ikony Lucide. Pomiar ma nagłówek projektu i wskaźnik etapów, wyraźne pola liczbowe oraz lżejsze akcje drugorzędne. `lucide-react-native` jest przypięty w zależnościach; ikony korzystają z istniejącego `react-native-svg`.
+- Pozostałe ekrany kontynuują Teren: osobny formularz nowego projektu, segmenty ustawień, podsumowanie ze zwijanymi współrzędnymi, korekta boku, PNG i oddzielny stan migawki loga. Menu są rozwijanymi listami przy przycisku. Potwierdzenia i komunikaty aplikacji korzystają ze wspólnego `DialogProvider`; zgody i udostępnianie pozostają systemowe.
+- Miniatura szkicu jest przeciągana i przyciągana do najbliższego rogu obszaru nad dolną nawigacją. Dotknięcie otwiera wyśrodkowany pionowo dialog na pełną szerokość. Wstecz, tło i krzyżyk zamykają go bez utraty formularza; dostępność ma akcję przełączania rogu.
+
 - Menu ⋮ po prawej stronie nagłówka strony głównej zawiera Ustawienia i Logi pomiarowe. Usunięto te przyciski spod listy projektów.
 - Projekty w prostych wierszach: nazwa, data ostatniej zmiany i menu ⋮ (Otwórz/Usuń). Dotknięcie wiersza otwiera projekt. Początkowo 3 najnowsze pozycje, „Więcej” pokazuje po 10 kolejnych.
 
@@ -46,3 +50,5 @@ Dostępne są podgląd i udostępnienie PNG, edycja ostatniego boku z zachowanie
 ## Stan weryfikacji — 19 października 2026
 
 Commit aplikacji: `91dd0fe`. TypeScript i 44 testy TS przeszły. Pełny skrypt budowania zakończył się sukcesem; zadanie 7 testów Kotlin było aktualne (`UP-TO-DATE`, zapisane wyniki bez błędów). APK zainstalowano przez `adb install -r` na telefonie `23124RA7EO`; ADB potwierdził uruchomienie. Emulator potwierdził listę 3 pozycji, „Więcej”, otwieranie z wiersza/menu oraz anulowanie usuwania. Fizycznej próby całego najnowszego UI jeszcze nie potwierdzono.
+
+Następnie wdrożono wybrany styl Teren. Najnowszy build obejmuje pozostałe ekrany, rozwijane menu, własne dialogi oraz przeciąganie miniatury. TypeScript, 47 testów TS i pełny build przeszły. APK sprawdzono na emulatorze, a następnie zainstalowano 19 października 2026 na telefonie `23124RA7EO` przez `adb install -r`, zachowując dane. ADB potwierdził instalację i uruchomienie. Pełna próba nowego UI na telefonie pozostaje do wykonania. Hash i rozmiar aktualnego APK podaje MEMO.
