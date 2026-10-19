@@ -12,6 +12,7 @@ export default function Layout() {
       <Stack.Screen name="outline" options={{ title: 'Obrys 2D' }} />
       <Stack.Screen name="logs" options={{ title: 'Logi pomiarowe' }} />
       <Stack.Screen name="settings" options={{ title: 'Ustawienia' }} />
+      <Stack.Screen name="diagnostics" options={{ title: 'Diagnostyka' }} />
       <Stack.Screen name="edit-side" options={{ title: 'Korekta boku' }} />
       <Stack.Screen name="export" options={{ title: 'Eksport PNG' }} />
     </Stack>

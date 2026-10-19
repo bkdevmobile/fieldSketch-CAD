@@ -17,12 +17,23 @@ Wynik: `../artifacts/FieldSketch-CAD-0.1.0.apk`, z osadzonym JavaScript i podpis
 
 ## Dostępne funkcje
 
+- Menu ⋮ po prawej stronie nagłówka strony głównej zawiera Ustawienia i Logi pomiarowe. Usunięto te przyciski spod listy projektów.
+- Projekty w prostych wierszach: nazwa, data ostatniej zmiany i menu ⋮ (Otwórz/Usuń). Dotknięcie wiersza otwiera projekt. Początkowo 3 najnowsze pozycje, „Więcej” pokazuje po 10 kolejnych.
+
 - Projekty SQLite i automatyczny zapis zatwierdzonych boków.
 - Tylna kamera i celownik; kierunek magnetyczny, względny lub ręczny.
 - Wizard: pierwszy punkt → kierunek → korekta kąta → długość → zapis punktu. Nowe projekty domyślnie używają trybu względnego, jeśli jest dostępny.
 - Długość wpisywana bezpośrednio w m/cm albo ręczna liczba kroków (także ułamkowa, 1 krok = 75 cm). Krokomierz Start/Stop korzysta z natywnego detektora kroków, jeśli telefon go udostępnia; wymaga osobnej walidacji na urządzeniu fizycznym.
 - Zatrzymany kierunek, korekta skrętu lewo/prawo 0–180° oraz suwak ±15° odczytu sensorowego. Pierwszy bok wyznacza 0°.
-- Stały dolny panel ze szkicem i przyciskami poza przewijaną treścią; roboczy wektor/bok i automatyczne dopasowanie po zatwierdzeniu zmian.
+- Suwak ma skok 5° i zaokrągla wynikowy kąt do pełnych 5°, również przy niepełnym odczycie czujnika. Pole liczbowe zachowuje możliwość dokładniejszego wpisu.
+- Układ korekty kąta: `[L] [pole kąta] [P]`, poniżej suwak; wybrany kierunek zaznaczony na zielono. Ten sam rząd pola i przycisków w edycji ostatniego boku.
+- Korekta czujnikowego kąta rozwijana przez „Popraw kąt”; tryb ręczny pokazuje pola od razu. Na ekranie pomiaru wyłącznie ogólny status odczytu, zielony przy gotowości i dobrej jakości; bez przycisku szczegółów i parametrów liczbowych.
+- Bez „Więcej opcji” na ekranie pomiaru. Tryb kierunku jest globalny i wybierany w ustawieniach; jego zmiana zatrzymuje sesję i wymaga ponownego przechwycenia kierunku. Zapisane obserwacje zachowują wcześniejszy tryb. Jednostka przy polu pozwala przeliczyć bieżącą długość.
+- Menu projektu ⋮ z cofaniem, pomiarem powrotu do P1, ustawieniami i osobnym ekranem diagnostyki. Długość kroku ustawiana globalnie, bez dodatkowego pola w formularzu pomiaru.
+- Pływająca miniatura szkicu w rogu z powiększaniem; przyciski pozostają przyklejone do dołu poza przewijaną treścią. Roboczy wektor/bok i automatyczne dopasowanie po zatwierdzeniu zmian.
+- Przyciąganie ręcznej korekty kąta ustawiane w ustawieniach: 90° (domyślnie), 10°, 5° lub wyłączone. Tolerancja 2° dla 90°/10°, 1° dla 5°; surowe odczyty pozostają bez zmian.
+- Szybka korekta liczby kroków „−1 krok” / „+1 krok”, z zachowaniem surowej liczby wykrytej przez telefon. Zgłoszone częste nadliczanie 1–2 kroków pozostaje do diagnozy na urządzeniu fizycznym.
+- Jeden rząd krokomierza: `[−] [liczba kroków] [+] [Start/Stop]`. Pole i ±1 są zablokowane podczas liczenia; Start/Stop jest zawsze po prawej stronie pola.
 - Automatyczny zapis formularza w SQLite; po restarcie przywracamy dane i wymagamy ponownego przechwycenia kierunku.
 - Obrys SVG, przesuwanie, zoom, cofnięcie ostatniego boku, pole i obwód.
 - Osobne zamknięcie topologiczne i niezależny pomiar niedomknięcia.

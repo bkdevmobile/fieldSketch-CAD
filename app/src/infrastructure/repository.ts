@@ -30,10 +30,10 @@ export class ProjectRepository {
   }
   async settings(): Promise<UserSettings> {
     const rows = await this.db.getAllAsync<{ body: string }>('SELECT body FROM user_settings WHERE id=1');
-    return rows[0] ? JSON.parse(rows[0].body) : { ...DEFAULT_SETTINGS };
+    return rows[0] ? { ...DEFAULT_SETTINGS, ...JSON.parse(rows[0].body) } : { ...DEFAULT_SETTINGS };
   }
   async saveSettings(settings: UserSettings) {
-    if (!Number.isFinite(settings.stepLengthCm) || settings.stepLengthCm <= 0 || !['m', 'cm'].includes(settings.unit))
+    if (!Number.isFinite(settings.stepLengthCm) || settings.stepLengthCm <= 0 || !['m', 'cm'].includes(settings.unit) || ![0, 5, 10, 90].includes(settings.angleSnap) || !['relative', 'manual', 'magnetic'].includes(settings.directionMode))
       throw new Error('Podaj dodatnią długość kroku i poprawną jednostkę.');
     await this.db.runAsync('INSERT INTO user_settings (id,body) VALUES (1,?) ON CONFLICT(id) DO UPDATE SET body=excluded.body', JSON.stringify(settings));
   }

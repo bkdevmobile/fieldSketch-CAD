@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Button, Field, fmt, Page, s } from '../components/ui';
 import { OutlineCanvas } from '../components/OutlineCanvas';
+import { AngleControls } from '../components/AngleControls';
 import { editLastSide, lastSide, LengthMeasurement, measurementLength, parsePositive } from '../domain/geometry';
-import { convertLengthInput, headingFromTurn, previousHeading, turnFromHeading } from '../domain/survey';
+import { convertLengthInput, headingFromTurn, previousHeading, snapTurn, turnFromHeading } from '../domain/survey';
 import { useStore } from '../infrastructure/store';
 
 export default function EditSide() {
@@ -16,6 +17,8 @@ export default function EditSide() {
   const [stepLength, setStepLength] = useState('75');
   const [turn, setTurn] = useState('0'), [side, setSide] = useState<'left' | 'right'>('left');
   const [fitKey, setFitKey] = useState(0);
+  const angleEdited = useRef(false), turnDraft = useRef(turn);
+  turnDraft.current = turn;
   useEffect(() => {
     if (!project || !original) return;
     setLength(String(original.lengthM).replace('.', ','));
@@ -35,9 +38,18 @@ export default function EditSide() {
     theta = project.points.length === 2 ? original.theta : headingFromTurn(previousHeading({ ...project, points: project.points.slice(0, -1) }), turn, side);
     preview = editLastSide(project, measurement, theta); valid = true;
   } catch (e) { error = e instanceof Error ? e.message : String(e); }
+  const applySnap = () => {
+    let value = turnDraft.current;
+    if (angleEdited.current) {
+      try { value = snapTurn(value, store.settings.angleSnap); setTurn(value); turnDraft.current = value; angleEdited.current = false; } catch { }
+    }
+    setFitKey(v => v + 1); return value;
+  };
   const save = () => store.run(async () => {
     if (!measurement || !valid) throw new Error('Uzupełnij poprawny kąt i długość.');
-    const next = editLastSide(project, measurement, theta);
+    const selectedTurn = applySnap();
+    const selectedTheta = project.points.length === 2 ? original.theta : headingFromTurn(previousHeading({ ...project, points: project.points.slice(0, -1) }), selectedTurn, side);
+    const next = editLastSide(project, measurement, selectedTheta);
     const opened = store.sessionProject !== id || !store.sessionId;
     if (opened) await store.start(project, 'manual');
     try {
@@ -52,9 +64,9 @@ export default function EditSide() {
       <Button label="Anuluj" secondary onPress={() => router.back()} disabled={store.busy} /></>}>
     <View style={s.card}>
       {project.points.length === 2 ? <Text style={s.text}>Pierwszy bok zachowuje kierunek odniesienia.</Text> : <>
-        <Field label="Kąt skrętu (°)" numeric value={turn} onChangeText={setTurn} onEndEditing={() => setFitKey(v => v + 1)} />
-        <View style={s.row}><Button label="W lewo" secondary={side !== 'left'} onPress={() => { setSide('left'); setFitKey(v => v + 1); }} />
-          <Button label="W prawo" secondary={side !== 'right'} onPress={() => { setSide('right'); setFitKey(v => v + 1); }} /></View>
+        <AngleControls label="Kąt skrętu (°)" value={turn} side={side} disabled={store.busy}
+          onChange={value => { angleEdited.current = true; turnDraft.current = value; setTurn(value); }} onEndEditing={applySnap}
+          onSideChange={value => { setSide(value); setFitKey(v => v + 1); }} />
       </>}
       <View style={s.row}><Button label="Długość" secondary={source !== 'manual'} onPress={() => {
         if (source === 'steps') { try { setLength(String(measurementLength({ source: 'steps', steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength) }).lengthM * (unit === 'cm' ? 100 : 1)).replace('.', ',')); } catch { } }

@@ -70,6 +70,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const log = async (type: string, data: object) => { await orientation().appendEvent(type, JSON.stringify(data)); };
   const updateSettings = async (next: UserSettings) => {
     if (!repo) throw new Error('Baza nie jest jeszcze gotowa.');
+    if (next.directionMode !== settings.directionMode && sessionId) await stop();
     await repo.saveSettings(next); setSettings(next);
   };
   return <Context.Provider value={{ projects, repo, error, busy, capabilities, live, sessionId, sessionProject, settings, updateSettings, refresh, run, start, stop, log }}>{children}</Context.Provider>;

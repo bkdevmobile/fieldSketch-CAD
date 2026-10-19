@@ -76,17 +76,25 @@ test('migracja starej bazy zachowuje projekt, a etap roboczy przetrwa restart', 
 test('ustawienia i korekta przetrwają restart bez zmiany źródłowych kroków', async () => {
   const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
   const repo = new ProjectRepository(db); await repo.initialize();
-  expect(await repo.settings()).toEqual({ unit: 'm', stepLengthCm: 75 });
+  expect(await repo.settings()).toEqual({ unit: 'm', stepLengthCm: 75, angleSnap: 90, directionMode: 'relative' });
   const original = commitSide(newProject('Historia', 'manual'), 4, 0, 'manual', 's1', null);
   await repo.save(original, 'side_added');
-  await repo.saveSettings({ unit: 'cm', stepLengthCm: 82 });
+  await repo.saveSettings({ unit: 'cm', stepLengthCm: 82, angleSnap: 10, directionMode: 'manual' });
   const corrected = editLastSide(original, { source: 'manual', value: 320, unit: 'cm' }, 0);
   await repo.save(corrected, 'side_corrected');
   const reopened = new SqlAdapter(new SQL.Database(db.raw.export())), next = new ProjectRepository(reopened);
   await next.initialize();
-  expect(await next.settings()).toEqual({ unit: 'cm', stepLengthCm: 82 });
+  expect(await next.settings()).toEqual({ unit: 'cm', stepLengthCm: 82, angleSnap: 10, directionMode: 'manual' });
   expect((await next.load(original.id))!.observations[0]).toEqual(original.observations[0]);
   expect((await next.load(original.id))!.observations.at(-1)!.lengthM).toBe(3.2);
-  await expect(next.saveSettings({ unit: 'm', stepLengthCm: 0 })).rejects.toThrow();
+  await expect(next.saveSettings({ unit: 'm', stepLengthCm: 0, angleSnap: 90, directionMode: 'relative' })).rejects.toThrow();
   db.raw.close(); reopened.raw.close();
+});
+
+test('stare ustawienia zachowują jednostkę i krok, otrzymując domyślne przyciąganie 90°', async () => {
+  const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
+  const repo = new ProjectRepository(db); await repo.initialize();
+  await db.runAsync('INSERT INTO user_settings (id,body) VALUES (1,?)', JSON.stringify({ unit: 'cm', stepLengthCm: 80 }));
+  expect(await repo.settings()).toEqual({ unit: 'cm', stepLengthCm: 80, angleSnap: 90, directionMode: 'relative' });
+  db.raw.close();
 });

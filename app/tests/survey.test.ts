@@ -1,6 +1,6 @@
 import { closeOutline, commitMeasurement, editLastSide, measurementLength, metrics } from '../src/domain/geometry';
 import { newProject } from '../src/domain/model';
-import { convertLengthInput, headingFromTurn, previousHeading, turnFromHeading } from '../src/domain/survey';
+import { convertLengthInput, headingFromTurn, previousHeading, snapTurn, turnFromHeading } from '../src/domain/survey';
 
 test('ręczna długość daje tę samą geometrię w m i cm bez fikcyjnych kroków', () => {
   const start = newProject('Długość ręczna', 'relative');
@@ -11,6 +11,20 @@ test('ręczna długość daje tę samą geometrię w m i cm bez fikcyjnych krok�
   expect(meters.observations[0]).toMatchObject({ lengthSource: 'manual', stepCount: null, stepLengthCm: null, lengthM: 4.5 });
 });
 
+test('przyciąganie działa tylko blisko wybranych wielokrotności i zachowuje dowolne kąty poza progiem', () => {
+  expect(snapTurn('88,5', 90)).toBe('90');
+  expect(snapTurn('92', 90)).toBe('90');
+  expect(snapTurn('87,9', 90)).toBe('87,9');
+  expect(snapTurn('178,5', 90)).toBe('180');
+  expect(snapTurn('1,5', 90)).toBe('0');
+  expect(snapTurn('48,5', 10)).toBe('50');
+  expect(snapTurn('46', 10)).toBe('46');
+  expect(snapTurn('44,2', 5)).toBe('45');
+  expect(snapTurn('43,5', 5)).toBe('43,5');
+  expect(snapTurn('89,5', 0)).toBe('89,5');
+  expect(() => snapTurn('181', 90)).toThrow();
+});
+
 test('korekta zachowuje przechwycony kierunek i surowy odczyt', () => {
   const capture = { headingRad: 1, stdDevDeg: 0.5, accuracy: 3, sampleCount: 50,
     horizontalProjection: 1, stable: true, sessionId: 's1', timestampUtc: '2026-10-19T10:00:00Z' };
@@ -18,6 +32,17 @@ test('korekta zachowuje przechwycony kierunek i surowy odczyt', () => {
     Math.PI / 2, 'relative', 's1', capture, false, 1.5);
   expect(p.points[1]!.y).toBeCloseTo(3);
   expect(p.observations[0]).toMatchObject({ capturedTheta: 1.5, theta: Math.PI / 2, capture });
+});
+
+test('suwak zaokrągla wynikowy skręt do pełnych 5° nawet przy niepełnym odczycie', () => {
+  const rad = (degrees: number) => degrees * Math.PI / 180;
+  expect(turnFromHeading(0, rad(88.3), 5)).toEqual({ turn: '90', turnSide: 'left' });
+  expect(turnFromHeading(0, rad(88.3 + 5), 5)).toEqual({ turn: '95', turnSide: 'left' });
+  expect(turnFromHeading(0, rad(-43.2), 5)).toEqual({ turn: '45', turnSide: 'right' });
+  expect(turnFromHeading(rad(170), rad(-101.7), 5)).toEqual({ turn: '90', turnSide: 'left' });
+  expect(turnFromHeading(0, rad(179.8), 5).turn).toBe('180');
+  expect(turnFromHeading(0, rad(0.2), 5).turn).toBe('0');
+  expect(turnFromHeading(0, rad(88.3)).turn).toBe('88.3');
 });
 
 test('skręty poprawnie przechodzą przez granicę ±180°', () => {

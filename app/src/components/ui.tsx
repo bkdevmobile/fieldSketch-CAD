@@ -3,8 +3,8 @@ import { ActivityIndicator, Keyboard, KeyboardAvoidingView, Platform, Pressable,
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStore } from '../infrastructure/store';
 export const colors = { ink: '#142B28', muted: '#60706A', green: '#136B53', mint: '#E4F1EA', bg: '#F5F6F0', line: '#DCE3DB', amber: '#8D4D14', white: '#FFFFFF' };
-export function Page({ title, subtitle, children, footer, resetKey, compactHeader = false }: {
-  title: string; subtitle?: string; children: React.ReactNode; footer?: React.ReactNode; resetKey?: string; compactHeader?: boolean;
+export function Page({ title, subtitle, children, footer, overlay, resetKey, compactHeader = false }: {
+  title: string; subtitle?: string; children: React.ReactNode; footer?: React.ReactNode; overlay?: React.ReactNode; resetKey?: string; compactHeader?: boolean;
 }) {
   const { error, busy } = useStore();
   const scroll = useRef<ScrollView>(null);
@@ -22,13 +22,16 @@ export function Page({ title, subtitle, children, footer, resetKey, compactHeade
     <View ref={container} style={{ flex: 1 }} onLayout={() => container.current?.measureInWindow((_, y) =>
       setKeyboardOffset(y + (Platform.OS === 'android' ? insets.top : 0)))}>
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled={keyboardVisible} keyboardVerticalOffset={keyboardOffset}>
-    <ScrollView ref={scroll} style={{ flex: 1 }} keyboardShouldPersistTaps="handled" contentContainerStyle={s.page}>
+    <View style={{ flex: 1 }}>
+    <ScrollView ref={scroll} style={{ flex: 1 }} keyboardShouldPersistTaps="handled" contentContainerStyle={[s.page, overlay ? { paddingBottom: 200 } : undefined]}>
     {!compactHeader && <Text style={s.eyebrow}>FIELDSKETCH / PROTOTYP</Text>}
     <Text style={compactHeader ? s.h2 : s.title}>{title}</Text>
     {subtitle && <Text style={s.subtitle}>{subtitle}</Text>}
     {!!error && <View accessibilityRole="alert" style={s.warning}><Text style={s.warningText}>{error}</Text></View>}
     {busy && <ActivityIndicator color={colors.green} />}{children}
   </ScrollView>
+  {overlay}
+  </View>
   {footer && <View style={s.footer}>{footer}</View>}
   </KeyboardAvoidingView></View></SafeAreaView>;
 }
