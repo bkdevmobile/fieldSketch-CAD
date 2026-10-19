@@ -1,6 +1,6 @@
 # Stan prac nad FieldSketch CAD
 
-Aktualizacja: 19 października 2026. Gałąź `mvp_designed`; poprzednia baza kodu `91dd0fe`, dokumentacja `bf28653`. Bieżący commit wdraża styl Teren, pozostałe ekrany, rozwijane menu, własne dialogi i przeciąganie miniatury.
+Aktualizacja: 20 października 2026. Gałąź `mvp_designed`, aktualny commit `1a5acbe` — `feat: apply Teren styling and custom survey overlays`. Zawiera styl Teren, pozostałe ekrany, rozwijane menu, własne dialogi i przeciąganie miniatury. Kod i dokumentacja wdrożenia są zapisane w tym commicie; niniejsza aktualizacja notatek następuje po nim.
 
 ## Aktualny rezultat
 
@@ -34,7 +34,7 @@ Kontrola wyglądu na emulatorze ujawniła zasłanianie przycisków pola przez mi
 - Przyciąganie pola ręcznego w ustawieniach: 90° (domyślnie), 10°, 5° lub wyłączone; tolerancja 2° dla 90°/10°, 1° dla 5°. Suwak ma niezależne zaokrąglanie. Sam przechwycony odczyt nie jest zaokrąglany przed korektą.
 - Długość: niezależne „Wpisz długość” w m/cm lub „Krokomierz”. Jednostka przy polu pozwala przeliczyć wartość bez zmiany fizycznej długości.
 - Krokomierz: `[−] [liczba kroków] [+] [Start/Stop]`. Start i Stop są w tym samym miejscu. Podczas liczenia pole i ±1 są zablokowane. Brak sensora/zgody pozostawia ręczne długości i kroki. Domyślna długość kroku 75 cm jest zmieniana w ustawieniach; historia i przywrócony formularz zachowują użyty przelicznik. Surowa wykryta liczba nie jest nadpisywana korektą.
-- Szkic: pływająca miniatura w prawym dolnym rogu nad akcjami, mniejsza przy klawiaturze. Dotknięcie otwiera duży podgląd. Zapisane boki są ciągłe; roboczy bok przerywany, a kierunek bez długości jest wektorem. Automatyczne dopasowanie po zatwierdzeniu kierunku, długości lub korekty; podczas liczenia skala jest stabilna.
+- Szkic: przeciągana miniatura nad akcjami, początkowo w prawym dolnym rogu, z przyciąganiem do czterech rogów i mniejszym rozmiarem przy klawiaturze. Dotknięcie otwiera wyśrodkowany dialog na pełną szerokość. Zapisane boki są ciągłe; roboczy bok przerywany, a kierunek bez długości jest wektorem. Automatyczne dopasowanie po zatwierdzeniu kierunku, długości lub korekty; podczas liczenia skala jest stabilna.
 - Menu projektu w pomiarze: cofnięcie boku/zamknięcia, niezależny pomiar powrotu do P1 przy kompletnym podsumowaniu, diagnostyka i ustawienia. Cofnięcie wymaga potwierdzenia odrzucenia roboczego pomiaru.
 - Zakończenie: rozstrzygnięcie niezapisanego boku, następnie obrys otwarty lub zamknięty. Zamykający bok jest wyliczony; niezależny pomiar powrotny pozostaje osobny. Bez niego nie ma wartości błędu zamknięcia. Pole tylko dla poprawnego zamkniętego obrysu.
 - Podsumowanie: edycja ostatniego boku z historią `supersedesId`, podgląd i systemowe udostępnianie PNG z wymiarami oraz oznaczeniem długości szacunkowych.
@@ -78,10 +78,16 @@ adb -d install -r artifacts/FieldSketch-CAD-0.1.0.apk
 adb -d shell am start -n pl.fieldsketch.cad.prototype/.MainActivity
 ```
 
-Git w tej sesji wymaga jawnych `--git-dir=C:/projects/fieldSketch-CAD/.git --work-tree=C:/projects/fieldSketch-CAD` z powodu wykrywania właściciela; nie zmieniano globalnego safe.directory. Nie wykonywano pushowania. Bazowy commit MVP: `4818fdb`; uproszczenie UI i nawigacji: `91dd0fe`. Aktualizację dokumentacji zapisano w osobnym commicie `docs: align documentation with current Android MVP`.
+Git w tej sesji wymaga jawnych `--git-dir=C:/projects/fieldSketch-CAD/.git --work-tree=C:/projects/fieldSketch-CAD` z powodu wykrywania właściciela; nie zmieniano globalnego safe.directory. Nie wykonywano pushowania. Bazowy commit MVP: `4818fdb`; uproszczenie UI i nawigacji: `91dd0fe`; dokumentacja: `bf28653`; styl Teren i nowe interakcje: `1a5acbe`. Po zapisaniu `1a5acbe` katalog roboczy był czysty. Najnowsza instalacja telefonu używa APK o hashu z tabeli; zmiany w notatkach po kompilacji nie zmieniają tego APK.
+
+Makiety i zrzuty są lokalnymi artefaktami ignorowanymi przez Git. Wizualizacja 10 pozostałych ekranów: `artifacts/visualizations/terrain-screens.html`; lokalny preview uruchamia `node artifacts/visualizations/terrain-preview-server.cjs` pod `http://127.0.0.1:4176`. Wcześniejsze warianty pomiaru: `artifacts/visualizations/survey-styles.html`. Nie są publikacją aplikacji. Emulator zamknięto po testach; nie trzeba go uruchamiać do instalacji gotowego APK na telefonie.
 
 ## Najbliższe prace i zakres
 
-Sprawdzić najnowszy UI na telefonie i zdiagnozować nadliczanie kroków przy znanej liczbie kroków, z logiem, szczególnie przy Start/Stop i zmianie sposobu trzymania telefonu. Następnie ustalić kryteria gotowości do testu zamkniętego. Docelowy użytkownik i monetyzacja pozostają do doprecyzowania. Nie opublikowano testu zamkniętego ani release. DXF, solver, pełny edytor i migracja SDK są poza bieżącym zakresem.
+1. Próba użytkownika na zaktualizowanym telefonie: menu, własne potwierdzenia, przeciąganie i przyciąganie miniatury, powiększony dialog szkicu, klawiatura oraz powrót do formularza bez utraty danych. Instalacja i uruchomienie są potwierdzone; odbiór tych interakcji przez użytkownika pozostaje otwarty.
+2. Diagnoza nadliczania kroków przy znanej liczbie kroków, z logiem, szczególnie przy Start/Stop i zmianie sposobu trzymania telefonu. Nie wprowadzono nowej poprawki algorytmu w commicie Teren.
+3. Ustalenie kryteriów gotowości do testu zamkniętego po próbie terenowej.
+
+Docelowy użytkownik i monetyzacja pozostają do doprecyzowania. Nie opublikowano testu zamkniętego ani release. DXF, solver, pełny edytor i migracja SDK są poza bieżącym zakresem. Aktualizacja notatek nie obejmuje nowego buildu, instalacji ani ponownego uruchamiania testów; opisuje wcześniej potwierdzone wyniki.
 
 Dokumenty: [instrukcja](docs/technical/prototyp.md), [UI](docs/technical/wizard-pomiaru.md), [architektura](docs/technical/dokumentacja-techniczna.md), [plan](docs/plan-rozwoju.md). Źródłowy dokument biznesowy Word pozostaje bez zmian.
