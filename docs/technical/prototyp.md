@@ -1,77 +1,77 @@
-# Prototyp FieldSketch CAD
+# Instrukcja MVP FieldSketch CAD
 
-Wersja aplikacji 0.1.0. Pierwszy przyrost łączy walidację kierunku P0 z prostym obrysem. Nie realizuje całego P1 z dokumentacji koncepcyjnej.
+Stan na 19 października 2026: aplikacja 0.1.0, kod `91dd0fe`. Aktualny APK zbudowano i zainstalowano na telefonie użytkownika. Jest to pomocniczy szkic terenowy, z eksportem PNG; pełny edytor, DXF i solver pozostają poza tym MVP.
 
-## Aktualizacja: drugi przyrost MVP
+## Instalacja i aktualizacja
 
-Podsumowanie pozwala poprawić ostatni bok i otworzyć podgląd PNG, a następnie systemowe udostępnianie obrazu. Korekta zachowuje historię źródłową. Ustawienia na liście projektów określają domyślną jednostkę i długość kroku.
-
-W kroku długości wybierz „Długość”, aby wpisać m/cm, albo „Kroki”. Na telefonie z detektorem kroków przycisk „Start krokomierza” rozpoczyna nowy pomiar od zera; dolny „Stop” zatrzymuje liczenie. Po zatrzymaniu można poprawić liczbę kroków lub długość kroku, a następnie sprawdzić i zapisać punkt. Bez detektora lub zgody wpisz liczbę kroków ręcznie. Nie przenosimy akceptacji dokładności kierunku na dokładność automatycznego krokomierza.
-
-## Aktualizacja: pierwszy przyrost wizarda
-
-Nowy interfejs prowadzi przez zapis P1, kierunek, korektę, długość i zapis punktu. Długość można wpisać od razu w m/cm albo podać liczbę kroków ręcznie. Przyciski i szkic są w stałym dolnym panelu. Po ponownym otwarciu projektu przywracane są wpisy formularza, ale kierunek trzeba przechwycić ponownie. Opis wcześniejszego formularza poniżej odnosi się do pierwotnego prototypu; aktualny zakres i dalsze wymagania rozróżnia [projekt wizarda](wizard-pomiaru.md).
-
-## Instalacja
-
-Plik wynikowy po kompilacji: `artifacts/FieldSketch-CAD-0.1.0.apk` w katalogu repozytorium. Przenieś go na telefon i otwórz, zezwalając na instalację z wybranego źródła. Alternatywnie użyj komputera z podłączonym telefonem i włączonym debugowaniem USB:
+Plik: `artifacts/FieldSketch-CAD-0.1.0.apk` w repozytorium. Przenieś go na telefon i otwórz, zezwalając na instalację z wybranego źródła, albo użyj komputera z debugowaniem USB. Dla jedynego podłączonego fizycznego telefonu:
 
 ```powershell
-adb install -r artifacts/FieldSketch-CAD-0.1.0.apk
+adb -d install -r artifacts/FieldSketch-CAD-0.1.0.apk
+adb -d shell am start -n pl.fieldsketch.cad.prototype/.MainActivity
 ```
 
-APK jest samodzielny, zawiera JavaScript i nie łączy się z Metro. Podpis deweloperski służy testom. Wersja obejmuje arm64-v8a i x86_64, minimum Android 7. Aktualizacja z tym samym podpisem zachowuje dane. Odinstalowanie usuwa lokalne projekty i logi; kopia systemowa jest wyłączona.
+APK zawiera JavaScript i działa bez Metro oraz internetu. Podpis jest deweloperski, do testów; architektury arm64-v8a i x86_64, minimum Android 7. Aktualizacja z tym samym podpisem zachowuje dane. Odinstalowanie usuwa lokalne projekty i logi; kopia systemowa jest wyłączona. Rozmiar i hash aktualnego pliku są w [MEMO](../../MEMO.md).
 
-## Pierwszy pomiar
+## Strona główna i ustawienia
 
-1. Utwórz nazwany projekt. Wybierz tryb magnetyczny, względny lub ręczny.
-2. Rozpocznij sesję pomiarową. Od tego momentu aplikacja zapisuje logi lokalnie.
-3. Udostępnij kamerę, stań nad początkiem boku i wyceluj w następny punkt. Trzymaj telefon nieruchomo przez około 2 sekundy, następnie przechwyć kierunek. Kamera ma patrzeć wzdłuż boku, nie pionowo w ziemię.
-4. Przejdź do celu, licząc pojedyncze kroki. Wpisz np. `10` albo `2,5`. Sprawdź przeliczenie przy 75 cm na krok i zatwierdź punkt.
-5. Powtórz dla następnych boków. Obrys pokazuje punkty i długości; przyciski +/− zmieniają skalę, przeciągnięcie przesuwa widok, „Dopasuj” przywraca cały obiekt.
-6. Możesz połączyć obrys z P1 bez pomiaru albo przechwycić kierunek i kroki ostatniego boku do P1 jako niezależny pomiar zamknięcia. Tylko drugi wariant dostarcza wektora błędu.
-7. Zakończ sesję. Zatwierdzone pomiary są zapisane. Projekt można otworzyć po restarcie aplikacji.
+Wpisz nazwę i wybierz „Rozpocznij pomiar”. Lista pokazuje 3 ostatnio zmienione projekty: w jednym wierszu nazwę, datę i menu ⋮. Dotknięcie nazwy lub daty otwiera projekt. Menu wiersza zawiera „Otwórz” i „Usuń”; usunięcie wymaga potwierdzenia. „Więcej” pokazuje po 10 kolejnych pozycji i znika po wyświetleniu wszystkich.
 
-W trybie ręcznym wpisujemy kąt od +X przeciwnie do ruchu wskazówek zegara: 0° w prawo, 90° w górę. Nie wymaga on kamery ani sensora. W projekcie rozpoczętym magnetycznie X odpowiada wschodowi, Y północy magnetycznej. Tryb względny ustala pierwszy bok jako +X. W każdej nowej sesji sensora, jeśli projekt zawiera już boki, trzeba odtworzyć odniesienie, celując od początku do końca wybranego istniejącego boku. Dotyczy to obu trybów sensorowych i zapobiega mieszaniu układów po zmianie trybu. Następnie wrócić do aktualnego stanowiska i przechwycić kolejny kierunek.
+Menu ⋮ po prawej stronie nagłówka zawiera „Ustawienia” i „Logi pomiarowe”. W ustawieniach wybieramy:
 
-Przejście do tła kończy rejestrację i unieważnia niezapisane przechwycenie. Powrót wymaga nowej sesji; zatwierdzone boki pozostają. Cofanie usuwa bok z aktywnego obrysu, ale zachowuje źródłową obserwację. Zmiana długości kroku nie jest dostępna w tej wersji.
+- Domyślną jednostkę m/cm i długość jednego kroku, początkowo 75 cm. Historyczne pomiary i przywrócony formularz zachowują użyty przelicznik.
+- Globalny tryb kierunku: względny (domyślnie), magnetyczny lub ręczny. Obowiązuje we wszystkich projektach przy następnych pomiarach. Zmiana zatrzymuje aktywną sesję i wymaga ponownego przechwycenia kierunku, a w trybie sensorowym także odtworzenia odniesienia na znanym boku. Zapisana geometria i wpisana długość nie są zmieniane. Gdy wybrany sensor jest niedostępny, aplikacja używa trybu ręcznego.
+- Przyciąganie pola kąta: 90° (domyślnie), 10°, 5° lub wyłączone. Przy zatwierdzeniu pola zaokrągla tylko blisko celu: do 2° dla 90°/10°, do 1° dla 5°. Suwak ma niezależny skok i zaokrąglanie do pełnych 5°.
 
-## Logi i kopiowanie
+## Pomiar krok po kroku
 
-W ekranie „Logi pomiarowe” otwórz sesję. Przycisk „Kopiuj treść loga” umieszcza w schowku pełny mały log. Większy log jest dzielony na ponumerowane części na granicach rekordów. Skopiuj wszystkie części osobno albo udostępnij pełny JSONL/CSV. Polskie znaki i surowe wartości pozostają w treści.
+1. Stań w początku obrysu i wybierz „Zapisz punkt P1”. Pierwszy bok wyznacza kierunek 0° szkicu.
+2. Wskaż kierunek do następnego narożnika. W trybie sensorowym udostępnij kamerę i celuj tylną kamerą wzdłuż boku, nie pionowo w ziemię. Trzymaj telefon nieruchomo przez około 2 sekundy. W razie potrzeby wybierz „Rozpocznij pomiar”, a następnie „Przechwyć kierunek”.
+3. Ogólny status pokazuje stabilizowanie, gotowość lub problem. Przy dobrej jakości i gotowym oknie status jest zielony. Na ekranie pomiaru nie ma przycisku szczegółów ani parametrów liczbowych. Zielony status potwierdza gotowość odczytu, nie dokładność rzeczywistego kierunku. Odczyt wymagający kontroli ma ostrzeżenie z możliwością ponowienia.
+4. Przechwycony kierunek jest zamrożony. „Popraw kąt” rozwija rząd `[L] [kąt] [P]`, a pod nim suwak ±15°. L/P oznaczają skręt od poprzedniego boku, 0–180°; wybrany kierunek jest zielony. Suwak działa co 5° i zaokrągla wynikowy skręt do pełnych 5°. Pole pozwala wpisać dokładniejszy kąt, z uwzględnieniem ustawienia przyciągania. W trybie ręcznym pole i L/P są widoczne od razu; kierunek zatwierdza „Ustaw kierunek”. Pierwszy bok pozostaje 0°.
+5. Wybierz „Dalej · długość”. „Wpisz długość” pozwala od razu podać m/cm bez uruchamiania krokomierza. Klikalna jednostka pod polem zmienia m/cm i przelicza wpisaną wartość, zachowując fizyczną długość. Pola obsługują polski przecinek.
+6. Alternatywnie wybierz „Krokomierz”. Kontrolki są w rzędzie `[−] [liczba kroków] [+] [Start/Stop]`. Start rozpoczyna od zera, przejdź do celu i wybierz Stop w tym samym miejscu. Podczas liczenia pole i ±1 są zablokowane. Po Stop można poprawić liczbę kroków; surowa wykryta liczba pozostaje w historii. Gdy brak detektora lub zgody, nadal można podać kroki ręcznie, także ułamkowe. Długość kroku jest ustawiana globalnie; nie ma jej pola w ekranie pomiaru.
+7. „Dalej · zapisz punkt” otwiera podsumowanie robocze. Sprawdź skręt, długość i źródło. „Zapisz punkt” dopiero zatwierdza bok i punkt końcowy. Powtarzaj od wskazania kierunku. „Wstecz” zachowuje wpisy.
 
-Otwarcie aktywnego loga tworzy niezmienną migawkę. Aby dołączyć późniejsze próbki, otwórz ponownie sesję. Dane nie są automatycznie wysyłane. Usunięcie loga nie usuwa obrysu; usunięcie projektu usuwa również jego logi.
+Android 10+ pyta o zgodę na rozpoznawanie aktywności przy uruchomieniu krokomierza. Kamera nie jest potrzebna w trybie ręcznym. Dane pomiarowe i logi pozostają na telefonie.
 
-Log zawiera metadane telefonu, konfigurację, próbki rotation vector i macierze, czas monotoniczny, kierunek i pochylenie osi kamery, accuracy, rozrzut, kroki, przeliczenia, obserwacje boków, cofnięcia i niedomknięcie. Kontekst próby umożliwia wpisanie otoczenia i niezależnego pomiaru odniesienia. Sam rozrzut lub accuracy nie dowodzą rzeczywistej dokładności.
+## Szkic, korekty i wznowienie
 
-Próbki są zapisywane co sekundę, przy przechwyceniu i zakończeniu sesji. Nagłe zabicie procesu może utracić nieutrwalony ogon. Ponowne uruchomienie zachowuje pełne rekordy i oznacza sesję jako przerwaną. Limit logów to 100 MiB, ostrzeżenie przy 80 MiB; wcześniejsze sesje nie są automatycznie kasowane.
+Szkic jest pływającą miniaturą w prawym dolnym rogu, nad stałymi dolnymi akcjami. Dotknij, aby otworzyć duży podgląd z przesuwaniem, zoomem i „Dopasuj”. Powrót nie zmienia etapu. Miniatura zmniejsza się przy klawiaturze; formularz można przewinąć ponad nią.
 
-## Próba terenowa
+Zapisane boki mają linię ciągłą, roboczy bok linię przerywaną i niezapisany punkt. Sam kierunek bez długości jest wektorem o umownej długości. Widok dopasowuje się po zatwierdzeniu kierunku, długości lub korekty oraz po Stop; podczas liczenia skala pozostaje stabilna.
 
-- Zacznij od prostokąta o znanych wymiarach, np. 2 × 3 m. Zmierz boki i przekątne taśmą jako niezależne odniesienie.
-- Zapisz w kontekście obiekt, operatora, otoczenie i wartości referencyjne. Oddzielnie porównaj kroki z taśmą i kierunek telefonu z odniesieniem.
-- Wykonaj 10 wskazań jednego nieruchomego celu. Sprawdź powrót po pełnym obrocie i odczekaniu 30 oraz 120 sekund.
-- Powtórz w otwartym terenie, przy ścianie i przy metalu lub samochodzie. Zachowaj osobną sesję dla każdej próby.
-- Sprawdź niedomknięcie po rzeczywistym pomiarze powrotu. Skopiuj lub wyeksportuj logi do analizy.
+Menu ⋮ w pomiarze zawiera cofnięcie ostatniego boku/zamknięcia, ustawienia, diagnostykę oraz niezależny pomiar powrotu do P1, gdy roboczy pomiar jest kompletny i widoczne jest jego podsumowanie. Cofnięcie wymaga potwierdzenia odrzucenia bieżącego pomiaru. Zachowuje obserwację źródłową.
 
-## Budowanie i ograniczenia
+Po zamknięciu i ponownym otwarciu projektu przywracamy wpisy, lecz wracamy do kierunku. Przejście do tła zatrzymuje rejestrację i unieważnia robocze przechwycenie. W każdej nowej sesji sensorowej z istniejącymi bokami trzeba odtworzyć odniesienie: stań w początku wskazanego znanego boku, wyceluj w jego koniec i wybierz „Ustaw odniesienie”. Następnie wróć do aktualnego stanowiska i przechwyć kolejny kierunek. Dotyczy to obu trybów sensorowych i zapobiega mieszaniu układów po wznowieniu lub zmianie trybu.
 
-W `app/` uruchom `npm ci`, `npm run typecheck`, `npm test`, następnie `npm run build:apk`. Skrypt wymaga Windows, Node 20.19.x, JDK, Android SDK 36 z NDK 27.1.12297006 i sieci przy pierwszym pobieraniu zależności. `ANDROID_HOME` można wskazać jawnie. Projekt natywny jest generowany; kod Kotlin jest w `app/modules/fieldsketch-orientation`.
+## Zakończenie i PNG
 
-Projekt używa Expo SDK 56 zgodnie z planem. Expo Doctor zgłasza znaną regresję pamięci Hermes V1 250829098.0.10, szczególnie z worklets/reanimated. Oficjalna poprawka wymaga migracji do SDK 57 i nowszego React Native. Pozostaje to ograniczeniem prototypu; nie deklarujemy przejścia wszystkich sprawdzeń Doctor. Źródło: [informacje Expo SDK 56](https://expo.dev/changelog/sdk-56).
+„Zakończ” rozstrzyga niezapisany bok (Zapisz/Odrzuć/Wróć), a potem pozwala zamknąć obrys lub zostawić go otwartym. Zamknięcie dodaje wyliczone połączenie do P1 bez przesuwania punktów. Jest osobne od niezależnego pomiaru powrotnego; bez takiego pomiaru nie pokazujemy zerowego błędu zamknięcia.
 
-Dokładność i obsługa konkretnych telefonów nie są potwierdzone kompilacją ani testem w emulatorze. Prototyp nie zawiera DXF, solvera, przekątnych kontrolnych, kalibracji kroków ani pełnego edytora.
+W podsumowaniu można poprawić ostatni bok z zachowaniem historii, obejrzeć PNG i otworzyć systemowe udostępnianie. PNG zawiera szkic, wymiary, źródła długości i oznaczenie wartości szacunkowych oraz wyliczonego zamknięcia. DXF nie jest wymagany w tej wersji. Eksport JSONL/CSV służy diagnostyce.
 
+## Diagnostyka i logi
 
-## Wyniki weryfikacji tej wersji
+Z menu pomiaru otwórz „Diagnostyka projektu” albo wejdź w Diagnostykę przez ustawienia. Ekran zawiera kontekst próby, niezależne odniesienie, logi i ręczne zatrzymanie sesji czujników. Dopisanie kontekstu wymaga aktywnej sesji danego projektu. Zatrzymanie oznacza konieczność ponownego przechwycenia kierunku po powrocie.
 
-- 29 testów TypeScript: kroki, geometria, logi oraz rzeczywista baza SQLite przez sql.js. Wszystkie przeszły.
-- 5 testów Kotlin: oś tylnej kamery, średnia kołowa i stabilizacja oraz zachowanie granic rekordów, bajtów UTF-8 i błędnych logów. Wszystkie przeszły.
-- TypeScript bez błędów, kompilacja release i Android lintVital zakończone sukcesem. Podpis APK zweryfikowany apksigner; potwierdzono osadzony `assets/index.android.bundle` oraz arm64-v8a i x86_64.
-- Emulator Pixel 8 API 36: utworzenie projektu, zgoda na kamerę, podgląd, próbki sensora, przechwycenie kierunku i 2,5 kroku = 187,5 cm.
-- Zachowanie punktów po wymuszonym zamknięciu procesu, odtworzenie przerwanej sesji oraz zachowanie projektu po aktualizacji APK.
-- Praca w trybie samolotowym: ręczne kąty, kolejne boki, niezależny pomiar zamknięcia, pole, obwód i widok obrysu.
-- Duży log około 1,54 MiB otwarty w 13 częściach, przełączanie części, kopiowanie do schowka z potwierdzeniem oraz utworzenie pełnego CSV i systemowy ekran udostępniania. Żaden plik nie został wysłany do innej osoby lub usługi.
-- Expo Doctor: 21 z 22 sprawdzeń; pozostało opisane wyżej ostrzeżenie Hermes. 19 października 2026 użytkownik potwierdził akceptowalny poziom dokładności wykonanych testów w trybie „względny”. Nie określono liczbowego progu błędu; ocena dotyczy przetestowanego trybu i warunków próby.
+W „Logach pomiarowych” otwórz sesję. Mały log można skopiować w całości, duży ma ponumerowane części na granicach rekordów; skopiuj wszystkie albo udostępnij pełny JSONL/CSV. Migawka aktywnego loga nie zmienia się; aby uwzględnić późniejsze próbki, otwórz sesję ponownie. Usunięcie loga nie usuwa obrysu, a usunięcie projektu usuwa jego logi. Pliki nie są wysyłane automatycznie.
 
-Plik instalacyjny ma rozmiar około 80 MiB. Jest przeznaczony do testów prototypu. Zrzuty ekranów i raporty kompilacji w `artifacts/` są materiałami kontroli lokalnej; nie są wymagane do instalacji.
+Log obejmuje metadane, surowe sensory i macierze, kierunek, jakość, rozrzut, kroki surowe i poprawione, przeliczniki, geometrię i operacje. Bufor jest utrwalany co sekundę, przy przechwyceniu i zakończeniu. Awaria może utracić nieutrwalony ogon; ponowne uruchomienie zachowuje pełne rekordy i oznacza przerwaną sesję. Limit to 100 MiB, ostrzeżenie przy 80 MiB, bez automatycznego kasowania starszych sesji.
+
+## Próba terenowa i znany problem
+
+Użytkownik zaakceptował dokładność wykonanych prób trybu względnego. Krokomierz ocenił jako generalnie działający, ale często doliczający 1–2 kroki. Ręczna korekta nie rozwiązuje przyczyny nadliczania.
+
+- Sprawdź krokomierz dla znanej liczby kroków, szczególnie pierwszy i ostatni krok przy Start/Stop, ponowny Start, przejście do tła i różne sposoby trzymania telefonu. Zachowaj log oraz ręcznie policzoną wartość odniesienia.
+- Wykonaj prostokąt o znanych wymiarach, np. 2 × 3 m. Porównaj boki i przekątne z taśmą, oddzielnie sprawdzając kierunek i szacowanie z kroków.
+- Zapisz kontekst operatora i otoczenia. Powtórz nieruchomy cel, pełny obrót oraz próby przy ścianie i metalu. Porównaj rzeczywisty pomiar powrotu z wyliczonym zamknięciem.
+- Sprawdź najnowszy układ na telefonie: kontrolki w rzędach, suwak 5°, Start/Stop, miniaturę, klawiaturę, zmianę globalnego trybu oraz PNG.
+
+## Budowanie i potwierdzona weryfikacja
+
+W `app/`: `npm ci`, `npm run typecheck`, `npm test`, `npm run build:apk`. Wymagane Windows, Node 20.19.x, JDK, Android SDK 36 i NDK 27.1.12297006; sieć przy pierwszym pobieraniu zależności. `ANDROID_HOME` można wskazać jawnie. Projekt Android jest generowany; źródła modułu Kotlin są w `app/modules/fieldsketch-orientation`.
+
+Ostatnie sprawdzenie: TypeScript i 44 testy TS przeszły, pełny release build zakończył się sukcesem. Zadanie 7 testów Kotlin było `UP-TO-DATE`, raporty bez błędów. Emulator potwierdził m.in. geometrię, zapis, wznowienie, PNG oraz nową listę 3/+10, otwarcie wiersza/menu i anulowanie usuwania. Nie ma detektora kroków. Telefon potwierdził instalację i uruchomienie; pełnej próby całego najnowszego UI jeszcze nie potwierdzono. Nie deklarujemy, że każdy nowy element był osobno sprawdzony wizualnie.
+
+Ostatni wcześniejszy wynik Expo Doctor: 21/22, ostrzeżenie dotyczące pamięci Hermes w SDK 56. Nie wykonano migracji SDK ani nowej kontroli Doctor przy tej aktualizacji dokumentacji. Kontekst wcześniejszego sprawdzenia: [informacje Expo SDK 56](https://expo.dev/changelog/sdk-56). Szczegóły artefaktu, historii i ograniczeń: [MEMO](../../MEMO.md).

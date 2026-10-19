@@ -1,16 +1,20 @@
 # Dokumentacja techniczna FieldSketch CAD
 
-Wersja 0.6. Data: 19 października 2026. Architektura docelowa oraz pierwszy przyrost implementacji.
+Wersja 0.7. Data: 19 października 2026. Wdrożone MVP w commicie `91dd0fe` oraz osobno architektura docelowa.
 
 ## Aktualny zakres implementacji
 
-Kod prototypu w `app/` realizuje pomiar i prosty obrys: kamera, trzy tryby kierunku, kroki, projekty SQLite, cofnięcie ostatniego boku, zamknięcie, pole, obwód i trwałe logi z kopiowaniem oraz eksportem JSONL/CSV. [Instrukcja prototypu](prototyp.md) rozróżnia dostępne funkcje i dalszy zakres. DXF, przekątne kontrolne, pełna edycja i solver poniżej pozostają projektem dalszego P1.
+Kod MVP w `app/` realizuje wizard pomiaru, kamerę, trzy globalnie wybierane tryby kierunku, ręczne m/cm i natywny krokomierz Start/Stop, projekty i formularze SQLite v3, cofanie i edycję ostatniego boku z historią, zamknięcie, pole, obwód, PNG oraz trwałe logi JSONL/CSV. APK 0.1.0 jest zainstalowany na telefonie użytkownika. [Instrukcja](prototyp.md) opisuje aktualny interfejs. DXF, przekątne kontrolne, pełna edycja i solver poniżej pozostają projektem dalszego P1.
 
 Pierwsza implementacja przechowuje migawki projektów, niezmienne obserwacje i operacje w SQLite, a próbki JSONL zapisuje natywnie. Dane surowe i skorygowane nie są jeszcze osobnymi edytowalnymi obrysami; prototyp nie wykonuje dopasowania. Metadane logów są w plikach towarzyszących. Sumy kontrolne i import kopii projektu opisane w architekturze docelowej nie należą do tego przyrostu.
 
-## Zaakceptowany projekt następnego interfejsu
+## Wdrożony interfejs pomiaru
 
-[Wizard pomiaru](wizard-pomiaru.md) opisuje decyzje użytkownika z 19 października 2026: pierwszy punkt, cykl Kierunek → Długość → Zapisz punkt, korekty, automatyczny krokomierz, szkic na żywo, zakończenie i zapis etapu roboczego. W zakresie nowego UI dokument ten zastępuje wcześniejsze propozycje przebiegu poniżej. Projekt jest wdrażany etapami. Pierwszy przyrost zawiera wizard, korektę kąta, ręczną długość m/cm lub ręczną liczbę kroków, stały dolny panel i zapis roboczego formularza w SQLite. Drugi przyrost dodaje edycję ostatniego boku z historią obserwacji, eksport PNG, ustawienia w bazie SQLite v3 i natywny detektor kroków Start/Stop; fizyczna dokładność krokomierza wymaga osobnej walidacji. Długość ręczna jest zapisywana z jawnym źródłem; niezmienność obserwacji pozostaje zachowana. Pozostały zakres rozróżnia sekcja Postęp implementacji w dokumencie wizarda. Testy trybu względnego dają według użytkownika akceptowalną dokładność; automatyczny krokomierz wymaga osobnej walidacji.
+[Wizard pomiaru](wizard-pomiaru.md) opisuje obowiązujący UI: stałe dolne akcje, pływający szkic, kierunek z ogólnym zielonym statusem gotowości, korektę `[L] [kąt] [P]` z suwakiem co pełne 5° i długość z kontrolkami `[−] [kroki] [+] [Start/Stop]`. Ustawienia globalne obejmują m/cm, długość kroku, tryb kierunku i przyciąganie pola kąta. Nie ma dodatkowych opcji ani szczegółów odczytu na ekranie pomiaru. Diagnostyka jest osobnym ekranem. Lista pokazuje 3 ostatnio zmienione projekty i po 10 kolejnych po „Więcej”.
+
+Zmiana globalnego trybu zatrzymuje sesję i unieważnia roboczy kierunek/odniesienie; nie przepisuje historycznych obserwacji. Formularz zachowuje wpisy, ale wznowienie zaczyna się od kierunku. Tryb sensorowy przy istniejących bokach wymaga odtworzenia odniesienia. Długość ręczna ma jawne źródło, surowe i poprawione kroki są zachowane osobno; edycja tworzy nową obserwację z `supersedesId`.
+
+Weryfikacja wydania: TypeScript, 44 testy TS i release build bez błędów; zadanie 7 testów Kotlin aktualne (`UP-TO-DATE`, raporty bez błędów). Instalacja i uruchomienie na telefonie potwierdzone. Użytkownik zaakceptował próby trybu względnego, ale zgłosił nadliczanie 1–2 kroków; przyczyna pozostaje nierozwiązana. Pełna próba ostatniego UI na telefonie pozostaje do wykonania. Szczegóły i hash APK są w [MEMO](../../MEMO.md).
 
 ## 1 Cel i status decyzji
 
@@ -21,7 +25,7 @@ Aplikacja umożliwi tworzenie pomocniczych obrysów 2D w terenie, korektę geome
 | Obszar | Ustalenie | Status |
 | --- | --- | --- |
 | Framework | React Native + Expo | Decyzja użytkownika |
-| Długość w prototypie | Ręcznie podana liczba kroków, przeliczana na centymetry; 1 krok = 75 cm | Decyzja użytkownika o krokach; proponowany przelicznik |
+| Długość w MVP | Ręczne m/cm lub krokomierz/ręczne kroki; domyślnie 75 cm na krok, wartość zmieniana w ustawieniach | Wdrożona decyzja użytkownika |
 | Platforma początkowa | Android | Wymaganie źródłowe |
 | Dane | Offline, lokalnie, bez backendu i kont | Zakres źródłowy prototypu |
 | Logi pomiarowe | Trwały zapis w pamięci wewnętrznej aplikacji, podgląd i kopiowanie treści | Decyzja użytkownika, wymagane od P0 |
@@ -42,7 +46,7 @@ Wynikiem jest raport z opisem urządzeń, wersji aplikacji, procedury i rozkład
 
 P1 obejmuje projekty lokalne, punkty, ręczne wprowadzanie długości w krokach i kątów, podgląd XY, edycję, undo/redo, blokady, przekątne, zamknięcie, obwód, pole, diagnostykę i DXF. Automatyczne dopasowanie sieci jest SHOULD F11; zdjęcia COULD F12; Bluetooth i GPS LATER F13.
 
-Decyzja użytkownika o krokach zastępuje w prototypie wejście długości w metrach opisane w źródle biznesowym, w tym F03. Docelowy wariant z miarką lub dalmierzem pozostaje możliwym rozszerzeniem. Źródłowy dokument Word zachowuje pierwotną treść.
+Aktualne MVP przyjmuje zarówno ręczne długości w m/cm (np. odczytane z miarki), jak i szacowanie krokami. Bezpośrednia integracja z dalmierzem pozostaje dalszym zakresem. Źródłowy dokument Word zachowuje pierwotną treść.
 
 Poza zakresem pozostają chmura, logowanie, płatności, LiDAR, obowiązkowe ARCore, automatyczna rekonstrukcja 3D i certyfikacja dokładności.
 
@@ -105,19 +109,19 @@ app/
   package.json
 ```
 
-Zewnętrzny `app/` jest katalogiem projektu, a `app/src/app/` przyszłym katalogiem tras. Logika domenowa pozostaje poza trasami.
+Zewnętrzny `app/` jest katalogiem projektu, a `app/src/app/` katalogiem wdrożonych tras. Logika domenowa pozostaje poza trasami.
 
 ## 5 Ekrany i rejestracja pomiaru
 
-Lista projektów umożliwia tworzenie, otwieranie i usuwanie z potwierdzeniem. Ustawienia zawierają nazwę, typ obiektu i tryb kierunku. Jednostka wewnętrzna to metr.
+Lista projektów pokazuje jednoliniowe nazwy, daty ostatniej zmiany i menu Otwórz/Usuń; początkowo 3 projekty, następnie po 10. Kliknięcie wiersza otwiera projekt. Ustawienia i logi są w menu nagłówka. Ustawienia zawierają globalny tryb kierunku, domyślne m/cm i długość kroku oraz przyciąganie pola kąta. Jednostka wewnętrzna to metr.
 
-Ekran pomiaru pokazuje celownik, tryb, stabilność i jakość sensora. Użytkownik zamraża kierunek z początku boku, przechodzi odcinek, licząc kroki, wpisuje ich liczbę, sprawdza przeliczenie na centymetry i podgląd, a następnie zatwierdza obserwację. Kierunek pozostaje przypisany do punktu początkowego; anulowanie nie tworzy częściowego odcinka. Liczba kroków jest podawana ręcznie, bez automatycznego krokomierza.
+Ekran pomiaru pokazuje celownik i ogólny status gotowości, bez szczegółów liczbowych. Użytkownik zamraża kierunek, opcjonalnie poprawia skręt, podaje długość ręcznie lub mierzy ją krokomierzem, następnie sprawdza i zapisuje punkt. Kierunek pozostaje przypisany do punktu początkowego. Roboczy bok jest widoczny w pływającym szkicu; nawigacja pozostaje poza scrollem.
 
-Powyższy akapit opisuje obecny prototyp. Docelowy przebieg i korekty określa [wizard pomiaru](wizard-pomiaru.md).
+Szczegóły aktualnych kontrolek i reguł określa [wizard pomiaru](wizard-pomiaru.md); instrukcję obsługi zawiera [prototyp.md](prototyp.md).
 
 ### Długość w krokach w prototypie
 
-Przyjmujemy **1 krok = 75 cm** jako przybliżoną, roboczą długość pojedynczego kroku dorosłego mężczyzny przy zwykłym chodzie. Jeden krok oznacza przejście od podparcia jednej stopy do podparcia drugiej, a nie pełny cykl dwóch kroków. To stała prototypu, nie uniwersalna średnia dla wszystkich mężczyzn. Jako punkt odniesienia badanie zwykłego chodu 11 młodych dorosłych mężczyzn podaje dla prawego kroku średnią 74 cm; 75 cm jest jej praktycznym zaokrągleniem [T9].
+Przyjmujemy **1 krok = 75 cm** jako przybliżoną, roboczą długość pojedynczego kroku dorosłego mężczyzny przy zwykłym chodzie. Jeden krok oznacza przejście od podparcia jednej stopy do podparcia drugiej, a nie pełny cykl dwóch kroków. To wartość początkowa ustawienia długości kroku, nie uniwersalna średnia dla wszystkich użytkowników. Jako punkt odniesienia badanie zwykłego chodu 11 młodych dorosłych mężczyzn podaje dla prawego kroku średnią 74 cm; 75 cm jest jej praktycznym zaokrągleniem [T9].
 
 ```text
 DEFAULT_STEP_LENGTH_CM = 75
@@ -127,13 +131,13 @@ Przykład: 10 kroków -> 750 cm -> 7,5 m
 Przykład: 2,5 kroku -> 187,5 cm -> 1,875 m
 ```
 
-Formularz „Liczba kroków” dopuszcza dodatnie wartości ułamkowe, np. 2,5, aby można było oszacować niepełny krok. Obok pokazuje „Szacowana długość” w cm oraz użyty przelicznik. Geometria nadal liczy w metrach, a DXF eksportuje w milimetrach. Ta sama konwersja dotyczy boków, przekątnych i pomiaru powrotnego.
+Formularz „Liczba kroków” dopuszcza dodatnie wartości ułamkowe, np. 2,5, aby można było oszacować niepełny krok. Pokazujemy użyty przelicznik i długość w wybranych m/cm. Geometria liczy w metrach. W docelowym, niewdrożonym eksporcie DXF planowana jest jednostka milimetrowa; przekątne kontrolne również pozostają dalszym zakresem.
 
-Liczbę kroków i użyty przelicznik zachowujemy razem z obserwacją. Przyszła zmiana domyślnej długości kroku nie przelicza historycznych pomiarów automatycznie. Kalibracja indywidualna może powstać później; prototyp używa 75 cm. Wynik w centymetrach jest jednostką prezentacji oszacowania, nie deklaracją centymetrowej dokładności.
+Liczbę kroków i użyty przelicznik zachowujemy razem z obserwacją. Ustawienia pozwalają zmienić domyślną długość kroku bez przeliczania historii i przywróconego formularza. Surową liczbę z detektora zachowujemy obok liczby poprawionej. Automatyczny proces kalibracji nie jest wdrożony. Wynik w centymetrach jest jednostką prezentacji oszacowania, nie deklaracją centymetrowej dokładności.
 
 Proponowane stany: `ready -> stabilizing -> directionCaptured -> lengthEntered -> review -> committed`. Powrót z tła wymaga ponownego sprawdzenia odniesienia i unieważnienia niezapisanej próbki, jeśli utracono jego ciągłość.
 
-Edytor pokazuje punkty, długości, ograniczenia i przełączany obrys surowy. Ekran jakości rozdziela obserwacje, wyniki i reszty. Eksport podaje jednostkę oraz rewizję. Brak sensora albo zgody na kamerę udostępnia tryb ręczny, umożliwiający cały proces bez ARCore.
+W architekturze docelowej edytor ma pokazywać także ograniczenia i przełączany obrys surowy, a ekran jakości rozdzielać obserwacje, wyniki i reszty. Te rozszerzenia nie należą do aktualnego MVP. W MVP tryb ręczny w ustawieniach pozwala pracować bez sensora i kamery, bez ARCore.
 
 ## 6 Moduł orientacji Androida
 

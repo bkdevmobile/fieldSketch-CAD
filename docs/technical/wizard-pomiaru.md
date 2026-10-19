@@ -2,13 +2,13 @@
 
 Data: 19 października 2026. Status: wdrożony wizard MVP, poprawki po pierwszej próbie na telefonie.
 
-Dokument opisuje pełny zaakceptowany interfejs. Zrealizowaną część rozróżnia sekcja Postęp implementacji — pierwszy przyrost. Funkcje są wdrażane przyrostowo; aktualny stan rozróżniają sekcje postępu poniżej. Testy trybu względnego dają według użytkownika akceptowalną dokładność; automatyczny krokomierz wymaga osobnej walidacji.
+Dokument opisuje obowiązujący interfejs wdrożonego MVP w commicie `91dd0fe`. Zastępuje wcześniejsze warianty makiet i opisy przyrostów. Testy trybu względnego mają według użytkownika akceptowalną dokładność; zgłoszone nadliczanie kroków pozostaje do diagnozy.
 
 ## Przebieg
 
 1. Na początku użytkownik zapisuje pierwszy punkt P1, będący początkiem obrysu.
 2. **Wskaż kierunek** — celowanie z początku boku, przechwycenie kierunku czujnikami i ewentualna korekta.
-3. **Zmierz** — „Start”, przejście do następnego punktu, „Stop” i ewentualna korekta długości.
+3. **Zmierz** — ręczne wpisanie m/cm albo „Start”, przejście do następnego punktu, „Stop” i korekta kroków.
 4. **Zapisz punkt** — zatwierdzenie kierunku, długości i punktu końcowego boku. Nowy punkt staje się początkiem następnego boku.
 
 Kroki 2–4 powtarzają się. Bok i punkt końcowy pozostają robocze do zatwierdzenia. Szkic oraz „Zakończ” są stale dostępne. „Wstecz” zachowuje dane.
@@ -62,9 +62,9 @@ Zamknięcie topologiczne nie jest pomiarem ostatniego boku ani potwierdzeniem do
 - „Wstecz” zachowuje dane robocze.
 - Wybranie ostatniego zapisanego boku umożliwia poprawienie kierunku i długości albo cofnięcie zapisu. Nie oznacza to pełnego edytora wszystkich boków.
 - Punkty i roboczy etap zapisujemy automatycznie. Utrwalenie szkicu roboczego nie zatwierdza boku w geometrii.
-- Po wznowieniu odtwarzamy etap i dane. Przy utracie ciągłości odniesienia wymagamy odtworzenia go na znanym boku przed dalszym pomiarem. Przerwy nie zaliczamy do aktywnego pomiaru kroków.
+- Po wznowieniu przywracamy wpisy i wracamy do etapu kierunku, który wymaga ponownego przechwycenia. W trybie sensorowym przy istniejących bokach odtwarzamy odniesienie na znanym boku. Przerwy nie zaliczamy do aktywnego pomiaru kroków.
 
-## Weryfikacja przyszłej implementacji
+## Zakres próby użytkowej
 
 Sprawdzić cykl kilku boków, korekty kąta i długości, oba źródła długości, brak naliczania kroków poza pomiarem, zgodność szkicu z danymi, cofanie bez utraty danych, oba warianty zakończenia i odtworzenie po przerwaniu aplikacji. Osobno zweryfikować automatyczny krokomierz na telefonie.
 
@@ -78,36 +78,17 @@ Użytkownik wybrał pierwszy wariant: **Prowadzenie krok po kroku**. Formularz a
 
 **Uwaga do realizacji:** dolne przyciski nawigacji i zatwierdzania muszą zawsze znajdować się poza przewijaną treścią, przyklejone do dołu ekranu. Przewija się zawartość powyżej stałego paska akcji. Treść nie może być zasłaniana przez pasek; trzeba uwzględnić dolny obszar systemowy oraz klawiaturę ekranową, tak aby działania pozostały dostępne podczas edycji pól.
 
-## Postęp implementacji — pierwszy przyrost
+## Stan implementacji i weryfikacji
 
-Rozpoczęto wdrażanie wariantu Prowadzenie krok po kroku. Kod obejmuje etapy pierwszego punktu, przechwycenia kierunku, korekty skrętu i suwaka ±15°, ręcznej długości m/cm lub ręcznej liczby kroków, sprawdzenia i zapisu punktu. Nowe projekty preferują tryb względny. Szkic i dolne przyciski są poza przewijaną treścią; szkic pokazuje wektor bez długości lub przerywany bok i dopasowuje widok po zatwierdzeniu zmiany.
+Aktualny kod: `91dd0fe`, aplikacja 0.1.0. Wdrożono opisany wizard, ręczne m/cm, natywny krokomierz `TYPE_STEP_DETECTOR`, SQLite v3 z formularzem i ustawieniami, edycję ostatniego boku z historią `supersedesId`, PNG oraz osobną diagnostykę. Stop, tło i zakończenie sesji wyłączają liczenie; zdarzenia kroków mają identyfikatory sesji i pomiaru. Android 10+ wymaga zgody ACTIVITY_RECOGNITION pobieranej przy Start.
 
-Formularz roboczy zapisuje się w osobnej tabeli SQLite. Migracja bazy v1 → v2 zachowuje stare projekty i obserwacje. Po restarcie przywracamy wpisy, ale wymagamy ponownego przechwycenia kierunku i, dla istniejących boków w trybie sensorowym, odtworzenia odniesienia. Ręczna długość ma jawne źródło, bez fikcyjnej liczby kroków. Korekta zachowuje przechwycony kierunek i oryginalny odczyt czujnika.
+Kontrola TypeScript i 44 testy TS przeszły. Pełny release build i zadanie 7 testów Kotlin zakończyły się bez błędów; zadanie Kotlin było `UP-TO-DATE`. Na emulatorze sprawdzono m.in. geometrię, zachowanie danych, PNG, listę projektów 3/+10, menu i anulowanie usuwania. Emulator nie ma detektora kroków i nie potwierdza fizycznego liczenia. Najnowszy APK zainstalowano na telefonie z zachowaniem danych; ADB potwierdził uruchomienie. Pełna próba najnowszego UI pozostaje do wykonania. Hash i szczegółowe granice weryfikacji są w [MEMO](../../MEMO.md).
 
-Obsługiwane jest rozstrzygnięcie niezapisanego boku przy zakończeniu, obrys otwarty lub zamknięty oraz podsumowanie. Dotychczasowy niezależny pomiar powrotny i diagnostyka pozostają dostępne.
+Krokomierz według próby użytkownika działa generalnie poprawnie, ale często dolicza 1–2 kroki. Dostępna jest korekta ręczna; przyczyna nie jest jeszcze naprawiona. Akceptacja dokładności trybu względnego dotyczy kierunku, nie stanowi akceptacji dokładności krokomierza.
 
-Zakres pierwszego przyrostu został rozszerzony w drugim przyroście opisanym poniżej.
+## Obowiązujące uproszczenia interfejsu
 
-Weryfikacja pierwszego przyrostu: TypeScript, 35 testów TS i 5 Kotlin, release APK oraz testy emulatora Android 16. Sprawdzono zapis ręcznych długości i skrętu, pole 6,75 m² po zamknięciu, zachowanie starego projektu po aktualizacji, przywrócenie formularza po force-stop, konwersję m/cm oraz widoczność całego dolnego panelu akcji nad klawiaturą i jego powrót po jej schowaniu.
-
-## Postęp implementacji — drugi przyrost
-
-Dodano:
-
-- **Edycję ostatniego boku** z podsumowania: kąt skrętu, długość w m/cm lub liczba kroków i przelicznik. Punkt początkowy i wcześniejsze punkty pozostają bez zmian; bok zamykający obrys topologicznie przelicza się z nowego końca. Nowa obserwacja wskazuje `supersedesId`; źródłowa obserwacja i surowy odczyt pozostają w historii. Przy aktywnym niezależnym pomiarze zamknięcia trzeba go najpierw cofnąć.
-- **Eksport PNG**: osobny podgląd obrazu, pełny obrys, oznaczenia punktów, tabela wymiarów boków z ich źródłem, obwód/trasa, pole i informacja o szacowaniu krokami. Wyliczony bok zamykający jest oznaczony. Obraz jest tworzony z niezmiennej migawki rewizji i udostępniany systemowym oknem; nie zawiera elementów interfejsu aplikacji.
-- **Ustawienia użytkownika**: domyślne m/cm i długość jednego kroku (początkowo 75 cm). SQLite v3 przechowuje preferencje; migracja zachowuje projekty i formularze robocze. Historyczne obserwacje zachowują swój przelicznik. W kroku długości można poprawić przelicznik konkretnego pomiaru.
-- **Krokomierz Start/Stop** na natywnym `TYPE_STEP_DETECTOR`. Rejestracja trwa tylko w oknie pomiaru; zdarzenia mają monotoniczny czas i identyfikator pomiaru. Stare zdarzenia i duplikaty są odrzucane. Stop, tło, zakończenie sesji i zniszczenie modułu wyłączają liczenie. Surowa wykryta liczba kroków pozostaje obok ręcznie poprawionej liczby i użytego przelicznika.
-
-Na Androidzie 10+ zgoda ACTIVITY_RECOGNITION jest pobierana przy uruchomieniu krokomierza. Brak sensora lub zgody pozostawia ręczną długość i ręcznie wpisywane kroki. Użyto detektora pojedynczych kroków zamiast kumulacyjnego licznika od restartu telefonu; dokumentacja Androida opisuje większe opóźnienie licznika: [czujniki ruchu Android](https://developer.android.com/develop/sensors-and-location/sensors/sensors_motion).
-
-Weryfikacja drugiego przyrostu: 41 testów TypeScript i 7 Kotlin, kontrola TypeScript, release APK i instalacja na emulatorze. Sprawdzono korektę boku 3 → 4 m z polem 6,75 → 9 m², przelicznik 80 cm i 2,5 kroku = 200 cm, otwartą trasę, ustawienia po zimnym starcie oraz podgląd i systemowe udostępnianie niepustego PNG 1080 × 1228 px. Nie wybrano odbiorcy ani usługi. Emulator nie udostępnia detektora kroków; potwierdzono na nim ręczną ścieżkę zastępczą.
-
-Weryfikacja programowa nie potwierdza dokładności krokomierza na telefonie użytkownika. Wymaga on osobnego testu fizycznego; wcześniejsza akceptacja dokładności trybu względnego dotyczy pomiaru kierunku. Należy sprawdzić również ostatni krok tuż przed Stop i różne sposoby trzymania telefonu.
-
-## Dalsze projektowanie
-
-### Uproszczenie ekranu pomiaru
+### Nawigacja i ekran pomiaru
 
 Na stronie głównej przycisk menu ⋮ znajduje się po prawej stronie nagłówka i otwiera Ustawienia oraz Logi pomiarowe. Te działania usunięto z przewijanej listy projektów. Zamknięcie menu przez „Wróć” lub systemowe Wstecz zachowuje wpisaną nazwę nowego projektu.
 
@@ -124,6 +105,6 @@ Lista projektów jest prosta: w każdym wierszu nazwa (jedna linia, długie nazw
 
 Poprawki po próbie na telefonie: przyciąganie kąta konfigurowane wyłącznie w ustawieniach, pływający szkic oraz przycisk „Dalej · zapisz punkt” zamiast enigmatycznego „Sprawdź punkt”. Przycisk prowadzi do podsumowania roboczego punktu; dopiero „Zapisz punkt” zatwierdza bok.
 
-Użytkownik ocenił krokomierz jako ogólnie działający poprawnie, ale często doliczający 1–2 kroki. Dodano szybką ręczną korektę; przyczyna nadliczania pozostaje do sprawdzenia na telefonie z logiem i znaną liczbą kroków. Nie traktujemy tej uwagi jako pełnej akceptacji dokładności krokomierza.
+## Decyzje otwarte
 
-Przebieg pomiaru i pierwszy wariant makiety (Prowadzenie krok po kroku) zostały zaakceptowane. Szczegółowy układ należy dopracować zgodnie z uwagą o stałym dolnym pasku akcji. Użytkownik docelowy, ostateczny zakres pierwszej wersji i wstępny model zarabiania pozostają do opracowania. Ustalenie nie obejmuje DXF, solvera ani migracji SDK.
+Do ustalenia pozostają kryteria odbioru przed testem zamkniętym, użytkownik docelowy i model zarabiania. Obecny układ jest wdrożony i wymaga próby na telefonie. DXF, solver i migracja SDK pozostają poza bieżącym zakresem.

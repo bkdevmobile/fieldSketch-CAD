@@ -4,7 +4,7 @@ Mobilne narzędzie do tworzenia pomocniczych, wymiarowanych szkiców 2D w tereni
 
 Pierwsze założenie technologiczne: **React Native + Expo + TypeScript**. Pierwsza platforma: Android, zgodnie z dokumentacją biznesową. Praca offline, bez backendu w prototypie.
 
-W prototypie użytkownik podaje długość w krokach. Aplikacja przelicza je na centymetry przy roboczym założeniu **1 krok = 75 cm**, pokazując wynik jako szacunkowy.
+Długość można wpisać bezpośrednio w m/cm albo zmierzyć krokomierzem Start/Stop i skorygować liczbę kroków. Domyślna długość kroku to **75 cm**, zmieniana w ustawieniach. Długości z kroków są szacunkowe. Wynik można udostępnić jako PNG.
 
 Prototyp zapisuje lokalnie trwałe logi do analizy dokładności pomiarów. Użytkownik może je przeglądać i kopiować ich treść z aplikacji.
 
@@ -14,7 +14,7 @@ Prototyp zapisuje lokalnie trwałe logi do analizy dokładności pomiarów. Uży
 docs/
   business/    dokumentacja biznesowa i materiały źródłowe
   technical/   analiza i dokumentacja techniczna
-app/           katalog przeznaczony na aplikację Expo
+app/           aplikacja Expo i natywny moduł Kotlin
 ```
 
 - [Dokumentacja biznesowa](docs/business/FieldSketch_CAD_dokumentacja_biznesowa_i_prototyp.docx)
@@ -23,4 +23,8 @@ app/           katalog przeznaczony na aplikację Expo
 - [Katalog aplikacji](app/README.md)
 - [Uruchomienie i test terenowy prototypu](docs/technical/prototyp.md)
 
-Kod pierwszego prototypu znajduje się w `app/`: kamera i sensory, ręczne kąty, kroki, prosty obrys, lokalne projekty i kopiowanie logów. Skrypt `npm run build:apk` tworzy samodzielny APK w `artifacts/`. Użytkownik potwierdził 19 października 2026 akceptowalny poziom dokładności wykonanych testów w trybie „względny”. Rozpoczęto implementację zaakceptowanego [wizarda pomiaru](docs/technical/wizard-pomiaru.md): kierunek, korekta, długość m/cm i zapis punktu, ze stałym dolnym panelem szkicu i akcji.
+Kod MVP znajduje się w `app/`. Wdrożono [wizard pomiaru](docs/technical/wizard-pomiaru.md), pływającą miniaturę szkicu, stałe dolne akcje, edycję ostatniego boku, eksport PNG, ustawienia globalne i osobną diagnostykę. Strona główna pokazuje 3 najnowsze projekty w prostych wierszach; „Więcej” dodaje po 10. Ustawienia i logi są w menu nagłówka.
+
+Stan na 19 października 2026: kod w commicie `91dd0fe`, APK 0.1.0 zbudowany i zainstalowany na telefonie użytkownika z zachowaniem danych. Kontrola TypeScript, 44 testy TS oraz zadanie 7 testów Kotlin i build zakończyły się bez błędów. Szczegóły artefaktu i ograniczenia opisuje [MEMO](MEMO.md).
+
+Użytkownik zaakceptował dokładność wykonanych testów trybu względnego. Krokomierz działa, ale według próby użytkownika często dolicza 1–2 kroki; przyczyna pozostaje do diagnozy. Skrypt `npm run build:apk` tworzy samodzielny APK w `artifacts/`.

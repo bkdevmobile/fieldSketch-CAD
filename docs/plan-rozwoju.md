@@ -14,8 +14,8 @@ Najważniejsza decyzja na etapie 1: czy pomiar kierunku telefonem i długości k
 
 ## Postęp etapu 2
 
-19 października 2026 zaakceptowano [wizard pomiaru i decyzje UI](technical/wizard-pomiaru.md): cykl Kierunek → Długość → Zapisz punkt, korekty, krokomierz Start/Stop, szkic na żywo i zakończenie. Jest to projekt do implementacji. Pozostają użytkownik docelowy, ostateczny zakres pierwszej wersji, wstępny model zarabiania i szczegółowy układ ekranów. Ustalenia UI przyjęto przed zakończeniem rozważań o monetyzacji; nie określają jeszcze podziału funkcji darmowych i płatnych.
+19 października 2026 zaakceptowano i wdrożono [wizard pomiaru i decyzje UI](technical/wizard-pomiaru.md): cykl Kierunek → Długość → Zapisz punkt, korekty, krokomierz Start/Stop, szkic na żywo i zakończenie. Pozostają użytkownik docelowy, ostateczne kryteria odbioru pierwszej wersji i wstępny model zarabiania. Ustalenia UI nie określają podziału funkcji darmowych i płatnych.
 
-Rozpoczęto implementację pierwszego przyrostu zaakceptowanego wizarda: kierunek i korekta, ręczna długość m/cm, zapis punktu, szkic na żywo i stały dolny pasek akcji. Szczegółowy postęp i pozostały zakres opisuje [projekt wizarda](technical/wizard-pomiaru.md).
+Wdrożono ręczne m/cm, natywny krokomierz, edycję ostatniego boku z historią, PNG oraz zapis roboczego formularza. Po próbie telefonu uproszczono UI: globalny tryb kierunku w ustawieniach, zielony status gotowości bez szczegółów, korekta `[L] [kąt] [P]` i suwak co 5°, krokomierz `[−] [kroki] [+] [Start/Stop]`, pływający szkic, menu nagłówka i prosta lista projektów 3/+10. Kod zapisano w `91dd0fe`, APK 0.1.0 zainstalowano na telefonie. Nie opublikowano testu zamkniętego ani wersji produkcyjnej.
 
-Drugi przyrost dodaje edycję ostatniego boku z historią, eksport PNG, ustawienia długości kroku i natywny krokomierz Start/Stop. Testy programowe i emulator nie zamykają walidacji fizycznego liczenia kroków. Następna próba powinna objąć zaktualizowany APK na telefonie użytkownika.
+Najbliższe prace: sprawdzić aktualny układ na telefonie, zdiagnozować zgłoszone nadliczanie 1–2 kroków na podstawie logów i znanej liczby kroków oraz ustalić kryteria gotowości do testu zamkniętego. Przejście 44 testów TS i 7 Kotlin nie potwierdza dokładności pomiaru w terenie. DXF, solver i migracja SDK pozostają poza bieżącym zakresem.

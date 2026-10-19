@@ -2,6 +2,8 @@
 
 Data analizy: 18 października 2026. Źródło: [koncepcja biznesowa i prototyp wersja 1.0](../business/FieldSketch_CAD_dokumentacja_biznesowa_i_prototyp.docx).
 
+Aktualizacja realizacji, 19 października 2026: analiza opisuje szerszą koncepcję źródłową, nie listę wdrożonych funkcji. MVP `91dd0fe` obsługuje ręczne m/cm i krokomierz z konfigurowalną długością kroku oraz PNG; DXF, przekątne i solver pozostają dalszym zakresem. Aktualny przebieg opisuje [wizard](wizard-pomiaru.md), a stan walidacji [MEMO](../../MEMO.md).
+
 ## Wniosek
 
 Dokument opisuje spójny proces od pomiaru terenowego do edytowalnego DXF. Najważniejsza hipoteza dotyczy użyteczności kierunku uzyskanego z telefonu. Dokładne długości nie usuną błędu azymutu. Zalecana kolejność to walidacja sensorów P0, następnie pełny proces pomiaru i edycji P1.
@@ -12,7 +14,7 @@ React Native z Expo jest wiążącym założeniem użytkownika. Natywny moduł K
 
 Produkt skraca drogę od notatek z miarki lub dalmierza do pliku CAD. Użytkownik otrzymuje szkic pomocniczy, który może poprawić na podstawie przekątnych, kątów i wiedzy o obiekcie. Nie jest to automatyczny skaner przestrzeni ani instrument geodezyjny.
 
-Najbardziej konkretny scenariusz pierwszej wersji to poziomy obrys z 4–8 narożnikami. Telefon pomaga ustalić kierunek. Źródłowo długość pochodzi z miarki lub dalmierza; późniejszą decyzją użytkownika prototyp przyjmuje ręcznie podaną liczbę kroków i przelicza ją na centymetry przy założeniu 1 krok = 75 cm. Uzasadnienie przelicznika zawiera dokument techniczny. Każdy kolejny bok wymaga przejścia do jego początku i zachowania wspólnego odniesienia kierunków.
+Najbardziej konkretny scenariusz pierwszej wersji to poziomy obrys z 4–8 narożnikami. Telefon pomaga ustalić kierunek. Źródłowo długość pochodzi z miarki lub dalmierza; aktualne MVP pozwala wpisać ją w m/cm albo oszacować krokomierzem i skorygować liczbę kroków. Domyślne 75 cm na krok jest ustawieniem użytkownika, nie stałym przelicznikiem wszystkich pomiarów. Uzasadnienie wartości początkowej zawiera dokument techniczny. Każdy kolejny bok wymaga przejścia do jego początku i zachowania wspólnego odniesienia kierunków.
 
 ## Mocne strony koncepcji
 
