@@ -31,6 +31,8 @@ Szkic automatycznie dopasowuje widok po ustaleniu kierunku, zmierzeniu lub wpisa
 
 Udostępnianie szkicu w MVP: wystarczy PNG z wymiarami i oznaczeniem długości szacowanych z kroków. DXF i inne formaty wyniku są poza zakresem tej wersji. Eksport logów JSONL/CSV pozostaje diagnostyką. Eksport PNG jest wymaganiem do implementacji.
 
+Wybrano pierwszy wariant makiety: Prowadzenie krok po kroku. Uwaga do realizacji: dolne przyciski zawsze poza scrollem, przyklejone do dołu ekranu; przewijana treść nie może być przez nie zasłaniana. Uwzględnić obszar systemowy i klawiaturę ekranową.
+
 ## Dostępne funkcje
 
 - Tworzenie, otwieranie i usuwanie projektów SQLite; zapis zatwierdzonych boków.

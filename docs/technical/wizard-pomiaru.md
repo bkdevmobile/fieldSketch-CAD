@@ -68,6 +68,12 @@ Sprawdzić cykl kilku boków, korekty kąta i długości, oba źródła długoś
 
 W tej wersji wystarczy eksport szkicu do PNG: czytelny obraz z wymiarami i oznaczeniem, że długości pochodzące z kroków są szacunkowe. PNG jest jedynym wymaganym formatem udostępniania szkicu w MVP; DXF i inne formaty wyniku pozostają poza tym zakresem. Ustalenie nie zmienia dostępnego eksportu logów diagnostycznych JSONL/CSV.
 
+## Wybrany wariant makiety i uwagi do układu
+
+Użytkownik wybrał pierwszy wariant: **Prowadzenie krok po kroku**. Formularz aktualnego etapu ma pierwszeństwo w układzie, a szkic pozostaje poniżej.
+
+**Uwaga do realizacji:** dolne przyciski nawigacji i zatwierdzania muszą zawsze znajdować się poza przewijaną treścią, przyklejone do dołu ekranu. Przewija się zawartość powyżej stałego paska akcji. Treść nie może być zasłaniana przez pasek; trzeba uwzględnić dolny obszar systemowy oraz klawiaturę ekranową, tak aby działania pozostały dostępne podczas edycji pól.
+
 ## Dalsze projektowanie
 
-Przebieg pomiaru został zaakceptowany. Użytkownik docelowy, ostateczny zakres pierwszej wersji, wstępny model zarabiania i szczegółowy układ ekranów pozostają do opracowania. Ustalenie nie obejmuje DXF, solvera ani migracji SDK.
+Przebieg pomiaru i pierwszy wariant makiety (Prowadzenie krok po kroku) zostały zaakceptowane. Szczegółowy układ należy dopracować zgodnie z uwagą o stałym dolnym pasku akcji. Użytkownik docelowy, ostateczny zakres pierwszej wersji i wstępny model zarabiania pozostają do opracowania. Ustalenie nie obejmuje DXF, solvera ani migracji SDK.
