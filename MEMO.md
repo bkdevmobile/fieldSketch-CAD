@@ -2,6 +2,8 @@
 
 Aktualizacja: 19 października 2026.
 
+Ogólny plan dalszych prac: [plan rozwoju](docs/plan-rozwoju.md). Kolejność: testy technologii → projekt działania aplikacji i UI → pre-release i test zamknięty → dopracowanie modelu zarabiania → release i publikacja. Wstępny model zarabiania rozważamy przed projektowaniem UI, a dopracowujemy po testach zamkniętych. Aktualnie trwa etap testów technologii; kluczowe jest ustalenie, czy dokładność i powtarzalność pomiarów wystarczają do docelowego zastosowania.
+
 ## Aktualny rezultat
 
 Pierwszy działający prototyp Android jest zaimplementowany w `app/`, skompilowany do samodzielnego APK oraz zainstalowany i uruchomiony na fizycznym telefonie użytkownika, model `23124RA7EO`. ADB potwierdził instalację wersji 0.1.0 i uruchomienie MainActivity. Nie przeprowadzono jeszcze walidacji dokładności pomiarowej na tym telefonie.
