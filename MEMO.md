@@ -2,11 +2,11 @@
 
 Aktualizacja: 19 października 2026.
 
-Ogólny plan dalszych prac: [plan rozwoju](docs/plan-rozwoju.md). Kolejność: testy technologii → projekt działania aplikacji i UI → pre-release i test zamknięty → dopracowanie modelu zarabiania → release i publikacja. Wstępny model zarabiania rozważamy przed projektowaniem UI, a dopracowujemy po testach zamkniętych. Aktualnie trwa etap testów technologii; kluczowe jest ustalenie, czy dokładność i powtarzalność pomiarów wystarczają do docelowego zastosowania.
+Ogólny plan dalszych prac: [plan rozwoju](docs/plan-rozwoju.md). Kolejność: testy technologii → projekt działania aplikacji i UI → pre-release i test zamknięty → dopracowanie modelu zarabiania → release i publikacja. Wstępny model zarabiania rozważamy przed projektowaniem UI, a dopracowujemy po testach zamkniętych. Użytkownik potwierdził 19 października 2026, że wykonane testy w trybie „względny” dają akceptowalny poziom dokładności. Pozwala to przejść do projektowania działania aplikacji i UI.
 
 ## Aktualny rezultat
 
-Pierwszy działający prototyp Android jest zaimplementowany w `app/`, skompilowany do samodzielnego APK oraz zainstalowany i uruchomiony na fizycznym telefonie użytkownika, model `23124RA7EO`. ADB potwierdził instalację wersji 0.1.0 i uruchomienie MainActivity. Nie przeprowadzono jeszcze walidacji dokładności pomiarowej na tym telefonie.
+Pierwszy działający prototyp Android jest zaimplementowany w `app/`, skompilowany do samodzielnego APK oraz zainstalowany i uruchomiony na fizycznym telefonie użytkownika, model `23124RA7EO`. ADB potwierdził instalację wersji 0.1.0 i uruchomienie MainActivity. Według potwierdzenia użytkownika wykonane testy w trybie „względny” dają akceptowalny poziom dokładności; nie ustalono liczbowego progu błędu. Ocena ta dotyczy przetestowanego trybu i warunków próby.
 
 APK: `artifacts/FieldSketch-CAD-0.1.0.apk`, 83 506 579 bajtów, około 80 MiB. SHA256: `2BC6549E7945A4EACEE0966B957694FF24E0B62CE18D312467D8896F3A28894D`.
 
@@ -19,6 +19,17 @@ APK zawiera JavaScript, działa offline i nie wymaga Metro. Podpis jest dewelope
 - Użytkownik wpisuje liczbę kroków, także ułamkową z polskim przecinkiem. Roboczy przelicznik: 1 krok = 75 cm. Wynik w cm jest oszacowaniem; geometria liczy w metrach.
 - Logi mają być trwale zapisywane w prywatnej pamięci aplikacji, dostępne po restarcie i możliwe do skopiowania z aplikacji.
 - Dostarczamy samodzielny APK, nie tylko development build.
+- Testy w trybie „względny” dają akceptowalny poziom dokładności — ustalenie użytkownika z 19 października 2026. Nie przenosić tej oceny automatycznie na tryb magnetyczny.
+
+## Zaakceptowany projekt UI — do implementacji
+
+19 października 2026 zaakceptowano [wizard pomiaru](docs/technical/wizard-pomiaru.md). Pierwszy punkt zapisujemy na początku; potem powtarzamy Kierunek → Długość → Zapisz punkt. Ustalono korektę kąta suwakiem ±15° i polem skrętu lewo/prawo 0–180°, automatyczny krokomierz Start/Stop z korektą kroków lub długości, metry/cm, indywidualną długość kroku (początkowo 75 cm), stały szkic na żywo, zapis roboczego etapu i edycję ostatniego boku. Zakończenie rozstrzyga niezapisany bok, a potem zamknięcie lub pozostawienie obrysu otwartego. Bok zamykający jest wyliczony; pomiar powrotny pozostaje osobny. To wymagania następnego interfejsu, a nie funkcje obecnego APK. Automatyczny krokomierz wymaga implementacji i osobnej walidacji.
+
+Ręczne wpisanie długości w m/cm jest niezależną ścieżką w kroku „Zmierz”, dostępną od razu, bez uruchamiania krokomierza. Po wpisaniu długości można zapisać punkt.
+
+Szkic automatycznie dopasowuje widok po ustaleniu kierunku, zmierzeniu lub wpisaniu długości i zatwierdzeniu korekty pomiaru. Dopasowanie obejmuje zapisany obrys oraz element roboczy. Podczas aktywnego liczenia kroków skala pozostaje stabilna; dopasowanie następuje po zatrzymaniu pomiaru.
+
+Udostępnianie szkicu w MVP: wystarczy PNG z wymiarami i oznaczeniem długości szacowanych z kroków. DXF i inne formaty wyniku są poza zakresem tej wersji. Eksport logów JSONL/CSV pozostaje diagnostyką. Eksport PNG jest wymaganiem do implementacji.
 
 ## Dostępne funkcje
 
@@ -82,4 +93,4 @@ Gałąź: `prototype`. Ostatni commit kodu: `029ede4` — `feat: implement offli
 
 W tej sesji Git wymagał jawnego `--git-dir=C:/projects/fieldSketch-CAD/.git --work-tree=C:/projects/fieldSketch-CAD`, ponieważ zwykłe polecenia zgłaszały właściciela repozytorium. Nie zmieniano globalnego safe.directory. Zapis metadanych Git oraz niektóre uruchomienia npm/Androida wymagały eskalacji sandboxa.
 
-Najbliższy krok to test na telefonie użytkownika i analiza skopiowanych logów: poprawność osi celownika, stabilność kierunku, dryf, odtwarzanie odniesienia oraz wpływ kroków na długości i niedomknięcie. Brak danych terenowych nie pozwala deklarować dokładności. Nie rozszerzać samoczynnie zakresu o DXF, solver lub migrację SDK bez nowego zadania.
+Najbliższy krok to dopracowanie projektu UI na podstawie zaakceptowanego wizarda: użytkownik docelowy, ostateczny zakres pierwszej wersji, wstępny model zarabiania i szczegółowy układ ekranów. Przebieg pomiaru i decyzje opisane w wizardzie są już zaakceptowane. Podstawą jest zaakceptowana dokładność trybu względnego; automatyczny krokomierz wymaga osobnej walidacji. Nie rozszerzać samoczynnie zakresu o DXF, solver lub migrację SDK bez nowego zadania.

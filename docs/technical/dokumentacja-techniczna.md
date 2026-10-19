@@ -1,12 +1,16 @@
 # Dokumentacja techniczna FieldSketch CAD
 
-Wersja 0.4. Data: 18 października 2026. Architektura docelowa oraz pierwszy przyrost implementacji.
+Wersja 0.5. Data: 19 października 2026. Architektura docelowa oraz pierwszy przyrost implementacji.
 
 ## Aktualny zakres implementacji
 
 Kod prototypu w `app/` realizuje pomiar i prosty obrys: kamera, trzy tryby kierunku, kroki, projekty SQLite, cofnięcie ostatniego boku, zamknięcie, pole, obwód i trwałe logi z kopiowaniem oraz eksportem JSONL/CSV. [Instrukcja prototypu](prototyp.md) rozróżnia dostępne funkcje i dalszy zakres. DXF, przekątne kontrolne, pełna edycja i solver poniżej pozostają projektem dalszego P1.
 
 Pierwsza implementacja przechowuje migawki projektów, niezmienne obserwacje i operacje w SQLite, a próbki JSONL zapisuje natywnie. Dane surowe i skorygowane nie są jeszcze osobnymi edytowalnymi obrysami; prototyp nie wykonuje dopasowania. Metadane logów są w plikach towarzyszących. Sumy kontrolne i import kopii projektu opisane w architekturze docelowej nie należą do tego przyrostu.
+
+## Zaakceptowany projekt następnego interfejsu
+
+[Wizard pomiaru](wizard-pomiaru.md) opisuje decyzje użytkownika z 19 października 2026: pierwszy punkt, cykl Kierunek → Długość → Zapisz punkt, korekty, automatyczny krokomierz, szkic na żywo, zakończenie i zapis etapu roboczego. W zakresie nowego UI dokument ten zastępuje wcześniejsze propozycje przebiegu poniżej. Jest projektem do implementacji; obecny prototyp nadal korzysta z ręcznego wpisywania kroków. Testy trybu względnego dają według użytkownika akceptowalną dokładność; automatyczny krokomierz wymaga osobnej walidacji.
 
 ## 1 Cel i status decyzji
 
@@ -23,7 +27,7 @@ Aplikacja umożliwi tworzenie pomocniczych obrysów 2D w terenie, korektę geome
 | Logi pomiarowe | Trwały zapis w pamięci wewnętrznej aplikacji, podgląd i kopiowanie treści | Decyzja użytkownika, wymagane od P0 |
 | Języki | TypeScript oraz Kotlin dla sensorów | Propozycja techniczna |
 | Uruchamianie | Expo development build z expo-dev-client | Propozycja dla własnego kodu natywnego |
-| Dokładność | Ustalana po P0 dla konkretnego scenariusza | Decyzja otwarta |
+| Dokładność | Testy trybu względnego dają akceptowalną dokładność; bez liczbowego progu i uogólnienia na inne tryby | Potwierdzenie użytkownika, 19 października 2026 |
 | iOS i web | Brak zobowiązania w pierwszej wersji | Poza zakresem P0 i P1 |
 
 ## 2 Zakres i przyrosty
@@ -108,6 +112,8 @@ Zewnętrzny `app/` jest katalogiem projektu, a `app/src/app/` przyszłym katalog
 Lista projektów umożliwia tworzenie, otwieranie i usuwanie z potwierdzeniem. Ustawienia zawierają nazwę, typ obiektu i tryb kierunku. Jednostka wewnętrzna to metr.
 
 Ekran pomiaru pokazuje celownik, tryb, stabilność i jakość sensora. Użytkownik zamraża kierunek z początku boku, przechodzi odcinek, licząc kroki, wpisuje ich liczbę, sprawdza przeliczenie na centymetry i podgląd, a następnie zatwierdza obserwację. Kierunek pozostaje przypisany do punktu początkowego; anulowanie nie tworzy częściowego odcinka. Liczba kroków jest podawana ręcznie, bez automatycznego krokomierza.
+
+Powyższy akapit opisuje obecny prototyp. Docelowy przebieg i korekty określa [wizard pomiaru](wizard-pomiaru.md).
 
 ### Długość w krokach w prototypie
 

@@ -1,4 +1,4 @@
-﻿# Prototyp FieldSketch CAD
+# Prototyp FieldSketch CAD
 
 Wersja aplikacji 0.1.0. Pierwszy przyrost łączy walidację kierunku P0 z prostym obrysem. Nie realizuje całego P1 z dokumentacji koncepcyjnej.
 
@@ -62,6 +62,6 @@ Dokładność i obsługa konkretnych telefonów nie są potwierdzone kompilacją
 - Zachowanie punktów po wymuszonym zamknięciu procesu, odtworzenie przerwanej sesji oraz zachowanie projektu po aktualizacji APK.
 - Praca w trybie samolotowym: ręczne kąty, kolejne boki, niezależny pomiar zamknięcia, pole, obwód i widok obrysu.
 - Duży log około 1,54 MiB otwarty w 13 częściach, przełączanie części, kopiowanie do schowka z potwierdzeniem oraz utworzenie pełnego CSV i systemowy ekran udostępniania. Żaden plik nie został wysłany do innej osoby lub usługi.
-- Expo Doctor: 21 z 22 sprawdzeń; pozostało opisane wyżej ostrzeżenie Hermes. Brak walidacji dokładności na fizycznym telefonie.
+- Expo Doctor: 21 z 22 sprawdzeń; pozostało opisane wyżej ostrzeżenie Hermes. 19 października 2026 użytkownik potwierdził akceptowalny poziom dokładności wykonanych testów w trybie „względny”. Nie określono liczbowego progu błędu; ocena dotyczy przetestowanego trybu i warunków próby.
 
 Plik instalacyjny ma rozmiar około 80 MiB. Jest przeznaczony do testów prototypu. Zrzuty ekranów i raporty kompilacji w `artifacts/` są materiałami kontroli lokalnej; nie są wymagane do instalacji.
