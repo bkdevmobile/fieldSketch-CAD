@@ -16,7 +16,7 @@ export function StepControls({ value, onChange, onEndEditing, walking, busy, can
   const control = (label: string, accessibilityLabel: string, disabled: boolean, onPress: () => void, Icon: LucideIcon, primary = false) =>
     <Pressable accessibilityRole="button" accessibilityLabel={accessibilityLabel} accessibilityState={{ disabled }}
       disabled={disabled} onPress={onPress} style={({ pressed }) => ({
-        minHeight: 52, width: primary ? 76 : 44, justifyContent: 'center', alignItems: 'center',
+        minHeight: 52, width: primary ? 76 : 52, justifyContent: 'center', alignItems: 'center',
         paddingHorizontal: 4, paddingVertical: 10, borderRadius: 12, flexDirection: 'row', gap: 4,
         backgroundColor: primary ? colors.green : colors.mint, opacity: disabled ? 0.45 : pressed ? 0.75 : 1,
       })}>

@@ -13,7 +13,7 @@ export default function Layout() {
     <Startup><Stack screenOptions={{ headerStyle: { backgroundColor: colors.bg }, headerTintColor: colors.ink, headerTitleStyle: { fontSize: 16, fontWeight: '600' }, headerShadowVisible: false,
       headerRight: () => <BrandMark size={25} /> }}>
       <Stack.Screen name="index" options={{ title: 'outlineGo' }} />
-      <Stack.Screen name="new-project" options={{ title: 'Nowy projekt' }} />
+      <Stack.Screen name="new-project" options={{ title: 'Nowy szkic' }} />
       <Stack.Screen name="project" options={{ title: 'Pomiar terenowy' }} />
       <Stack.Screen name="outline" options={{ title: 'Obrys 2D' }} />
       <Stack.Screen name="logs" options={{ title: 'Logi pomiarowe' }} />

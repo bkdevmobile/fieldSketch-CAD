@@ -1,6 +1,20 @@
 # outlineGo — checklista próby terenowej
 
-Przygotowana 20 października 2026 dla wersji 0.1.0, commit aplikacji `3d28bd5`. APK: `artifacts/outlineGo-0.1.0.apk`, SHA256 `F09DBCDC643CDC79944430B6879DCABF45ED182817C9376DED3DC5C3128D6F92`. Instalacja i uruchomienie na telefonie są potwierdzone; poniższe próby pozostają do wykonania. Dokładność dotychczasowych testów trybu względnego została zaakceptowana.
+Przygotowana 20 października 2026 dla wersji 0.1.0, commit aplikacji `3d28bd5`. Testowany APK: SHA256 `F09DBCDC643CDC79944430B6879DCABF45ED182817C9376DED3DC5C3128D6F92`. Ścieżka `artifacts/outlineGo-0.1.0.apk` jest nadpisywana kolejnymi buildami; aktualny hash podaje MEMO. Dokładność dotychczasowych testów trybu względnego została zaakceptowana.
+
+## Wynik zgłoszony przez użytkownika — 20 października 2026
+
+Użytkownik potwierdził „checklista ok” i przekazał poniższe uwagi. Nie dostarczono wyników liczbowych serii K1–K8 ani plików logów; puste pola zachowano bez dopisywania wyników.
+
+- Wznowienie prostokąta ABCD zgodnie z ruchem wskazówek zegara po zapisie C: odniesienie mierzone z B w stronę C dawało przesunięcie o 90° w lewo. Domyślnie aplikacja oczekiwała P1→P2; poprawka wybiera ostatni zapisany bok i podaje oba punkty w instrukcji.
+- Krokomierz jest oceniony jako poprawny. Dodatkowe kroki użytkownik wiąże z poruszaniem telefonem; nie ma podstaw do automatycznego odejmowania kroków ani zmiany algorytmu w tej iteracji.
+- Pierwszy wektor wykracza poza miniaturę; potrzebne dopasowanie po pojawieniu się podglądu.
+- Powiększony szkic wymaga przesuwania i zmiany skali gestem.
+- Zmierzenie całego obwodu z powrotem do P1, a potem „Zamknij obrys” daje fałszywe samoprzecięcie.
+- Krótkie przyciski powinny mieć co najmniej kwadratowy rozmiar. Odrzucony odczyt przy ruchu/pionowym celowaniu powinien pokazywać instrukcję zamiast komunikatu `captureDirection has been rejected`.
+- W interfejsie używamy nazwy „szkic” zamiast „projekt”.
+
+Po instalacji poprawek powtórz przede wszystkim 2.5, 3.1–3.3 i 3.5–3.6 oraz sprawdź pełny powrót do P1, wygląd krótkich przycisków i odrzucony odczyt kierunku. Wznowienie: dla A=P1, B=P2, C=P3 domyślna instrukcja ma wskazać P2→P3; po kalibracji na BC i przejściu do C kierunek CD powinien dać skręt 90° w prawo.
 
 Zaznacz pole po zaliczeniu. Dla niepowodzenia wpisz numer próby i opis w tabeli problemów. Próba pominięta pozostaje niezaznaczona z dopiskiem „pominięto” i powodem.
 
@@ -80,6 +94,6 @@ Ta próba sprawdza liczenie zdarzeń. Zgodność przebytej odległości z taśm�
 
 Ocena testera: …
 
-Proponowane warunki przejścia do testu zamkniętego: pełny pomiar offline, zapis/wznowienie i PNG przechodzą bez utraty danych; interfejs pozwala ukończyć pomiar; nadliczanie kroków ma udokumentowane wyniki i osobną decyzję o poprawce albo czasowym dopuszczeniu ręcznej korekty. Samo wykonanie checklisty nie oznacza naprawienia krokomierza. Nie ustalamy tutaj nowego progu dokładności sensorów.
+Proponowane warunki przejścia do testu zamkniętego: pełny pomiar offline, zapis/wznowienie i PNG przechodzą bez utraty danych; interfejs pozwala ukończyć pomiar; poprawki zgłoszonych problemów przechodzą ponowną próbę na telefonie. Krokomierz został zaakceptowany przez użytkownika z ręczną korektą ruchów telefonu. Nie ustalamy tutaj nowego progu dokładności sensorów.
 
 Opis działania: [instrukcja MVP](prototyp.md). Aktualny build i granice potwierdzenia: [MEMO](../../MEMO.md).

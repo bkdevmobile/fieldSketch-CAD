@@ -59,7 +59,7 @@ export default function Logs() {
     } finally { handle.close(); }
     await Sharing.shareAsync(file.uri, { mimeType: 'text/csv', dialogTitle: 'Eksport loga CSV' });
   });
-  const remove = (log: LogSession) => Alert.alert('Usunąć log?', 'Geometria projektu pozostanie bez zmian.', [
+  const remove = (log: LogSession) => Alert.alert('Usunąć log?', 'Geometria szkicu pozostanie bez zmian.', [
     { text: 'Anuluj', style: 'cancel' }, { text: 'Usuń', style: 'destructive', onPress: () => store.run(async () => {
       await orientation().deleteLog(log.id); setSnapshot(null); setText(''); await refresh();
     }) },
@@ -78,7 +78,7 @@ export default function Logs() {
       <View style={[s.row, { justifyContent: 'space-between' }]}><Text style={s.muted}>{statusName[log.status] ?? log.status}</Text><Text style={s.muted}>{fmt(log.bytes / 1024)} KiB</Text></View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}><View style={{ flex: 1 }}><Button label="Otwórz migawkę" icon={FileText} secondary onPress={() => open(log)} disabled={store.busy} /></View>
         <Pressable accessibilityRole="button" accessibilityLabel="Usuń sesję logów" disabled={store.busy || log.status === 'running'} accessibilityState={{ disabled: store.busy || log.status === 'running' }} onPress={() => remove(log)}
-          style={{ minWidth: 44, minHeight: 48, justifyContent: 'center', alignItems: 'center', opacity: store.busy || log.status === 'running' ? 0.4 : 1 }}><Trash2 size={20} color={colors.muted} /></Pressable></View>
+          style={{ minWidth: 48, minHeight: 48, justifyContent: 'center', alignItems: 'center', opacity: store.busy || log.status === 'running' ? 0.4 : 1 }}><Trash2 size={20} color={colors.muted} /></Pressable></View>
     </View>)}</>}
     {snapshot && <>
       <Button label="Wróć do listy sesji" icon={ArrowLeft} quiet align="start" onPress={() => { setSnapshot(null); setText(''); }} />

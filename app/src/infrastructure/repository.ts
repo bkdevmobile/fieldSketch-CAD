@@ -44,7 +44,7 @@ export class ProjectRepository {
   private decode(body: string): Project {
     const p: Project = JSON.parse(body);
     if (p.schemaVersion !== 1 || !Array.isArray(p.points) || !p.points.length || !Array.isArray(p.observations))
-      throw new Error('Nieobsługiwana lub uszkodzona wersja projektu. Dane pozostawiono bez zmian.');
+      throw new Error('Nieobsługiwana lub uszkodzona wersja szkicu. Dane pozostawiono bez zmian.');
     return p;
   }
   async load(id: string): Promise<Project | null> {

@@ -17,7 +17,7 @@ export default function Settings() {
   useEffect(() => {
     if (store.repo) { setUnit(store.settings.unit); setStepLength(String(store.settings.stepLengthCm).replace('.', ',')); setAngleSnap(store.settings.angleSnap); setDirectionMode(store.settings.directionMode); }
   }, [store.repo]);
-  return <Page title="Ustawienia" subtitle="Dla wszystkich projektów" footer={
+  return <Page title="Ustawienia" subtitle="Dla wszystkich szkiców" footer={
     <Button label="Zapisz ustawienia" icon={Check} disabled={store.busy || !store.repo} onPress={() => store.run(async () => {
       await store.updateSettings({ unit, stepLengthCm: parsePositive(stepLength), angleSnap, directionMode }); router.back();
     })} />}>
@@ -36,7 +36,7 @@ export default function Settings() {
       <Segments<SurveyMode> label="Tryb kierunku" value={directionMode} onChange={setDirectionMode}
         options={([['relative', 'Względny'], ['manual', 'Ręczny'], ['magnetic', 'Magnetyczny']] as const).map(([value, label]) => ({ value, label,
           disabled: value !== 'manual' && !store.capabilities?.[value] }))} />
-      <Text style={s.muted}>Wspólny dla wszystkich projektów. Zmiana zatrzyma bieżącą sesję i wymaga ponownego przechwycenia kierunku. Zapisane pomiary zachowują swój tryb i wynik. Przy niedostępnym czujniku użyjemy trybu ręcznego.</Text>
+      <Text style={s.muted}>Wspólny dla wszystkich szkiców. Zmiana zatrzyma bieżącą sesję i wymaga ponownego przechwycenia kierunku. Zapisane pomiary zachowują swój tryb i wynik. Przy niedostępnym czujniku użyjemy trybu ręcznego.</Text>
     </View>
     <Button label="Diagnostyka" icon={Activity} quiet onPress={() => router.push('/diagnostics')} />
   </Page>;

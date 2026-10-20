@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { ArrowLeft, Check, Image, Maximize2, Pencil, Route } from 'lucide-react-native';
@@ -7,18 +7,18 @@ import { Button, Page, s, fmt, colors } from '../components/ui';
 import { Badge, Disclosure } from '../components/presentation';
 import { Dialog } from '../components/overlays';
 import { useStore } from '../infrastructure/store';
-import { lastSide, metrics } from '../domain/geometry';
+import { lastSide, metrics, outlinePoints } from '../domain/geometry';
 export default function Outline() {
   const { id } = useLocalSearchParams<{ id: string }>(); const { projects, settings } = useStore();
   const [expanded, setExpanded] = useState(false);
   const project = projects.find(p => p.id === id);
-  if (!project) return <Page title="Obrys"><Text>Projekt niedostępny.</Text></Page>;
+  if (!project) return <Page title="Obrys"><Text>Szkic niedostępny.</Text></Page>;
   const m = metrics(project), unit = settings.unit, factor = unit === 'cm' ? 100 : 1;
   const estimated = project.observations.some(o => project.activeObservationIds.includes(o.id) && o.lengthSource !== 'manual');
   return <Page title="Podsumowanie" subtitle={project.name} footer={
     <><Button label="Eksportuj PNG" icon={Image} disabled={project.points.length < 2}
       onPress={() => router.push({ pathname: '/export', params: { id } })} />
-    <Button label={project.closed ? 'Wróć do projektu' : 'Kontynuuj pomiar'} icon={ArrowLeft} secondary
+    <Button label={project.closed ? 'Wróć do szkicu' : 'Kontynuuj pomiar'} icon={ArrowLeft} secondary
       onPress={() => router.replace({ pathname: '/project', params: { id } })} /></>
   }>
     <View style={s.card}><OutlineCanvas project={project} unit={unit} compact />
@@ -30,7 +30,7 @@ export default function Outline() {
       {m.intersects && <Text style={s.warningText}>Samoprzecięcie obrysu. Pole nie jest prezentowane.</Text>}
       <View style={{ borderTopWidth: 1, borderColor: colors.line, paddingTop: 12, gap: 6 }}>
         <Text style={s.muted}>{m.closure ? `Błąd zamknięcia: ${fmt(m.closure.norm * factor, 2)} ${unit}\nΔX ${fmt(m.closure.dx * factor, 2)} ${unit} · ΔY ${fmt(m.closure.dy * factor, 2)} ${unit}` : 'Brak niezależnego pomiaru zamknięcia.'}</Text>
-        {project.closed && !project.closureObservationId && <Text style={s.muted}>Bok zamykający do P1 jest wyliczony.</Text>}
+        {project.closed && !project.closureObservationId && <Text style={s.muted}>{outlinePoints(project.points, true).length < project.points.length ? 'Ostatni zmierzony bok wraca do P1.' : 'Bok zamykający do P1 jest wyliczony.'}</Text>}
       </View>
     </View>
     {!!lastSide(project) && !project.closureObservationId && <Button label="Popraw ostatni bok" icon={Pencil} secondary

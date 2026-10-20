@@ -1,5 +1,7 @@
 # Aplikacja outlineGo
 
+Aktualizacja po próbie terenowej 20 października 2026: domyślne odniesienie na ostatnim zapisanym boku z instrukcją punktów, dopasowanie pierwszego wektora, pan w obu osiach i pinch w szkicu, poprawne zamknięcie obwodu wracającego do P1, szersze przyciski, komunikaty odczytu bez technicznego błędu Expo i nazewnictwo „szkic”. TypeScript i 56 testów TS przeszły. Użytkownik zaakceptował krokomierz; dodatkowe zliczenia wiąże z ruchem telefonu. Wynik i zakres ponownej próby: [checklista](../docs/technical/checklista-proby-terenowej.md). Stan APK i instalacji: [MEMO](../MEMO.md).
+
 Prototyp Android w **React Native 0.85.3 + Expo SDK 56 + TypeScript**, z lokalnym modułem Kotlin. Wersje są przypięte w `package-lock.json`.
 
 ## Uruchomienie
@@ -35,7 +37,7 @@ Dotychczasowy pakiet Android, slug, schemat linków, baza i pliki logów zachowu
 - Projekty SQLite i automatyczny zapis zatwierdzonych boków.
 - Tylna kamera i celownik; kierunek magnetyczny, względny lub ręczny.
 - Wizard: pierwszy punkt → kierunek → korekta kąta → długość → zapis punktu. Nowe projekty domyślnie używają trybu względnego, jeśli jest dostępny.
-- Długość wpisywana bezpośrednio w m/cm albo liczba kroków (także ułamkowa; domyślnie 1 krok = 75 cm, przelicznik w ustawieniach). Krokomierz Start/Stop korzysta z natywnego detektora kroków, jeśli telefon go udostępnia. Użytkownik zgłosił częste nadliczanie 1–2 kroków; przyczyna pozostaje do diagnozy.
+- Długość wpisywana bezpośrednio w m/cm albo liczba kroków (także ułamkowa; domyślnie 1 krok = 75 cm, przelicznik w ustawieniach). Krokomierz Start/Stop korzysta z natywnego detektora kroków, jeśli telefon go udostępnia. Po próbie użytkownik potwierdził poprawne liczenie; dodatkowe zliczenia wiąże z ruchami telefonu. Ręczna korekta pozostaje dostępna.
 - Zatrzymany kierunek, korekta skrętu lewo/prawo 0–180° oraz suwak ±15° odczytu sensorowego. Pierwszy bok wyznacza 0°.
 - Suwak ma skok 5° i zaokrągla wynikowy kąt do pełnych 5°, również przy niepełnym odczycie czujnika. Pole liczbowe zachowuje możliwość dokładniejszego wpisu.
 - Układ korekty kąta: `[L] [pole kąta] [P]`, poniżej suwak; wybrany kierunek zaznaczony na zielono. Ten sam rząd pola i przycisków w edycji ostatniego boku.

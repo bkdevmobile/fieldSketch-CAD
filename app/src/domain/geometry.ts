@@ -101,7 +101,13 @@ function intersect(a: Point, b: Point, c: Point, d: Point) {
   const u = cross(a, b, c), v = cross(a, b, d), w = cross(c, d, a), z = cross(c, d, b);
   return (u * v < 0 && w * z < 0) || onSegment(a, b, c) || onSegment(a, b, d) || onSegment(c, d, a) || onSegment(c, d, b);
 }
-export function selfIntersects(points: Point[], closed: boolean): boolean {
+// A measured return to the start is a valid polygon endpoint, not another edge.
+// Only collapse numerical coincidence; never snap a real closure error silently.
+export function outlinePoints(points: Point[], closed: boolean): Point[] {
+  return closed && points.length > 3 && distance(points[0]!, points.at(-1)!) <= 1e-7 ? points.slice(0, -1) : points;
+}
+export function selfIntersects(input: Point[], closed: boolean): boolean {
+  const points = outlinePoints(input, closed);
   const edges = closed ? points.length : points.length - 1;
   for (let i = 0; i < edges; i++) for (let j = i + 1; j < edges; j++) {
     if (j === i + 1 || (closed && i === 0 && j === edges - 1)) continue;
@@ -110,7 +116,7 @@ export function selfIntersects(points: Point[], closed: boolean): boolean {
   return false;
 }
 export function metrics(project: Project) {
-  const p = project.points; let perimeter = 0, signed = 0;
+  const p = outlinePoints(project.points, project.closed); let perimeter = 0, signed = 0;
   for (let i = 0; i < p.length - (project.closed ? 0 : 1); i++) {
     const a = p[i]!, b = p[(i + 1) % p.length]!;
     perimeter += distance(a, b); signed += a.x * b.y - b.x * a.y;

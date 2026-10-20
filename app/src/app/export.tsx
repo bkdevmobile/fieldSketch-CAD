@@ -16,7 +16,7 @@ export default function Export() {
   const image = useRef<Svg>(null);
   const [snapshot, setSnapshot] = useState(() => store.projects.find(p => p.id === id));
   useEffect(() => { if (!snapshot || snapshot.id !== id) setSnapshot(store.projects.find(p => p.id === id)); }, [store.projects, id]);
-  if (!snapshot || snapshot.id !== id) return <Page title="Eksport PNG"><Text style={s.text}>Projekt niedostępny.</Text></Page>;
+  if (!snapshot || snapshot.id !== id) return <Page title="Eksport PNG"><Text style={s.text}>Szkic niedostępny.</Text></Page>;
   const drawing = sketchExport(snapshot);
   const share = () => store.run(async () => {
     if (!image.current) throw new Error('Poczekaj na przygotowanie podglądu.');

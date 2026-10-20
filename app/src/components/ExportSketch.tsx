@@ -14,10 +14,10 @@ export const ExportSketch = forwardRef<Svg, { project: Project; displayWidth: nu
     <Text x="122" y="62" fontSize="30" fill="#183A2C" fontWeight="bold">outlineGo</Text>
     <Text x="64" y="119" fontSize="34" fill="#142B28" fontWeight="bold">{project.name.slice(0, 42)}</Text>
     {project.name.length > 42 && <Text x="64" y="155" fontSize="28" fill="#142B28">{project.name.slice(42, 92)}{project.name.length > 92 ? '…' : ''}</Text>}
-    <Text x="64" y="195" fontSize="22" fill="#52665C">{project.closed ? 'Obrys zamknięty' : 'Obrys otwarty'} · {project.points.length} punktów · wymiary w metrach</Text>
+    <Text x="64" y="195" fontSize="22" fill="#52665C">{project.closed ? 'Obrys zamknięty' : 'Obrys otwarty'} · {drawing.points.length} punktów · wymiary w metrach</Text>
     <Polyline points={drawing.points.map(p => `${p.x},${p.y}`).join(' ')} fill={project.closed ? '#EDF4EF' : 'none'} stroke="#235B43" strokeWidth="4" />
     {project.closed && <Line x1={drawing.points.at(-1)!.x} y1={drawing.points.at(-1)!.y}
-      x2={drawing.points[0]!.x} y2={drawing.points[0]!.y} stroke="#235B43" strokeWidth="4" strokeDasharray={project.closureObservationId ? undefined : '8 7'} />}
+      x2={drawing.points[0]!.x} y2={drawing.points[0]!.y} stroke="#235B43" strokeWidth="4" strokeDasharray={project.closureObservationId || drawing.measuredReturn ? undefined : '8 7'} />}
     {drawing.points.map(p => <G key={p.id}><Circle cx={p.x} cy={p.y} r="7" fill="#235B43" />
       <Text x={p.x + 13} y={p.y - 13} fontSize="24" fontWeight="bold" fill="#142B28">{p.label}</Text></G>)}
     <Line x1="64" x2="1016" y1="735" y2="735" stroke="#D9E2D9" />
@@ -31,7 +31,7 @@ export const ExportSketch = forwardRef<Svg, { project: Project; displayWidth: nu
         <Text x={x + 290} y={y} fontSize="19" fill="#52665C">{edge.source}</Text></G>;
     })}
     <Text x="64" y={drawing.height - 136} fontSize="22" fill="#52665C">{drawing.estimated ? 'Długości pochodzące z kroków są szacunkowe.' : 'Długości boków wpisane ręcznie.'}</Text>
-    <Text x="64" y={drawing.height - 97} fontSize="22" fill="#52665C">{drawing.metrics.intersects ? 'Samoprzecięcie obrysu — pole niedostępne.' : project.closed && !project.closureObservationId ? 'Przerywany bok zamykający jest wyliczony.' : 'Szkic pomocniczy.'}</Text>
+    <Text x="64" y={drawing.height - 97} fontSize="22" fill="#52665C">{drawing.metrics.intersects ? 'Samoprzecięcie obrysu — pole niedostępne.' : project.closed && !project.closureObservationId && !drawing.measuredReturn ? 'Przerywany bok zamykający jest wyliczony.' : 'Szkic pomocniczy.'}</Text>
     <Text x="64" y={drawing.height - 58} fontSize="20" fill="#52665C">{drawing.metrics.closure ? `Błąd zamknięcia: ${fmt(drawing.metrics.closure.norm, 3)} m` : 'Brak niezależnego pomiaru zamknięcia.'}</Text>
   </Svg>;
 });

@@ -48,3 +48,23 @@ test('otwarty lub samoprzecinający obrys nie ma prezentowanego pola', () => {
   p.closed = true;
   expect(metrics(p).intersects).toBe(true); expect(metrics(p).area).toBeNull();
 });
+
+test('pełny powrót do P1 i dodatkowe zamknięcie nie tworzą fałszywego przecięcia', () => {
+  const open = commitSide(square(), 4, -Math.PI / 2, 'manual', 'test', null);
+  const source = JSON.stringify(open);
+  const closed = closeOutline(open);
+  expect(metrics(closed)).toMatchObject({ intersects: false, closure: null });
+  expect(metrics(closed).area).toBeCloseTo(9);
+  expect(metrics(closed).perimeter).toBeCloseTo(12);
+  expect(closed.points).toEqual(open.points);
+  expect(JSON.stringify(open)).toBe(source);
+  expect(undoLast(closed).points).toEqual(open.points);
+});
+
+test('powrót do P1 nie maskuje rzeczywistego przecięcia ani bliskiego końca poza P1', () => {
+  const p = newProject('Kokarda z powrotem', 'manual');
+  p.points = [{ id: 'a', x: 0, y: 0 }, { id: 'b', x: 2, y: 2 }, { id: 'c', x: 0, y: 2 }, { id: 'd', x: 2, y: 0 }, { id: 'e', x: 0, y: 0 }];
+  expect(metrics(closeOutline(p)).intersects).toBe(true);
+  const almost = commitSide(square(), 3.99, -Math.PI / 2, 'manual', 'test', null);
+  expect(closeOutline(almost).points).toEqual(almost.points);
+});

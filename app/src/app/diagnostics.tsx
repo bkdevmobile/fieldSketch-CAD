@@ -16,7 +16,7 @@ export default function Diagnostics() {
   const active = !!project && store.sessionProject === project.id && !!store.sessionId;
   const live = active && store.live?.sessionId === store.sessionId ? store.live : null;
   const [notes, setNotes] = useState(''), [reference, setReference] = useState('');
-  return <Page title="Diagnostyka" subtitle={project?.name ?? 'Wybierz projekt lub otwórz logi'} compactHeader>
+  return <Page title="Diagnostyka" subtitle={project?.name ?? 'Wybierz szkic lub otwórz logi'} compactHeader>
     {project ? <>
       <View style={s.card}><SectionTitle title="Sesja i czujniki" icon={Activity} />
         <Badge label={active ? 'Sesja aktywna' : 'Brak aktywnej sesji'} icon={active ? Check : Square} />
@@ -34,7 +34,7 @@ export default function Diagnostics() {
         })} />
         {!active && <Text style={s.muted}>Aby dopisać kontekst, rozpocznij pomiar w tym projekcie.</Text>}
       </View>
-      <Button label="Logi tego projektu" icon={FileText} secondary onPress={() => router.push({ pathname: '/logs', params: { projectId: project.id } })} />
+      <Button label="Logi tego szkicu" icon={FileText} secondary onPress={() => router.push({ pathname: '/logs', params: { projectId: project.id } })} />
     </> : store.projects.map(p => <Button key={p.id} label={p.name} secondary onPress={() => router.push({ pathname: '/diagnostics', params: { id: p.id } })} />)}
     <Button label="Wszystkie logi" icon={FileText} quiet onPress={() => router.push('/logs')} />
   </Page>;

@@ -87,7 +87,7 @@ export const s = StyleSheet.create({
   segment: { flexDirection: 'row', padding: 4, gap: 4, backgroundColor: colors.mint, borderRadius: 16 },
   h2: { fontSize: 18, fontWeight: '600', color: colors.ink }, text: { fontSize: 15, lineHeight: 22, color: colors.ink },
   muted: { fontSize: 13, lineHeight: 19, color: colors.muted }, row: { flexDirection: 'row', gap: 10, flexWrap: 'wrap', alignItems: 'center' },
-  button: { minHeight: 52, backgroundColor: colors.green, borderRadius: 14, flexDirection: 'row', gap: 8, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 14, paddingVertical: 13 },
+  button: { minHeight: 52, minWidth: 52, backgroundColor: colors.green, borderRadius: 14, flexDirection: 'row', gap: 8, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 14, paddingVertical: 13 },
   secondary: { backgroundColor: colors.mint }, quiet: { backgroundColor: 'transparent', minHeight: 44, paddingVertical: 8 }, compactButton: { minHeight: 44, paddingHorizontal: 10, paddingVertical: 10 },
   buttonText: { color: colors.onGreen, fontSize: 15, fontWeight: '600', textAlign: 'center', flexShrink: 1 },
   label: { color: colors.muted, fontSize: 13, fontWeight: '600' },

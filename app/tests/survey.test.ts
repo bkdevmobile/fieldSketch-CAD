@@ -1,6 +1,27 @@
 import { closeOutline, commitMeasurement, editLastSide, measurementLength, metrics } from '../src/domain/geometry';
 import { newProject } from '../src/domain/model';
-import { convertLengthInput, headingFromTurn, previousHeading, snapTurn, turnFromHeading } from '../src/domain/survey';
+import { convertLengthInput, defaultReferenceIndex, headingFromTurn, previousHeading, referenceOffset, snapTurn, turnFromHeading } from '../src/domain/survey';
+import { normalize } from '../src/domain/geometry';
+
+test('wznowienie w C domyślnie odnosi się do BC i zachowuje prawy skręt do CD', () => {
+  let p = newProject('ABCD', 'relative');
+  p = commitMeasurement(p, { source: 'manual', value: 3, unit: 'm' }, 0, 'relative', 's1', null);
+  p = commitMeasurement(p, { source: 'manual', value: 2, unit: 'm' }, -Math.PI / 2, 'relative', 's1', null);
+  const index = defaultReferenceIndex(p);
+  expect(index).toBe(1);
+  // A fresh relative sensor frame can have any zero. Turn right from BC to CD.
+  for (const headingBC of [-2.8, 0, 1.3, 3]) {
+    const offset = referenceOffset(p, index, headingBC);
+    const headingCD = normalize(headingBC + Math.PI / 2);
+    const thetaCD = normalize(Math.PI / 2 - headingCD + offset);
+    expect(turnFromHeading(previousHeading(p), thetaCD)).toEqual({ turn: '90', turnSide: 'right' });
+    const next = commitMeasurement(p, { source: 'manual', value: 3, unit: 'm' }, thetaCD, 'relative', 's2', null);
+    expect(next.points.at(-1)!.x).toBeCloseTo(0);
+    expect(next.points.at(-1)!.y).toBeCloseTo(-2);
+  }
+  // An explicitly selected AB still works when the operator aims A -> B.
+  expect(referenceOffset(p, 0, Math.PI / 2)).toBeCloseTo(0);
+});
 
 test('ręczna długość daje tę samą geometrię w m i cm bez fikcyjnych kroków', () => {
   const start = newProject('Długość ręczna', 'relative');

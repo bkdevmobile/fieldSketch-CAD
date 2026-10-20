@@ -1,5 +1,20 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
+## Próba użytkownika i poprawki — 20 października 2026
+
+Użytkownik potwierdził „checklista ok”. Krokomierz uznał za poprawny: dodatkowe zliczenia wynikają z ruchów telefonu. Nie zmieniamy detektora ani nie odejmujemy stałej liczby kroków. Wynik i zgłoszone problemy zapisano w [checkliście](docs/technical/checklista-proby-terenowej.md); nie otrzymano tabeli serii ani plików logów.
+
+Commit poprawek po próbie obejmuje:
+
+- Wznowienie domyślnie używa ostatniego zapisanego boku jako odniesienia. Dla ABC po przerwaniu w C: B→C, z instrukcją konkretnych numerów punktów. Wcześniej domyślne A→B przy faktycznym celowaniu B→C powodowało przesunięcie o 90°. Zachowano możliwość świadomego wyboru innego boku.
+- Dopasowanie szkicu po pojawieniu się pierwszego roboczego wektora; przesuwanie palcem w obu osiach i zoom dwoma palcami wokół ich środka. Przyciski ± i Dopasuj pozostają dostępne.
+- Powrót ostatnim zmierzonym bokiem do P1 nie tworzy fałszywego samoprzecięcia po „Zamknij obrys”. Geometria do obliczeń i rysowania pomija powtórzony końcowy wierzchołek, a historia i zapisane punkty pozostają nietknięte. Tolerancja wyłącznie numeryczna 0,0000001 m; rzeczywiste niedomknięcie nie jest automatycznie dociągane. PNG nie dodaje zerowego boku i rozpoznaje zmierzony powrót.
+- Wspólne przyciski mają min. szerokość 52, a −/+ krokomierza 52 × min. 52. Przyciski menu/zamknięcia miały już minimum 44 × 44, L/P — 52 × 52.
+- Odrzucony odczyt kierunku pokazuje polską instrukcję ponownego celowania bez technicznego opakowania Expo; surowy błąd trafia do loga. Ostrzeżenie o słabym odczycie również ma opis użytkowy.
+- Nazwy widoczne w aplikacji zmieniono z „projekt” na „szkic”; identyfikatory, ścieżki i baza pozostają zgodne z dotychczasowymi danymi.
+
+TypeScript i 56 testów TS (7 zestawów) przeszły. Testy obejmują wznowienie ABC→D w różnych układach sensora, pełny powrót do P1 i rzeczywiste przecięcia, PNG, przesuwanie/pinch oraz dopasowanie pierwszego wektora. Końcowy pełny build: `field-feedback-build-final.log`, `BUILD SUCCESSFUL in 1m 8s`, 847 zadań (36 wykonanych, 811 aktualnych); testy Kotlin `UP-TO-DATE`. APK zainstalowano przez `install -r` i uruchomiono na emulatorze z zachowaniem 6 szkiców. Potwierdzono nazewnictwo, kwadratowe menu, przesuwanie w obu osiach, zoom przyciskiem, dopasowanie i powrót z dialogu. Obejrzano zrzuty `artifacts/field-feedback-sketch-before.png`, `field-feedback-sketch-pan.png`, `field-feedback-sketch-zoom.png`; końcową listę potwierdza dump UI i `field-feedback-home-final.png`. Logcat bez wpisów AndroidRuntime:E/ReactNativeJS:E. Gest dwoma palcami potwierdzają testy obliczeń; próba dotykowa pinch i odniesienie na fizycznym sensorze pozostają do wykonania. Nowych poprawek nie instalowano na telefonie. Poprzedni commit repozytorium: `b2a496f` (checklista); bieżące poprawki, testy i dokumentację zapisano w kolejnym commicie po próbie terenowej.
+
 Decyzja marki — 20 października 2026: użytkownik przyjął nazwę **outlineGo** (dokładna pisownia: małe „outline”, wielkie „G”, małe „o”) i wybrał **pierwszy, pierwotny wariant logo: otwarty obrys z trzema pierścieniami w narożnikach i jednym pełnym punktem końcowym**. Nie wybrano monogramu ani późniejszej korekty w kształcie G. Przegląd wykazał podobne motywy w ikonach innych aplikacji pomiarowych; użytkownik mimo to potwierdził wariant pierwszy. Nie przeprowadzono pełnego badania znaków towarowych i nie rejestrowano domen. Plansze i prompty: `artifacts/branding/outlinego/` (lokalne artefakty).
 
 W kodzie wdrożono nazwę i logo outlineGo: nagłówek główny, mały znak w pozostałych nagłówkach, nagłówek pomiaru, nowy projekt i eksport PNG. Wektorowa geometria `app/assets/brand/mark.json` zasila komponent `Brand.tsx` oraz generator SVG/PNG `npm run assets:brand`. Ikona ma wersję tradycyjną, adaptacyjną i monochromatyczną, splash — ciepłe tło i zielony znak. `expo-splash-screen` 56.0.15 obsługuje start natywny; widok z logo i nazwą pozostaje podczas inicjalizacji danych, bez sztucznego opóźnienia. Nazwa pliku APK i nowo eksportowanych PNG/CSV używa outlineGo. Zachowano pakiet `pl.fieldsketch.cad.prototype`, schemat linków `fieldsketch`, slug i bazę `fieldsketch.db`, aby zachować ciągłość aktualizacji oraz dane. Zmiany marki zapisano w commicie wdrażającym branding outlineGo.
@@ -8,16 +23,16 @@ Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; kod Teren zapisano
 
 ## Aktualny rezultat
 
-Działające MVP Android 0.1.0 jest w `app/`. Obejmuje pomiar i prosty obrys offline, bez kont i backendu, eksport PNG oraz trwałą diagnostykę. Najnowszy APK outlineGo zawiera wybrane logo, ikonę i splash screen oraz wcześniejsze ekrany Teren, rozwijane menu, własne dialogi i przeciąganą miniaturę. Release zbudowano pełnym skryptem. Telefon `23124RA7EO` (`a20fa219`) ma najnowszy build outlineGo `F09DBCDC643CDC79944430B6879DCABF45ED182817C9376DED3DC5C3128D6F92`, zainstalowany 20 października 2026 przez `install -r` z zachowaniem danych. ADB potwierdził `Success` i uruchomienie `Status: ok`, `LaunchState: COLD`. Hash nowego APK podaje tabela poniżej.
+Działające MVP Android 0.1.0 jest w `app/`. Obejmuje pomiar i prosty obrys offline, bez kont i backendu, eksport PNG oraz trwałą diagnostykę. Najnowszy APK zawiera branding outlineGo, ekrany Teren i opisane powyżej poprawki po próbie terenowej. Release zbudowano pełnym skryptem. Telefon `23124RA7EO` (`a20fa219`) ma wcześniejszy build outlineGo `F09DBCDC643CDC79944430B6879DCABF45ED182817C9376DED3DC5C3128D6F92`, zainstalowany 20 października 2026 przez `install -r` z zachowaniem danych. Nowy APK po poprawkach sprawdzono na emulatorze; czeka na instalację na telefonie. Hash nowego APK podaje tabela poniżej.
 
 | Artefakt | Wartość |
 | --- | --- |
 | Plik | `artifacts/outlineGo-0.1.0.apk` |
-| Rozmiar | 85225535 bajtów |
-| SHA256 | `F09DBCDC643CDC79944430B6879DCABF45ED182817C9376DED3DC5C3128D6F92` |
+| Rozmiar | 85230895 bajtów |
+| SHA256 | `1DB7A9EDB9134BA443599336348DD558133D3FCF6BC795804E4C40115D1C7FFE` |
 | Platforma | Android 7+, target SDK 36, arm64-v8a i x86_64 |
 | Uruchamianie | Osadzony JavaScript, bez Metro i internetu, podpis deweloperski |
-| Log ostatniego budowania | `artifacts/outlinego-brand-build.log` |
+| Log ostatniego budowania | `artifacts/field-feedback-build-final.log` |
 
 ## Obowiązujący interfejs
 
@@ -61,8 +76,8 @@ Osobna Diagnostyka zawiera uwagi testera, niezależne odniesienie, logi i ręczn
 - Emulator Pixel 8 API 36: zachowanie projektów po aktualizacji, ręczne m/cm i kroki, odtworzenie formularza, korekta boku, geometria i pole, PNG, menu, lista 3 z 5 projektów → wszystkie 5 po „Więcej”, otwarcie z wiersza/menu i anulowanie usuwania. Zrzut listy sprawdzono wizualnie. Emulator nie ma detektora kroków; nie potwierdza fizycznego liczenia. Został zamknięty po testach.
 - Wcześniejsze próby: offline w trybie samolotowym, zachowanie po force-stop, duży log około 1,54 MiB w 13 częściach oraz systemowe udostępnianie CSV/PNG. Nie wysłano plików do odbiorców. Automatyzacja odczytu wklejenia pokazała tylko 5000 znaków, więc kompletność kopiowania potwierdzają testy podziału rekordów, a nie ten odczyt UI.
 - Użytkownik zaakceptował dokładność wykonanych testów trybu względnego. Brak liczbowego progu i podstaw do uogólnienia na tryb magnetyczny.
-- Użytkownik ocenił krokomierz jako generalnie poprawny, lecz często doliczający 1–2 kroki. Dodano ręczną korektę; przyczyna nie jest naprawiona. Nie odejmujemy automatycznie stałej liczby kroków.
-- Telefon ma najnowszy build outlineGo `F09DBCDC…` z nowym logo, ikoną i splash screenem. ADB potwierdził instalację przez `install -r` z zachowaniem danych oraz uruchomienie 20 października 2026 (`Status: ok`, `LaunchState: COLD`).
+- Po próbie użytkownik potwierdził poprawne liczenie kroków; wcześniejsze dodatkowe 1–2 zliczenia wiąże z poruszaniem telefonem. Ręczna korekta pozostaje dostępna, bez zmiany algorytmu i bez automatycznego odejmowania kroków.
+- Telefon ma build outlineGo `F09DBCDC…` z logo, ikoną i splash screenem. ADB potwierdził instalację przez `install -r` z zachowaniem danych oraz uruchomienie 20 października 2026 (`Status: ok`, `LaunchState: COLD`). Nowy build `1DB7A9ED…` po poprawkach czeka na instalację.
 - Ostatni wynik Expo Doctor: 21/22, znane ostrzeżenie pamięci Hermes w SDK 56. Migracji SDK nie wykonano. To zapis wcześniejszego sprawdzenia, nie nowa kontrola przy aktualizacji dokumentacji.
 
 ## Odtworzenie pracy
@@ -89,10 +104,10 @@ Makiety i zrzuty są lokalnymi artefaktami ignorowanymi przez Git. Wizualizacja 
 
 ## Najbliższe prace i zakres
 
-1. Wykonanie [checklisty próby terenowej](docs/technical/checklista-proby-terenowej.md), przygotowanej dla commita `3d28bd5`. Pola wyników pozostają puste; checklisty jeszcze nie wykonano. Próba użytkownika na zaktualizowanym telefonie: ikona i nazwa outlineGo, zimny start ze splashem, logo w ekranach i udostępnionym PNG; następnie pełny pomiar, menu, własne potwierdzenia, przeciąganie i przyciąganie miniatury, powiększony dialog szkicu, klawiatura oraz powrót do formularza bez utraty danych. Instalacja i uruchomienie są potwierdzone; odbiór tych interakcji przez użytkownika pozostaje otwarty.
-2. Diagnoza nadliczania kroków przy znanej liczbie kroków, z logiem, szczególnie przy Start/Stop i zmianie sposobu trzymania telefonu. Nie wprowadzono nowej poprawki algorytmu w commicie Teren.
-3. Ustalenie kryteriów gotowości do testu zamkniętego po próbie terenowej.
+1. Instalacja poprawek i ponowna próba użytkownika: odniesienie B→C i kontynuacja CD, pierwszy wektor, pan/pinch, pełny powrót do P1, krótkie przyciski i odrzucenie odczytu przy ruchu telefonu. Szczegóły w [checkliście](docs/technical/checklista-proby-terenowej.md).
+2. Odbiór poprawek na telefonie i zapisanie wyników ponownej próby.
+3. Ustalenie gotowości do testu zamkniętego po odbiorze poprawek. Krokomierz nie jest już traktowany jako otwarty błąd algorytmu na podstawie ostatniej oceny użytkownika.
 
-Docelowy użytkownik i monetyzacja pozostają do doprecyzowania. Nie opublikowano testu zamkniętego ani release. DXF, solver, pełny edytor i migracja SDK są poza bieżącym zakresem. Aktualizacja notatek nie obejmuje nowego buildu, instalacji ani ponownego uruchamiania testów; opisuje wcześniej potwierdzone wyniki.
+Docelowy użytkownik i monetyzacja pozostają do doprecyzowania. Nie opublikowano testu zamkniętego ani release. DXF, solver, pełny edytor i migracja SDK są poza bieżącym zakresem. Bieżąca iteracja obejmuje poprawki, testy, build i próbę na emulatorze; instalacja poprawek na telefonie pozostaje osobnym krokiem.
 
 Dokumenty: [instrukcja](docs/technical/prototyp.md), [UI](docs/technical/wizard-pomiaru.md), [architektura](docs/technical/dokumentacja-techniczna.md), [plan](docs/plan-rozwoju.md). Źródłowy dokument biznesowy Word pozostaje bez zmian.

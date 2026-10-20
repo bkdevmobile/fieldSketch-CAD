@@ -12,10 +12,11 @@ import { SurveyHeading } from '../components/SurveyHeading';
 import { Activity, ArrowLeft, ArrowRight, Camera, Check, ChevronDown, CircleAlert, CircleCheck, Compass, Crosshair, EllipsisVertical, Flag, Footprints, MapPin, Pencil, RotateCcw, Ruler, Settings2, SlidersHorizontal, Undo2 } from 'lucide-react-native';
 import { Capture, Project, SurveyMode } from '../domain/model';
 import { closeOutline, commitMeasurement, LengthMeasurement, measurementLength, metrics, normalize, parsePositive, undoLast } from '../domain/geometry';
-import { convertLengthInput, headingFromTurn, previousHeading, snapTurn, SurveyDraft, turnFromHeading, WizardStep } from '../domain/survey';
+import { convertLengthInput, defaultReferenceIndex, headingFromTurn, previousHeading, referenceOffset, snapTurn, SurveyDraft, turnFromHeading, WizardStep } from '../domain/survey';
 import { orientation } from '../infrastructure/native';
 import { message, useStore } from '../infrastructure/store';
 import { usePedometer } from '../infrastructure/usePedometer';
+import { captureErrorText } from '../domain/captureError';
 
 const modeLabels: Record<SurveyMode, string> = { magnetic: 'Magnetyczny', relative: 'Względny', manual: 'Ręczny' };
 interface Frozen { theta: number; capture: Capture | null; sessionId: string }
@@ -100,10 +101,11 @@ export default function Survey() {
   }, [hydrated]);
   useEffect(() => {
     setFrozen(null); setOffset(null);
+    if (project) setAnchorIndex(defaultReferenceIndex(project));
     setStep(current => current === 'start' ? 'start' : 'direction');
   }, [store.sessionId, mode]);
   useEffect(() => { setFitKey(key => key + 1); Keyboard.dismiss(); }, [step]);
-  if (!project) return <Page title="Projekt"><Text style={s.text}>Ładowanie projektu lub projekt został usunięty.</Text></Page>;
+  if (!project) return <Page title="Szkic"><Text style={s.text}>Ładowanie szkicu lub szkic został usunięty.</Text></Page>;
   const fit = () => setFitKey(key => key + 1);
   const start = () => store.run(async () => { await store.start(project, mode); setStep('direction'); });
   const setDirection = (value: Frozen) => {
@@ -120,7 +122,7 @@ export default function Survey() {
       if (project.points.length > 1) {
         const index = Math.min(anchorIndex, project.points.length - 2);
         const a = project.points[index]!, b = project.points[index + 1]!;
-        frameOffset = normalize(Math.atan2(b.y - a.y, b.x - a.x) - rawTheta);
+        frameOffset = referenceOffset(project, index, capture.headingRad);
         await store.log('reference_registered', { fromPointId: a.id, toPointId: b.id, frameOffset, capture });
         setOffset(frameOffset);
         Alert.alert('Odniesienie ustawione', 'Wróć do aktualnego punktu i przechwyć kierunek następnego boku.');
@@ -140,10 +142,15 @@ export default function Survey() {
       setDirection({ theta: direction, capture: null, sessionId: store.sessionId! });
       return;
     }
-    const value = await orientation().captureDirection();
+    let value: Capture;
+    try { value = await orientation().captureDirection(); }
+    catch (error) {
+      try { await store.log('capture_failed', { message: message(error) }); } catch { }
+      throw new Error(captureErrorText(error));
+    }
     if (value.sessionId !== store.sessionId) throw new Error('Sesja czujnika zmieniła się. Przechwyć kierunek ponownie.');
     if (!value.stable) {
-      Alert.alert('Kierunek wymaga kontroli', `Rozrzut ${fmt(value.stdDevDeg)}°. Jakość czujnika: ${value.accuracy}/3. Ponów celowanie albo świadomie użyj tej próby.`, [
+      Alert.alert('Kierunek wymaga kontroli', 'Telefon poruszał się lub odczyt jest słabej jakości. Przytrzymaj go nieruchomo i ponów celowanie albo użyj tej próby po sprawdzeniu kierunku.', [
         { text: 'Ponów', style: 'cancel', onPress: () => store.run(async () => { await store.log('capture_rejected', { capture: value }); }) },
         { text: 'Użyj mimo ostrzeżenia', onPress: () => store.run(async () => {
           const current = latestSession.current;
@@ -271,7 +278,7 @@ export default function Survey() {
       <Button label={project.closed ? 'Zobacz podsumowanie' : 'Zakończ'} icon={Flag} quiet disabled={store.busy || !hydrated}
         onPress={project.closed ? () => router.push({ pathname: '/outline', params: { id } }) : finish} />
     </>}>
-    <Stack.Screen options={{ headerRight: () => <Pressable accessibilityRole="button" accessibilityLabel="Menu projektu"
+    <Stack.Screen options={{ headerRight: () => <Pressable accessibilityRole="button" accessibilityLabel="Menu szkicu"
       onPress={event => { Keyboard.dismiss(); setMenuAnchor({ x: event.nativeEvent.pageX + 22, y: event.nativeEvent.pageY + 22 }); setMenu(true); }} style={{ minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' }}>
       <EllipsisVertical size={22} strokeWidth={1.8} color={colors.ink} accessible={false} /></Pressable> }} />
     <PopupMenu visible={menu} anchor={menuAnchor} title={project.name} onClose={() => setMenu(false)} items={[
@@ -287,18 +294,18 @@ export default function Survey() {
       ...(step === 'review' && project.points.length >= 3 && !project.closed ? [{ label: 'Zapisz jako pomiar powrotu do P1', icon: MapPin,
         disabled: blocked || !frozenValid || !measurement || theta === undefined,
         onPress: () => { void store.run(async () => { await saveCurrent(true); }); } }] : []),
-      { label: 'Diagnostyka projektu', icon: Activity, disabled: blocked, onPress: () => router.push({ pathname: '/diagnostics', params: { id } }) },
+      { label: 'Diagnostyka szkicu', icon: Activity, disabled: blocked, onPress: () => router.push({ pathname: '/diagnostics', params: { id } }) },
       { label: 'Ustawienia', icon: Settings2, disabled: blocked, onPress: () => router.push('/settings') },
     ]} />
     {!!draftError && <View style={s.warning}><Text accessibilityRole="alert" style={s.warningText}>Nie udało się zachować etapu roboczego: {draftError}</Text>
       <Button label="Ponów zapis etapu" secondary onPress={enqueueDraft} /></View>}
     {!!resumeNote && <Text style={s.muted}>{resumeNote}</Text>}
-    {project.closed ? <View style={s.card}><Text style={s.h2}>Obrys zamknięty</Text><Text style={s.text}>Otwórz podsumowanie albo cofnij zamknięcie w menu projektu ⋮.</Text></View> :
+    {project.closed ? <View style={s.card}><Text style={s.h2}>Obrys zamknięty</Text><Text style={s.text}>Otwórz podsumowanie albo cofnij zamknięcie w menu szkicu ⋮.</Text></View> :
       <View style={s.measurement}>
         <Text style={s.stepTitle}>{title}</Text>
         {step === 'start' && <Text style={s.text}>Stań w miejscu, od którego zaczynasz obrys. P1 będzie początkiem szkicu.</Text>}
         {step === 'direction' && <>
-          <Text style={s.muted}>{needsReference ? 'Stań w początku znanego boku i wyceluj w jego koniec. Następnie wróć do aktualnego punktu.' : 'Stań nad początkiem boku i wyceluj w następny narożnik.'}</Text>
+          <Text style={s.muted}>{needsReference ? `Stań przy P${anchorIndex + 1} i skieruj kamerę na P${anchorIndex + 2}. Ustaw odniesienie, a następnie wróć do P${project.points.length}, aby mierzyć kolejny bok.` : 'Stań nad początkiem boku i wyceluj w następny narożnik.'}</Text>
           {needsReference && <Button secondary label={`Bok odniesienia: P${anchorIndex + 1} → P${anchorIndex + 2} (zmień)`}
             onPress={() => setAnchorIndex((anchorIndex + 1) % (project.points.length - 1))} />}
           {mode !== 'manual' && <View accessible accessibilityRole="text" accessibilityLabel={statusLabel} accessibilityLiveRegion="polite"

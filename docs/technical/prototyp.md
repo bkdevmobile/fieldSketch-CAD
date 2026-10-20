@@ -1,6 +1,6 @@
-# Instrukcja MVP FieldSketch CAD
+# Instrukcja MVP outlineGo
 
-Stan na 19 października 2026: aplikacja 0.1.0, kod `91dd0fe`. Aktualny APK zbudowano i zainstalowano na telefonie użytkownika. Jest to pomocniczy szkic terenowy, z eksportem PNG; pełny edytor, DXF i solver pozostają poza tym MVP.
+Stan na 20 października 2026: aplikacja 0.1.0, branding w `3d28bd5`, kolejne poprawki po próbie użytkownika opisane w MEMO. Numer commita, aktualny APK i stan instalacji podaje [MEMO](../../MEMO.md). Jest to pomocniczy szkic terenowy, z eksportem PNG; pełny edytor, DXF i solver pozostają poza tym MVP.
 
 ## Instalacja i aktualizacja
 
@@ -15,7 +15,7 @@ APK zawiera JavaScript i działa bez Metro oraz internetu. Podpis jest deweloper
 
 ## Strona główna i ustawienia
 
-Wpisz nazwę i wybierz „Rozpocznij pomiar”. Lista pokazuje 3 ostatnio zmienione projekty: w jednym wierszu nazwę, datę i menu ⋮. Dotknięcie nazwy lub daty otwiera projekt. Menu wiersza zawiera „Otwórz” i „Usuń”; usunięcie wymaga potwierdzenia. „Więcej” pokazuje po 10 kolejnych pozycji i znika po wyświetleniu wszystkich.
+Wybierz „Nowy szkic”, wpisz nazwę i wybierz „Utwórz szkic”. Lista pokazuje 3 ostatnio zmienione szkice: w jednym wierszu nazwę, datę i menu ⋮. Dotknięcie nazwy lub daty otwiera szkic. Menu wiersza zawiera „Otwórz” i „Usuń”; usunięcie wymaga potwierdzenia. „Więcej” pokazuje po 10 kolejnych pozycji i znika po wyświetleniu wszystkich.
 
 Menu ⋮ po prawej stronie nagłówka zawiera „Ustawienia” i „Logi pomiarowe”. W ustawieniach wybieramy:
 
@@ -37,7 +37,7 @@ Android 10+ pyta o zgodę na rozpoznawanie aktywności przy uruchomieniu krokomi
 
 ## Szkic, korekty i wznowienie
 
-Szkic jest pływającą miniaturą w prawym dolnym rogu, nad stałymi dolnymi akcjami. Dotknij, aby otworzyć duży podgląd z przesuwaniem, zoomem i „Dopasuj”. Powrót nie zmienia etapu. Miniatura zmniejsza się przy klawiaturze; formularz można przewinąć ponad nią.
+Szkic jest pływającą miniaturą w prawym dolnym rogu, nad stałymi dolnymi akcjami. Można ją przeciągnąć do innego rogu. Dotknij, aby otworzyć wyśrodkowany dialog na pełną szerokość. Przesuwaj szkic jednym palcem w dowolnym kierunku; rozsuwaj dwa palce, aby powiększyć, i zbliżaj, aby pomniejszyć. Dostępne są także przyciski ± i „Dopasuj”. Powrót nie zmienia etapu. Miniatura zmniejsza się przy klawiaturze; formularz można przewinąć ponad nią.
 
 Zapisane boki mają linię ciągłą, roboczy bok linię przerywaną i niezapisany punkt. Sam kierunek bez długości jest wektorem o umownej długości. Widok dopasowuje się po zatwierdzeniu kierunku, długości lub korekty oraz po Stop; podczas liczenia skala pozostaje stabilna.
 
@@ -63,7 +63,11 @@ Log obejmuje metadane, surowe sensory i macierze, kierunek, jakość, rozrzut, k
 
 Do wykonania na aktualnym buildzie outlineGo: [checklista z miejscem na wyniki i logi](checklista-proby-terenowej.md).
 
-Użytkownik zaakceptował dokładność wykonanych prób trybu względnego. Krokomierz ocenił jako generalnie działający, ale często doliczający 1–2 kroki. Ręczna korekta nie rozwiązuje przyczyny nadliczania.
+Użytkownik zaakceptował dokładność wykonanych prób trybu względnego oraz potwierdził poprawne liczenie kroków; dodatkowe zliczenia wiąże z ruchem telefonu. Ręczna korekta pozostaje dostępna.
+
+Wznowienie domyślnie wskazuje ostatni zapisany bok. Po zapisie C w prostokącie ABCD należy stanąć w B i skierować kamerę na C (P2→P3), ustawić odniesienie, następnie wrócić do C i wskazać D. Przy wyborze innego boku należy wykonać odniesienie dokładnie między punktami pokazanymi w instrukcji.
+
+Jeśli ostatni zmierzony bok już wrócił do P1, „Zamknij obrys” rozpoznaje wspólny koniec bez dodatkowego zerowego boku i fałszywego samoprzecięcia. Rozpoznanie dotyczy zbieżności numerycznej; aplikacja nie dociąga automatycznie rzeczywistego niedomknięcia.
 
 - Sprawdź krokomierz dla znanej liczby kroków, szczególnie pierwszy i ostatni krok przy Start/Stop, ponowny Start, przejście do tła i różne sposoby trzymania telefonu. Zachowaj log oraz ręcznie policzoną wartość odniesienia.
 - Wykonaj prostokąt o znanych wymiarach, np. 2 × 3 m. Porównaj boki i przekątne z taśmą, oddzielnie sprawdzając kierunek i szacowanie z kroków.

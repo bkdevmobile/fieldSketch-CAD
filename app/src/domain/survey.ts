@@ -15,6 +15,12 @@ export interface SurveyDraft {
   stepMeasurementId?: string;
   detectedSteps?: number;
 }
+export const defaultReferenceIndex = (project: Project) => Math.max(0, project.points.length - 2);
+export function referenceOffset(project: Project, index: number, sensorHeading: number) {
+  const a = project.points[index], b = project.points[index + 1];
+  if (!a || !b) throw new Error('Wybierz zapisany bok odniesienia.');
+  return normalize(Math.atan2(b.y - a.y, b.x - a.x) - normalize(Math.PI / 2 - sensorHeading));
+}
 export function previousHeading(project: Project) {
   const end = project.points.at(-1), start = project.points.at(-2);
   return start && end ? Math.atan2(end.y - start.y, end.x - start.x) : 0;

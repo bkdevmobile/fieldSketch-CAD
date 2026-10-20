@@ -24,3 +24,16 @@ test('otwarta pozioma i pionowa trasa ma skończone współrzędne bez fałszywe
     expect(exported.metrics.area).toBeNull();
   }
 });
+
+test('zmierzony pełny obwód ma cztery boki bez dodatkowego zerowego zamknięcia w PNG', () => {
+  let project = newProject('Powrót do P1', 'manual');
+  for (const theta of [0, -Math.PI / 2, Math.PI, Math.PI / 2]) {
+    project = commitMeasurement(project, { source: 'manual', value: 3, unit: 'm' }, theta, 'manual', 's', null);
+  }
+  const result = sketchExport(closeOutline(project));
+  expect(result.points).toHaveLength(4);
+  expect(result.edges).toHaveLength(4);
+  expect(result.measuredReturn).toBe(true);
+  expect(result.edges.at(-1)).toMatchObject({ from: 4, to: 1, source: 'ręczny' });
+  expect(result.metrics.area).toBeCloseTo(9);
+});
