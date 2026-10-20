@@ -9,15 +9,17 @@ import { Button, Page, s } from '../components/ui';
 import { sketchExport } from '../domain/sketchExport';
 import { useStore } from '../infrastructure/store';
 import { Share2 } from 'lucide-react-native';
+import { usePlusOffer } from '../components/PlusOffer';
 
 export default function Export() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const store = useStore(), [width, setWidth] = useState(320);
+  const plus = usePlusOffer();
   const image = useRef<Svg>(null);
   const [snapshot, setSnapshot] = useState(() => store.projects.find(p => p.id === id));
   useEffect(() => { if (!snapshot || snapshot.id !== id) setSnapshot(store.projects.find(p => p.id === id)); }, [store.projects, id]);
   if (!snapshot || snapshot.id !== id) return <Page title="Eksport PNG"><Text style={s.text}>Szkic niedostępny.</Text></Page>;
-  const drawing = sketchExport(snapshot);
+  const drawing = sketchExport(snapshot, store.plan);
   const share = () => store.run(async () => {
     if (!image.current) throw new Error('Poczekaj na przygotowanie podglądu.');
     if (!await Sharing.isAvailableAsync()) throw new Error('Udostępnianie plików jest niedostępne.');
@@ -26,13 +28,15 @@ export default function Export() {
       const timer = setTimeout(() => reject(new Error('Nie udało się przygotować PNG. Spróbuj ponownie.')), 15000);
       svg.toDataURL(value => { clearTimeout(timer); value ? resolve(value) : reject(new Error('Pusty obraz PNG.')); }, { width: drawing.width, height: drawing.height });
     });
-    const file = new File(Paths.cache, `outlinego-${snapshot.id}-r${snapshot.geometryRevision}.png`);
+    const file = new File(Paths.cache, `outlinego-${snapshot.id}-r${snapshot.geometryRevision}-${store.plan}.png`);
     file.write(data, { encoding: 'base64' });
     if (!file.exists || file.size === 0) throw new Error('Nie udało się zapisać obrazu PNG.');
     await Sharing.shareAsync(file.uri, { mimeType: 'image/png', dialogTitle: 'Udostępnij szkic PNG' });
   });
   return <Page title="Podgląd PNG" subtitle={snapshot.name} footer={<Button label="Udostępnij PNG" icon={Share2} onPress={share} disabled={store.busy} />}>
-    <View style={[s.card, { padding: 10, borderRadius: 8 }]}><View onLayout={event => setWidth(event.nativeEvent.layout.width)}><ExportSketch ref={image} project={snapshot} displayWidth={width} /></View></View>
+    {plus.offer}
+    <View style={[s.card, { padding: 10, borderRadius: 8 }]}><View onLayout={event => setWidth(event.nativeEvent.layout.width)}><ExportSketch ref={image} project={snapshot} displayWidth={width} plan={store.plan} /></View></View>
     <Text style={[s.muted, { textAlign: 'center' }]}>{drawing.width} × {drawing.height} px · szkic i wymiary</Text>
+    {store.plan === 'free' && <Button label="PNG bez znaku wodnego · Plus" secondary disabled={store.busy} onPress={() => plus.show('watermark')} />}
   </Page>;
 }

@@ -7,8 +7,11 @@ import { useStore } from '../infrastructure/store';
 import { orientation } from '../infrastructure/native';
 import { ChevronDown, EllipsisVertical, FileText, FolderOpen, Plus, Settings2, Trash2 } from 'lucide-react-native';
 import { BrandLogo, BrandMark } from '../components/Brand';
+import { canCreateProject } from '../domain/access';
+import { usePlusOffer } from '../components/PlusOffer';
 export default function Projects() {
   const store = useStore(), dialogs = useDialogs();
+  const plus = usePlusOffer();
   const [menu, setMenu] = useState(false), [anchor, setAnchor] = useState<MenuAnchor>();
   const [projectMenu, setProjectMenu] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(3);
@@ -30,12 +33,17 @@ export default function Projects() {
     <PopupMenu visible={menu} anchor={anchor} onClose={() => setMenu(false)} items={[
       { label: 'Ustawienia', icon: Settings2, onPress: () => router.push('/settings') },
       { label: 'Logi pomiarowe', icon: FileText, onPress: () => router.push('/logs') },
+      { label: 'outlineGo Plus', icon: Plus, onPress: () => router.push('/plus') },
     ]} />
     <PopupMenu visible={!!selectedProject} anchor={anchor} title={selectedProject?.name} onClose={() => setProjectMenu(null)} items={[
       { label: 'Otwórz', icon: FolderOpen, disabled: store.busy, onPress: () => { if (selectedProject) openProject(selectedProject.id); } },
       { label: 'Usuń', icon: Trash2, danger: true, disabled: store.busy, onPress: () => { if (selectedProject) remove(selectedProject.id); } },
     ]} />
-    <Button label="Nowy szkic" icon={Plus} onPress={() => router.push('/new-project')} disabled={store.busy || !store.repo} />
+    <Button label="Nowy szkic" icon={Plus} onPress={() => {
+      if (!canCreateProject(store.projects.length, store.plan)) { plus.projectLimit(() => setVisibleCount(Math.max(3, store.projects.length))); return; }
+      router.push('/new-project');
+    }} disabled={store.busy || !store.repo} />
+    {plus.offer}
     <View style={[s.row, { justifyContent: 'space-between', marginTop: 8 }]}><Text style={s.h2}>Twoje szkice</Text><Text style={s.muted}>{store.projects.length}</Text></View>
     {!store.projects.length && <View style={{ alignItems: 'center', gap: 14, paddingVertical: 48 }}><BrandMark size={48} />
       <Text style={s.h2}>Twój pierwszy obrys</Text><Text style={s.muted}>Utwórz szkic i zapisz pierwszy punkt.</Text></View>}

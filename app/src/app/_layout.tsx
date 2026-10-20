@@ -21,6 +21,7 @@ export default function Layout() {
       <Stack.Screen name="diagnostics" options={{ title: 'Diagnostyka' }} />
       <Stack.Screen name="edit-side" options={{ title: 'Korekta boku' }} />
       <Stack.Screen name="export" options={{ title: 'Eksport PNG' }} />
+      <Stack.Screen name="plus" options={{ title: 'outlineGo Plus' }} />
     </Stack></Startup>
   </DialogProvider></StoreProvider></GestureHandlerRootView>;
 }

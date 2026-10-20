@@ -9,9 +9,11 @@ import { Dialog } from '../components/overlays';
 import { useStore } from '../infrastructure/store';
 import { lastSide, metrics, outlinePoints } from '../domain/geometry';
 import { shareDxf } from '../infrastructure/shareDxf';
+import { usePlusOffer } from '../components/PlusOffer';
 export default function Outline() {
   const { id } = useLocalSearchParams<{ id: string }>(); const store = useStore(), { projects, settings } = store;
   const [expanded, setExpanded] = useState(false);
+  const plus = usePlusOffer();
   const project = projects.find(p => p.id === id);
   if (!project) return <Page title="Obrys"><Text>Szkic niedostępny.</Text></Page>;
   const m = metrics(project), unit = settings.unit, factor = unit === 'cm' ? 100 : 1;
@@ -19,11 +21,12 @@ export default function Outline() {
   return <Page title="Podsumowanie" subtitle={project.name} footer={
     <><View style={s.row}><View style={{ flex: 1 }}><Button label="Eksportuj PNG" icon={Image} disabled={store.busy || project.points.length < 2}
       onPress={() => router.push({ pathname: '/export', params: { id } })} />
-    </View><View style={{ flex: 1 }}><Button label="Eksportuj DXF" icon={FileDown} secondary disabled={store.busy || project.points.length < 2}
-      onPress={() => store.run(async () => { await shareDxf(project, unit); })} /></View></View>
+    </View><View style={{ flex: 1 }}><Button label={store.plan === 'plus' ? 'Eksportuj DXF' : 'DXF · Plus'} icon={FileDown} secondary disabled={store.busy || project.points.length < 2}
+      onPress={() => { if (store.plan !== 'plus') { plus.show('dxf'); return; } void store.run(async () => { await shareDxf(project, unit, store.plan); }); }} /></View></View>
     <Button label={project.closed ? 'Wróć do szkicu' : 'Kontynuuj pomiar'} icon={ArrowLeft} secondary
       onPress={() => router.replace({ pathname: '/project', params: { id } })} /></>
   }>
+    {plus.offer}
     <View style={s.card}><OutlineCanvas project={project} unit={unit} compact />
       <Button label="Powiększ szkic" icon={Maximize2} quiet onPress={() => setExpanded(true)} /></View>
     <View style={s.card}><Badge label={project.closed ? 'Obrys zamknięty' : 'Otwarta trasa'} icon={project.closed ? Check : Route} />

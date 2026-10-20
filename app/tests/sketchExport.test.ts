@@ -1,6 +1,7 @@
 import { closeOutline, commitMeasurement } from '../src/domain/geometry';
 import { newProject } from '../src/domain/model';
 import { sketchExport } from '../src/domain/sketchExport';
+import { FREE_WATERMARK } from '../src/domain/access';
 
 test('eksport zawiera wymiary wszystkich boków i rozróżnia wyliczone zamknięcie', () => {
   let project = newProject('Trójkąt', 'manual');
@@ -36,4 +37,15 @@ test('zmierzony pełny obwód ma cztery boki bez dodatkowego zerowego zamknięci
   expect(result.measuredReturn).toBe(true);
   expect(result.edges.at(-1)).toMatchObject({ from: 4, to: 1, source: 'ręczny' });
   expect(result.metrics.area).toBeCloseTo(9);
+});
+
+test('Free ma dodatkowy pasek pod rysunkiem; Plus zachowuje identyczne dane bez znaku wodnego', () => {
+  const project = commitMeasurement(newProject('PNG', 'manual'), { source: 'steps', steps: 4, stepLengthCm: 75 }, 0, 'manual', 's', null);
+  const free = sketchExport(project, 'free'), plus = sketchExport(project, 'plus');
+  expect(free.watermark).toBe(FREE_WATERMARK);
+  expect(free.height).toBe(free.contentHeight + 64);
+  expect(plus.watermark).toBeNull();
+  expect(plus.height).toBe(free.contentHeight);
+  expect(free.points).toEqual(plus.points); expect(free.edges).toEqual(plus.edges);
+  expect(free.estimated).toBe(true); expect(plus.estimated).toBe(true);
 });

@@ -1,5 +1,7 @@
 # Aplikacja outlineGo
 
+Nowa iteracja w kodzie: limity Free (8 punktów / 3 szkice), znak wodny PNG w dodatkowym pasku, oferta Plus 29,99 zł jednorazowo i blokada DXF bez Plus. Wszystkie istniejące szkice pozostają dostępne, także ponad limit. Plan jest centralnie Free do czasu podłączenia zakupu; ekran wyraźnie informuje, że zakup Plus nie jest jeszcze dostępny. TypeScript i 99 testów TS przeszły. Ta iteracja nie została jeszcze zainstalowana na telefonie. [Zasady i stan wdrożenia](../docs/technical/free-plus.md).
+
 Nowa funkcja w kodzie: eksport DXF z podsumowania, obrys 2D i opisy na osobnych warstwach, jednostka m/cm z ustawień. TypeScript i 92 testy TS przeszły; import wizualny sprawdzono w LibreCAD. Kod `172ebe8`; APK `9E8708ED…` zbudowano i zainstalowano na Redmi 20 października 2026 z zachowaniem danych (Success, uruchomienie Status ok / COLD). Próba udostępniania na telefonie pozostaje otwarta. Do czasu wdrożenia zakupów eksport dostępny bez blokady Plus. [Zakres i weryfikacja](../docs/technical/eksport-dxf.md).
 
 Status na 20 października 2026: użytkownik uznał testy zamknięte MVP 0.1.0 za zakończone (kod `9a54555`, APK `30CB381F…`). Kolejny etap: model zarabiania i przygotowanie release, w tym obowiązkowa wielojęzyczność. Wcześniejsze opisy oczekujących prób są historią iteracji; wersji produkcyjnej nie opublikowano.

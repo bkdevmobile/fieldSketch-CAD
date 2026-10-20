@@ -5,7 +5,7 @@ import { BrandMark } from './Brand';
 import type { WizardStep } from '../domain/survey';
 import { colors, s } from './ui';
 
-export function SurveyHeading({ name, subtitle, step, closed }: { name: string; subtitle: string; step: WizardStep; closed: boolean }) {
+export function SurveyHeading({ name, subtitle, step, closed, showSteps = true }: { name: string; subtitle: string; step: WizardStep; closed: boolean; showSteps?: boolean }) {
   const current = closed ? 3 : step === 'length' ? 1 : step === 'review' ? 2 : 0;
   return <View style={{ gap: 18 }}>
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
@@ -14,7 +14,7 @@ export function SurveyHeading({ name, subtitle, step, closed }: { name: string; 
       </View>
       <View style={{ flex: 1, gap: 3 }}><Text style={[s.h2, { fontWeight: '600', letterSpacing: -0.3 }]}>{name}</Text><Text style={s.muted}>{subtitle}</Text></View>
     </View>
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+    {showSteps && <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
       {([{ label: 'Kierunek', Icon: Compass }, { label: 'Długość', Icon: Ruler }, { label: 'Zapis', Icon: MapPin }]).map(({ label, Icon }, index) => {
         const selected = index === current, complete = index < current, Mark = complete ? Check : Icon;
         return <React.Fragment key={label}>
@@ -26,6 +26,6 @@ export function SurveyHeading({ name, subtitle, step, closed }: { name: string; 
           </View>
         </React.Fragment>;
       })}
-    </View>
+    </View>}
   </View>;
 }

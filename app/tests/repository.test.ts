@@ -1,7 +1,7 @@
 import initSqlJs, { Database as SqlDb } from 'sql.js';
 import { Database, ProjectRepository } from '../src/infrastructure/repository';
 import { DEFAULT_SETTINGS, newProject } from '../src/domain/model';
-import { commitSide, editLastSide, undoLast } from '../src/domain/geometry';
+import { closeOutline, commitSide, editLastSide, undoLast } from '../src/domain/geometry';
 import type { SurveyDraft } from '../src/domain/survey';
 class SqlAdapter implements Database {
   constructor(readonly raw: SqlDb) {}
@@ -17,6 +17,43 @@ class SqlAdapter implements Database {
     try { await action(); this.raw.exec('COMMIT'); } catch (e) { this.raw.exec('ROLLBACK'); throw e; }
   }
 }
+test('limity Free są transakcyjne, usunięcie zwalnia miejsce, istniejące dane ponad limit pozostają', async () => {
+  const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
+  const repo = new ProjectRepository(db); await repo.initialize();
+  const projects = Array.from({ length: 3 }, (_, i) => newProject(`Szkic ${i}`, 'manual'));
+  for (const project of projects) await repo.save(project, 'create');
+  const fourth = newProject('Czwarty', 'manual');
+  await expect(repo.save(fourth, 'create')).rejects.toThrow('3 szkice');
+  expect(await repo.load(fourth.id)).toBeNull(); expect(await repo.list()).toHaveLength(3);
+  await repo.remove(projects[0]!.id); await repo.save(fourth, 'create');
+  let large = newProject('Z Plus', 'manual');
+  while (large.points.length < 10) large = commitSide(large, 1, large.points.length % 2, 'manual', 's', null);
+  await repo.save(large, 'create', 'plus');
+  const before = await repo.list();
+  const corrected = editLastSide(large, { source: 'manual', value: 5, unit: 'm' }, 0);
+  await repo.save(corrected, 'correction');
+  await repo.save(closeOutline(corrected), 'close');
+  expect(await repo.list()).toHaveLength(4);
+  expect((await repo.load(large.id))!.points).toHaveLength(10);
+  await expect(repo.save(newProject('Piąty', 'manual'), 'create')).rejects.toThrow('3 szkice');
+  for (const project of before.filter(p => p.id !== large.id)) expect(await repo.load(project.id)).toEqual(project);
+  db.raw.close();
+});
+
+test('zapis P9 i niezależnego powrotu przy P8 nie omija limitu ani nie usuwa szkicu', async () => {
+  const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
+  const repo = new ProjectRepository(db); await repo.initialize();
+  let project = newProject('Osiem', 'manual');
+  while (project.points.length < 8) project = commitSide(project, 1, project.points.length % 2, 'manual', 's', null);
+  await repo.save(project, 'create');
+  await expect(repo.save(commitSide(project, 1, 0, 'manual', 's', null), 'side_added')).rejects.toThrow('8 punktów');
+  await expect(repo.save(commitSide(project, 1, 0, 'manual', 's', null, true), 'closure_measured')).rejects.toThrow('8 punktów');
+  expect(await repo.load(project.id)).toEqual(project);
+  await repo.save(closeOutline(project), 'outline_closed');
+  expect((await repo.load(project.id))!.closed).toBe(true);
+  db.raw.close();
+});
+
 test('projekt przetrwa zamknięcie i odtworzenie bazy SQLite', async () => {
   const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
   const repo = new ProjectRepository(db); await repo.initialize();

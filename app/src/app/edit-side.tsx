@@ -59,7 +59,7 @@ export default function EditSide() {
     if (opened) await store.start(project, 'manual');
     try {
       await store.log('side_corrected_intent', { revisionBefore: project.geometryRevision, observation: next.observations.at(-1) });
-      await store.repo!.save(next, 'side_corrected'); await store.refresh();
+      await store.repo!.save(next, 'side_corrected', store.plan); await store.refresh();
       await store.log('side_corrected_committed', { geometryRevision: next.geometryRevision });
     } finally { if (opened) await store.stop(); }
     router.replace({ pathname: '/outline', params: { id } });

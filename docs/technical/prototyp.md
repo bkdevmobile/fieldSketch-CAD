@@ -1,5 +1,7 @@
 # Instrukcja MVP outlineGo
 
+Iteracja Free/Plus w kodzie: Free pozwala zapisać do 3 szkiców i zmierzyć do 8 punktów (z P1). Usunięcie szkicu zwalnia miejsce. Przy P8 dostępne są korekta, podsumowanie i zakończenie z automatycznym zamknięciem lub pozostawieniem obrysu otwartego. Istniejące większe szkice pozostają dostępne. PNG ma znak wodny pod rysunkiem, DXF wymaga Plus. Oferta pokazuje 29,99 zł jednorazowo; zakup nie jest jeszcze dostępny. Na telefonie nadal wcześniejszy APK z DXF bez blokady. Szczegóły: [Free/Plus](free-plus.md).
+
 Aktualny układ pomiaru: instrukcja P1 bez miniatury; jej róg jest zapamiętywany globalnie (domyślnie prawy dolny). Celownik i formularz długości są przed pomocą; status pod kamerą nie przesuwa celownika. Domyślna metoda długości to krokomierz, potem ostatni jawny wybór użytkownika; istniejący formularz zachowuje swoje dane. Pierwsza zgoda na krokomierz jest przed uruchomieniem sesji kierunku. Szczegóły: [opis](pierwszy-pomiar.md).
 
 Stan na 20 października 2026: aplikacja 0.1.0, branding w `3d28bd5`, kolejne poprawki po próbie użytkownika opisane w MEMO. Numer commita, aktualny APK i stan instalacji podaje [MEMO](../../MEMO.md). Jest to pomocniczy szkic terenowy z eksportem PNG. Dostępny jest [eksport DXF 2D](eksport-dxf.md) w APK `9E8708ED…` zainstalowanym na Redmi; próba udostępniania na telefonie pozostaje do wykonania. Pełny edytor i solver pozostają poza MVP.

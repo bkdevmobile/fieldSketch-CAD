@@ -4,9 +4,10 @@ import type { Project } from '../domain/model';
 import { sketchExport } from '../domain/sketchExport';
 import { fmt } from './ui';
 import { BrandGraphic } from './Brand';
+import type { Plan } from '../domain/access';
 
-export const ExportSketch = forwardRef<Svg, { project: Project; displayWidth: number }>(function ExportSketch({ project, displayWidth }, ref) {
-  const drawing = sketchExport(project);
+export const ExportSketch = forwardRef<Svg, { project: Project; displayWidth: number; plan?: Plan }>(function ExportSketch({ project, displayWidth, plan = 'free' }, ref) {
+  const drawing = sketchExport(project, plan);
   return <Svg ref={ref} width={displayWidth} height={displayWidth * drawing.height / drawing.width}
     viewBox={`0 0 ${drawing.width} ${drawing.height}`} accessibilityLabel="Podgląd obrazu PNG ze szkicem i tabelą wymiarów">
     <Rect x="0" y="0" width={drawing.width} height={drawing.height} fill="#FFFFFF" />
@@ -30,8 +31,10 @@ export const ExportSketch = forwardRef<Svg, { project: Project; displayWidth: nu
       return <G key={i}><Text x={x} y={y} fontSize="22" fill="#142B28">P{edge.from}–P{edge.to}: {fmt(edge.lengthM, 2)} m</Text>
         <Text x={x + 290} y={y} fontSize="19" fill="#52665C">{edge.source}</Text></G>;
     })}
-    <Text x="64" y={drawing.height - 136} fontSize="22" fill="#52665C">{drawing.estimated ? 'Długości pochodzące z kroków są szacunkowe.' : 'Długości boków wpisane ręcznie.'}</Text>
-    <Text x="64" y={drawing.height - 97} fontSize="22" fill="#52665C">{drawing.metrics.intersects ? 'Samoprzecięcie obrysu — pole niedostępne.' : project.closed && !project.closureObservationId && !drawing.measuredReturn ? 'Przerywany bok zamykający jest wyliczony.' : 'Szkic pomocniczy.'}</Text>
-    <Text x="64" y={drawing.height - 58} fontSize="20" fill="#52665C">{drawing.metrics.closure ? `Błąd zamknięcia: ${fmt(drawing.metrics.closure.norm, 3)} m` : 'Brak niezależnego pomiaru zamknięcia.'}</Text>
+    <Text x="64" y={drawing.contentHeight - 136} fontSize="22" fill="#52665C">{drawing.estimated ? 'Długości pochodzące z kroków są szacunkowe.' : 'Długości boków wpisane ręcznie.'}</Text>
+    <Text x="64" y={drawing.contentHeight - 97} fontSize="22" fill="#52665C">{drawing.metrics.intersects ? 'Samoprzecięcie obrysu — pole niedostępne.' : project.closed && !project.closureObservationId && !drawing.measuredReturn ? 'Przerywany bok zamykający jest wyliczony.' : 'Szkic pomocniczy.'}</Text>
+    <Text x="64" y={drawing.contentHeight - 58} fontSize="20" fill="#52665C">{drawing.metrics.closure ? `Błąd zamknięcia: ${fmt(drawing.metrics.closure.norm, 3)} m` : 'Brak niezależnego pomiaru zamknięcia.'}</Text>
+    {drawing.watermark && <G><Rect x="0" y={drawing.contentHeight} width={drawing.width} height="64" fill="#E7EEE2" />
+      <Text x={drawing.width / 2} y={drawing.contentHeight + 41} textAnchor="middle" fontSize="24" fill="#183A2C">{drawing.watermark}</Text></G>}
   </Svg>;
 });

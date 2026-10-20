@@ -1,5 +1,6 @@
 import { DEFAULT_SETTINGS, Project, UserSettings } from '../domain/model';
 import type { SurveyDraft } from '../domain/survey';
+import { assertProjectSave, Plan } from '../domain/access';
 
 export interface Database {
   execAsync(sql: string): Promise<void>;
@@ -53,9 +54,12 @@ export class ProjectRepository {
     const rows = await this.db.getAllAsync<{ body: string }>('SELECT body FROM projects WHERE id=?', id);
     return rows[0] ? this.decode(rows[0].body) : null;
   }
-  async save(project: Project, kind: string) {
+  async save(project: Project, kind: string, plan: Plan = 'free') {
     const serialized = JSON.stringify(project);
     await this.db.withTransactionAsync(async () => {
+      const saved = await this.load(project.id);
+      const count = saved ? 0 : (await this.db.getAllAsync<{ count: number }>('SELECT COUNT(*) AS count FROM projects'))[0]!.count;
+      assertProjectSave(project, saved, count, plan);
       const previous = await this.db.getAllAsync<{ body: string }>('SELECT body FROM observations WHERE project_id=?', project.id);
       const old = new Map(previous.map(x => { const o = JSON.parse(x.body); return [o.id, x.body]; }));
       for (const observation of project.observations) {

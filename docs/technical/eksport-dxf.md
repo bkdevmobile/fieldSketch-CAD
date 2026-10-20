@@ -16,7 +16,7 @@ Generator: `app/src/domain/dxfExport.ts`. Zapis i udostępnianie: `app/src/infra
 
 ## Free / Plus
 
-Docelowo DXF wymaga Plus zgodnie z [zasadami](free-plus.md). W tej iteracji zakup i stan uprawnienia jeszcze nie istnieją; eksport jest dostępny do testowania bez blokady. Podłączenie do uprawnienia pozostaje pracą przed release. DXF nie jest kopią zapasową obserwacji ani plikiem DWG.
+DXF wymaga Plus zgodnie z [zasadami](free-plus.md). W iteracji limitów Free dodano oznaczenie „DXF · Plus”, ofertę oraz blokadę w funkcji udostępniania. Centralny plan obecnie ma wartość Free, a zakup i trwałe uprawnienie pozostają do podłączenia; w tej wersji nie można jeszcze kupić ani odblokować DXF. Poprzedni APK `9E8708ED…` zainstalowany na Redmi nadal ma eksport bez blokady. DXF nie jest kopią zapasową obserwacji ani plikiem DWG.
 
 ## Weryfikacja
 

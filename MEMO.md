@@ -1,5 +1,9 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
+Iteracja Free/Plus — 20 października 2026: wdrożono limity 8 punktów / 3 szkiców (UI i transakcja SQLite), znak wodny PNG w dodatkowym pasku, ofertę Plus 29,99 zł i blokadę DXF bez Plus. Wszystkie stare szkice pozostają dostępne, także ponad limit; korekta, undo i wyliczone zamknięcie działają bez Plus. Plan jest centralnie Free; zakup/przywracanie i trwałe uprawnienie dopiero do wdrożenia, bez udawanej płatności. TypeScript i 99 testów TS przeszły. Emulator zachował 10 szkiców; potwierdzono ofertę, PNG i arkusz udostępniania, dojście do P8 oraz zamknięcie po restarcie bez kierunku. Ukryto niepasujący komunikat wznowienia przy limicie. Logcat bez błędów JS/AndroidRuntime. Emulator zamknięto. Kod i dokumentacja bez commita; na telefonie nadal DXF 9E8708ED… bez limitów. Szczegóły: [Free/Plus](docs/technical/free-plus.md).
+
+Najnowszy lokalny APK Free/Plus: SHA256 B86BAD59E48C12945617EE5764B3F6FFC3B0C7A5C8DE5E33914D57D92FD1162B, 85272803 bajtów; BUILD SUCCESSFUL in 1m. Log artifacts/free-plus-build-final.log; testy Kotlin UP-TO-DATE. Nie instalowano tej iteracji na telefonie.
+
 Instalacja DXF — 20 października 2026: APK z kodem `172ebe8` zbudowano i zainstalowano na Redmi 23124RA7EO (`a20fa219`) przez install -r z zachowaniem danych: Success. Uruchomienie Status ok, LaunchState COLD. SHA256 `9E8708ED509E61B320B6C111B1C45F9989EAE27CDF8E14491E19BC78D95583DD`, 85263751 bajtów. Log `artifacts/dxf-export-build.log`: BUILD SUCCESSFUL in 58s, testy Kotlin UP-TO-DATE. Próba eksportu i udostępnienia DXF na telefonie pozostaje do wykonania; ADB potwierdza instalację i start. Samsung bez aktualizacji.
 
 Eksport DXF wdrożony w kodzie 20 października 2026: na podsumowaniu „Eksportuj DXF”, lokalne XY, R2000, jednostka m/cm z ustawień, obrys jako LWPOLYLINE oraz numery punktów, długości i objaśnienia na osobnych warstwach. Polskie znaki przez DXF Unicode. TypeScript i 92 testy TS przeszły; LibreCAD otworzył próbkę i wizualnie potwierdzono obrys 3/4/5, opisy, warstwy oraz polskie znaki. Brak nowych zależności. Płatności Plus niewdrożone: DXF na razie dostępny bez blokady, do podłączenia do uprawnienia przed release. Drugi CAD i próba udostępniania na telefonie pozostają do wykonania. Kod zapisano w `172ebe8`; APK z DXF zainstalowano na Redmi, szczegóły powyżej. Szczegóły: [eksport DXF](docs/technical/eksport-dxf.md).
@@ -51,16 +55,16 @@ Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; najnowszy commit a
 
 ## Aktualny rezultat
 
-Działające MVP Android 0.1.0 jest w `app/`: pomiar offline, zapis szkiców, PNG, DXF 2D i diagnostyka. Najnowszy APK odpowiada kodowi `172ebe8`; Redmi 23124RA7EO (`a20fa219`) ma build `9E8708ED509E61B320B6C111B1C45F9989EAE27CDF8E14491E19BC78D95583DD`, zainstalowany i uruchomiony 20 października 2026 z zachowaniem danych. Tabela poniżej opisuje ten APK. Próba DXF na telefonie pozostaje otwarta; wcześniejsze testy zamknięte są zakończone. Samsung ma wcześniejszy build `E083C357…`.
+Działające MVP Android 0.1.0 jest w `app/`: pomiar offline, zapis szkiców, PNG, DXF 2D i diagnostyka. Najnowszy APK odpowiada kodowi `172ebe8`; Redmi 23124RA7EO (`a20fa219`) ma build `9E8708ED509E61B320B6C111B1C45F9989EAE27CDF8E14491E19BC78D95583DD`, zainstalowany i uruchomiony 20 października 2026 z zachowaniem danych. Tabela poniżej opisuje najnowszy lokalny APK Free/Plus; telefon nadal ma wcześniejszy DXF 9E8708ED…. Próba DXF na telefonie pozostaje otwarta; wcześniejsze testy zamknięte są zakończone. Samsung ma wcześniejszy build `E083C357…`.
 
 | Artefakt | Wartość |
 | --- | --- |
 | Plik | `artifacts/outlineGo-0.1.0.apk` |
-| Rozmiar | 85263751 bajtów |
-| SHA256 | `9E8708ED509E61B320B6C111B1C45F9989EAE27CDF8E14491E19BC78D95583DD` |
+| Rozmiar | 85272803 bajtów |
+| SHA256 | `B86BAD59E48C12945617EE5764B3F6FFC3B0C7A5C8DE5E33914D57D92FD1162B` |
 | Platforma | Android 7+, target SDK 36, arm64-v8a i x86_64 |
 | Uruchamianie | Osadzony JavaScript, bez Metro i internetu, podpis deweloperski |
-| Log ostatniego budowania | `artifacts/dxf-export-build.log` |
+| Log ostatniego budowania | `artifacts/free-plus-build-final.log` |
 
 ## Obowiązujący interfejs
 
@@ -126,13 +130,13 @@ adb -d install -r artifacts/outlineGo-0.1.0.apk
 adb -d shell am start -n pl.fieldsketch.cad.prototype/.MainActivity
 ```
 
-Git w tej sesji wymaga jawnych `--git-dir=C:/projects/fieldSketch-CAD/.git --work-tree=C:/projects/fieldSketch-CAD` z powodu wykrywania właściciela; nie zmieniano globalnego safe.directory. Nie wykonywano pushowania. Bazowy commit MVP: `4818fdb`; uproszczenie UI i nawigacji: `91dd0fe`; dokumentacja: `bf28653`; styl Teren i nowe interakcje: `1a5acbe`; notatki Teren: `02a5019`; branding outlineGo: `3d28bd5`; notatki marki: `b044778`; checklista: `b2a496f`; poprawki po próbie terenowej: `6972028`. Redmi używa APK z tabeli (`9E8708ED…`, kod `172ebe8`); Samsung nadal ma wcześniejszy build `E083C357…` z ograniczeniami przesuwania i animowanym skokowym zoomem. Notatki po commicie poprawek zapisano w `5965049`; zapis instalacji uwzględniono w commicie zmian podglądu szkicu. Zmiany w notatkach po kompilacji nie zmieniają APK.
+Git w tej sesji wymaga jawnych `--git-dir=C:/projects/fieldSketch-CAD/.git --work-tree=C:/projects/fieldSketch-CAD` z powodu wykrywania właściciela; nie zmieniano globalnego safe.directory. Nie wykonywano pushowania. Bazowy commit MVP: `4818fdb`; uproszczenie UI i nawigacji: `91dd0fe`; dokumentacja: `bf28653`; styl Teren i nowe interakcje: `1a5acbe`; notatki Teren: `02a5019`; branding outlineGo: `3d28bd5`; notatki marki: `b044778`; checklista: `b2a496f`; poprawki po próbie terenowej: `6972028`. Redmi używa wcześniejszego APK DXF (`9E8708ED…`, kod `172ebe8`); tabela dotyczy nowszego lokalnego Free/Plus; Samsung nadal ma wcześniejszy build `E083C357…` z ograniczeniami przesuwania i animowanym skokowym zoomem. Notatki po commicie poprawek zapisano w `5965049`; zapis instalacji uwzględniono w commicie zmian podglądu szkicu. Zmiany w notatkach po kompilacji nie zmieniają APK.
 
 Makiety i zrzuty są lokalnymi artefaktami ignorowanymi przez Git. Wizualizacja 10 pozostałych ekranów: `artifacts/visualizations/terrain-screens.html`; lokalny preview uruchamia `node artifacts/visualizations/terrain-preview-server.cjs` pod `http://127.0.0.1:4176`. Wcześniejsze warianty pomiaru: `artifacts/visualizations/survey-styles.html`. Nie są publikacją aplikacji. Emulator zamknięto po testach; nie trzeba go uruchamiać do instalacji gotowego APK na telefonie.
 
 ## Najbliższe prace i zakres
 
-1. Sprawdzić udostępnienie DXF z Redmi i import w drugim CAD. Następnie wdrożyć limity Free, znak wodny PNG, zakup i przywracanie Plus za 29,99 zł jednorazowo bez własnego backendu; podłączyć DXF do uprawnienia. Doprecyzować użytkownika docelowego. Specyfikacja: docs/technical/free-plus.md.
+1. Sprawdzić udostępnienie DXF z Redmi i import w drugim CAD. Limity Free, znak wodny i bramka DXF są wdrożone; następnie podłączyć zakup i przywracanie Plus za 29,99 zł jednorazowo bez własnego backendu oraz trwałe uprawnienie offline. Doprecyzować użytkownika docelowego. Specyfikacja: docs/technical/free-plus.md.
 2. Ustalić języki, język domyślny i sposób wyboru; wdrożyć wielojęzyczność wymaganą dla release.
 3. Dopracować wizualizację przed release: spójność ekranów w stylu Teren, typografia, kolorystyka, ikony, odstępy, kontrolki, menu i dialogi; uwzględnić Free/Plus oraz tłumaczenia. Zachować dolne akcje poza scrollem i stabilny celownik. Dodane na życzenie użytkownika 20 października 2026.
 4. Przygotować listę prac i kryteria publikacji produkcyjnej. Nie otwierać ponownie zakończonych testów bez nowych zgłoszeń.

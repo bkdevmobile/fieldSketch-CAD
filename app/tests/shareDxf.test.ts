@@ -18,7 +18,7 @@ const sample = () => commitMeasurement(newProject('Test', 'manual'), { source: '
 
 test('zapisuje plik DXF w wybranej jednostce i udostępnia go jako plik CAD', async () => {
   const project = sample();
-  await shareDxf(project, 'cm');
+  await shareDxf(project, 'cm', 'plus');
   expect(File).toHaveBeenCalledWith('/cache', `outlinego-${project.id}-r${project.geometryRevision}-cm.dxf`);
   expect(file.write).toHaveBeenCalledWith(expect.stringContaining('200.00 cm'));
   expect(Sharing.shareAsync).toHaveBeenCalledWith(file.uri, expect.objectContaining({ mimeType: 'image/vnd.dxf', UTI: 'com.autodesk.dxf' }));
@@ -26,14 +26,20 @@ test('zapisuje plik DXF w wybranej jednostce i udostępnia go jako plik CAD', as
 
 test('brak udostępniania nie tworzy pliku', async () => {
   jest.mocked(Sharing.isAvailableAsync).mockResolvedValue(false);
-  await expect(shareDxf(sample(), 'm')).rejects.toThrow('niedostępne');
+  await expect(shareDxf(sample(), 'm', 'plus')).rejects.toThrow('niedostępne');
   expect(File).not.toHaveBeenCalled();
 });
 
 test('nie udostępnia pustego lub niezapisanego pliku', async () => {
   for (const missing of [true, false]) {
     file.exists = !missing; file.size = missing ? 100 : 0;
-    await expect(shareDxf(sample(), 'm')).rejects.toThrow('zapisać pliku');
+    await expect(shareDxf(sample(), 'm', 'plus')).rejects.toThrow('zapisać pliku');
   }
+  expect(Sharing.shareAsync).not.toHaveBeenCalled();
+});
+
+test('Free nie zapisuje ani nie udostępnia DXF bez uprawnienia Plus', async () => {
+  await expect(shareDxf(sample(), 'm')).rejects.toThrow('Plus');
+  expect(File).not.toHaveBeenCalled();
   expect(Sharing.shareAsync).not.toHaveBeenCalled();
 });
