@@ -2,7 +2,9 @@
 
 Data: 20 października 2026. Status: wizard MVP outlineGo po próbie terenowej i poprawkach podglądu.
 
-Dokument opisuje aktualny kod MVP w `b00dd74`. Zastępuje wcześniejsze warianty makiet i opisy przyrostów. Użytkownik zaakceptował dokładność prób trybu względnego i działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Stan kodu: `b00dd74` (ograniczenia przesuwania, animowany skokowy zoom i poluzowanie granic do środka podglądu). Telefon ma APK `256D426C…`, zbudowany i zainstalowany przed ostatnim poluzowaniem granic. Zoom i animacja są już w telefonie; szersze granice wymagają nowego buildu i instalacji. Ostatnia pełna kontrola: TypeScript i 60 testów TS; po poluzowaniu ponownie przeszły TypeScript oraz 10 testów podglądu. Nie wykonano nowego pełnego przebiegu wszystkich testów ani buildu po tej korekcie.
+Dokument opisuje aktualny kod MVP w `b00dd74`. Zastępuje wcześniejsze warianty makiet i opisy przyrostów. Użytkownik zaakceptował dokładność prób trybu względnego i działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Stan kodu: `b00dd74` (ograniczenia przesuwania, animowany skokowy zoom i poluzowanie granic do środka podglądu). Telefon ma APK `E083C357…` z poluzowanymi granicami oraz skokowym zoomem; build i instalacja z zachowaniem danych zostały potwierdzone 20 października 2026. Ostatnia pełna kontrola: TypeScript i 60 testów TS; po poluzowaniu ponownie przeszły TypeScript oraz 10 testów podglądu. Po tej korekcie nie powtarzano wszystkich testów TS; pełny build zakończył się sukcesem, a testy Kotlin były aktualne (`UP-TO-DATE`).
+
+Po uwagach z testów zamkniętych dodano instrukcję z ilustracją, automatyczny start sesji, blokadę niegotowego odczytu i podpowiedź po dotknięciu celownika. Szczegóły i próba odbiorowa: [pierwszy pomiar](pierwszy-pomiar.md). Zmiana została sprawdzona na emulatorze oraz zainstalowana i uruchomiona na Redmi `a20fa219` 20 października 2026; próba użytkownika pozostaje do wykonania.
 
 ## Przebieg
 
@@ -98,7 +100,7 @@ Ikony konturowe Lucide towarzyszą akcjom, statusowi i etapom. Ikony dekoracyjne
 
 Aktualny kod: `b00dd74`, aplikacja 0.1.0. Wdrożono opisany wizard, ręczne m/cm, natywny krokomierz `TYPE_STEP_DETECTOR`, SQLite v3 z formularzem i ustawieniami, edycję ostatniego boku z historią `supersedesId`, PNG oraz osobną diagnostykę. Stop, tło i zakończenie sesji wyłączają liczenie; zdarzenia kroków mają identyfikatory sesji i pomiaru. Android 10+ wymaga zgody ACTIVITY_RECOGNITION pobieranej przy Start.
 
-Ostatnia pełna kontrola: TypeScript i 60 testów TS. Po poluzowaniu granic: TypeScript i 10 testów podglądu. Pełny release build i zadanie 7 testów Kotlin zakończyły się bez błędów; zadanie Kotlin było `UP-TO-DATE`. Na emulatorze sprawdzono m.in. geometrię, zachowanie danych, PNG, listę projektów 3/+10, menu i anulowanie usuwania. Emulator nie ma detektora kroków i nie potwierdza fizycznego liczenia. APK sprzed ostatniego poluzowania granic zainstalowano na telefonie z zachowaniem danych; ADB potwierdził uruchomienie. Pełna próba najnowszego UI pozostaje do wykonania. Hash i szczegółowe granice weryfikacji są w [MEMO](../../MEMO.md).
+Ostatnia pełna kontrola: TypeScript i 60 testów TS. Po poluzowaniu granic: TypeScript i 10 testów podglądu. Pełny release build i zadanie 7 testów Kotlin zakończyły się bez błędów; zadanie Kotlin było `UP-TO-DATE`. Na emulatorze sprawdzono m.in. geometrię, zachowanie danych, PNG, listę projektów 3/+10, menu i anulowanie usuwania. Emulator nie ma detektora kroków i nie potwierdza fizycznego liczenia. APK z ostatnim poluzowaniem granic zainstalowano na telefonie z zachowaniem danych; ADB potwierdził uruchomienie. Pełna próba najnowszego UI pozostaje do wykonania. Hash i szczegółowe granice weryfikacji są w [MEMO](../../MEMO.md).
 
 Po próbie użytkownik zaakceptował działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Korekta ręczna pozostaje dostępna. Nie wprowadzono automatycznego odejmowania kroków ani zmiany algorytmu.
 
@@ -116,14 +118,14 @@ Lista projektów jest prosta: w każdym wierszu nazwa (jedna linia, długie nazw
 
 - Ustawienia obejmują domyślne m/cm, długość kroku, przyciąganie oraz globalny tryb kierunku (domyślnie względny). Tryb obowiązuje we wszystkich projektach przy kolejnych pomiarach. Zmiana zatrzymuje aktywną sesję i unieważnia roboczy kierunek oraz odniesienie; długość robocza i zapisane obserwacje pozostają zachowane. Brak wybranego sensora na urządzeniu oznacza użycie trybu ręcznego.
 - Po przechwyceniu pokazujemy kąt. „Popraw kąt” rozwija pole, lewo/prawo i suwak; domyślnie są schowane. W trybie ręcznym pola są widoczne od razu. Błędna korekta odsłania pole z komunikatem.
-- Przy kierunku pokazujemy wyłącznie prosty status: stabilizowanie, gotowy lub ostrzeżenie. Przycisk „Szczegóły odczytu” i szczegóły liczbowe usunięto z ekranu pomiaru na życzenie użytkownika. Status „Gotowy do przechwycenia” jest zielony przy aktywnej sesji, gotowym oknie próbek, rzucie poziomym co najmniej 0,2, jakości co najmniej 2/3 i rozrzucie do 3°. Odtworzenie odniesienia i ostrzeżenia pozostają widoczne automatycznie.
+- Przy kierunku pokazujemy wyłącznie prosty status: stabilizowanie, gotowy lub ostrzeżenie. Przycisk „Szczegóły odczytu” i szczegóły liczbowe usunięto z ekranu pomiaru na życzenie użytkownika. Status „Telefon stabilny — możesz zapisać kierunek” jest zielony przy aktywnej sesji, gotowym oknie próbek, rzucie poziomym co najmniej 0,2, jakości co najmniej 2/3 i rozrzucie do 3°. Odtworzenie odniesienia i ostrzeżenia pozostają widoczne automatycznie.
 - W kroku długości pozostają „Wpisz długość” i „Krokomierz”. Zamiast dwóch przycisków m/cm jest kompaktowa, klikalna jednostka. Zmiana przelicza wartość, zachowując fizyczną długość.
 - Na polecenie użytkownika usunięto całkowicie „Więcej opcji” i jego zawartość z ekranu pomiaru. Tryb kierunku oraz długość kroku ustawiamy globalnie w ustawieniach. Dotychczasowe pomiary i przywrócony formularz zachowują użyty przelicznik; następny bok otrzymuje wartość z ustawień. Korekta liczby kroków nadal jest dostępna.
 - Menu projektu ⋮ zawiera cofnięcie boku/zamknięcia, dostępny przy kompletnym podsumowaniu niezależny pomiar powrotu do P1, diagnostykę i ustawienia. Cofnięcie wymaga potwierdzenia odrzucenia bieżącego niezapisanego pomiaru; jeśli potrzebna jest sesja do logowania, otwieramy ją automatycznie.
 - Osobny ekran „Diagnostyka” zawiera kontekst próby, niezależną wartość odniesienia, logi i ręczne zatrzymanie sesji czujników. Dostęp z ustawień oraz menu projektu. Powrót zachowuje etap i formularz, o ile nie zatrzymano sesji; zatrzymanie wymaga ponownego przechwycenia.
 - Stałe dolne akcje i pływająca miniatura szkicu pozostają dostępne. Nie ma globalnego przełącznika pokazywania zaawansowanych opcji.
 
-Poprawki po próbie na telefonie: przyciąganie kąta konfigurowane wyłącznie w ustawieniach, pływający szkic oraz przycisk „Dalej · zapisz punkt” zamiast enigmatycznego „Sprawdź punkt”. Przycisk prowadzi do podsumowania roboczego punktu; dopiero „Zapisz punkt” zatwierdza bok.
+Poprawki po próbie na telefonie: przyciąganie kąta konfigurowane wyłącznie w ustawieniach, pływający szkic oraz przycisk „Sprawdź bok” zamiast enigmatycznego „Sprawdź punkt”. Przycisk prowadzi do podsumowania roboczego punktu; dopiero „Zapisz punkt” zatwierdza bok.
 
 ## Decyzje otwarte
 

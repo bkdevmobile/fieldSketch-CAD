@@ -32,7 +32,9 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     let mounted = true;
     (async () => {
       try {
-        const db = await SQLite.openDatabaseAsync('fieldsketch.db');
+        // Keep this provider's connection independent of stale native wrappers
+        // left by a previous React runtime/activity. The database file is unchanged.
+        const db = await SQLite.openDatabaseAsync('fieldsketch.db', { useNewConnection: true });
         await db.execAsync('PRAGMA journal_mode=WAL');
         const repository = new ProjectRepository(db);
         await repository.initialize();

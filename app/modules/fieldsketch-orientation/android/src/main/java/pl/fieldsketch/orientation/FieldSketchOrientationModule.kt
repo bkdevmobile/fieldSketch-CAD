@@ -179,7 +179,7 @@ class FieldSketchOrientationModule : Module(), SensorEventListener {
         lastUi = event.timestamp
         val stats = statistics()
         sendEvent("orientationSample", mapOf("headingRad" to heading, "pitchDeg" to Math.toDegrees(direction.pitch),
-          "horizontalProjection" to projection, "accuracy" to event.accuracy, "stdDevDeg" to stats.second,
+          "horizontalProjection" to samples.minOf { it.projection }, "accuracy" to samples.minOf { it.accuracy }, "stdDevDeg" to stats.second,
           "sampleCount" to samples.size, "ready" to ready(), "sessionId" to (store.sessionId ?: "")))
       }
     } catch (e: Exception) { fail(e) }

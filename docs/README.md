@@ -2,7 +2,7 @@
 
 Ogólną kolejność etapów opisuje [plan rozwoju](plan-rozwoju.md). Zaakceptowany przebieg i decyzje UI opisuje [wizard pomiaru](technical/wizard-pomiaru.md).
 
-Stan dokumentacji: 20 października 2026. Stan kodu: `b00dd74` (ograniczenia przesuwania, animowany skokowy zoom i poluzowanie granic do środka podglądu). Telefon ma APK `256D426C…`, zbudowany i zainstalowany przed ostatnim poluzowaniem granic. Zoom i animacja są już w telefonie; szersze granice wymagają nowego buildu i instalacji. Ostatnia pełna kontrola: TypeScript i 60 testów TS; po poluzowaniu ponownie przeszły TypeScript oraz 10 testów podglądu. Nie wykonano nowego pełnego przebiegu wszystkich testów ani buildu po tej korekcie.
+Stan dokumentacji: 20 października 2026. Stan kodu: `b00dd74` (ograniczenia przesuwania, animowany skokowy zoom i poluzowanie granic do środka podglądu). Telefon ma APK `E083C357…` z poluzowanymi granicami oraz skokowym zoomem; build i instalacja z zachowaniem danych zostały potwierdzone 20 października 2026. Ostatnia pełna kontrola: TypeScript i 60 testów TS; po poluzowaniu ponownie przeszły TypeScript oraz 10 testów podglądu. Po tej korekcie nie powtarzano wszystkich testów TS; pełny build zakończył się sukcesem, a testy Kotlin były aktualne (`UP-TO-DATE`).
 
 - [Instrukcja użytkowania, instalacji i testów](technical/prototyp.md) opisuje aktualny interfejs.
 - [Checklista i wynik próby terenowej](technical/checklista-proby-terenowej.md) zawiera zgłoszenia użytkownika i zakres ponownej kontroli podglądu.

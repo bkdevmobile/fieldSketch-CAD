@@ -1,6 +1,8 @@
 # Aplikacja outlineGo
 
-Aktualny kod: `b00dd74`. Krawędź szkicu może dojść do środka podglądu, przy ochronie przed całkowitym zniknięciem rysunku. Ta ostatnia korekta nie jest jeszcze w APK na telefonie (`256D426C…`); wymaga nowego buildu i instalacji. Po korekcie przeszły TypeScript i 10 testów podglądu.
+Iteracja po testach zamkniętych: instrukcja pierwszego pomiaru z ilustracją, automatyczne sesje, podpowiedź celowania telefonem, blokada zapisu przed gotowością i nazwy akcji zamiast ogólnego Dalej. TypeScript i 69 testów TS oraz build przeszły. APK `47918454…` zainstalowano na telefonie Redmi `a20fa219` 20 października 2026 z zachowaniem danych; ADB potwierdził instalację i uruchomienie. [Opis i próba odbiorowa](../docs/technical/pierwszy-pomiar.md).
+
+Aktualny kod: `b00dd74`. Krawędź szkicu może dojść do środka podglądu, przy ochronie przed całkowitym zniknięciem rysunku. Ta korekta jest w APK `E083C357…`, zbudowanym i zainstalowanym na telefonie 20 października 2026 (`install -r`, dane zachowane; `Success`, uruchomienie `Status: ok`, `LaunchState: COLD`). Po korekcie przeszły TypeScript i 10 testów podglądu.
 
 Aktualizacja podglądu szkicu zainstalowana na telefonie 20 października 2026: ograniczone przesuwanie szkicu, zoom 50–800% widoku dopasowanego i poziomy 50/75/100/150/200/300/400/600/800%. Pinch płynnie śledzi palce, a po puszczeniu animuje przejście do najbliższego poziomu w 180 ms. Przyciski ± przełączają poziomy z tą samą animacją. TypeScript i 60 testów TS przeszły. Pełny build zakończył się sukcesem; APK zainstalowano przez `install -r` z zachowaniem danych i uruchomiono (`Success`, `Status: ok`, `LaunchState: COLD`). Kontrola dotykowa przez użytkownika pozostaje do wykonania.
 

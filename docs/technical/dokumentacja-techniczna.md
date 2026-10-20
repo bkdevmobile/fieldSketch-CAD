@@ -1,6 +1,6 @@
 # Dokumentacja techniczna outlineGo
 
-Wersja 0.8. Data: 20 października 2026. Kod MVP w `b00dd74` oraz osobno architektura docelowa. APK na telefonie (`256D426C…`) zawiera skokowy zoom, ale poprzedza ostatnie poluzowanie granic przesuwania. Aktualny artefakt i instalację opisuje MEMO.
+Wersja 0.8. Data: 20 października 2026. Kod MVP w `b00dd74` oraz osobno architektura docelowa. APK na telefonie (`E083C357…`) zawiera skokowy zoom i ostatnie poluzowanie granic przesuwania. Aktualny artefakt i instalację opisuje MEMO.
 
 ## Aktualny zakres implementacji
 
@@ -16,7 +16,7 @@ Wymaganie wersji release (decyzja użytkownika, 20 października 2026): aplikacj
 
 Zmiana globalnego trybu zatrzymuje sesję i unieważnia roboczy kierunek/odniesienie; nie przepisuje historycznych obserwacji. Formularz zachowuje wpisy, ale wznowienie zaczyna się od kierunku. Tryb sensorowy przy istniejących bokach wymaga odtworzenia odniesienia. Długość ręczna ma jawne źródło, surowe i poprawione kroki są zachowane osobno; edycja tworzy nową obserwację z `supersedesId`.
 
-Weryfikacja ostatniego APK: TypeScript, 60 testów TS i pełny release build bez błędów; zadanie testów Kotlin `UP-TO-DATE`. Instalacja i uruchomienie na telefonie potwierdzone. Po późniejszym poluzowaniu granic przesuwania przeszły TypeScript oraz 10 testów podglądu, bez ponownego pełnego przebiegu ani buildu. Użytkownik zaakceptował próby trybu względnego i działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Ponowna próba poprawek pozostaje do wykonania. Szczegóły i hash APK są w [MEMO](../../MEMO.md).
+Weryfikacja ostatniego APK: TypeScript, 60 testów TS i pełny release build bez błędów; zadanie testów Kotlin `UP-TO-DATE`. Instalacja i uruchomienie na telefonie potwierdzone. Po późniejszym poluzowaniu granic przesuwania przeszły TypeScript oraz 10 testów podglądu, bez ponownego pełnego przebiegu wszystkich testów TS. Następnie pełny build i instalacja na telefonie zakończyły się sukcesem. Użytkownik zaakceptował próby trybu względnego i działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Ponowna próba poprawek pozostaje do wykonania. Szczegóły i hash APK są w [MEMO](../../MEMO.md).
 
 ### Implementacja podglądu szkicu
 
