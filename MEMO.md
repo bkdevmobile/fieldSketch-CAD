@@ -4,7 +4,7 @@ Decyzja marki — 20 października 2026: użytkownik przyjął nazwę **outlineG
 
 W kodzie wdrożono nazwę i logo outlineGo: nagłówek główny, mały znak w pozostałych nagłówkach, nagłówek pomiaru, nowy projekt i eksport PNG. Wektorowa geometria `app/assets/brand/mark.json` zasila komponent `Brand.tsx` oraz generator SVG/PNG `npm run assets:brand`. Ikona ma wersję tradycyjną, adaptacyjną i monochromatyczną, splash — ciepłe tło i zielony znak. `expo-splash-screen` 56.0.15 obsługuje start natywny; widok z logo i nazwą pozostaje podczas inicjalizacji danych, bez sztucznego opóźnienia. Nazwa pliku APK i nowo eksportowanych PNG/CSV używa outlineGo. Zachowano pakiet `pl.fieldsketch.cad.prototype`, schemat linków `fieldsketch`, slug i bazę `fieldsketch.db`, aby zachować ciągłość aktualizacji oraz dane. Zmiany marki zapisano w commicie wdrażającym branding outlineGo.
 
-Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; kod Teren zapisano w `1a5acbe`, późniejsze notatki w `02a5019`. Kolejny commit wdraża opisany powyżej branding outlineGo i odnotowuje instalację na telefonie.
+Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; kod Teren zapisano w `1a5acbe`, późniejsze notatki w `02a5019`. Najnowszy commit aplikacji: `3d28bd5` — `feat: apply outlineGo branding, launcher icon and splash screen`. Obejmuje nazwę, logo w ekranach i PNG, zasoby ikony, splash, generator zasobów oraz dokumentację instalacji na telefonie. Po commicie katalog roboczy był czysty; bieżąca aktualizacja notatek pozostaje osobną zmianą bez commita. Nie wykonano pushowania.
 
 ## Aktualny rezultat
 
@@ -25,7 +25,7 @@ Pozostałe ekrany wdrożono według wizualizacji Teren: osobny formularz nowego 
 
 Miniaturę można przeciągać w dwóch osiach, z przyciąganiem do najbliższego z czterech rogów obszaru nad akcjami. Po zmianie etapu, rozmiaru okna lub klawiatury zachowuje róg. Dostępność pozwala przejść do następnego rogu. Przeciągnięcie nie otwiera podglądu. Dotknięcie otwiera wyśrodkowany pionowo dialog na pełną szerokość, zamykany przez Wstecz, tło, krzyżyk lub przycisk powrotu, bez utraty formularza.
 
-Wybrany styl: **Teren** (spośród Teren / Precyzja / Kontrast). Ciepłe tło `#F5F4EE`, jasne panele `#FFFEFA`, tekst `#183A2C`, leśna zieleń `#1B684B`, delikatne wypełnienia `#E7EEE2`. Ikony konturowe `lucide-react-native` 1.59.0, przypięte w package.json/lock; korzystają z istniejącego SVG, bez dodatkowej zgody telefonu. Pomiar ma nagłówek z ikoną mapy, nazwą i odcinkiem oraz nieinteraktywny wskaźnik Kierunek/Długość/Zapis. Panele robocze są zaokrąglone, pola i wyniki większe, a akcje Zakończ i Zmierz ponownie wizualnie lżejsze. Wspólne kontrolki i nagłówki korzystają z nowej palety także na innych ekranach. Nie dodano wyboru stylu w ustawieniach.
+Wybrany styl: **Teren** (spośród Teren / Precyzja / Kontrast). Ciepłe tło `#F5F4EE`, jasne panele `#FFFEFA`, tekst `#183A2C`, leśna zieleń `#1B684B`, delikatne wypełnienia `#E7EEE2`. Ikony konturowe `lucide-react-native` 1.59.0, przypięte w package.json/lock; korzystają z istniejącego SVG, bez dodatkowej zgody telefonu. Pomiar ma nagłówek ze znakiem outlineGo, nazwą i odcinkiem oraz nieinteraktywny wskaźnik Kierunek/Długość/Zapis. Panele robocze są zaokrąglone, pola i wyniki większe, a akcje Zakończ i Zmierz ponownie wizualnie lżejsze. Wspólne kontrolki i nagłówki korzystają z nowej palety także na innych ekranach. Nie dodano wyboru stylu w ustawieniach.
 
 Kontrola wyglądu na emulatorze ujawniła zasłanianie przycisków pola przez miniaturę przy klawiaturze. Page przewija teraz aktywne pole nad obszar miniatury po zmianie wysokości viewportu/otwarciu klawiatury. Nawigacja nadal jest poza scrollem. Dopracowano wspólną wysokość pól/przycisków i wyrównanie ponowienia odczytu do lewej, z dala od miniatury.
 
@@ -83,13 +83,13 @@ adb -d install -r artifacts/outlineGo-0.1.0.apk
 adb -d shell am start -n pl.fieldsketch.cad.prototype/.MainActivity
 ```
 
-Git w tej sesji wymaga jawnych `--git-dir=C:/projects/fieldSketch-CAD/.git --work-tree=C:/projects/fieldSketch-CAD` z powodu wykrywania właściciela; nie zmieniano globalnego safe.directory. Nie wykonywano pushowania. Bazowy commit MVP: `4818fdb`; uproszczenie UI i nawigacji: `91dd0fe`; dokumentacja: `bf28653`; styl Teren i nowe interakcje: `1a5acbe`. Po zapisaniu `1a5acbe` katalog roboczy był czysty. Najnowsza instalacja telefonu używa APK o hashu z tabeli; zmiany w notatkach po kompilacji nie zmieniają tego APK.
+Git w tej sesji wymaga jawnych `--git-dir=C:/projects/fieldSketch-CAD/.git --work-tree=C:/projects/fieldSketch-CAD` z powodu wykrywania właściciela; nie zmieniano globalnego safe.directory. Nie wykonywano pushowania. Bazowy commit MVP: `4818fdb`; uproszczenie UI i nawigacji: `91dd0fe`; dokumentacja: `bf28653`; styl Teren i nowe interakcje: `1a5acbe`; notatki Teren: `02a5019`; branding outlineGo: `3d28bd5`. Po zapisaniu `3d28bd5` katalog roboczy był czysty. Najnowsza instalacja telefonu używa APK o hashu z tabeli; zmiany w notatkach po kompilacji nie zmieniają tego APK.
 
 Makiety i zrzuty są lokalnymi artefaktami ignorowanymi przez Git. Wizualizacja 10 pozostałych ekranów: `artifacts/visualizations/terrain-screens.html`; lokalny preview uruchamia `node artifacts/visualizations/terrain-preview-server.cjs` pod `http://127.0.0.1:4176`. Wcześniejsze warianty pomiaru: `artifacts/visualizations/survey-styles.html`. Nie są publikacją aplikacji. Emulator zamknięto po testach; nie trzeba go uruchamiać do instalacji gotowego APK na telefonie.
 
 ## Najbliższe prace i zakres
 
-1. Próba użytkownika na zaktualizowanym telefonie: menu, własne potwierdzenia, przeciąganie i przyciąganie miniatury, powiększony dialog szkicu, klawiatura oraz powrót do formularza bez utraty danych. Instalacja i uruchomienie są potwierdzone; odbiór tych interakcji przez użytkownika pozostaje otwarty.
+1. Próba użytkownika na zaktualizowanym telefonie: ikona i nazwa outlineGo, zimny start ze splashem, logo w ekranach i udostępnionym PNG; następnie pełny pomiar, menu, własne potwierdzenia, przeciąganie i przyciąganie miniatury, powiększony dialog szkicu, klawiatura oraz powrót do formularza bez utraty danych. Instalacja i uruchomienie są potwierdzone; odbiór tych interakcji przez użytkownika pozostaje otwarty.
 2. Diagnoza nadliczania kroków przy znanej liczbie kroków, z logiem, szczególnie przy Start/Stop i zmianie sposobu trzymania telefonu. Nie wprowadzono nowej poprawki algorytmu w commicie Teren.
 3. Ustalenie kryteriów gotowości do testu zamkniętego po próbie terenowej.
 
