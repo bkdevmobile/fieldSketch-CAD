@@ -6,17 +6,20 @@ import { OutlineCanvas, OutlinePreview } from './OutlineCanvas';
 import { Button, colors, s } from './ui';
 import { Dialog } from './overlays';
 import { ArrowLeft, Maximize2, Move } from 'lucide-react-native';
+import { useStore } from '../infrastructure/store';
 
 export function FloatingSketch({ project, preview, fitKey, unit }: {
   project: Project; preview?: OutlinePreview; fitKey: number; unit: 'm' | 'cm';
 }) {
+  const { settings, rememberUi } = useStore();
   const [expanded, setExpanded] = useState(false), [keyboardOpen, setKeyboardOpen] = useState(Keyboard.isVisible());
   const [area, setArea] = useState({ width: 0, height: 0 });
   const [thumbnail, setThumbnail] = useState({ width: 154, height: 150 });
   const { height } = useWindowDimensions();
   const position = useRef(new Animated.ValueXY()).current;
-  const current = useRef({ area, thumbnail }); current.current = { area, thumbnail };
-  const corner = useRef<SketchCorner>('bottom-right');
+  const current = useRef({ area, thumbnail, rememberUi }); current.current = { area, thumbnail, rememberUi };
+  const corner = useRef<SketchCorner>(settings.sketchCorner ?? 'top-right');
+  const pendingCorner = useRef<SketchCorner | null>(null);
   const location = useRef({ x: 0, y: 0 }), origin = useRef({ x: 0, y: 0 });
   const suppressTapUntil = useRef(0);
   const snap = (next: SketchCorner, animated = true) => {
@@ -33,6 +36,13 @@ export function FloatingSketch({ project, preview, fitKey, unit }: {
     return () => { position.removeListener(listener); position.stopAnimation(); show.remove(); hide.remove(); };
   }, []);
   useEffect(() => { snap(corner.current, false); }, [area.width, area.height, thumbnail.width, thumbnail.height]);
+  useEffect(() => {
+    const saved = settings.sketchCorner ?? 'top-right';
+    if (pendingCorner.current && saved !== pendingCorner.current) return;
+    pendingCorner.current = null;
+    if (saved !== corner.current) snap(saved, false);
+  }, [settings.sketchCorner]);
+  const chooseCorner = (next: SketchCorner) => { pendingCorner.current = next; snap(next); void current.current.rememberUi({ sketchCorner: next }); };
   const responder = useMemo(() => PanResponder.create({
     onStartShouldSetPanResponder: () => false,
     onMoveShouldSetPanResponder: (_, gesture) => Math.hypot(gesture.dx, gesture.dy) > 6,
@@ -41,7 +51,7 @@ export function FloatingSketch({ project, preview, fitKey, unit }: {
     onPanResponderRelease: (_, gesture) => {
       const end = clampSketch({ x: origin.current.x + gesture.dx, y: origin.current.y + gesture.dy }, current.current.area, current.current.thumbnail);
       suppressTapUntil.current = Date.now() + 250;
-      snap(nearestCorner(end, current.current.area, current.current.thumbnail));
+      chooseCorner(nearestCorner(end, current.current.area, current.current.thumbnail));
     },
     onPanResponderTerminate: () => { suppressTapUntil.current = Date.now() + 250; snap(corner.current); },
     onPanResponderTerminationRequest: () => false,
@@ -52,7 +62,7 @@ export function FloatingSketch({ project, preview, fitKey, unit }: {
       <Animated.View {...responder.panHandlers} style={{ position: 'absolute', top: 0, left: 0, transform: position.getTranslateTransform(), opacity: area.width ? 1 : 0 }}>
         <Pressable accessibilityRole="button" accessibilityLabel="Powiększ szkic" accessibilityHint="Dotknij, aby powiększyć. Przeciągnij, aby przenieść do innego rogu."
           accessibilityActions={[{ name: 'activate', label: 'Powiększ szkic' }, { name: 'move', label: 'Przenieś do następnego rogu' }]}
-          onAccessibilityAction={e => { if (e.nativeEvent.actionName === 'move') snap(sketchCorners[(sketchCorners.indexOf(corner.current) + 1) % 4]!); else open(); }}
+          onAccessibilityAction={e => { if (e.nativeEvent.actionName === 'move') chooseCorner(sketchCorners[(sketchCorners.indexOf(corner.current) + 1) % 4]!); else open(); }}
           onLayout={e => setThumbnail(e.nativeEvent.layout)} onPress={open} style={({ pressed }) => ({
             width: Math.min(keyboardOpen ? 128 : 154, area.width || 154), backgroundColor: colors.white, padding: 10, gap: 6,
             borderWidth: 1, borderColor: colors.line, borderRadius: 18, elevation: 4, shadowColor: colors.ink,

@@ -21,7 +21,7 @@ import { directionReady } from '../domain/directionReadiness';
 import { MeasurementHelp } from '../components/MeasurementHelp';
 
 const modeLabels: Record<SurveyMode, string> = { magnetic: 'Magnetyczny', relative: 'Względny', manual: 'Ręczny' };
-interface Frozen { theta: number; capture: Capture | null; sessionId: string }
+interface Frozen { theta: number; capture: Capture | null; sessionId: string; authorizedSessionId?: string }
 export default function Survey() {
   const Alert = useDialogs();
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -32,7 +32,7 @@ export default function Survey() {
   const [step, setStep] = useState<WizardStep>('direction');
   const [length, setLength] = useState(''), [steps, setSteps] = useState('');
   const [unit, setUnit] = useState<'m' | 'cm'>('m');
-  const [lengthSource, setLengthSource] = useState<'manual' | 'steps'>('manual');
+  const [lengthSource, setLengthSource] = useState<'manual' | 'steps'>(store.settings.lengthInput ?? 'steps');
   const [stepLength, setStepLength] = useState(String(store.settings.stepLengthCm));
   const [stepMeasurementId, setStepMeasurementId] = useState<string | undefined>();
   const [detectedSteps, setDetectedSteps] = useState<number | undefined>();
@@ -56,11 +56,13 @@ export default function Survey() {
   const [hydrated, setHydrated] = useState(false), [draftError, setDraftError] = useState(''), [resumeNote, setResumeNote] = useState('');
   const writes = useRef<Promise<void>>(Promise.resolve());
   const finishing = useRef(false);
+  const permissionFlow = useRef(false), permissionResumeSession = useRef<string | null>(null);
+  const lastMode = useRef(mode), screenFocused = useRef(focused); screenFocused.current = focused;
   const active = store.sessionProject === id && !!store.sessionId;
   const previous = project ? previousHeading(project) : 0;
   const first = project?.points.length === 1;
   const needsReference = mode !== 'manual' && offset === null && !first;
-  const frozenValid = frozen && active && frozen.sessionId === store.sessionId;
+  const frozenValid = frozen && active && (frozen.authorizedSessionId ?? frozen.sessionId) === store.sessionId;
   let theta: number | undefined, angleError = '';
   try { if (frozenValid) theta = first ? 0 : headingFromTurn(previous, turn, turnSide); }
   catch (error) { angleError = message(error); }
@@ -91,7 +93,7 @@ export default function Survey() {
         setTurn(saved.turn); setTurnSide(saved.turnSide);
         setStep(saved.step === 'start' ? 'start' : 'direction');
         setResumeNote('Przywrócono wpisane dane. Przechwyć kierunek ponownie przed zapisaniem punktu.');
-      } else { setStep(project.points.length === 1 ? 'start' : 'direction'); setUnit(store.settings.unit); setStepLength(String(store.settings.stepLengthCm)); }
+      } else { setStep(project.points.length === 1 ? 'start' : 'direction'); setLengthSource(store.settings.lengthInput ?? 'steps'); setUnit(store.settings.unit); setStepLength(String(store.settings.stepLengthCm)); }
       setHydrated(true);
     }, error => { if (mounted) setDraftError(message(error)); });
     return () => { mounted = false; };
@@ -110,6 +112,11 @@ export default function Survey() {
     return () => sub.remove();
   }, [hydrated]);
   useEffect(() => {
+    const modeChanged = lastMode.current !== mode; lastMode.current = mode;
+    if (!modeChanged && (permissionFlow.current || (permissionResumeSession.current !== null && permissionResumeSession.current === store.sessionId))) {
+      if (store.sessionId === permissionResumeSession.current) permissionResumeSession.current = null;
+      setOffset(null); return;
+    }
     setFrozen(null); setOffset(null);
     if (project) setAnchorIndex(defaultReferenceIndex(project));
     setStep(current => current === 'start' ? 'start' : 'direction');
@@ -236,8 +243,30 @@ export default function Survey() {
   const startWalking = () => store.run(async () => {
     if (!frozenValid) throw new Error('Przechwyć kierunek przed pomiarem kroków.');
     parsePositive(stepLength);
-    Keyboard.dismiss(); await pedometer.start(); setLengthSource('steps');
+    const savedDirection = frozen!;
+    permissionFlow.current = true;
+    try {
+      Keyboard.dismiss();
+      await pedometer.start(async () => {
+        if (!screenFocused.current || AppState.currentState !== 'active') throw new Error('Wróć do szkicu przed uruchomieniem krokomierza.');
+        const session = await store.start(project, mode);
+        permissionResumeSession.current = session;
+        setFrozen({ ...savedDirection, authorizedSessionId: session });
+        // The captured geometry stays in its original frame. The next capture
+        // will require a new reference, because the sensor session restarted.
+        setOffset(null);
+        await store.log('step_permission_session_resumed', { sourceSessionId: savedDirection.sessionId, theta: savedDirection.theta, step: 'length' });
+        return session;
+      });
+      setLengthSource('steps');
+    } finally {
+      permissionFlow.current = false;
+      if (!screenFocused.current || AppState.currentState !== 'active') { setFrozen(null); setStep('direction'); }
+    }
   });
+  const chooseLengthSource = (source: 'manual' | 'steps') => {
+    setLengthSource(source); void store.rememberUi({ lengthInput: source }); fit();
+  };
   const updateTurn = (value: string, side = turnSide) => {
     angleEdited.current = true; angleDraft.current = { turn: value, turnSide: side };
     setTurn(value); setTurnSide(side); setFineDelta(0);
@@ -282,7 +311,7 @@ export default function Survey() {
   </>;
   return <Page title={project.name} subtitle={`Punkt P${project.points.length} → P${project.points.length + 1} · ${modeLabels[mode]}`}
     heading={<SurveyHeading name={project.name} subtitle={`Punkt P${project.points.length} → P${project.points.length + 1} · ${modeLabels[mode]}`} step={step} closed={project.closed} />}
-    compactHeader resetKey={step} overlay={<FloatingSketch project={project} unit={unit} fitKey={fitKey}
+    compactHeader resetKey={step} overlay={step !== 'start' && <FloatingSketch project={project} unit={unit} fitKey={fitKey}
       preview={previewTheta === undefined ? undefined : { theta: previewTheta, lengthM: ['length', 'review'].includes(step) ? lengthM : undefined }} />} footer={<>
       {!project.closed && <View style={{ flexDirection: 'row', gap: 10 }}>
         {step !== 'start' && step !== 'direction' && <View style={{ flex: 1 }}><Button label="Wstecz" icon={ArrowLeft} secondary onPress={back} disabled={blocked} /></View>}
@@ -365,8 +394,8 @@ export default function Survey() {
         </>}
         {step === 'length' && <>
           <Text style={s.muted}>{pedometer.walking ? 'Idź do narożnika, na który celowałeś. Zatrzymaj się i naciśnij Stop.' : 'Kierunek jest zapisany. Teraz wpisz długość boku lub zmierz ją krokami.'}</Text>
-          <View style={s.segment}><View style={{ flex: 1 }}><Button label="Wpisz długość" icon={Ruler} compact disabled={pedometer.walking} secondary={lengthSource !== 'manual'} onPress={() => { setLengthSource('manual'); fit(); }} /></View>
-            <View style={{ flex: 1 }}><Button label="Krokomierz" icon={Footprints} compact disabled={pedometer.walking} secondary={lengthSource !== 'steps'} onPress={() => { setLengthSource('steps'); fit(); }} /></View></View>
+          <View style={s.segment}><View style={{ flex: 1 }}><Button label="Wpisz długość" icon={Ruler} compact disabled={pedometer.walking || store.busy} secondary={lengthSource !== 'manual'} onPress={() => chooseLengthSource('manual')} /></View>
+            <View style={{ flex: 1 }}><Button label="Krokomierz" icon={Footprints} compact disabled={pedometer.walking || store.busy} secondary={lengthSource !== 'steps'} onPress={() => chooseLengthSource('steps')} /></View></View>
           <View style={s.workPanel}>
           {lengthSource === 'manual' ? <>
             <Field label={`Długość boku (${unit})`} value={length} onChangeText={setLength} numeric placeholder="np. 4,50" onEndEditing={fit} />

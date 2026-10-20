@@ -1,5 +1,7 @@
 # Aplikacja outlineGo
 
+Aktualizacja preferencji po odbiorze pomocy: instrukcja P1 bez miniatury; jej róg jest zapamiętywany globalnie (domyślnie prawy górny). Domyślna metoda długości to krokomierz, potem ostatni jawny wybór użytkownika; istniejący formularz zachowuje swoje dane. Obsługa pierwszej zgody na krokomierz zachowuje etap długości i już przechwycony kierunek mimo zatrzymania sesji przez okno Androida. Szczegóły: [opis](../docs/technical/pierwszy-pomiar.md).
+
 Iteracja po testach zamkniętych: instrukcja pierwszego pomiaru z ilustracją, automatyczne sesje, podpowiedź celowania telefonem, blokada zapisu przed gotowością i nazwy akcji zamiast ogólnego Dalej. TypeScript i 69 testów TS oraz build przeszły. APK `47918454…` zainstalowano na telefonie Redmi `a20fa219` 20 października 2026 z zachowaniem danych; ADB potwierdził instalację i uruchomienie. [Opis i próba odbiorowa](../docs/technical/pierwszy-pomiar.md).
 
 Aktualny kod: `b00dd74`. Krawędź szkicu może dojść do środka podglądu, przy ochronie przed całkowitym zniknięciem rysunku. Ta korekta jest w APK `E083C357…`, zbudowanym i zainstalowanym na telefonie 20 października 2026 (`install -r`, dane zachowane; `Success`, uruchomienie `Status: ok`, `LaunchState: COLD`). Po korekcie przeszły TypeScript i 10 testów podglądu.

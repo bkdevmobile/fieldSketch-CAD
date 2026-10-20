@@ -1,5 +1,7 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
+Nowe poprawki po akceptacji pomocy: miniatura ukryta na instrukcji P1; początkowy róg top-right z trwałym zapisem wyboru; domyślny krokomierz i zapamiętanie ostatniego jawnego wyboru metody długości. Nowe opcjonalne pola ustawień: sketchCorner, lengthInput. Osobna procedura odtwarza sesję po oknie pierwszej zgody krokomierza bez cofania długości i utraty przechwyconej geometrii; normalne tło nadal unieważnia kierunek. TypeScript i 74 testy TS przeszły. Scenariusz pierwszej zgody wymaga próby na fizycznym telefonie z detektorem; emulator nie ma tego sensora.
+
 Najnowsza instalacja: 20 października 2026, Redmi 23124RA7EO (`a20fa219`), APK `47918454953B839E2EE8BDF5690B9BDAC31E38E59877FDAF808C004CEB2DEB11` z instrukcją pierwszego pomiaru. `install -r`: Success; uruchomienie: Status ok, LaunchState COLD. Dane zachowano. Nowej wersji nie instalowano na Samsungu; odbiór instrukcji przez użytkownika pozostaje otwarty. Zapis instalacji uwzględniono w commicie prowadzenia pierwszego pomiaru.
 
 Po uwagach z testów zamkniętych wdrożono prowadzenie pierwszego pomiaru: ilustracja telefonu i instrukcja na P1, automatyczny start sesji na aktywnym ekranie kierunku, ponowienie po błędzie startu, podpowiedź dotknięcia/drag po kamerze, blokada zapisu przed gotowością i brak akceptacji słabego odczytu. Nowe akcje: Stoję w narożniku · zapisz P1 / Zapisz kierunek do narożnika / Kierunek gotowy · podaj długość / Sprawdź bok / Zapisz punkt. Instrukcja Start → przejście → zatrzymanie → Stop; przejście dalej podczas liczenia nadal zablokowane. Natywny status używa minimum jakości i rzutu z całego okna. TypeScript i 69 testów TS przeszły, wykonano 7 testów Kotlin bez błędów oraz pełny build. Opis i scenariusz próby bez pomocy: docs/technical/pierwszy-pomiar.md. Fizyczne czujniki, krokomierz i odbiór nowej instrukcji przez testerów wymagają ponownej próby.
@@ -35,16 +37,16 @@ Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; najnowszy commit a
 
 ## Aktualny rezultat
 
-Działające MVP Android 0.1.0 jest w `app/`. Obejmuje pomiar i prosty obrys offline, bez kont i backendu, eksport PNG oraz trwałą diagnostykę. Najnowszy APK zawiera branding outlineGo, ekrany Teren i opisane powyżej poprawki po próbie terenowej. Release zbudowano pełnym skryptem. Telefon `23124RA7EO` (`a20fa219`) ma najnowszy build outlineGo `47918454953B839E2EE8BDF5690B9BDAC31E38E59877FDAF808C004CEB2DEB11`, zainstalowany 20 października 2026 przez `install -r` z zachowaniem danych. ADB potwierdził instalację `Success` i uruchomienie `Status: ok`; ponowna próba poprawek przez użytkownika pozostaje otwarta. Tabela opisuje APK z instrukcją pierwszego pomiaru zainstalowany na Redmi; Samsung nadal ma wcześniejszy build `E083C357…`.
+Działające MVP Android 0.1.0 jest w `app/`. Obejmuje pomiar i prosty obrys offline, bez kont i backendu, eksport PNG oraz trwałą diagnostykę. Najnowszy APK zawiera branding outlineGo, ekrany Teren i opisane powyżej poprawki po próbie terenowej. Release zbudowano pełnym skryptem. Telefon `23124RA7EO` (`a20fa219`) ma najnowszy build outlineGo `47918454953B839E2EE8BDF5690B9BDAC31E38E59877FDAF808C004CEB2DEB11`, zainstalowany 20 października 2026 przez `install -r` z zachowaniem danych. ADB potwierdził instalację `Success` i uruchomienie `Status: ok`; ponowna próba poprawek przez użytkownika pozostaje otwarta. Tabela opisuje nowy APK z preferencjami, jeszcze niewgrany na telefon. Redmi ma `47918454…`, Samsung ma `E083C357…`.
 
 | Artefakt | Wartość |
 | --- | --- |
 | Plik | `artifacts/outlineGo-0.1.0.apk` |
-| Rozmiar | 85241507 bajtów |
-| SHA256 | `47918454953B839E2EE8BDF5690B9BDAC31E38E59877FDAF808C004CEB2DEB11` |
+| Rozmiar | 85250879 bajtów |
+| SHA256 | `EFAAE480EDAA6627627AEE7CE3C2F9280EC6B278DCD44568C50BEAB5CA218B57` |
 | Platforma | Android 7+, target SDK 36, arm64-v8a i x86_64 |
 | Uruchamianie | Osadzony JavaScript, bez Metro i internetu, podpis deweloperski |
-| Log ostatniego budowania | `artifacts/first-measurement-build-final.log` |
+| Log ostatniego budowania | `artifacts/measurement-preferences-build.log` |
 
 ## Obowiązujący interfejs
 
@@ -126,3 +128,6 @@ Dokumenty: [instrukcja](docs/technical/prototyp.md), [UI](docs/technical/wizard-
 
 
 Weryfikacja nowej instrukcji (20 października 2026): 69 testów TS i TypeScript przeszły; 7 testów Kotlin wykonano bez błędów w pierwszym buildzie, końcowy build miał je UP-TO-DATE. Końcowy build first-measurement-build-final.log: BUILD SUCCESSFUL in 57s. Na emulatorze potwierdzono automatyczny start w trybie ręcznym i względnym, pełny pierwszy bok ręczny, zielony status i zapis kierunku, pomoc z ilustracją, podpowiedź celowania, powrót z pomocy i odtworzenie formularza po force-stop. Obejrzano ilustrację w first-measurement-help-camera.png i nazwy akcji w first-measurement-direction-saved.png. Podpowiedź przeniesiono nad kamerę; końcowy zrzut: first-measurement-camera-hint-final.png. Próba zmiany pochylenia przez konsolę emulatora nie utrzymywała stabilnego stanu, więc negatywne warunki gotowości potwierdzają testy funkcji directionReady, a nie ta próba dotykowa. Wystąpił błąd NativeDatabase.prepareAsync / NullPointerException: zastosowano useNewConnection:true bez zmiany pliku bazy; w końcowej próbie pomoc → podsumowanie 250 cm → force-stop → wznowienie błąd nie powtórzył się. Przyczyna niepotwierdzona. Nowy build `47918454…` zainstalowano na Redmi `a20fa219` 20 października 2026 przez `install -r` z zachowaniem danych (`Success`, uruchomienie `Status: ok`, `LaunchState: COLD`); konieczna próba pierwszego i drugiego boku z nową osobą. Zmiany zapisano w commicie prowadzenia pierwszego pomiaru.
+
+
+Weryfikacja preferencji: TypeScript i 74 testy TS przeszły. Pełny build measurement-preferences-build.log: BUILD SUCCESSFUL in 1m 34s, zadanie 7 testów Kotlin UP-TO-DATE. APK EFAAE480… (85250879 bajtów) zainstalowano i uruchomiono tylko na emulatorze. Potwierdzono brak miniatury w instrukcji (ThumbnailCount=0), początek w prawym górnym rogu, przeciągnięcie do lewego dolnego, zachowanie rogu po force-stop i w nowym szkicu, domyślny krokomierz oraz zachowanie wyboru ręcznej długości po restarcie i zapisie ustawień. Zapis ręcznego boku przeszedł do P2→P3. Obejrzano zrzuty measurement-preferences-state.png, measurement-preferences-default-steps.png i measurement-preferences-remembered.png. Logcat AndroidRuntime:E/ReactNativeJS:E bez wpisów. Scenariusz pierwszej zgody sprawdzono testami procedury wznowienia (zgoda/odmowa/niezmieniona sesja/utrata bez wznowienia); emulator nie ma TYPE_STEP_DETECTOR, więc fizyczny test pozostaje otwarty. Tej wersji nie instalowano na telefonie. Zmiany zapisano w commicie preferencji pomiaru i obsługi zgody krokomierza.

@@ -1,5 +1,7 @@
 # Wizard pomiaru — zaakceptowany projekt UI
 
+Aktualizacja preferencji po odbiorze pomocy: instrukcja P1 bez miniatury; jej róg jest zapamiętywany globalnie (domyślnie prawy górny). Domyślna metoda długości to krokomierz, potem ostatni jawny wybór użytkownika; istniejący formularz zachowuje swoje dane. Obsługa pierwszej zgody na krokomierz zachowuje etap długości i już przechwycony kierunek mimo zatrzymania sesji przez okno Androida. Szczegóły: [opis](pierwszy-pomiar.md).
+
 Data: 20 października 2026. Status: wizard MVP outlineGo po próbie terenowej i poprawkach podglądu.
 
 Dokument opisuje aktualny kod MVP w `b00dd74`. Zastępuje wcześniejsze warianty makiet i opisy przyrostów. Użytkownik zaakceptował dokładność prób trybu względnego i działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Stan kodu: `b00dd74` (ograniczenia przesuwania, animowany skokowy zoom i poluzowanie granic do środka podglądu). Telefon ma APK `E083C357…` z poluzowanymi granicami oraz skokowym zoomem; build i instalacja z zachowaniem danych zostały potwierdzone 20 października 2026. Ostatnia pełna kontrola: TypeScript i 60 testów TS; po poluzowaniu ponownie przeszły TypeScript oraz 10 testów podglądu. Po tej korekcie nie powtarzano wszystkich testów TS; pełny build zakończył się sukcesem, a testy Kotlin były aktualne (`UP-TO-DATE`).
@@ -39,7 +41,7 @@ Kroki 2–4 powtarzają się. Bok i punkt końcowy pozostają robocze do zatwier
 
 ## Szkic na żywo
 
-Szkic jest stale widoczny jako pływająca miniatura, początkowo w prawym dolnym rogu nad stałym paskiem akcji. Można ją przeciągać w obu osiach; po puszczeniu przyciąga się do najbliższego z czterech rogów obszaru nad nawigacją. Wybrany róg jest zachowany podczas zmiany etapu, rozmiaru okna i otwierania klawiatury. Przeciągnięcie nie otwiera podglądu. Dostępność udostępnia także akcję przeniesienia do następnego rogu.
+Po zapisaniu P1 szkic jest widoczny jako pływająca miniatura, początkowo w prawym górnym rogu nad stałym paskiem akcji. Można ją przeciągać w obu osiach; po puszczeniu przyciąga się do najbliższego z czterech rogów obszaru nad nawigacją. Wybrany róg jest zachowany podczas zmiany etapu, rozmiaru okna i otwierania klawiatury. Przeciągnięcie nie otwiera podglądu. Dostępność udostępnia także akcję przeniesienia do następnego rogu.
 
 Dotknięcie miniatury otwiera dialog na pełną szerokość, wyśrodkowany pionowo na przyciemnionym tle. Zawiera zoom, przesuwanie i dopasowanie. „Wróć do pomiaru”, krzyżyk, dotknięcie tła lub systemowe Wstecz zamyka go bez utraty etapu. Przy klawiaturze miniatura jest mniejsza; zmiana dostępnej wysokości ponownie umieszcza ją w wybranym rogu. Formularz można przewinąć ponad miniaturę.
 

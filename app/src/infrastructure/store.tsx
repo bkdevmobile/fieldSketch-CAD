@@ -10,6 +10,7 @@ interface Store {
   capabilities: Capabilities | null; live: LiveSample | null; sessionId: string | null; sessionProject: string | null;
   settings: UserSettings;
   updateSettings(settings: UserSettings): Promise<void>;
+  rememberUi(patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput'>): Promise<void>;
   refresh(): Promise<void>;
   run(task: () => Promise<void>): Promise<void>;
   start(project: Project, mode: SurveyMode): Promise<string>;
@@ -21,6 +22,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [repo, setRepo] = useState<ProjectRepository | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [settings, setSettings] = useState<UserSettings>({ ...DEFAULT_SETTINGS });
+  const settingsRef = useRef(settings), settingsWrites = useRef<Promise<void>>(Promise.resolve());
   const [error, setError] = useState(''); const [busy, setBusy] = useState(false);
   const [ready, setReady] = useState(false);
   const lock = useRef(false);
@@ -40,7 +42,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         await repository.initialize();
         const saved = await repository.list();
         const preferences = await repository.settings();
-        if (mounted) { setSettings(preferences); setRepo(repository); setProjects(saved); }
+        if (mounted) { settingsRef.current = preferences; setSettings(preferences); setRepo(repository); setProjects(saved); }
         const cap = await orientation().getCapabilities();
         if (mounted) setCapabilities(cap);
       } catch (e) { if (mounted) setError(message(e)); }
@@ -72,12 +74,23 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   };
   const stop = async () => { await orientation().stopSession(); setSessionId(null); setSessionProject(null); setLive(null); };
   const log = async (type: string, data: object) => { await orientation().appendEvent(type, JSON.stringify(data)); };
+  const saveSettingsPatch = (patch: Partial<UserSettings>) => {
+    const write = settingsWrites.current.catch(() => {}).then(async () => {
+      if (!repo) throw new Error('Baza nie jest jeszcze gotowa.');
+      const next = { ...settingsRef.current, ...patch };
+      await repo.saveSettings(next); settingsRef.current = next; setSettings(next);
+    });
+    settingsWrites.current = write; return write;
+  };
+  const rememberUi = async (patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput'>) => {
+    try { await saveSettingsPatch(patch); } catch (e) { setError(message(e)); }
+  };
   const updateSettings = async (next: UserSettings) => {
     if (!repo) throw new Error('Baza nie jest jeszcze gotowa.');
     if (next.directionMode !== settings.directionMode && sessionId) await stop();
-    await repo.saveSettings(next); setSettings(next);
+    await saveSettingsPatch(next);
   };
-  return <Context.Provider value={{ projects, repo, error, busy, ready, capabilities, live, sessionId, sessionProject, settings, updateSettings, refresh, run, start, stop, log }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ projects, repo, error, busy, ready, capabilities, live, sessionId, sessionProject, settings, updateSettings, rememberUi, refresh, run, start, stop, log }}>{children}</Context.Provider>;
 }
 export const message = (e: unknown) => e instanceof Error ? e.message : String(e);
 export function useStore() { const store = useContext(Context); if (!store) throw new Error('Missing provider'); return store; }

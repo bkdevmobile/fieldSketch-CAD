@@ -1,6 +1,6 @@
 import initSqlJs, { Database as SqlDb } from 'sql.js';
 import { Database, ProjectRepository } from '../src/infrastructure/repository';
-import { newProject } from '../src/domain/model';
+import { DEFAULT_SETTINGS, newProject } from '../src/domain/model';
 import { commitSide, editLastSide, undoLast } from '../src/domain/geometry';
 import type { SurveyDraft } from '../src/domain/survey';
 class SqlAdapter implements Database {
@@ -76,7 +76,7 @@ test('migracja starej bazy zachowuje projekt, a etap roboczy przetrwa restart', 
 test('ustawienia i korekta przetrwają restart bez zmiany źródłowych kroków', async () => {
   const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
   const repo = new ProjectRepository(db); await repo.initialize();
-  expect(await repo.settings()).toEqual({ unit: 'm', stepLengthCm: 75, angleSnap: 90, directionMode: 'relative' });
+  expect(await repo.settings()).toEqual(DEFAULT_SETTINGS);
   const original = commitSide(newProject('Historia', 'manual'), 4, 0, 'manual', 's1', null);
   await repo.save(original, 'side_added');
   await repo.saveSettings({ unit: 'cm', stepLengthCm: 82, angleSnap: 10, directionMode: 'manual' });
@@ -84,7 +84,7 @@ test('ustawienia i korekta przetrwają restart bez zmiany źródłowych kroków'
   await repo.save(corrected, 'side_corrected');
   const reopened = new SqlAdapter(new SQL.Database(db.raw.export())), next = new ProjectRepository(reopened);
   await next.initialize();
-  expect(await next.settings()).toEqual({ unit: 'cm', stepLengthCm: 82, angleSnap: 10, directionMode: 'manual' });
+  expect(await next.settings()).toEqual({ ...DEFAULT_SETTINGS, unit: 'cm', stepLengthCm: 82, angleSnap: 10, directionMode: 'manual' });
   expect((await next.load(original.id))!.observations[0]).toEqual(original.observations[0]);
   expect((await next.load(original.id))!.observations.at(-1)!.lengthM).toBe(3.2);
   await expect(next.saveSettings({ unit: 'm', stepLengthCm: 0, angleSnap: 90, directionMode: 'relative' })).rejects.toThrow();
@@ -95,6 +95,17 @@ test('stare ustawienia zachowują jednostkę i krok, otrzymując domyślne przyc
   const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
   const repo = new ProjectRepository(db); await repo.initialize();
   await db.runAsync('INSERT INTO user_settings (id,body) VALUES (1,?)', JSON.stringify({ unit: 'cm', stepLengthCm: 80 }));
-  expect(await repo.settings()).toEqual({ unit: 'cm', stepLengthCm: 80, angleSnap: 90, directionMode: 'relative' });
+  expect(await repo.settings()).toEqual({ ...DEFAULT_SETTINGS, unit: 'cm', stepLengthCm: 80 });
   db.raw.close();
+});
+
+test('pozycja miniatury i ostatnia metoda długości przetrwają odtworzenie bazy', async () => {
+  const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
+  const repo = new ProjectRepository(db); await repo.initialize();
+  expect(await repo.settings()).toMatchObject({ sketchCorner: 'top-right', lengthInput: 'steps' });
+  await repo.saveSettings({ ...DEFAULT_SETTINGS, sketchCorner: 'bottom-left', lengthInput: 'manual' });
+  const reopened = new SqlAdapter(new SQL.Database(db.raw.export()));
+  const next = new ProjectRepository(reopened); await next.initialize();
+  expect(await next.settings()).toMatchObject({ sketchCorner: 'bottom-left', lengthInput: 'manual' });
+  db.raw.close(); reopened.raw.close();
 });

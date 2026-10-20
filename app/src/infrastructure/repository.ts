@@ -33,6 +33,8 @@ export class ProjectRepository {
     return rows[0] ? { ...DEFAULT_SETTINGS, ...JSON.parse(rows[0].body) } : { ...DEFAULT_SETTINGS };
   }
   async saveSettings(settings: UserSettings) {
+    if (settings.sketchCorner !== undefined && !['top-left', 'top-right', 'bottom-left', 'bottom-right'].includes(settings.sketchCorner)) throw new Error('Nieprawidłowe położenie miniatury.');
+    if (settings.lengthInput !== undefined && !['manual', 'steps'].includes(settings.lengthInput)) throw new Error('Nieprawidłowa metoda podawania długości.');
     if (!Number.isFinite(settings.stepLengthCm) || settings.stepLengthCm <= 0 || !['m', 'cm'].includes(settings.unit) || ![0, 5, 10, 90].includes(settings.angleSnap) || !['relative', 'manual', 'magnetic'].includes(settings.directionMode))
       throw new Error('Podaj dodatnią długość kroku i poprawną jednostkę.');
     await this.db.runAsync('INSERT INTO user_settings (id,body) VALUES (1,?) ON CONFLICT(id) DO UPDATE SET body=excluded.body', JSON.stringify(settings));

@@ -27,3 +27,12 @@ Potwierdzona weryfikacja i stan APK: [MEMO](../../MEMO.md). Lista nie stanowi po
 
 
 Podczas próby na emulatorze wystąpił błąd NativeDatabase.prepareAsync / NullPointerException, który ustąpił po ponownym uruchomieniu aplikacji. Store otwiera teraz osobne połączenie przez `useNewConnection: true`, zachowując ten sam plik bazy. To zabezpieczenie przed starym uchwytem natywnym; nie potwierdzono jeszcze przyczyny błędu w tej aplikacji. Podobną sygnaturę i obejście opisuje [zgłoszenie Expo](https://github.com/expo/expo/issues/48999). Ponowne próby formularza i wznowienia są wymagane na urządzeniu.
+
+
+## Doprecyzowanie po odbiorze instrukcji
+
+Użytkownik zaakceptował pomoc. Na ekranie zapisu P1 z instrukcją miniatura jest ukryta, a treść nie rezerwuje miejsca na nakładkę. Od kroku kierunku miniatura jest widoczna: domyślnie w prawym górnym rogu. Wybrany przez przeciągnięcie lub akcję dostępności róg zapisuje się globalnie w SQLite i przetrwa restart oraz zmianę szkicu.
+
+Pierwsza metoda długości to krokomierz. Jawny wybór Wpisz długość/Krokomierz zapisuje się globalnie i jest używany w nowych pomiarach. Przywrócenie konkretnego formularza zachowuje jego zapisaną metodę i wartości. Preferencje są opcjonalnymi polami istniejących ustawień: sketchCorner oraz lengthInput; starsze dane otrzymują wartości domyślne bez migracji schematu. Zapis preferencji jest kolejkowany, aby wybory nie nadpisywały się wzajemnie.
+
+Okno pierwszej zgody ACTIVITY_RECOGNITION może zakończyć sesję sensorów przez standardowy mechanizm tła. W trakcie tego konkretnego żądania formularz zachowuje etap długości i zamrożony kierunek. Po powrocie aplikacji na pierwszy plan startuje nowa sesja; przechwycony kierunek zachowuje pierwotną sesję/układ i uzyskuje autoryzację zapisu w nowej sesji. Dotyczy też odmowy zgody: użytkownik może podać długość ręcznie. Kolejny odczyt sensorowy wymaga odtworzenia odniesienia. Zwykłe przejście do tła nadal zatrzymuje krokomierz i unieważnia roboczy odczyt. Fizyczną próbę pierwszej zgody należy wykonać na telefonie z detektorem kroków.

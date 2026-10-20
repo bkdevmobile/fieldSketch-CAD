@@ -1,6 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
-import { PermissionsAndroid, Platform } from 'react-native';
+import { AppState, PermissionsAndroid, Platform } from 'react-native';
 import { orientation, StepSample } from './native';
+import { prepareStepSession } from '../domain/stepPermission';
+
+async function waitForActiveApp() {
+  if (AppState.currentState === 'active') return;
+  await new Promise<void>((resolve, reject) => {
+    const listener = AppState.addEventListener('change', state => {
+      if (state === 'active') { clearTimeout(timeout); listener.remove(); resolve(); }
+    });
+    const timeout = setTimeout(() => { listener.remove(); reject(new Error('Wróć do aplikacji i ponów Start krokomierza.')); }, 2000);
+  });
+}
 
 export function usePedometer(sessionId: string | null) {
   const [reading, setReading] = useState<StepSample | null>(null);
@@ -23,18 +34,27 @@ export function usePedometer(sessionId: string | null) {
       if (current.current.reading?.active) void orientation().stopStepMeasurement(current.current.reading.measurementId).catch(() => {});
     };
   }, []);
-  useEffect(() => { setReading(null); }, [sessionId]);
-  const start = async () => {
-    const expectedSession = current.current.sessionId;
+  useEffect(() => { setReading(value => value?.sessionId === sessionId ? value : null); }, [sessionId]);
+  const start = async (recoverSession?: () => Promise<string>) => {
+    let expectedSession = current.current.sessionId;
     if (!expectedSession) throw new Error('Rozpocznij sesję i przechwyć kierunek.');
-    if (Platform.OS === 'android' && Number(Platform.Version) >= 29) {
+    let prompted = false;
+    const prepared = await prepareStepSession(expectedSession, async () => {
+      if (Platform.OS !== 'android' || Number(Platform.Version) < 29) return true;
       const permission = PermissionsAndroid.PERMISSIONS.ACTIVITY_RECOGNITION;
-      const granted = await PermissionsAndroid.check(permission) || await PermissionsAndroid.request(permission) === PermissionsAndroid.RESULTS.GRANTED;
-      if (!granted) throw new Error('Brak zgody na krokomierz. Możesz wpisać długość lub liczbę kroków ręcznie.');
-    }
-    if (!alive.current || current.current.sessionId !== expectedSession) throw new Error('Sesja zmieniła się. Przechwyć kierunek ponownie.');
+      if (await PermissionsAndroid.check(permission)) return true;
+      prompted = true;
+      const granted = await PermissionsAndroid.request(permission) === PermissionsAndroid.RESULTS.GRANTED;
+      await waitForActiveApp();
+      return granted;
+    }, () => prompted ? null : current.current.sessionId, recoverSession && (async () => {
+      if (!alive.current || AppState.currentState !== 'active') throw new Error('Pomiar kroków anulowany po opuszczeniu aplikacji.');
+      return recoverSession();
+    }));
+    expectedSession = prepared.sessionId;
+    if (!alive.current || AppState.currentState !== 'active') throw new Error('Wróć do aplikacji przed uruchomieniem krokomierza.');
     const result = await orientation().startStepMeasurement(expectedSession);
-    if (!alive.current || current.current.sessionId !== expectedSession) {
+    if (!alive.current || AppState.currentState !== 'active' || (!prepared.recovered && current.current.sessionId !== expectedSession)) {
       await orientation().stopStepMeasurement(result.measurementId);
       throw new Error('Pomiar kroków anulowany po opuszczeniu sesji.');
     }
