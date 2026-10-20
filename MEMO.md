@@ -1,6 +1,10 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
-Najnowsze wdrożenie — 20 października 2026: zbudowano i zainstalowano układ z celownikiem/formularzem przed pomocą, statusem pod kamerą, domyślnym prawym dolnym rogiem miniatury i zgodą krokomierza przed sesją kierunku. Redmi 23124RA7EO (`a20fa219`), aktualizacja `install -r`: Success; uruchomienie Status ok, LaunchState UNKNOWN (0), bez czyszczenia danych. APK SHA256 `30CB381FAD88B9A449066081C4B6E6D2F2FCA5E982B36D0971A49953C854AF04`, 85250099 bajtów. Log `artifacts/measurement-layout-build.log`: BUILD SUCCESSFUL in 1m 3s; testy Kotlin UP-TO-DATE. TypeScript i 80 testów TS przeszły przed buildem. Próba fizyczna nowych zmian pozostaje do wykonania. Kod, testy i zapis instalacji zapisano w commicie `9a54555` (gałąź `mvp_designed`).
+Model zarabiania — 20 października 2026: outlineGo Plus **29,99 zł jednorazowo**. Free: do 8 punktów w szkicu, do 3 zapisanych szkiców, PNG ze znakiem wodnym, bez DXF. Plus: bez limitów produktu dla punktów i zapisanych szkiców, PNG bez znaku wodnego i eksport DXF. DXF jest planowany na release w Plus (wcześniej poza MVP). Szczegółowe zasady limitów i uprawnienia wymagają doprecyzowania. Płatności, ograniczenia, znak wodny i DXF jeszcze niewdrożone; APK bez zmian. Ustalenia w [planie rozwoju](docs/plan-rozwoju.md).
+
+Decyzja użytkownika — 20 października 2026: testy zamknięte uznano za zakończone. Etap testów MVP 0.1.0 zamknięty dla kodu `9a54555` i APK `30CB381F…` zainstalowanego na Redmi. Ostatni commit notatek: `1b720bf`. Wcześniejsze wzmianki o oczekującym odbiorze są historyczne; nie dopisujemy nieprzekazanych wyników liczbowych ani zaliczenia każdego pola checklisty. Następne prace: użytkownik docelowy i model zarabiania, następnie wymagania publikacji oraz obowiązkowa wielojęzyczność release. Nie opublikowano wersji produkcyjnej.
+
+Najnowsze wdrożenie — 20 października 2026: zbudowano i zainstalowano układ z celownikiem/formularzem przed pomocą, statusem pod kamerą, domyślnym prawym dolnym rogiem miniatury i zgodą krokomierza przed sesją kierunku. Redmi 23124RA7EO (`a20fa219`), aktualizacja `install -r`: Success; uruchomienie Status ok, LaunchState UNKNOWN (0), bez czyszczenia danych. APK SHA256 `30CB381FAD88B9A449066081C4B6E6D2F2FCA5E982B36D0971A49953C854AF04`, 85250099 bajtów. Log `artifacts/measurement-layout-build.log`: BUILD SUCCESSFUL in 1m 3s; testy Kotlin UP-TO-DATE. TypeScript i 80 testów TS przeszły przed buildem. Testy zamknięte zakończono decyzją użytkownika 20 października 2026. Kod, testy i zapis instalacji zapisano w commicie `9a54555` (gałąź `mvp_designed`).
 
 Układ pomiaru po kolejnej uwadze, 20 października 2026: celownik przed instrukcjami i pomocą; skrócony status pod kamerą w obszarze min. 64, dzięki czemu jego tekst nie przesuwa celownika. Długość: wybór metody i formularz przed instrukcjami. Domyślna miniatura ponownie w prawym dolnym rogu; zapisane pozycje użytkownika pozostają zachowane. TypeScript i 80 testów TS przeszły. Zmiana jest w commicie `9a54555` i APK `30CB381F…` zainstalowanym na Redmi.
 
@@ -43,7 +47,7 @@ Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; najnowszy commit a
 
 ## Aktualny rezultat
 
-Działające MVP Android 0.1.0 jest w `app/`: pomiar offline, zapis szkiców, PNG i diagnostyka. Najnowszy APK odpowiada kodowi `9a54555`; obejmuje branding outlineGo, styl Teren, prowadzenie pierwszego pomiaru i ostatnie poprawki zgody oraz układu pomiaru. Redmi 23124RA7EO (`a20fa219`) ma build `30CB381FAD88B9A449066081C4B6E6D2F2FCA5E982B36D0971A49953C854AF04`, zainstalowany i uruchomiony 20 października 2026 z zachowaniem danych. Tabela poniżej opisuje ten APK. Fizyczny odbiór ostatnich poprawek pozostaje otwarty; Samsung ma wcześniejszy build `E083C357…`.
+Działające MVP Android 0.1.0 jest w `app/`: pomiar offline, zapis szkiców, PNG i diagnostyka. Najnowszy APK odpowiada kodowi `9a54555`; obejmuje branding outlineGo, styl Teren, prowadzenie pierwszego pomiaru i ostatnie poprawki zgody oraz układu pomiaru. Redmi 23124RA7EO (`a20fa219`) ma build `30CB381FAD88B9A449066081C4B6E6D2F2FCA5E982B36D0971A49953C854AF04`, zainstalowany i uruchomiony 20 października 2026 z zachowaniem danych. Tabela poniżej opisuje ten APK. Testy zamknięte zakończono decyzją użytkownika; Samsung ma wcześniejszy build `E083C357…`.
 
 | Artefakt | Wartość |
 | --- | --- |
@@ -124,11 +128,12 @@ Makiety i zrzuty są lokalnymi artefaktami ignorowanymi przez Git. Wizualizacja 
 
 ## Najbliższe prace i zakres
 
-1. Próba APK `30CB381F…` (`9a54555`) na Redmi: pierwsza zgoda krokomierza przed kierunkiem, pierwszy i drugi bok bez dodatkowego odniesienia; osobno odmowa i ręczna długość. Sprawdzić kolejność celownik/formularz → pomoc, brak przesuwania kamery przy zmianie statusu i domyślny prawy dolny róg miniatury z zachowaniem zapisanego wyboru. Rzeczywisty restart nadal wymaga odniesienia B→C. Szczegóły: [pierwszy pomiar](docs/technical/pierwszy-pomiar.md).
-2. Odbiór poprawek na telefonie i zapisanie wyników ponownej próby.
-3. Ustalenie następnego etapu po odbiorze poprawek z trwających prób zamkniętych; przed release obowiązuje wdrożenie wielojęzyczności. Krokomierz nie jest już traktowany jako otwarty błąd algorytmu na podstawie ostatniej oceny użytkownika.
+1. Doprecyzować użytkownika docelowego i zasady limitów Free; zaplanować zakup Plus za 29,99 zł jednorazowo oraz DXF.
+2. Ustalić języki, język domyślny i sposób wyboru; wdrożyć wielojęzyczność wymaganą dla release.
+3. Dopracować wizualizację przed release: spójność ekranów w stylu Teren, typografia, kolorystyka, ikony, odstępy, kontrolki, menu i dialogi; uwzględnić Free/Plus oraz tłumaczenia. Zachować dolne akcje poza scrollem i stabilny celownik. Dodane na życzenie użytkownika 20 października 2026.
+4. Przygotować listę prac i kryteria publikacji produkcyjnej. Nie otwierać ponownie zakończonych testów bez nowych zgłoszeń.
 
-Docelowy użytkownik i monetyzacja pozostają do doprecyzowania. Użytkownik przekazuje wyniki prób zamkniętych; nie potwierdzono publikacji w sklepie ani release. DXF, solver, pełny edytor i migracja SDK są poza bieżącym zakresem. Bieżąca iteracja obejmuje poprawki, testy, build i próbę na emulatorze; poprawki są już zainstalowane na telefonie, a ponowna próba użytkownika pozostaje do wykonania.
+Model Free/Plus i cena Plus są ustalone; użytkownik docelowy oraz szczegółowe zasady wymagają doprecyzowania. Testy zamknięte zakończono decyzją użytkownika 20 października 2026; nie potwierdzono publikacji w sklepie ani release. DXF planowany do Plus na release; solver, pełny edytor i migracja SDK pozostają poza bieżącym zakresem. Obecna zmiana aktualizuje dokumentację, bez zmian kodu i APK.
 
 Dokumenty: [instrukcja](docs/technical/prototyp.md), [UI](docs/technical/wizard-pomiaru.md), [architektura](docs/technical/dokumentacja-techniczna.md), [plan](docs/plan-rozwoju.md). Źródłowy dokument biznesowy Word pozostaje bez zmian.
 

@@ -1,5 +1,7 @@
 # Pierwszy pomiar — prowadzenie użytkownika
 
+Status — 20 października 2026: użytkownik uznał testy zamknięte za zakończone dla MVP 0.1.0, kod `9a54555`, APK `30CB381F…`. Poniższy scenariusz pozostaje dokumentacją i wzorcem regresji; wcześniejsze wzmianki o oczekującej próbie nie oznaczają otwartego etapu testów. Decyzja zamyka etap bez dopisywania szczegółowych wyników niewskazanych przez użytkownika.
+
 Decyzja po uwagach użytkownika z testów zamkniętych, 20 października 2026. Testerzy przechodzili dalej przed wykonaniem czynności i próbowali przesuwać celownik palcem. Zmiana dotyczy zrozumiałości pomiaru; nie zmienia geometrii ani przelicznika kroków.
 
 ## Przebieg
@@ -15,7 +17,7 @@ Instrukcję można ponownie otworzyć przez „Jak wykonać pomiar?” na etapie
 
 ## Próba odbiorowa bez pomocy prowadzącego
 
-Bieżąca próba dotyczy commita `9a54555` i APK `30CB381F…`, zainstalowanego na Redmi 20 października 2026. Instalacja i uruchomienie są potwierdzone; poniższe punkty wymagają odbioru użytkownika i nie są oznaczone jako zaliczone na podstawie samych testów automatycznych.
+Ostatnia iteracja dotyczy commita `9a54555` i APK `30CB381F…`, zainstalowanego na Redmi 20 października 2026. Instalacja i uruchomienie są potwierdzone. Użytkownik zakończył etap testów zamkniętych; pola pozostawiono jako scenariusz regresji, bez dopisywania indywidualnych wyników.
 
 - [ ] Nowa osoba rozumie, gdzie stanąć i że celuje przez obracanie telefonu.
 - [ ] Przy braku zgody krokomierza monit pojawia się przed uruchomieniem sesji kierunku. Po zgodzie i zapisaniu pierwszego boku kolejny kierunek nie wymaga dodatkowego odniesienia. Start krokomierza nie otwiera monitu.

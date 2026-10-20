@@ -1,5 +1,7 @@
 # outlineGo — checklista próby terenowej
 
+Status — 20 października 2026: użytkownik uznał testy zamknięte za zakończone. Etap zamknięty dla MVP 0.1.0, kod `9a54555`, APK `30CB381F…`. Poniższa lista i wyniki zachowują historię prób; niewypełnionych pól nie uzupełniono bez danych. Dawne warunki wejścia do testów nie są już otwartym etapem prac. Następny etap opisuje [plan rozwoju](../plan-rozwoju.md).
+
 Przygotowana 20 października 2026 dla wersji 0.1.0, commit aplikacji `3d28bd5`. Testowany APK: SHA256 `F09DBCDC643CDC79944430B6879DCABF45ED182817C9376DED3DC5C3128D6F92`. Ścieżka `artifacts/outlineGo-0.1.0.apk` jest nadpisywana kolejnymi buildami; aktualny hash podaje MEMO. Dokładność dotychczasowych testów trybu względnego została zaakceptowana.
 
 ## Wynik zgłoszony przez użytkownika — 20 października 2026
