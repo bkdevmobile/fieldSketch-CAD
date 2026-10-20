@@ -6,7 +6,9 @@ Ustalony z użytkownikiem 19 października 2026. Etapy realizujemy w poniższej 
 2. **Zaprojektowanie działania aplikacji i UI** — określenie użytkownika docelowego, zakresu pierwszej wersji, przebiegu pracy, ekranów oraz interakcji. Wstępny model zarabiania należy rozważyć przed projektowaniem UI; podział na funkcje darmowe i płatne może wpływać na działanie aplikacji.
 3. **Wersja pre-release i publikacja jako test zamknięty** — przygotowanie wersji do testów, zebranie opinii i wykrycie problemów. Weryfikacja zarówno wyników pomiarów, jak i tego, czy użytkownicy potrafią samodzielnie wykonać cały pomiar.
 4. **Dopracowanie modelu zarabiania** — wybór sposobu monetyzacji na podstawie opinii testerów i wartości, jaką daje aplikacja.
-5. **Wersja release i publikacja** — przygotowanie i opublikowanie wersji produkcyjnej po usunięciu błędów blokujących oraz spełnieniu ustalonych kryteriów jakości.
+5. **Wersja release i publikacja** — przygotowanie i opublikowanie wersji produkcyjnej po usunięciu błędów blokujących oraz spełnieniu ustalonych kryteriów jakości. Wersja release musi być wielojęzyczna (multilanguage).
+
+Decyzja użytkownika z 20 października 2026: wielojęzyczność jest wymaganiem wersji produkcyjnej. Obecne MVP ma interfejs po polsku; obsługa wielu języków pozostaje do wdrożenia przed release. Lista języków, język domyślny oraz sposób wyboru języka wymagają osobnego ustalenia.
 
 Najważniejsza decyzja na etapie 1: czy pomiar kierunku telefonem i długości krokami daje dokładność wystarczającą do wybranego zastosowania. Wyniki tych testów wyznaczą dalszy zakres produktu.
 

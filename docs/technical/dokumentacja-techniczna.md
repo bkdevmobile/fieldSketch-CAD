@@ -10,6 +10,8 @@ Pierwsza implementacja przechowuje migawki projektów, niezmienne obserwacje i o
 
 ## Wdrożony interfejs pomiaru
 
+Wymaganie wersji release (decyzja użytkownika, 20 października 2026): aplikacja musi być wielojęzyczna. Obecne MVP jest po polsku. Przed wydaniem produkcyjnym należy zapewnić lokalizację tekstów interfejsu, dialogów, komunikatów błędów, etykiet dostępności i opisów w eksporcie PNG oraz formatowanie liczb i dat zgodne z wybranym językiem. Nazwy szkiców i inne treści wpisane przez użytkownika pozostają bez tłumaczenia. Lista obsługiwanych języków, język domyślny i sposób jego wyboru pozostają do ustalenia; opis nie oznacza wdrożenia lokalizacji.
+
 [Wizard pomiaru](wizard-pomiaru.md) opisuje obowiązujący UI: stałe dolne akcje, pływający szkic, kierunek z ogólnym zielonym statusem gotowości, korektę `[L] [kąt] [P]` z suwakiem co pełne 5° i długość z kontrolkami `[−] [kroki] [+] [Start/Stop]`. Ustawienia globalne obejmują m/cm, długość kroku, tryb kierunku i przyciąganie pola kąta. Nie ma dodatkowych opcji ani szczegółów odczytu na ekranie pomiaru. Diagnostyka jest osobnym ekranem. Lista pokazuje 3 ostatnio zmienione projekty i po 10 kolejnych po „Więcej”.
 
 Zmiana globalnego trybu zatrzymuje sesję i unieważnia roboczy kierunek/odniesienie; nie przepisuje historycznych obserwacji. Formularz zachowuje wpisy, ale wznowienie zaczyna się od kierunku. Tryb sensorowy przy istniejących bokach wymaga odtworzenia odniesienia. Długość ręczna ma jawne źródło, surowe i poprawione kroki są zachowane osobno; edycja tworzy nową obserwację z `supersedesId`.
