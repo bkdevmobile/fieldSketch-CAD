@@ -15,7 +15,14 @@ Instrukcję można ponownie otworzyć przez „Jak wykonać pomiar?” na etapie
 
 ## Próba odbiorowa bez pomocy prowadzącego
 
+Bieżąca próba dotyczy commita `9a54555` i APK `30CB381F…`, zainstalowanego na Redmi 20 października 2026. Instalacja i uruchomienie są potwierdzone; poniższe punkty wymagają odbioru użytkownika i nie są oznaczone jako zaliczone na podstawie samych testów automatycznych.
+
 - [ ] Nowa osoba rozumie, gdzie stanąć i że celuje przez obracanie telefonu.
+- [ ] Przy braku zgody krokomierza monit pojawia się przed uruchomieniem sesji kierunku. Po zgodzie i zapisaniu pierwszego boku kolejny kierunek nie wymaga dodatkowego odniesienia. Start krokomierza nie otwiera monitu.
+- [ ] Odmowa zgody pozwala zapisać bok z ręcznie wpisaną długością; monit nie powtarza się przy Start w tym samym pomiarze.
+- [ ] Celownik jest nad instrukcjami; zmiany statusu od przygotowania do zielonej gotowości i niestabilnego odczytu nie przesuwają kamery.
+- [ ] W obu metodach długości formularz jest przed instrukcjami, a dolne akcje pozostają poza scrollem.
+- [ ] Bez zapisanej preferencji miniatura jest w prawym dolnym rogu; po przeciągnięciu wybrany róg przetrwa restart i zmianę szkicu. Na instrukcji P1 miniatura jest ukryta.
 - [ ] Próba przesunięcia celownika daje czytelną podpowiedź.
 - [ ] Bez zgody na kamerę, przed gotowością oraz przy ruchu telefonu nie można zapisać kierunku. Tryb ręczny pozwala kontynuować bez kamery.
 - [ ] Po zgodzie sesja startuje bez osobnego przycisku; błąd startu pozwala ponowić próbę.
