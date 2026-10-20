@@ -11,3 +11,4 @@ artifacts/
 *.log
 *.tsbuildinfo
 .DS_Store
+docs/tmp.txt
