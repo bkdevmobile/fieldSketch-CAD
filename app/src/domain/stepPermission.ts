@@ -6,6 +6,6 @@ export async function prepareStepSession(original: string, requestPermission: ()
     if (!recover) throw new Error('Sesja zmieniła się. Przechwyć kierunek ponownie.');
     sessionId = await recover(); recovered = true;
   }
-  if (!granted) throw new Error('Brak zgody na krokomierz. Możesz wpisać długość lub liczbę kroków ręcznie.');
+  if (!granted) throw new Error('Brak zgody na krokomierz. Możesz wpisać długość lub liczbę kroków ręcznie. Zgodę możesz włączyć w ustawieniach aplikacji w telefonie.');
   return { sessionId, recovered };
 }

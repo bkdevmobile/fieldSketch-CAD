@@ -1,17 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { AppState, PermissionsAndroid, Platform } from 'react-native';
+import { AppState } from 'react-native';
 import { orientation, StepSample } from './native';
 import { prepareStepSession } from '../domain/stepPermission';
-
-async function waitForActiveApp() {
-  if (AppState.currentState === 'active') return;
-  await new Promise<void>((resolve, reject) => {
-    const listener = AppState.addEventListener('change', state => {
-      if (state === 'active') { clearTimeout(timeout); listener.remove(); resolve(); }
-    });
-    const timeout = setTimeout(() => { listener.remove(); reject(new Error('Wróć do aplikacji i ponów Start krokomierza.')); }, 2000);
-  });
-}
+import { hasStepPermission } from './stepPermission';
 
 export function usePedometer(sessionId: string | null) {
   const [reading, setReading] = useState<StepSample | null>(null);
@@ -38,16 +29,10 @@ export function usePedometer(sessionId: string | null) {
   const start = async (recoverSession?: () => Promise<string>) => {
     let expectedSession = current.current.sessionId;
     if (!expectedSession) throw new Error('Rozpocznij sesję i przechwyć kierunek.');
-    let prompted = false;
-    const prepared = await prepareStepSession(expectedSession, async () => {
-      if (Platform.OS !== 'android' || Number(Platform.Version) < 29) return true;
-      const permission = PermissionsAndroid.PERMISSIONS.ACTIVITY_RECOGNITION;
-      if (await PermissionsAndroid.check(permission)) return true;
-      prompted = true;
-      const granted = await PermissionsAndroid.request(permission) === PermissionsAndroid.RESULTS.GRANTED;
-      await waitForActiveApp();
-      return granted;
-    }, () => prompted ? null : current.current.sessionId, recoverSession && (async () => {
+    // Never open a permission dialog after capturing a direction: it can
+    // restart the relative sensor frame. Permission is requested at survey start.
+    const prepared = await prepareStepSession(expectedSession, hasStepPermission,
+      () => current.current.sessionId, recoverSession && (async () => {
       if (!alive.current || AppState.currentState !== 'active') throw new Error('Pomiar kroków anulowany po opuszczeniu aplikacji.');
       return recoverSession();
     }));

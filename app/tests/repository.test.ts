@@ -102,7 +102,7 @@ test('stare ustawienia zachowują jednostkę i krok, otrzymując domyślne przyc
 test('pozycja miniatury i ostatnia metoda długości przetrwają odtworzenie bazy', async () => {
   const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
   const repo = new ProjectRepository(db); await repo.initialize();
-  expect(await repo.settings()).toMatchObject({ sketchCorner: 'top-right', lengthInput: 'steps' });
+  expect(await repo.settings()).toMatchObject({ sketchCorner: 'bottom-right', lengthInput: 'steps' });
   await repo.saveSettings({ ...DEFAULT_SETTINGS, sketchCorner: 'bottom-left', lengthInput: 'manual' });
   const reopened = new SqlAdapter(new SQL.Database(db.raw.export()));
   const next = new ProjectRepository(reopened); await next.initialize();

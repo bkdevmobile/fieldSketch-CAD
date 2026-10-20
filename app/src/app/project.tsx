@@ -16,6 +16,7 @@ import { convertLengthInput, defaultReferenceIndex, headingFromTurn, previousHea
 import { orientation } from '../infrastructure/native';
 import { message, useStore } from '../infrastructure/store';
 import { usePedometer } from '../infrastructure/usePedometer';
+import { requestStepPermissionBeforeDirection } from '../infrastructure/stepPermission';
 import { captureErrorText } from '../domain/captureError';
 import { directionReady } from '../domain/directionReadiness';
 import { MeasurementHelp } from '../components/MeasurementHelp';
@@ -51,6 +52,7 @@ export default function Survey() {
   const [startFailed, setStartFailed] = useState(false);
   const [startAttempt, setStartAttempt] = useState(0);
   const autoAttempt = useRef<string | null>(null);
+  const stepPermissionPrepared = useRef(false);
   useFocusEffect(useCallback(() => { setFocused(true); return () => setFocused(false); }, []));
   const [menuAnchor, setMenuAnchor] = useState<MenuAnchor>();
   const [hydrated, setHydrated] = useState(false), [draftError, setDraftError] = useState(''), [resumeNote, setResumeNote] = useState('');
@@ -124,16 +126,27 @@ export default function Survey() {
   useEffect(() => { setFitKey(key => key + 1); Keyboard.dismiss(); }, [step]);
   useEffect(() => {
     if (!focused || !foreground) { autoAttempt.current = null; return; }
-    if (!project || project.closed || !hydrated || draftError || step !== 'direction' || help || active || store.busy
+    if (!project || !store.capabilities || project.closed || !hydrated || draftError || step !== 'direction' || help || active || store.busy
       || (mode !== 'manual' && !permission?.granted)) return;
     const key = `${id}:${mode}:${startAttempt}`;
     if (autoAttempt.current === key) return;
     autoAttempt.current = key; setStartFailed(false);
     void store.run(async () => {
-      try { await store.start(project, mode); }
+      try {
+        if (!stepPermissionPrepared.current && store.capabilities!.stepDetector) {
+          const granted = await requestStepPermissionBeforeDirection();
+          stepPermissionPrepared.current = true;
+          if (!granted) {
+            setLengthSource('manual');
+            setResumeNote('Brak zgody na krokomierz. Możesz wpisać długość ręcznie.');
+          }
+        }
+        if (!screenFocused.current || AppState.currentState !== 'active') throw new Error('Wróć do szkicu i ponów przygotowanie odczytu.');
+        await store.start(project, mode);
+      }
       catch (error) { setStartFailed(true); throw error; }
     });
-  }, [focused, foreground, hydrated, draftError, step, help, active, store.busy, permission?.granted, id, mode, project?.closed, startAttempt]);
+  }, [focused, foreground, hydrated, draftError, step, help, active, store.busy, store.capabilities, permission?.granted, id, mode, project?.closed, startAttempt]);
   if (!project) return <Page title="Szkic"><Text style={s.text}>Ładowanie szkicu lub szkic został usunięty.</Text></Page>;
   const fit = () => setFitKey(key => key + 1);
   const retryStart = () => { autoAttempt.current = null; setStartFailed(false); setStartAttempt(value => value + 1); };
@@ -296,7 +309,7 @@ export default function Survey() {
   const readoutReady = active && directionReady(currentLive, store.sessionId);
   const StatusIcon = readoutReady ? CircleCheck : active && currentLive?.ready ? CircleAlert : Compass;
   const statusColor = readoutReady ? colors.ready : active && currentLive?.ready ? colors.amber : colors.muted;
-  const statusLabel = !active ? startFailed ? 'Nie udało się przygotować odczytu. Wybierz ponowienie poniżej.' : !permission?.granted ? 'Udostępnij kamerę, aby celować telefonem.' : 'Przygotowywanie odczytu…' : !currentLive?.ready ? 'Przytrzymaj telefon nieruchomo przez około 2 sekundy.' : currentLive.horizontalProjection < 0.2 ? 'Skieruj kamerę na narożnik przed sobą, nie w ziemię.' : readoutReady ? 'Telefon stabilny — możesz zapisać kierunek.' : 'Odczyt nie jest gotowy. Przytrzymaj telefon nieruchomo.';
+  const statusLabel = !active ? startFailed ? 'Błąd odczytu — ponów poniżej.' : !permission?.granted ? 'Udostępnij kamerę do celowania.' : 'Przygotowywanie odczytu…' : !currentLive?.ready ? 'Przytrzymaj telefon nieruchomo przez 2 s.' : currentLive.horizontalProjection < 0.2 ? 'Skieruj kamerę przed siebie, nie w ziemię.' : readoutReady ? 'Telefon stabilny — możesz zapisać kierunek.' : 'Odczyt niestabilny — przytrzymaj telefon.';
   const liveTheta = active && currentLive && !needsReference ? first ? 0 : normalize(Math.PI / 2 - currentLive.headingRad + (offset ?? 0)) : undefined;
   const previewTheta = theta ?? (step === 'direction' ? liveTheta : undefined);
   const title = { start: 'Zapisz pierwszy punkt', direction: needsReference ? 'Odtwórz odniesienie' : 'Wskaż kierunek',
@@ -356,18 +369,6 @@ export default function Survey() {
         <Text style={s.stepTitle}>{title}</Text>
         {step === 'start' && <MeasurementHelp manual={mode === 'manual'} />}
         {step === 'direction' && <>
-          <Text style={s.text}>{needsReference ? `Stań przy P${anchorIndex + 1} i skieruj kamerę na P${anchorIndex + 2}. Zapisz odniesienie, a następnie wróć do P${project.points.length}, aby mierzyć kolejny bok.` : mode === 'manual' ? 'Ustaw skręt względem poprzedniego boku.' : `Stań przy P${project.points.length}. Obróć telefon, aż następny narożnik znajdzie się w celowniku.`}</Text>
-          {mode !== 'manual' && <Text style={s.muted}>Celownik jest nieruchomy. Celujesz, obracając telefon — nie przesuwając palcem po ekranie.</Text>}
-          <Button label="Jak wykonać pomiar?" icon={Compass} quiet align="start" onPress={() => setHelp(true)} />
-          {!active && !store.busy && autoAttempt.current !== null && <Button label="Ponów przygotowanie odczytu" secondary onPress={retryStart} />}
-          {needsReference && <Button secondary label={`Bok odniesienia: P${anchorIndex + 1} → P${anchorIndex + 2} (zmień)`}
-            onPress={() => setAnchorIndex((anchorIndex + 1) % (project.points.length - 1))} />}
-          {mode !== 'manual' && <View accessible accessibilityRole="text" accessibilityLabel={statusLabel} accessibilityLiveRegion="polite"
-            style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 6 }}>
-            <StatusIcon size={19} strokeWidth={1.8} color={statusColor} accessible={false} />
-            <Text style={[s.muted, { flex: 1, color: statusColor, fontWeight: readoutReady ? '600' : '400' }]}>{statusLabel}</Text>
-          </View>}
-          {aimHint && showCamera && <Text accessibilityRole="alert" style={s.warningText}>Celuj telefonem — celownik się nie przesuwa. Obróć telefon tak, aby narożnik znalazł się na środku obrazu.</Text>}
           {showCamera && <View style={{ height: 212, backgroundColor: colors.ink, borderRadius: 20, overflow: 'hidden' }}>
             {permission?.granted ? <CameraView style={{ flex: 1 }} facing="back" active={active && focused && foreground} /> :
               <View style={{ padding: 20, gap: 12 }}><Text style={{ color: 'white' }}>Udostępnij kamerę do celowania albo wybierz tryb ręczny w ustawieniach.</Text>
@@ -379,6 +380,18 @@ export default function Survey() {
             {permission?.granted && <Pressable accessibilityRole="button" accessibilityLabel="Jak ustawić celownik?" onTouchStart={() => setAimHint(true)} onPress={() => setAimHint(true)} style={{ position: 'absolute', inset: 0 }} />}
           </View>}
           {mode === 'manual' && <View style={s.workPanel}>{turnFields}</View>}
+          {mode !== 'manual' && <View accessible accessibilityRole="text" accessibilityLabel={statusLabel} accessibilityLiveRegion="polite"
+            style={{ minHeight: 64, flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 6 }}>
+            <StatusIcon size={19} strokeWidth={1.8} color={statusColor} accessible={false} />
+            <Text style={[s.muted, { flex: 1, color: statusColor, fontWeight: '600' }]}>{statusLabel}</Text>
+          </View>}
+          {!active && !store.busy && autoAttempt.current !== null && <Button label="Ponów przygotowanie odczytu" secondary onPress={retryStart} />}
+          {needsReference && <Button secondary label={`Bok odniesienia: P${anchorIndex + 1} → P${anchorIndex + 2} (zmień)`}
+            onPress={() => setAnchorIndex((anchorIndex + 1) % (project.points.length - 1))} />}
+          <Text style={s.text}>{needsReference ? `Stań przy P${anchorIndex + 1} i skieruj kamerę na P${anchorIndex + 2}. Zapisz odniesienie, a następnie wróć do P${project.points.length}, aby mierzyć kolejny bok.` : mode === 'manual' ? 'Ustaw skręt względem poprzedniego boku.' : `Stań przy P${project.points.length}. Obróć telefon, aż następny narożnik znajdzie się w celowniku.`}</Text>
+          {mode !== 'manual' && <Text style={s.muted}>Celownik jest nieruchomy. Celujesz, obracając telefon — nie przesuwając palcem po ekranie.</Text>}
+          {aimHint && showCamera && <Text accessibilityRole="alert" style={s.warningText}>Celuj telefonem — celownik się nie przesuwa. Obróć telefon tak, aby narożnik znalazł się na środku obrazu.</Text>}
+          <Button label="Jak wykonać pomiar?" icon={Compass} quiet align="start" onPress={() => setHelp(true)} />
         </>}
         {step === 'angle' && <>
           <Text style={s.muted}>Odczyt zatrzymany. Popraw kąt lub przejdź do długości.</Text>
@@ -393,7 +406,6 @@ export default function Survey() {
           <Button label="Zmierz ponownie" icon={RotateCcw} quiet align="start" onPress={() => setStep('direction')} disabled={store.busy} />
         </>}
         {step === 'length' && <>
-          <Text style={s.muted}>{pedometer.walking ? 'Idź do narożnika, na który celowałeś. Zatrzymaj się i naciśnij Stop.' : 'Kierunek jest zapisany. Teraz wpisz długość boku lub zmierz ją krokami.'}</Text>
           <View style={s.segment}><View style={{ flex: 1 }}><Button label="Wpisz długość" icon={Ruler} compact disabled={pedometer.walking || store.busy} secondary={lengthSource !== 'manual'} onPress={() => chooseLengthSource('manual')} /></View>
             <View style={{ flex: 1 }}><Button label="Krokomierz" icon={Footprints} compact disabled={pedometer.walking || store.busy} secondary={lengthSource !== 'steps'} onPress={() => chooseLengthSource('steps')} /></View></View>
           <View style={s.workPanel}>
@@ -403,7 +415,7 @@ export default function Survey() {
               onPress={() => Alert.alert('Jednostka tego pomiaru', 'Wybierz jednostkę; wpisana długość zostanie przeliczona.', [
                 { text: 'Metry', onPress: () => switchUnit('m') }, { text: 'Centymetry', onPress: () => switchUnit('cm') }, { text: 'Anuluj', style: 'cancel' },
               ])} style={{ minHeight: 44, flexDirection: 'row', alignItems: 'center', gap: 6 }}><Text style={s.label}>Jednostka: {unit}</Text><ChevronDown size={16} color={colors.muted} accessible={false} /></Pressable>
-          </> : <><Text style={s.text}>Stojąc w początku boku, naciśnij Start. Przejdź do wskazanego narożnika, zatrzymaj się i naciśnij Stop. Dopiero potem sprawdź bok.</Text><StepControls value={steps} onChange={setSteps} onEndEditing={fit} walking={pedometer.walking}
+          </> : <><StepControls value={steps} onChange={setSteps} onEndEditing={fit} walking={pedometer.walking}
             busy={store.busy} canStart={!!store.capabilities?.stepDetector && !!frozenValid}
             onToggle={pedometer.walking ? () => store.run(async () => { await stopWalking(); }) : startWalking} />
             <Text style={s.muted}>1 krok = {stepLength} cm · długość szacunkowa</Text>
@@ -412,7 +424,8 @@ export default function Survey() {
           </>}
           <Text style={s.measureValue}>{lengthM === undefined ? '—' : `${fmt(lengthM * (unit === 'cm' ? 100 : 1), 2)} ${unit}`}</Text>
           </View>
-
+          <Text style={s.muted}>{pedometer.walking ? 'Idź do narożnika, na który celowałeś. Zatrzymaj się i naciśnij Stop.' : 'Kierunek jest zapisany. Teraz wpisz długość boku lub zmierz ją krokami.'}</Text>
+          {lengthSource === 'steps' && <Text style={s.text}>Stojąc w początku boku, naciśnij Start. Przejdź do wskazanego narożnika, zatrzymaj się i naciśnij Stop. Dopiero potem sprawdź bok.</Text>}
         </>}
         {step === 'review' && <>
           <Text style={s.text}>Skręt: {first ? '0° · pierwszy bok' : `${turn}° ${turnSide === 'left' ? 'w lewo' : 'w prawo'}`}</Text>

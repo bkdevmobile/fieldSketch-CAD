@@ -18,7 +18,7 @@ export function FloatingSketch({ project, preview, fitKey, unit }: {
   const { height } = useWindowDimensions();
   const position = useRef(new Animated.ValueXY()).current;
   const current = useRef({ area, thumbnail, rememberUi }); current.current = { area, thumbnail, rememberUi };
-  const corner = useRef<SketchCorner>(settings.sketchCorner ?? 'top-right');
+  const corner = useRef<SketchCorner>(settings.sketchCorner ?? 'bottom-right');
   const pendingCorner = useRef<SketchCorner | null>(null);
   const location = useRef({ x: 0, y: 0 }), origin = useRef({ x: 0, y: 0 });
   const suppressTapUntil = useRef(0);
@@ -37,7 +37,7 @@ export function FloatingSketch({ project, preview, fitKey, unit }: {
   }, []);
   useEffect(() => { snap(corner.current, false); }, [area.width, area.height, thumbnail.width, thumbnail.height]);
   useEffect(() => {
-    const saved = settings.sketchCorner ?? 'top-right';
+    const saved = settings.sketchCorner ?? 'bottom-right';
     if (pendingCorner.current && saved !== pendingCorner.current) return;
     pendingCorner.current = null;
     if (saved !== corner.current) snap(saved, false);
