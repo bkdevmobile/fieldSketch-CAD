@@ -1,10 +1,10 @@
 # Instrukcja MVP outlineGo
 
-Aktualizacja preferencji po odbiorze pomocy: instrukcja P1 bez miniatury; jej róg jest zapamiętywany globalnie (domyślnie prawy górny). Domyślna metoda długości to krokomierz, potem ostatni jawny wybór użytkownika; istniejący formularz zachowuje swoje dane. Obsługa pierwszej zgody na krokomierz zachowuje etap długości i już przechwycony kierunek mimo zatrzymania sesji przez okno Androida. Szczegóły: [opis](pierwszy-pomiar.md).
+Aktualny układ pomiaru: instrukcja P1 bez miniatury; jej róg jest zapamiętywany globalnie (domyślnie prawy dolny). Celownik i formularz długości są przed pomocą; status pod kamerą nie przesuwa celownika. Domyślna metoda długości to krokomierz, potem ostatni jawny wybór użytkownika; istniejący formularz zachowuje swoje dane. Pierwsza zgoda na krokomierz jest przed uruchomieniem sesji kierunku. Szczegóły: [opis](pierwszy-pomiar.md).
 
-Stan na 20 października 2026: aplikacja 0.1.0, branding w `3d28bd5`, kolejne poprawki po próbie użytkownika opisane w MEMO. Numer commita, aktualny APK i stan instalacji podaje [MEMO](../../MEMO.md). Jest to pomocniczy szkic terenowy z eksportem PNG. W kodzie dodano [eksport DXF 2D](eksport-dxf.md), jeszcze bez nowego APK i próby udostępniania na telefonie. Pełny edytor i solver pozostają poza MVP.
+Stan na 20 października 2026: aplikacja 0.1.0, branding w `3d28bd5`, kolejne poprawki po próbie użytkownika opisane w MEMO. Numer commita, aktualny APK i stan instalacji podaje [MEMO](../../MEMO.md). Jest to pomocniczy szkic terenowy z eksportem PNG. Dostępny jest [eksport DXF 2D](eksport-dxf.md) w APK `9E8708ED…` zainstalowanym na Redmi; próba udostępniania na telefonie pozostaje do wykonania. Pełny edytor i solver pozostają poza MVP.
 
-Stan kodu: `b00dd74` (ograniczenia przesuwania, animowany skokowy zoom i poluzowanie granic do środka podglądu). Telefon ma APK `E083C357…` z poluzowanymi granicami oraz skokowym zoomem; build i instalacja z zachowaniem danych zostały potwierdzone 20 października 2026. Ostatnia pełna kontrola: TypeScript i 60 testów TS; po poluzowaniu ponownie przeszły TypeScript oraz 10 testów podglądu. Po tej korekcie nie powtarzano wszystkich testów TS; pełny build zakończył się sukcesem, a testy Kotlin były aktualne (`UP-TO-DATE`).
+Stan kodu: `172ebe8`. Telefon Redmi 23124RA7EO ma APK `9E8708ED…` z eksportem DXF, zainstalowany 20 października 2026 bez czyszczenia danych (Success, uruchomienie Status ok / COLD). TypeScript i 92 testy TS przeszły; build zakończył się w 58 s, zadanie Kotlin UP-TO-DATE. Szczegóły i pozostałe próby: [eksport DXF](eksport-dxf.md).
 
 ## Instalacja i aktualizacja
 
@@ -59,7 +59,7 @@ Po zamknięciu i ponownym otwarciu projektu przywracamy wpisy, lecz wracamy do k
 
 „Zakończ” rozstrzyga niezapisany bok (Zapisz/Odrzuć/Wróć), a potem pozwala zamknąć obrys lub zostawić go otwartym. Zamknięcie dodaje wyliczone połączenie do P1 bez przesuwania punktów. Jest osobne od niezależnego pomiaru powrotnego; bez takiego pomiaru nie pokazujemy zerowego błędu zamknięcia.
 
-W podsumowaniu można poprawić ostatni bok z zachowaniem historii, obejrzeć PNG i otworzyć systemowe udostępnianie. PNG zawiera szkic, wymiary, źródła długości i oznaczenie wartości szacunkowych oraz wyliczonego zamknięcia. DXF nie jest wymagany w tej wersji. Eksport JSONL/CSV służy diagnostyce.
+W podsumowaniu można poprawić ostatni bok z zachowaniem historii, obejrzeć PNG i otworzyć systemowe udostępnianie. PNG zawiera szkic, wymiary, źródła długości i oznaczenie wartości szacunkowych oraz wyliczonego zamknięcia. Przycisk „Eksportuj DXF” w podsumowaniu otwiera systemowe udostępnianie pliku CAD: obrys, numery punktów i długości na osobnych warstwach, jednostka m/cm z ustawień. DXF jest obecnie dostępny bez blokady; docelowo wymaga Plus. Eksport JSONL/CSV służy diagnostyce.
 
 ## Diagnostyka i logi
 

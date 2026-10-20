@@ -24,7 +24,17 @@ TypeScript i 92 testy TS przeszły. Nowe testy obejmują otwartą i zamkniętą 
 
 Wygenerowano próbki otwarte/zamknięte w m/cm w `artifacts/dxf/`. Zainstalowany LibreCAD otworzył `triangle-closed-m.dxf`; po Auto Zoom sprawdzono obrys 3/4/5 m, etykiety P1–P3, warstwy oraz polskie znaki i objaśnienia. Dostępny lokalny kontrolny PDF z konwersji czterech próbek. Nie jest to potwierdzenie kontroli w drugim programie CAD. Dodatkowy parser npm został odrzucony przez automatyczną kontrolę uprawnień; nie instalowano nowych pakietów.
 
-Pozostaje próba systemowego udostępniania na telefonie i importu w drugim CAD przed release. APK z DXF nie zbudowano ani nie instalowano; ostatni zainstalowany build `30CB381F…` nie zawiera DXF. Zakończone wcześniejsze testy zamknięte nie obejmowały tej nowej funkcji.
+Pozostaje próba systemowego udostępniania na telefonie i importu w drugim CAD przed release. APK z DXF (`172ebe8`, SHA256 `9E8708ED…`, 85263751 bajtów) zbudowano i zainstalowano na Redmi 20 października 2026 z zachowaniem danych: instalacja Success, uruchomienie Status ok / COLD. Build `dxf-export-build.log`: BUILD SUCCESSFUL in 58s; testy Kotlin UP-TO-DATE. Zakończone wcześniejsze testy zamknięte nie obejmowały tej nowej funkcji.
+
+## Próba z aktualnego APK
+
+Scenariusz dla APK `9E8708ED…` na Redmi; poniższych prób nie oznaczono jako wykonane na podstawie samej instalacji:
+
+- [ ] Otwarty szkic: Podsumowanie → Eksportuj DXF → wybierz dostępny cel zapisu/udostępnienia. Zapisany plik ma rozszerzenie `.dxf` i otwiera się poza aplikacją.
+- [ ] Powtórz dla zamkniętego obrysu, w m i cm. Zamknięcie i skala odpowiadają ustawieniom; PNG nadal działa.
+- [ ] Sprawdź numery punktów, długości z kroków, oznaczenie wyliczonego zamknięcia i polskie znaki.
+- [ ] Anuluj udostępnianie: szkic, punkty i historia pozostają bez zmian, a eksport można ponowić.
+- [ ] Otwórz plik w drugim programie CAD i sprawdź wymiary referencyjne oraz warstwy. Zapisz nazwę i wersję programu oraz wynik próby.
 
 ## Referencje formatu
 
