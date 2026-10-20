@@ -61,6 +61,8 @@ Log obejmuje metadane, surowe sensory i macierze, kierunek, jakość, rozrzut, k
 
 ## Próba terenowa i znany problem
 
+Do wykonania na aktualnym buildzie outlineGo: [checklista z miejscem na wyniki i logi](checklista-proby-terenowej.md).
+
 Użytkownik zaakceptował dokładność wykonanych prób trybu względnego. Krokomierz ocenił jako generalnie działający, ale często doliczający 1–2 kroki. Ręczna korekta nie rozwiązuje przyczyny nadliczania.
 
 - Sprawdź krokomierz dla znanej liczby kroków, szczególnie pierwszy i ostatni krok przy Start/Stop, ponowny Start, przejście do tła i różne sposoby trzymania telefonu. Zachowaj log oraz ręcznie policzoną wartość odniesienia.

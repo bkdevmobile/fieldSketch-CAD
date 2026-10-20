@@ -4,7 +4,7 @@ Decyzja marki — 20 października 2026: użytkownik przyjął nazwę **outlineG
 
 W kodzie wdrożono nazwę i logo outlineGo: nagłówek główny, mały znak w pozostałych nagłówkach, nagłówek pomiaru, nowy projekt i eksport PNG. Wektorowa geometria `app/assets/brand/mark.json` zasila komponent `Brand.tsx` oraz generator SVG/PNG `npm run assets:brand`. Ikona ma wersję tradycyjną, adaptacyjną i monochromatyczną, splash — ciepłe tło i zielony znak. `expo-splash-screen` 56.0.15 obsługuje start natywny; widok z logo i nazwą pozostaje podczas inicjalizacji danych, bez sztucznego opóźnienia. Nazwa pliku APK i nowo eksportowanych PNG/CSV używa outlineGo. Zachowano pakiet `pl.fieldsketch.cad.prototype`, schemat linków `fieldsketch`, slug i bazę `fieldsketch.db`, aby zachować ciągłość aktualizacji oraz dane. Zmiany marki zapisano w commicie wdrażającym branding outlineGo.
 
-Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; kod Teren zapisano w `1a5acbe`, późniejsze notatki w `02a5019`. Najnowszy commit aplikacji: `3d28bd5` — `feat: apply outlineGo branding, launcher icon and splash screen`. Obejmuje nazwę, logo w ekranach i PNG, zasoby ikony, splash, generator zasobów oraz dokumentację instalacji na telefonie. Po commicie katalog roboczy był czysty; bieżąca aktualizacja notatek pozostaje osobną zmianą bez commita. Nie wykonano pushowania.
+Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; kod Teren zapisano w `1a5acbe`, późniejsze notatki w `02a5019`. Najnowszy commit aplikacji: `3d28bd5` — `feat: apply outlineGo branding, launcher icon and splash screen`. Obejmuje nazwę, logo w ekranach i PNG, zasoby ikony, splash, generator zasobów oraz dokumentację instalacji na telefonie. Po commicie katalog roboczy był czysty; notatki po wdrożeniu zapisano następnie w `b044778`. Checklistę próby terenowej zapisano w osobnym commicie dokumentacji. Nie wykonano pushowania.
 
 ## Aktualny rezultat
 
@@ -89,7 +89,7 @@ Makiety i zrzuty są lokalnymi artefaktami ignorowanymi przez Git. Wizualizacja 
 
 ## Najbliższe prace i zakres
 
-1. Próba użytkownika na zaktualizowanym telefonie: ikona i nazwa outlineGo, zimny start ze splashem, logo w ekranach i udostępnionym PNG; następnie pełny pomiar, menu, własne potwierdzenia, przeciąganie i przyciąganie miniatury, powiększony dialog szkicu, klawiatura oraz powrót do formularza bez utraty danych. Instalacja i uruchomienie są potwierdzone; odbiór tych interakcji przez użytkownika pozostaje otwarty.
+1. Wykonanie [checklisty próby terenowej](docs/technical/checklista-proby-terenowej.md), przygotowanej dla commita `3d28bd5`. Pola wyników pozostają puste; checklisty jeszcze nie wykonano. Próba użytkownika na zaktualizowanym telefonie: ikona i nazwa outlineGo, zimny start ze splashem, logo w ekranach i udostępnionym PNG; następnie pełny pomiar, menu, własne potwierdzenia, przeciąganie i przyciąganie miniatury, powiększony dialog szkicu, klawiatura oraz powrót do formularza bez utraty danych. Instalacja i uruchomienie są potwierdzone; odbiór tych interakcji przez użytkownika pozostaje otwarty.
 2. Diagnoza nadliczania kroków przy znanej liczbie kroków, z logiem, szczególnie przy Start/Stop i zmianie sposobu trzymania telefonu. Nie wprowadzono nowej poprawki algorytmu w commicie Teren.
 3. Ustalenie kryteriów gotowości do testu zamkniętego po próbie terenowej.
 
