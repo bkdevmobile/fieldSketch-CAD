@@ -7,6 +7,8 @@ try {
   if (-not $env:ANDROID_HOME) { $env:ANDROID_HOME = Join-Path $env:LOCALAPPDATA 'Android/Sdk' }
   if (-not (Test-Path -LiteralPath $env:ANDROID_HOME)) { throw 'Ustaw ANDROID_HOME na katalog Android SDK.' }
   $nodePath = (Get-Command node -ErrorAction Stop).Source
+  & $nodePath scripts/generate-brand-assets.cjs
+  if ($LASTEXITCODE -ne 0) { throw 'Generowanie zasobów marki nie powiodło się.' }
   if (-not (Test-Path -LiteralPath 'node_modules/expo/bin/cli')) { throw 'Najpierw uruchom npm ci w app.' }
   $env:NODE_ENV = 'production'
   $ErrorActionPreference = 'Continue'
@@ -24,7 +26,7 @@ try {
   } finally { Pop-Location }
   $outputDirectory = Join-Path $repoDirectory 'artifacts'
   New-Item -ItemType Directory -Force -Path $outputDirectory | Out-Null
-  $outputPath = Join-Path $outputDirectory 'FieldSketch-CAD-0.1.0.apk'
+  $outputPath = Join-Path $outputDirectory 'outlineGo-0.1.0.apk'
   Copy-Item -LiteralPath 'android/app/build/outputs/apk/release/app-release.apk' -Destination $outputPath -Force
   Get-FileHash -Algorithm SHA256 -LiteralPath $outputPath
   Write-Output "APK: $outputPath"

@@ -1,4 +1,4 @@
-# Aplikacja FieldSketch CAD
+# Aplikacja outlineGo
 
 Prototyp Android w **React Native 0.85.3 + Expo SDK 56 + TypeScript**, z lokalnym modułem Kotlin. Wersje są przypięte w `package-lock.json`.
 
@@ -13,7 +13,15 @@ npm test
 npm run build:apk
 ```
 
-Wynik: `../artifacts/FieldSketch-CAD-0.1.0.apk`, z osadzonym JavaScript i podpisem deweloperskim do testów. APK obsługuje arm64-v8a i x86_64, Android 7 lub nowszy. Do pomiaru nie wymaga Metro ani internetu. Do pracy deweloperskiej: `npm run android`, potem `npm start`.
+Wynik: `../artifacts/outlineGo-0.1.0.apk`, z osadzonym JavaScript i podpisem deweloperskim do testów. APK obsługuje arm64-v8a i x86_64, Android 7 lub nowszy. Do pomiaru nie wymaga Metro ani internetu. Do pracy deweloperskiej: `npm run android`, potem `npm start`.
+
+## Marka i zasoby
+
+Nazwa aplikacji: **outlineGo**. Użytkownik wybrał pierwszy wariant logo: otwarty obrys z trzema pierścieniami i jednym pełnym punktem. Geometria w `assets/brand/mark.json` jest wspólna dla komponentów SVG, eksportu PNG i zasobów startowych. `npm run assets:brand` odtwarza SVG/PNG przez przypięty developerski `sharp`; pełny build uruchamia generator automatycznie. Zasoby są zapisane w repozytorium, więc prebuild nie potrzebuje ignorowanych plansz koncepcyjnych.
+
+Ikona: białe logo na leśnej zieleni, wariant tradycyjny, adaptacyjny i monochromatyczny. Splash natywny (`expo-splash-screen` 56.0.15): zielony znak na tle Teren; podczas inicjalizacji danych aplikacja pokazuje także nazwę i wskaźnik ładowania. Błąd inicjalizacji kończy widok startowy i jest prezentowany w aplikacji. Nie dodano minimalnego czasu wyświetlania. Logo występuje w nagłówkach, pomiarze, nowym projekcie i eksporcie PNG.
+
+Dotychczasowy pakiet Android, slug, schemat linków, baza i pliki logów zachowują techniczne nazwy FieldSketch dla aktualizacji bez utraty danych. Nowe nazwy widoczne dla użytkownika i nowo tworzone PNG/CSV używają outlineGo.
 
 ## Dostępne funkcje
 
@@ -48,6 +56,8 @@ Dostępne są podgląd i udostępnienie PNG, edycja ostatniego boku z zachowanie
 [Instrukcja użytkowania i próby terenowej](../docs/technical/prototyp.md) opisuje procedurę i ograniczenia, w tym ostrzeżenie Expo Doctor o pamięci Hermes w SDK 56.
 
 ## Stan weryfikacji — 19 października 2026
+
+Aktualizacja marki 20 października 2026: TypeScript, 47 testów TS, pełny release build i zadanie testów Kotlin przeszły. APK outlineGo zainstalowano na emulatorze z zachowaniem 5 projektów. Sprawdzono natywny splash, ikonę pod maską launchera, nazwę, nagłówki oraz logo w PNG. Ten sam APK zainstalowano 20 października 2026 na telefonie `23124RA7EO` (`a20fa219`) przez `install -r`, z zachowaniem danych; ADB potwierdził `Success` i uruchomienie `Status: ok`, `LaunchState: COLD`. Branding zapisano w commicie wdrażającym markę outlineGo. Aktualny plik i hash są w MEMO; poniższe akapity opisują wcześniejsze wydania.
 
 Commit aplikacji: `91dd0fe`. TypeScript i 44 testy TS przeszły. Pełny skrypt budowania zakończył się sukcesem; zadanie 7 testów Kotlin było aktualne (`UP-TO-DATE`, zapisane wyniki bez błędów). APK zainstalowano przez `adb install -r` na telefonie `23124RA7EO`; ADB potwierdził uruchomienie. Emulator potwierdził listę 3 pozycji, „Więcej”, otwieranie z wiersza/menu oraz anulowanie usuwania. Fizycznej próby całego najnowszego UI jeszcze nie potwierdzono.
 

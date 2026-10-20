@@ -26,7 +26,7 @@ export default function Export() {
       const timer = setTimeout(() => reject(new Error('Nie udało się przygotować PNG. Spróbuj ponownie.')), 15000);
       svg.toDataURL(value => { clearTimeout(timer); value ? resolve(value) : reject(new Error('Pusty obraz PNG.')); }, { width: drawing.width, height: drawing.height });
     });
-    const file = new File(Paths.cache, `fieldsketch-${snapshot.id}-r${snapshot.geometryRevision}.png`);
+    const file = new File(Paths.cache, `outlinego-${snapshot.id}-r${snapshot.geometryRevision}.png`);
     file.write(data, { encoding: 'base64' });
     if (!file.exists || file.size === 0) throw new Error('Nie udało się zapisać obrazu PNG.');
     await Sharing.shareAsync(file.uri, { mimeType: 'image/png', dialogTitle: 'Udostępnij szkic PNG' });

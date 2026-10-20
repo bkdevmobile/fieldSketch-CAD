@@ -4,10 +4,10 @@ Stan na 19 października 2026: aplikacja 0.1.0, kod `91dd0fe`. Aktualny APK zbud
 
 ## Instalacja i aktualizacja
 
-Plik: `artifacts/FieldSketch-CAD-0.1.0.apk` w repozytorium. Przenieś go na telefon i otwórz, zezwalając na instalację z wybranego źródła, albo użyj komputera z debugowaniem USB. Dla jedynego podłączonego fizycznego telefonu:
+Plik: `artifacts/outlineGo-0.1.0.apk` w repozytorium. Przenieś go na telefon i otwórz, zezwalając na instalację z wybranego źródła, albo użyj komputera z debugowaniem USB. Dla jedynego podłączonego fizycznego telefonu:
 
 ```powershell
-adb -d install -r artifacts/FieldSketch-CAD-0.1.0.apk
+adb -d install -r artifacts/outlineGo-0.1.0.apk
 adb -d shell am start -n pl.fieldsketch.cad.prototype/.MainActivity
 ```
 

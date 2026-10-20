@@ -3,13 +3,15 @@ import Svg, { Circle, G, Line, Polyline, Rect, Text } from 'react-native-svg';
 import type { Project } from '../domain/model';
 import { sketchExport } from '../domain/sketchExport';
 import { fmt } from './ui';
+import { BrandGraphic } from './Brand';
 
 export const ExportSketch = forwardRef<Svg, { project: Project; displayWidth: number }>(function ExportSketch({ project, displayWidth }, ref) {
   const drawing = sketchExport(project);
   return <Svg ref={ref} width={displayWidth} height={displayWidth * drawing.height / drawing.width}
     viewBox={`0 0 ${drawing.width} ${drawing.height}`} accessibilityLabel="Podgląd obrazu PNG ze szkicem i tabelą wymiarów">
     <Rect x="0" y="0" width={drawing.width} height={drawing.height} fill="#FFFFFF" />
-    <Text x="64" y="65" fontSize="22" fill="#386553" fontWeight="bold">FIELDSKETCH CAD</Text>
+    <G transform="translate(60 24) scale(0.38)"><BrandGraphic /></G>
+    <Text x="122" y="62" fontSize="30" fill="#183A2C" fontWeight="bold">outlineGo</Text>
     <Text x="64" y="119" fontSize="34" fill="#142B28" fontWeight="bold">{project.name.slice(0, 42)}</Text>
     {project.name.length > 42 && <Text x="64" y="155" fontSize="28" fill="#142B28">{project.name.slice(42, 92)}{project.name.length > 92 ? '…' : ''}</Text>}
     <Text x="64" y="195" fontSize="22" fill="#52665C">{project.closed ? 'Obrys zamknięty' : 'Obrys otwarty'} · {project.points.length} punktów · wymiary w metrach</Text>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Check, Compass, Map, MapPin, Ruler } from 'lucide-react-native';
+import { Check, Compass, MapPin, Ruler } from 'lucide-react-native';
+import { BrandMark } from './Brand';
 import type { WizardStep } from '../domain/survey';
 import { colors, s } from './ui';
 
@@ -9,7 +10,7 @@ export function SurveyHeading({ name, subtitle, step, closed }: { name: string; 
   return <View style={{ gap: 18 }}>
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
       <View style={{ width: 44, height: 44, borderRadius: 15, backgroundColor: colors.mint, alignItems: 'center', justifyContent: 'center' }}>
-        <Map size={22} strokeWidth={1.8} color={colors.green} accessible={false} />
+        <BrandMark size={29} />
       </View>
       <View style={{ flex: 1, gap: 3 }}><Text style={[s.h2, { fontWeight: '600', letterSpacing: -0.3 }]}>{name}</Text><Text style={s.muted}>{subtitle}</Text></View>
     </View>

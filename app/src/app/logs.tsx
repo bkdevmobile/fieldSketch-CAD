@@ -37,7 +37,7 @@ export default function Logs() {
     const records = data.trim().split('\n').filter(Boolean);
     const first = records[0] ? JSON.parse(records[0]).sequence : '—';
     const last = records.at(-1) ? JSON.parse(records.at(-1)!).sequence : '—';
-    const header = snapshot.parts > 1 ? `FieldSketch CAD | sesja ${snapshot.sessionId} | część ${part + 1}/${snapshot.parts} | rekordy ${first}–${last}\n` : '';
+    const header = snapshot.parts > 1 ? `outlineGo | sesja ${snapshot.sessionId} | część ${part + 1}/${snapshot.parts} | rekordy ${first}–${last}\n` : '';
     const ok = await Clipboard.setStringAsync(header + data);
     if (!ok) throw new Error('Nie udało się skopiować loga. Spróbuj ponownie lub wyeksportuj plik.');
     Alert.alert('Skopiowano log', snapshot.parts > 1 ? `Część ${part + 1} z ${snapshot.parts}. Skopiuj także pozostałe części.` : 'Pełna treść migawki znajduje się w schowku.');
@@ -46,7 +46,7 @@ export default function Logs() {
     if (!snapshot) return;
     if (!await Sharing.isAvailableAsync()) throw new Error('Udostępnianie plików jest niedostępne. Użyj kopiowania.');
     if (!csv) { await Sharing.shareAsync(snapshot.uri, { mimeType: 'application/x-ndjson', dialogTitle: 'Eksport loga JSONL' }); return; }
-    const file = new File(Paths.cache, `fieldsketch-${snapshot.sessionId}.csv`);
+    const file = new File(Paths.cache, `outlinego-${snapshot.sessionId}.csv`);
     file.create({ overwrite: true });
     const handle = file.open();
     try {

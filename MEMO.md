@@ -1,19 +1,23 @@
-# Stan prac nad FieldSketch CAD
+# Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
-Aktualizacja: 20 października 2026. Gałąź `mvp_designed`, aktualny commit `1a5acbe` — `feat: apply Teren styling and custom survey overlays`. Zawiera styl Teren, pozostałe ekrany, rozwijane menu, własne dialogi i przeciąganie miniatury. Kod i dokumentacja wdrożenia są zapisane w tym commicie; niniejsza aktualizacja notatek następuje po nim.
+Decyzja marki — 20 października 2026: użytkownik przyjął nazwę **outlineGo** (dokładna pisownia: małe „outline”, wielkie „G”, małe „o”) i wybrał **pierwszy, pierwotny wariant logo: otwarty obrys z trzema pierścieniami w narożnikach i jednym pełnym punktem końcowym**. Nie wybrano monogramu ani późniejszej korekty w kształcie G. Przegląd wykazał podobne motywy w ikonach innych aplikacji pomiarowych; użytkownik mimo to potwierdził wariant pierwszy. Nie przeprowadzono pełnego badania znaków towarowych i nie rejestrowano domen. Plansze i prompty: `artifacts/branding/outlinego/` (lokalne artefakty).
+
+W kodzie wdrożono nazwę i logo outlineGo: nagłówek główny, mały znak w pozostałych nagłówkach, nagłówek pomiaru, nowy projekt i eksport PNG. Wektorowa geometria `app/assets/brand/mark.json` zasila komponent `Brand.tsx` oraz generator SVG/PNG `npm run assets:brand`. Ikona ma wersję tradycyjną, adaptacyjną i monochromatyczną, splash — ciepłe tło i zielony znak. `expo-splash-screen` 56.0.15 obsługuje start natywny; widok z logo i nazwą pozostaje podczas inicjalizacji danych, bez sztucznego opóźnienia. Nazwa pliku APK i nowo eksportowanych PNG/CSV używa outlineGo. Zachowano pakiet `pl.fieldsketch.cad.prototype`, schemat linków `fieldsketch`, slug i bazę `fieldsketch.db`, aby zachować ciągłość aktualizacji oraz dane. Zmiany marki zapisano w commicie wdrażającym branding outlineGo.
+
+Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; kod Teren zapisano w `1a5acbe`, późniejsze notatki w `02a5019`. Kolejny commit wdraża opisany powyżej branding outlineGo i odnotowuje instalację na telefonie.
 
 ## Aktualny rezultat
 
-Działające MVP Android 0.1.0 jest w `app/`. Obejmuje pomiar i prosty obrys offline, bez kont i backendu, eksport PNG oraz trwałą diagnostykę. Aktualny APK obejmuje Teren na pozostałych ekranach, rozwijane menu, własne dialogi i przeciąganą miniaturę szkicu. Zbudowano go pełnym skryptem i sprawdzono na emulatorze. Następnie zainstalowano na telefonie `23124RA7EO` (`a20fa219`) przez `adb install -r`, zachowując dane. Instalacja Success, uruchomienie Status ok / COLD. Hash aktualnego APK podaje tabela poniżej.
+Działające MVP Android 0.1.0 jest w `app/`. Obejmuje pomiar i prosty obrys offline, bez kont i backendu, eksport PNG oraz trwałą diagnostykę. Najnowszy APK outlineGo zawiera wybrane logo, ikonę i splash screen oraz wcześniejsze ekrany Teren, rozwijane menu, własne dialogi i przeciąganą miniaturę. Release zbudowano pełnym skryptem. Telefon `23124RA7EO` (`a20fa219`) ma najnowszy build outlineGo `F09DBCDC643CDC79944430B6879DCABF45ED182817C9376DED3DC5C3128D6F92`, zainstalowany 20 października 2026 przez `install -r` z zachowaniem danych. ADB potwierdził `Success` i uruchomienie `Status: ok`, `LaunchState: COLD`. Hash nowego APK podaje tabela poniżej.
 
 | Artefakt | Wartość |
 | --- | --- |
-| Plik | `artifacts/FieldSketch-CAD-0.1.0.apk` |
-| Rozmiar | 85197067 bajtów |
-| SHA256 | `F2CF9C895406C1B4436FA0CC16F4C4AD020D2B73579D5EC5D3550F59ECB42C55` |
+| Plik | `artifacts/outlineGo-0.1.0.apk` |
+| Rozmiar | 85225535 bajtów |
+| SHA256 | `F09DBCDC643CDC79944430B6879DCABF45ED182817C9376DED3DC5C3128D6F92` |
 | Platforma | Android 7+, target SDK 36, arm64-v8a i x86_64 |
 | Uruchamianie | Osadzony JavaScript, bez Metro i internetu, podpis deweloperski |
-| Log ostatniego budowania | `artifacts/terrain-screens-build.log` |
+| Log ostatniego budowania | `artifacts/outlinego-brand-build.log` |
 
 ## Obowiązujący interfejs
 
@@ -51,13 +55,14 @@ Osobna Diagnostyka zawiera uwagi testera, niezależne odniesienie, logi i ręczn
 ## Weryfikacja i granice potwierdzenia
 
 - Ostatni pełny przebieg: TypeScript, 47 testów TS (w tym 3 testy pozycjonowania miniatury), release build i zadanie 7 testów Kotlin bez błędów. Zadanie Kotlin było `UP-TO-DATE`; zapisane raporty zawierają 7 testów, 0 błędów i 0 niepowodzeń.
+- Branding outlineGo: pełny build `outlinego-brand-build.log` zakończył się w 2 min 7 s; TypeScript i 47 testów przeszły. Zweryfikowano PNG 1024 × 1024 (tradycyjna ikona nieprzezroczysta; adaptacyjna i monochromatyczna z kanałem alfa) oraz splash 512 × 512. Nowy release zainstalowano przez `install -r` na emulatorze: zachowało się 5 projektów. Obejrzano natywny splash, nową ikonę pod maską launchera i nazwę outlineGo, stronę główną, znak w nagłówku pomiaru i logo w podglądzie PNG. Zrzuty: `artifacts/outlinego-launch-1.png`, `outlinego-launcher.png`, `outlinego-home.png`, `outlinego-measurement.png`, `outlinego-export.png`, `outlinego-new-project.png`. Nowy branding zainstalowano również na fizycznym telefonie 20 października 2026; ADB potwierdził instalację i uruchomienie. Pełny test użytkownika na telefonie pozostaje do wykonania.
 - Bieżący build na emulatorze: menu główne i projektu jako rozwijane listy; anulowanie usunięcia we własnym dialogu; przeciągnięcie miniatury do wszystkich czterech rogów bez otwarcia; powiększenie jako dialog pełnej szerokości i powrót przez Wstecz; klawiatura z polem kroków nad miniaturą i stałymi akcjami; własne dialogi niezapisanego boku, zakończenia i kopiowania; Wstecz z migawki do listy logów. Obejrzano zrzuty ustawień, podsumowania, korekty, menu, potwierdzenia, powiększenia i klawiatury. Zrzuty tej iteracji: `artifacts/terrain-screens-*.png`. Pomiaru sensorem i liczenia kroków na telefonie w tej iteracji nie testowano.
 - Teren: końcowy build zainstalowano i uruchomiono na emulatorze. Sprawdzono wizualnie nagłówek/etapy, ikonografię, korektę L–kąt–P z suwakiem i rząd krokomierza. Przy otwartej klawiaturze pole i przyciski znalazły się ponad miniaturą, a dolne akcje nad klawiaturą. Ponowienie odczytu nie jest już zasłaniane przez miniaturę. Zrzuty: `artifacts/terrain-angle-final.png`, `artifacts/terrain-keyboard-final.png`. Emulator nadal nie ma detektora; nie potwierdza to fizycznego liczenia kroków.
 - Emulator Pixel 8 API 36: zachowanie projektów po aktualizacji, ręczne m/cm i kroki, odtworzenie formularza, korekta boku, geometria i pole, PNG, menu, lista 3 z 5 projektów → wszystkie 5 po „Więcej”, otwarcie z wiersza/menu i anulowanie usuwania. Zrzut listy sprawdzono wizualnie. Emulator nie ma detektora kroków; nie potwierdza fizycznego liczenia. Został zamknięty po testach.
 - Wcześniejsze próby: offline w trybie samolotowym, zachowanie po force-stop, duży log około 1,54 MiB w 13 częściach oraz systemowe udostępnianie CSV/PNG. Nie wysłano plików do odbiorców. Automatyzacja odczytu wklejenia pokazała tylko 5000 znaków, więc kompletność kopiowania potwierdzają testy podziału rekordów, a nie ten odczyt UI.
 - Użytkownik zaakceptował dokładność wykonanych testów trybu względnego. Brak liczbowego progu i podstaw do uogólnienia na tryb magnetyczny.
 - Użytkownik ocenił krokomierz jako generalnie poprawny, lecz często doliczający 1–2 kroki. Dodano ręczną korektę; przyczyna nie jest naprawiona. Nie odejmujemy automatycznie stałej liczby kroków.
-- Telefon ma aktualny build `F2CF9C…` z pozostałymi ekranami Teren, dialogami i przeciąganiem. ADB potwierdził instalację z zachowaniem danych i uruchomienie 19 października 2026. Próba całego nowego UI i pomiarów na fizycznym telefonie pozostaje do wykonania.
+- Telefon ma najnowszy build outlineGo `F09DBCDC…` z nowym logo, ikoną i splash screenem. ADB potwierdził instalację przez `install -r` z zachowaniem danych oraz uruchomienie 20 października 2026 (`Status: ok`, `LaunchState: COLD`).
 - Ostatni wynik Expo Doctor: 21/22, znane ostrzeżenie pamięci Hermes w SDK 56. Migracji SDK nie wykonano. To zapis wcześniejszego sprawdzenia, nie nowa kontrola przy aktualizacji dokumentacji.
 
 ## Odtworzenie pracy
@@ -74,7 +79,7 @@ npm run build:apk
 Skrypt generuje natywny Android z przypiętego szablonu, uruchamia testy Kotlin, buduje release i kopiuje APK do `artifacts/`. Android i artefakty są generowane/ignorowane przez Git. Zależności są przypięte w package-lock.json. Instalacja na jedynym podłączonym telefonie:
 
 ```powershell
-adb -d install -r artifacts/FieldSketch-CAD-0.1.0.apk
+adb -d install -r artifacts/outlineGo-0.1.0.apk
 adb -d shell am start -n pl.fieldsketch.cad.prototype/.MainActivity
 ```
 

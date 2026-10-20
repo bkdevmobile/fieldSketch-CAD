@@ -28,6 +28,6 @@ declare class OrientationModule extends NativeModule<NativeEvents> {
 }
 const module = requireOptionalNativeModule<OrientationModule>('FieldSketchOrientation');
 export const orientation = () => {
-  if (!module) throw new Error('Moduł pomiarowy wymaga APK FieldSketch lub development build. Expo Go nie jest obsługiwane.');
+  if (!module) throw new Error('Moduł pomiarowy wymaga APK outlineGo lub development build. Expo Go nie jest obsługiwane.');
   return module;
 };

@@ -6,7 +6,7 @@ import { ProjectRepository } from './repository';
 import { Capabilities, LiveSample, orientation } from './native';
 
 interface Store {
-  projects: Project[]; repo: ProjectRepository | null; error: string; busy: boolean;
+  projects: Project[]; repo: ProjectRepository | null; error: string; busy: boolean; ready: boolean;
   capabilities: Capabilities | null; live: LiveSample | null; sessionId: string | null; sessionProject: string | null;
   settings: UserSettings;
   updateSettings(settings: UserSettings): Promise<void>;
@@ -22,6 +22,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [settings, setSettings] = useState<UserSettings>({ ...DEFAULT_SETTINGS });
   const [error, setError] = useState(''); const [busy, setBusy] = useState(false);
+  const [ready, setReady] = useState(false);
   const lock = useRef(false);
   const [capabilities, setCapabilities] = useState<Capabilities | null>(null);
   const [live, setLive] = useState<LiveSample | null>(null);
@@ -41,6 +42,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         const cap = await orientation().getCapabilities();
         if (mounted) setCapabilities(cap);
       } catch (e) { if (mounted) setError(message(e)); }
+      finally { if (mounted) setReady(true); }
     })();
     let sample: { remove(): void } | undefined, status: { remove(): void } | undefined;
     try {
@@ -73,7 +75,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     if (next.directionMode !== settings.directionMode && sessionId) await stop();
     await repo.saveSettings(next); setSettings(next);
   };
-  return <Context.Provider value={{ projects, repo, error, busy, capabilities, live, sessionId, sessionProject, settings, updateSettings, refresh, run, start, stop, log }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ projects, repo, error, busy, ready, capabilities, live, sessionId, sessionProject, settings, updateSettings, refresh, run, start, stop, log }}>{children}</Context.Provider>;
 }
 export const message = (e: unknown) => e instanceof Error ? e.message : String(e);
 export function useStore() { const store = useContext(Context); if (!store) throw new Error('Missing provider'); return store; }

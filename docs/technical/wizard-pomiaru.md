@@ -80,6 +80,8 @@ Użytkownik wybrał pierwszy wariant: **Prowadzenie krok po kroku**. Formularz a
 
 ### Wybrany styl wizualny: Teren
 
+Marka aplikacji od 20 października 2026: **outlineGo**. Użytkownik wybrał pierwotny wariant logo z otwartym obrysem, trzema pierścieniami i pełnym punktem końcowym. Ten sam wektor występuje w nagłówkach, pomiarze, nowym projekcie, PNG oraz zasobach ikony i splash screenu. Ikona: jasny znak na leśnej zieleni, także adaptacyjna i monochromatyczna. Start: zielony znak na ciepłym tle; podczas inicjalizacji danych także nazwa i wskaźnik ładowania. Nie dodano sztucznego opóźnienia startu. Techniczny pakiet Android i lokalna baza pozostają bez zmian dla ciągłości instalacji.
+
 Spośród propozycji Teren / Precyzja / Kontrast użytkownik wybrał **Teren**. Obowiązuje jasne ciepłe tło `#F5F4EE`, panele `#FFFEFA`, tekst `#183A2C`, leśna zieleń akcji `#1B684B`, delikatna zieleń `#E7EEE2` i obramowania `#DBE4D9`. Gotowość sensora ma osobny zielony akcent `#177043`; kolor jest połączony z ikoną i opisem stanu.
 
 Nagłówek pomiaru zawiera ikonę mapy, nazwę projektu, bieżący odcinek i tryb. Pasek Kierunek → Długość → Zapis wyróżnia bieżący etap i oznacza ukończone; jest wskaźnikiem, bez dodatkowej nawigacji. Tytuł etapu znajduje się nad panelem roboczym. Pola liczbowe i wyniki mają wyraźną hierarchię, panele zaokrąglenie 20, a przyciski 12–14 jednostek układu RN. Dolne akcje są na ciepłym jasnym tle; Zakończ i ponowienie odczytu mają mniejszy nacisk wizualny.

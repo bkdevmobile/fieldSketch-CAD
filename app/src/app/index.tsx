@@ -5,7 +5,8 @@ import { Button, colors, Page, s } from '../components/ui';
 import { MenuAnchor, PopupMenu, useDialogs } from '../components/overlays';
 import { useStore } from '../infrastructure/store';
 import { orientation } from '../infrastructure/native';
-import { ChevronDown, EllipsisVertical, FileText, FolderOpen, Map, Plus, Settings2, Trash2 } from 'lucide-react-native';
+import { ChevronDown, EllipsisVertical, FileText, FolderOpen, Plus, Settings2, Trash2 } from 'lucide-react-native';
+import { BrandLogo, BrandMark } from '../components/Brand';
 export default function Projects() {
   const store = useStore(), dialogs = useDialogs();
   const [menu, setMenu] = useState(false), [anchor, setAnchor] = useState<MenuAnchor>();
@@ -22,7 +23,7 @@ export default function Projects() {
     }) },
   ]);
   return <Page title="Pomiary w terenie" subtitle="Twoje szkice, zapisane na telefonie.">
-    <Stack.Screen options={{ headerRight: () => <Pressable accessibilityRole="button" accessibilityLabel="Menu główne"
+    <Stack.Screen options={{ headerTitle: () => <BrandLogo />, headerRight: () => <Pressable accessibilityRole="button" accessibilityLabel="Menu główne"
       onPress={event => { Keyboard.dismiss(); setAnchor({ x: event.nativeEvent.pageX + 22, y: event.nativeEvent.pageY + 22 }); setMenu(true); }}
       style={{ minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' }}>
       <EllipsisVertical size={22} strokeWidth={1.8} color={colors.ink} accessible={false} /></Pressable> }} />
@@ -36,7 +37,7 @@ export default function Projects() {
     ]} />
     <Button label="Nowy projekt" icon={Plus} onPress={() => router.push('/new-project')} disabled={store.busy || !store.repo} />
     <View style={[s.row, { justifyContent: 'space-between', marginTop: 8 }]}><Text style={s.h2}>Twoje projekty</Text><Text style={s.muted}>{store.projects.length}</Text></View>
-    {!store.projects.length && <View style={{ alignItems: 'center', gap: 14, paddingVertical: 48 }}><Map size={36} color={colors.green} accessible={false} />
+    {!store.projects.length && <View style={{ alignItems: 'center', gap: 14, paddingVertical: 48 }}><BrandMark size={48} />
       <Text style={s.h2}>Twój pierwszy obrys</Text><Text style={s.muted}>Utwórz projekt i zapisz pierwszy punkt.</Text></View>}
     {!!visibleProjects.length && <View style={{ borderWidth: 1, borderColor: colors.line, borderRadius: 20, overflow: 'hidden', backgroundColor: colors.white, paddingHorizontal: 14 }}>
       {visibleProjects.map((p, index) => <View key={p.id} style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: index < visibleProjects.length - 1 ? 1 : 0, borderColor: colors.line }}>

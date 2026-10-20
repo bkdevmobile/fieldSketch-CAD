@@ -5,6 +5,7 @@ import { ArrowRight, HardDrive, Settings2 } from 'lucide-react-native';
 import { Button, Field, Page, s, colors } from '../components/ui';
 import { newProject } from '../domain/model';
 import { useStore } from '../infrastructure/store';
+import { BrandMark } from '../components/Brand';
 
 export default function NewProject() {
   const store = useStore(); const [name, setName] = useState('');
@@ -21,7 +22,7 @@ export default function NewProject() {
     <Button label="Utwórz projekt" iconEnd={ArrowRight} onPress={create} disabled={store.busy || !store.repo || !name.trim()} />}>
     <View style={s.card}><Field label="Nazwa projektu" value={name} onChangeText={setName} placeholder="np. Ogród za domem" />
       <View style={s.row}><HardDrive size={16} color={colors.muted} accessible={false} /><Text style={s.muted}>Projekt zostanie zapisany na telefonie.</Text></View></View>
-    <View style={{ gap: 16, paddingTop: 8 }}><Text style={s.h2}>Gotowy do pomiaru</Text>
+    <View style={{ gap: 16, paddingTop: 8 }}><View style={s.row}><BrandMark size={24} /><Text style={s.h2}>Gotowy do pomiaru</Text></View>
       <View style={[s.row, { justifyContent: 'space-between' }]}><Text style={s.muted}>Kierunek</Text><Text style={s.text}>{{ relative: 'Względny', manual: 'Ręczny', magnetic: 'Magnetyczny' }[effectiveMode]}</Text></View>
       <View style={[s.row, { justifyContent: 'space-between' }]}><Text style={s.muted}>Długość kroku</Text><Text style={s.text}>{store.settings.stepLengthCm} cm</Text></View>
       <Button label="Zmień ustawienia" icon={Settings2} quiet align="start" onPress={() => router.push('/settings')} />
