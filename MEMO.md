@@ -1,5 +1,9 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
+Korekta granic przesuwania na życzenie użytkownika: skrajna krawędź szkicu może dojść do środka podglądu w obu osiach. Zachowano dotychczasową swobodę dla małych/płaskich rysunków i ochronę przed całkowitym zniknięciem ukośnego rysunku. TypeScript i 10 testów podglądu przeszły. Korektę zapisano w commicie razem z ograniczeniami i animowanym skokowym zoomem, bez nowego APK i instalacji; zainstalowany build `256D426C…` ma wcześniejsze, ciaśniejsze granice.
+
+Aktualizacja podglądu szkicu po instalacji — 20 października 2026: dodano ograniczenia przesuwania (mały rysunek pozostaje cały w widoku, powiększony nie może całkowicie zniknąć; sprawdzane są również ukośne odcinki), zoom 0,5–8× widoku dopasowanego i poziomy 0,5 / 0,75 / 1 / 1,5 / 2 / 3 / 4 / 6 / 8×. Po zakończeniu gestu skala przechodzi do najbliższego poziomu animacją 180 ms z zachowaniem środka gestu, o ile pozwalają granice przesuwania. Przyciski ± używają tych samych poziomów i są zablokowane na granicach. TypeScript i 60 testów TS przeszły. Pełny build `sketch-viewport-build.log` zakończył się `BUILD SUCCESSFUL in 2m 7s` (847 zadań, testy Kotlin `UP-TO-DATE`). APK zainstalowano 20 października 2026 na telefonie `a20fa219` przez `install -r` z zachowaniem danych: `Success`; uruchomienie `Status: ok`, `LaunchState: COLD`. Próba dotykowa ograniczeń i animacji przez użytkownika pozostaje do wykonania.
+
 ## Próba użytkownika i poprawki — 20 października 2026
 
 Użytkownik potwierdził „checklista ok”. Krokomierz uznał za poprawny: dodatkowe zliczenia wynikają z ruchów telefonu. Nie zmieniamy detektora ani nie odejmujemy stałej liczby kroków. Wynik i zgłoszone problemy zapisano w [checkliście](docs/technical/checklista-proby-terenowej.md); nie otrzymano tabeli serii ani plików logów.
@@ -13,26 +17,26 @@ Commit `6972028` — `fix: address field test feedback on survey resume and sket
 - Odrzucony odczyt kierunku pokazuje polską instrukcję ponownego celowania bez technicznego opakowania Expo; surowy błąd trafia do loga. Ostrzeżenie o słabym odczycie również ma opis użytkowy.
 - Nazwy widoczne w aplikacji zmieniono z „projekt” na „szkic”; identyfikatory, ścieżki i baza pozostają zgodne z dotychczasowymi danymi.
 
-TypeScript i 56 testów TS (7 zestawów) przeszły. Testy obejmują wznowienie ABC→D w różnych układach sensora, pełny powrót do P1 i rzeczywiste przecięcia, PNG, przesuwanie/pinch oraz dopasowanie pierwszego wektora. Końcowy pełny build: `field-feedback-build-final.log`, `BUILD SUCCESSFUL in 1m 8s`, 847 zadań (36 wykonanych, 811 aktualnych); testy Kotlin `UP-TO-DATE`. APK zainstalowano przez `install -r` i uruchomiono na emulatorze z zachowaniem 6 szkiców. Potwierdzono nazewnictwo, kwadratowe menu, przesuwanie w obu osiach, zoom przyciskiem, dopasowanie i powrót z dialogu. Obejrzano zrzuty `artifacts/field-feedback-sketch-before.png`, `field-feedback-sketch-pan.png`, `field-feedback-sketch-zoom.png`; końcową listę potwierdza dump UI i `field-feedback-home-final.png`. Logcat bez wpisów AndroidRuntime:E/ReactNativeJS:E. Gest dwoma palcami potwierdzają testy obliczeń; próba dotykowa pinch i odniesienie na fizycznym sensorze pozostają do wykonania. Nowych poprawek nie instalowano na telefonie. Poprawki, testy i dokumentację zapisano w `6972028`; poprzedni commit to `b2a496f` (checklista).
+TypeScript i 56 testów TS (7 zestawów) przeszły. Testy obejmują wznowienie ABC→D w różnych układach sensora, pełny powrót do P1 i rzeczywiste przecięcia, PNG, przesuwanie/pinch oraz dopasowanie pierwszego wektora. Końcowy pełny build: `field-feedback-build-final.log`, `BUILD SUCCESSFUL in 1m 8s`, 847 zadań (36 wykonanych, 811 aktualnych); testy Kotlin `UP-TO-DATE`. APK zainstalowano przez `install -r` i uruchomiono na emulatorze z zachowaniem 6 szkiców. Potwierdzono nazewnictwo, kwadratowe menu, przesuwanie w obu osiach, zoom przyciskiem, dopasowanie i powrót z dialogu. Obejrzano zrzuty `artifacts/field-feedback-sketch-before.png`, `field-feedback-sketch-pan.png`, `field-feedback-sketch-zoom.png`; końcową listę potwierdza dump UI i `field-feedback-home-final.png`. Logcat bez wpisów AndroidRuntime:E/ReactNativeJS:E. Gest dwoma palcami potwierdzają testy obliczeń; próba dotykowa pinch i odniesienie na fizycznym sensorze pozostają do wykonania. Poprawki zainstalowano na telefonie 20 października 2026 przez `install -r`: `Success`; uruchomienie `Status: ok`, `LaunchState: UNKNOWN (0)`. Dane zachowano; próba użytkownika pozostaje do wykonania. Poprawki, testy i dokumentację zapisano w `6972028`; poprzedni commit to `b2a496f` (checklista).
 
 Decyzja marki — 20 października 2026: użytkownik przyjął nazwę **outlineGo** (dokładna pisownia: małe „outline”, wielkie „G”, małe „o”) i wybrał **pierwszy, pierwotny wariant logo: otwarty obrys z trzema pierścieniami w narożnikach i jednym pełnym punktem końcowym**. Nie wybrano monogramu ani późniejszej korekty w kształcie G. Przegląd wykazał podobne motywy w ikonach innych aplikacji pomiarowych; użytkownik mimo to potwierdził wariant pierwszy. Nie przeprowadzono pełnego badania znaków towarowych i nie rejestrowano domen. Plansze i prompty: `artifacts/branding/outlinego/` (lokalne artefakty).
 
 W kodzie wdrożono nazwę i logo outlineGo: nagłówek główny, mały znak w pozostałych nagłówkach, nagłówek pomiaru, nowy projekt i eksport PNG. Wektorowa geometria `app/assets/brand/mark.json` zasila komponent `Brand.tsx` oraz generator SVG/PNG `npm run assets:brand`. Ikona ma wersję tradycyjną, adaptacyjną i monochromatyczną, splash — ciepłe tło i zielony znak. `expo-splash-screen` 56.0.15 obsługuje start natywny; widok z logo i nazwą pozostaje podczas inicjalizacji danych, bez sztucznego opóźnienia. Nazwa pliku APK i nowo eksportowanych PNG/CSV używa outlineGo. Zachowano pakiet `pl.fieldsketch.cad.prototype`, schemat linków `fieldsketch`, slug i bazę `fieldsketch.db`, aby zachować ciągłość aktualizacji oraz dane. Zmiany marki zapisano w commicie wdrażającym branding outlineGo.
 
-Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; najnowszy commit aplikacji: `6972028` (poprawki po próbie terenowej). Branding zapisano w `3d28bd5`, notatki po wdrożeniu w `b044778`, checklistę w `b2a496f`. Kod, testy i dokumentacja poprawek są commitowane. Bieżąca aktualizacja notatek pozostaje bez commita. Osobny nieśledzony plik `docs/tmp.txt` pozostawiono poza commitem i bez zmian. Nie wykonano pushowania.
+Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; najnowszy commit aplikacji: `6972028` (poprawki po próbie terenowej). Branding zapisano w `3d28bd5`, notatki po wdrożeniu w `b044778`, checklistę w `b2a496f`. Kod, testy i dokumentacja poprawek są commitowane. Aktualizację notatek zapisano razem ze zmianami podglądu szkicu. Osobny nieśledzony plik `docs/tmp.txt` pozostawiono poza commitem i bez zmian. Nie wykonano pushowania.
 
 ## Aktualny rezultat
 
-Działające MVP Android 0.1.0 jest w `app/`. Obejmuje pomiar i prosty obrys offline, bez kont i backendu, eksport PNG oraz trwałą diagnostykę. Najnowszy APK zawiera branding outlineGo, ekrany Teren i opisane powyżej poprawki po próbie terenowej. Release zbudowano pełnym skryptem. Telefon `23124RA7EO` (`a20fa219`) ma wcześniejszy build outlineGo `F09DBCDC643CDC79944430B6879DCABF45ED182817C9376DED3DC5C3128D6F92`, zainstalowany 20 października 2026 przez `install -r` z zachowaniem danych. Nowy APK po poprawkach sprawdzono na emulatorze; czeka na instalację na telefonie. Hash nowego APK podaje tabela poniżej.
+Działające MVP Android 0.1.0 jest w `app/`. Obejmuje pomiar i prosty obrys offline, bez kont i backendu, eksport PNG oraz trwałą diagnostykę. Najnowszy APK zawiera branding outlineGo, ekrany Teren i opisane powyżej poprawki po próbie terenowej. Release zbudowano pełnym skryptem. Telefon `23124RA7EO` (`a20fa219`) ma najnowszy build outlineGo `256D426C8597ACDFAA1113FA86A8DEAE4DE964D9E9B12929C2D93C675D942617`, zainstalowany 20 października 2026 przez `install -r` z zachowaniem danych. ADB potwierdził instalację `Success` i uruchomienie `Status: ok`; ponowna próba poprawek przez użytkownika pozostaje otwarta. Hash nowego APK podaje tabela poniżej.
 
 | Artefakt | Wartość |
 | --- | --- |
 | Plik | `artifacts/outlineGo-0.1.0.apk` |
-| Rozmiar | 85230895 bajtów |
-| SHA256 | `1DB7A9EDB9134BA443599336348DD558133D3FCF6BC795804E4C40115D1C7FFE` |
+| Rozmiar | 85235623 bajtów |
+| SHA256 | `256D426C8597ACDFAA1113FA86A8DEAE4DE964D9E9B12929C2D93C675D942617` |
 | Platforma | Android 7+, target SDK 36, arm64-v8a i x86_64 |
 | Uruchamianie | Osadzony JavaScript, bez Metro i internetu, podpis deweloperski |
-| Log ostatniego budowania | `artifacts/field-feedback-build-final.log` |
+| Log ostatniego budowania | `artifacts/sketch-viewport-build.log` |
 
 ## Obowiązujący interfejs
 
@@ -77,7 +81,7 @@ Osobna Diagnostyka zawiera uwagi testera, niezależne odniesienie, logi i ręczn
 - Wcześniejsze próby: offline w trybie samolotowym, zachowanie po force-stop, duży log około 1,54 MiB w 13 częściach oraz systemowe udostępnianie CSV/PNG. Nie wysłano plików do odbiorców. Automatyzacja odczytu wklejenia pokazała tylko 5000 znaków, więc kompletność kopiowania potwierdzają testy podziału rekordów, a nie ten odczyt UI.
 - Użytkownik zaakceptował dokładność wykonanych testów trybu względnego. Brak liczbowego progu i podstaw do uogólnienia na tryb magnetyczny.
 - Po próbie użytkownik potwierdził poprawne liczenie kroków; wcześniejsze dodatkowe 1–2 zliczenia wiąże z poruszaniem telefonem. Ręczna korekta pozostaje dostępna, bez zmiany algorytmu i bez automatycznego odejmowania kroków.
-- Telefon ma build outlineGo `F09DBCDC…` z logo, ikoną i splash screenem. ADB potwierdził instalację przez `install -r` z zachowaniem danych oraz uruchomienie 20 października 2026 (`Status: ok`, `LaunchState: COLD`). Nowy build `1DB7A9ED…` po poprawkach czeka na instalację.
+- Telefon ma najnowszy build outlineGo `256D426C…` z poprawkami i ograniczeniami podglądu szkicu. ADB potwierdził instalację przez `install -r` z zachowaniem danych i uruchomienie 20 października 2026 (`Success`, `Status: ok`, `LaunchState: COLD`).
 - Ostatni wynik Expo Doctor: 21/22, znane ostrzeżenie pamięci Hermes w SDK 56. Migracji SDK nie wykonano. To zapis wcześniejszego sprawdzenia, nie nowa kontrola przy aktualizacji dokumentacji.
 
 ## Odtworzenie pracy
@@ -98,16 +102,16 @@ adb -d install -r artifacts/outlineGo-0.1.0.apk
 adb -d shell am start -n pl.fieldsketch.cad.prototype/.MainActivity
 ```
 
-Git w tej sesji wymaga jawnych `--git-dir=C:/projects/fieldSketch-CAD/.git --work-tree=C:/projects/fieldSketch-CAD` z powodu wykrywania właściciela; nie zmieniano globalnego safe.directory. Nie wykonywano pushowania. Bazowy commit MVP: `4818fdb`; uproszczenie UI i nawigacji: `91dd0fe`; dokumentacja: `bf28653`; styl Teren i nowe interakcje: `1a5acbe`; notatki Teren: `02a5019`; branding outlineGo: `3d28bd5`; notatki marki: `b044778`; checklista: `b2a496f`; poprawki po próbie terenowej: `6972028`. Telefon nadal używa builda `F09DBCDC…`; APK z tabeli (`1DB7A9ED…`) zawiera poprawki i czeka na instalację. Zmiany w notatkach po kompilacji nie zmieniają APK.
+Git w tej sesji wymaga jawnych `--git-dir=C:/projects/fieldSketch-CAD/.git --work-tree=C:/projects/fieldSketch-CAD` z powodu wykrywania właściciela; nie zmieniano globalnego safe.directory. Nie wykonywano pushowania. Bazowy commit MVP: `4818fdb`; uproszczenie UI i nawigacji: `91dd0fe`; dokumentacja: `bf28653`; styl Teren i nowe interakcje: `1a5acbe`; notatki Teren: `02a5019`; branding outlineGo: `3d28bd5`; notatki marki: `b044778`; checklista: `b2a496f`; poprawki po próbie terenowej: `6972028`. Telefon używa APK z tabeli (`256D426C…`) z ograniczeniami przesuwania i animowanym skokowym zoomem. Notatki po commicie poprawek zapisano w `5965049`; zapis instalacji uwzględniono w commicie zmian podglądu szkicu. Zmiany w notatkach po kompilacji nie zmieniają APK.
 
 Makiety i zrzuty są lokalnymi artefaktami ignorowanymi przez Git. Wizualizacja 10 pozostałych ekranów: `artifacts/visualizations/terrain-screens.html`; lokalny preview uruchamia `node artifacts/visualizations/terrain-preview-server.cjs` pod `http://127.0.0.1:4176`. Wcześniejsze warianty pomiaru: `artifacts/visualizations/survey-styles.html`. Nie są publikacją aplikacji. Emulator zamknięto po testach; nie trzeba go uruchamiać do instalacji gotowego APK na telefonie.
 
 ## Najbliższe prace i zakres
 
-1. Instalacja poprawek i ponowna próba użytkownika: odniesienie B→C i kontynuacja CD, pierwszy wektor, pan/pinch, pełny powrót do P1, krótkie przyciski i odrzucenie odczytu przy ruchu telefonu. Szczegóły w [checkliście](docs/technical/checklista-proby-terenowej.md).
+1. Ponowna próba użytkownika po potwierdzonej instalacji poprawek: odniesienie B→C i kontynuacja CD, pierwszy wektor, pan/pinch, pełny powrót do P1, krótkie przyciski i odrzucenie odczytu przy ruchu telefonu. Szczegóły w [checkliście](docs/technical/checklista-proby-terenowej.md).
 2. Odbiór poprawek na telefonie i zapisanie wyników ponownej próby.
 3. Ustalenie gotowości do testu zamkniętego po odbiorze poprawek. Krokomierz nie jest już traktowany jako otwarty błąd algorytmu na podstawie ostatniej oceny użytkownika.
 
-Docelowy użytkownik i monetyzacja pozostają do doprecyzowania. Nie opublikowano testu zamkniętego ani release. DXF, solver, pełny edytor i migracja SDK są poza bieżącym zakresem. Bieżąca iteracja obejmuje poprawki, testy, build i próbę na emulatorze; instalacja poprawek na telefonie pozostaje osobnym krokiem.
+Docelowy użytkownik i monetyzacja pozostają do doprecyzowania. Nie opublikowano testu zamkniętego ani release. DXF, solver, pełny edytor i migracja SDK są poza bieżącym zakresem. Bieżąca iteracja obejmuje poprawki, testy, build i próbę na emulatorze; poprawki są już zainstalowane na telefonie, a ponowna próba użytkownika pozostaje do wykonania.
 
 Dokumenty: [instrukcja](docs/technical/prototyp.md), [UI](docs/technical/wizard-pomiaru.md), [architektura](docs/technical/dokumentacja-techniczna.md), [plan](docs/plan-rozwoju.md). Źródłowy dokument biznesowy Word pozostaje bez zmian.

@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Keyboard, PanResponder, View, Text } from 'react-native';
+import { Animated, Easing, Keyboard, PanResponder, View, Text } from 'react-native';
 import Svg, { Circle, G, Line, Polyline, Text as SvgText } from 'react-native-svg';
 import type { Project } from '../domain/model';
 import { distance, outlinePoints } from '../domain/geometry';
-import { beginCanvasGesture, CanvasGesture, CanvasTouch, fitCanvas, moveCanvasGesture } from '../domain/sketchViewport';
+import { beginCanvasGesture, CanvasGesture, CanvasTouch, constrainCanvas, fitCanvas, moveCanvasGesture, nextZoom, scaleCanvas, snapZoom } from '../domain/sketchViewport';
 import { Button, colors, fmt, s } from './ui';
 
 export interface OutlinePreview { theta: number; lengthM?: number }
@@ -32,8 +32,27 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
     const points = endpoint ? [...project.points, endpoint] : project.points;
     return fitCanvas(points, width, height, thumbnail);
   }, [project.points, project.closed, fitKey, fit, width, height, thumbnail, hasPreview]);
-  useEffect(() => { setZoom(1); setPan({ x: 0, y: 0 }); }, [project.points, project.closed, fitKey, fit]);
+  const transition = useRef(new Animated.Value(0)).current;
+  useEffect(() => { transition.stopAnimation(); setZoom(1); setPan({ x: 0, y: 0 }); }, [bounds]);
+  useEffect(() => () => { transition.stopAnimation(); transition.removeAllListeners(); }, []);
   const viewport = useRef({ zoom, pan, width, height }); viewport.current = { zoom, pan, width, height };
+  const fittedPoints = (endpoint ? [...project.points, endpoint] : project.points).map(p => ({ x: (p.x - bounds.cx) * bounds.scale, y: -(p.y - bounds.cy) * bounds.scale }));
+  const geometry = useRef(fittedPoints); geometry.current = fittedPoints;
+  const apply = (value: { zoom: number; pan: CanvasTouch }) => {
+    const next = constrainCanvas(value, geometry.current, viewport.current.width, viewport.current.height);
+    viewport.current = { ...viewport.current, ...next }; setZoom(next.zoom); setPan(next.pan);
+  };
+  const focal = useRef({ x: 0, y: 0 });
+  const animateZoom = (target: number) => {
+    transition.stopAnimation(); transition.removeAllListeners(); transition.setValue(0);
+    const start = viewport.current;
+    const end = scaleCanvas(start, target, focal.current);
+    const listener = transition.addListener(({ value }) => apply({ zoom: start.zoom + (end.zoom - start.zoom) * value,
+      pan: { x: start.pan.x + (end.pan.x - start.pan.x) * value, y: start.pan.y + (end.pan.y - start.pan.y) * value } }));
+    Animated.timing(transition, { toValue: 1, duration: 180, easing: Easing.out(Easing.cubic), useNativeDriver: false })
+      .start(() => transition.removeListener(listener));
+  };
+  const actions = useRef({ apply, animateZoom }); actions.current = { apply, animateZoom };
   const gestureStart = useRef<CanvasGesture | null>(null);
   const canvas = useRef<View>(null), canvasOrigin = useRef({ x: 0, y: 0 });
   const touches = (items: readonly { pageX: number; pageY: number }[]): CanvasTouch[] => items.slice(0, 2).map(t => ({ x: t.pageX, y: t.pageY }));
@@ -41,19 +60,22 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
     onStartShouldSetPanResponder: () => true,
     onMoveShouldSetPanResponder: () => true,
     onPanResponderGrant: event => {
+      transition.stopAnimation();
       gestureStart.current = beginCanvasGesture(viewport.current, touches(event.nativeEvent.touches));
     },
     onPanResponderMove: event => {
       const points = touches(event.nativeEvent.touches);
       if (!points.length) return;
+      focal.current = { x: points.reduce((sum, p) => sum + p.x, 0) / points.length - canvasOrigin.current.x - viewport.current.width / 2,
+        y: points.reduce((sum, p) => sum + p.y, 0) / points.length - canvasOrigin.current.y - viewport.current.height / 2 };
       if (!gestureStart.current || gestureStart.current.count !== points.length) {
         gestureStart.current = beginCanvasGesture(viewport.current, points); return;
       }
       const next = moveCanvasGesture(gestureStart.current, points, { x: canvasOrigin.current.x + viewport.current.width / 2, y: canvasOrigin.current.y + viewport.current.height / 2 });
-      viewport.current = { ...viewport.current, ...next }; setZoom(next.zoom); setPan(next.pan);
+      actions.current.apply(next);
     },
-    onPanResponderRelease: () => { gestureStart.current = null; },
-    onPanResponderTerminate: () => { gestureStart.current = null; },
+    onPanResponderRelease: () => { gestureStart.current = null; actions.current.animateZoom(snapZoom(viewport.current.zoom)); },
+    onPanResponderTerminate: () => { gestureStart.current = null; actions.current.animateZoom(snapZoom(viewport.current.zoom)); },
     onPanResponderTerminationRequest: () => false,
     onShouldBlockNativeResponder: () => true,
   }), []);
@@ -66,8 +88,8 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
   return <View style={{ gap: 8 }}>
     {!thumbnail && <View style={s.row}><Text style={[s.label, { flex: 1 }]}>Szkic na żywo</Text>
       {!(compact && keyboardOpen) && <>
-      <Button label="−" secondary onPress={() => setZoom(v => Math.max(0.1, v / 1.4))} />
-      <Button label="+" secondary onPress={() => setZoom(v => Math.min(20, v * 1.4))} />
+      <Button label="−" secondary disabled={zoom <= 0.5} onPress={() => { focal.current = { x: 0, y: 0 }; animateZoom(nextZoom(viewport.current.zoom, -1)); }} />
+      <Button label="+" secondary disabled={zoom >= 8} onPress={() => { focal.current = { x: 0, y: 0 }; animateZoom(nextZoom(viewport.current.zoom, 1)); }} />
       <Button label="Dopasuj" secondary onPress={() => setFit(v => v + 1)} /></>}
     </View>}
     <View ref={canvas} {...(thumbnail ? {} : responder.panHandlers)} onLayout={event => {
