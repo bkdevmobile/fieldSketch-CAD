@@ -1,6 +1,6 @@
 # Aplikacja outlineGo
 
-Aktualizacja po próbie terenowej 20 października 2026: domyślne odniesienie na ostatnim zapisanym boku z instrukcją punktów, dopasowanie pierwszego wektora, pan w obu osiach i pinch w szkicu, poprawne zamknięcie obwodu wracającego do P1, szersze przyciski, komunikaty odczytu bez technicznego błędu Expo i nazewnictwo „szkic”. TypeScript i 56 testów TS przeszły. Użytkownik zaakceptował krokomierz; dodatkowe zliczenia wiąże z ruchem telefonu. Wynik i zakres ponownej próby: [checklista](../docs/technical/checklista-proby-terenowej.md). Stan APK i instalacji: [MEMO](../MEMO.md).
+Aktualizacja po próbie terenowej 20 października 2026, commit `6972028`: domyślne odniesienie na ostatnim zapisanym boku z instrukcją punktów, dopasowanie pierwszego wektora, pan w obu osiach i pinch w szkicu, poprawne zamknięcie obwodu wracającego do P1, szersze przyciski, komunikaty odczytu bez technicznego błędu Expo i nazewnictwo „szkic”. TypeScript i 56 testów TS przeszły. Użytkownik zaakceptował krokomierz; dodatkowe zliczenia wiąże z ruchem telefonu. Wynik i zakres ponownej próby: [checklista](../docs/technical/checklista-proby-terenowej.md). Pełny build i instalacja na emulatorze przeszły; poprawki czekają na instalację i ponowną próbę na telefonie, w tym gest dwoma palcami i wznowienie B→C. Stan APK i instalacji: [MEMO](../MEMO.md).
 
 Prototyp Android w **React Native 0.85.3 + Expo SDK 56 + TypeScript**, z lokalnym modułem Kotlin. Wersje są przypięte w `package-lock.json`.
 
