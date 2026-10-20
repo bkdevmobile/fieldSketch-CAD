@@ -52,4 +52,4 @@ Status: zasady zaakceptowane przez użytkownika 20 października 2026. Punkt ust
 
 ## Zakres wdrożenia
 
-Do wykonania: obsługa zakupu i przywracania, trwały stan uprawnienia, limity i komunikaty, znak wodny oraz DXF. Wymagana obsługa zakupu oczekującego, anulowania, przerwania aplikacji i ponownego otrzymania tego samego zakupu bez podwójnego przetwarzania. Szczegóły techniczne integracji i zakres encji DXF należy opracować przy implementacji. Obecne MVP nie realizuje jeszcze tych ograniczeń ani zakupów.
+Do wykonania: obsługa zakupu i przywracania, trwały stan uprawnienia, limity i komunikaty oraz znak wodny. Wymagana obsługa zakupu oczekującego, anulowania, przerwania aplikacji i ponownego otrzymania tego samego zakupu bez podwójnego przetwarzania. Eksport DXF 2D zaimplementowano w kodzie 20 października 2026; [zakres i weryfikacja](eksport-dxf.md). Przed release należy podłączyć go do uprawnienia Plus. Obecna implementacja nie realizuje jeszcze ograniczeń ani zakupów, więc DXF jest dostępny do testowania bez blokady.

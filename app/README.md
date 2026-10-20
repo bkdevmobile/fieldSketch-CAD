@@ -1,5 +1,7 @@
 # Aplikacja outlineGo
 
+Nowa funkcja w kodzie: eksport DXF z podsumowania, obrys 2D i opisy na osobnych warstwach, jednostka m/cm z ustawień. TypeScript i 92 testy TS przeszły; import wizualny sprawdzono w LibreCAD. Bez nowego APK i próby udostępniania na telefonie. Do czasu wdrożenia zakupów eksport dostępny bez blokady Plus. [Zakres i weryfikacja](../docs/technical/eksport-dxf.md).
+
 Status na 20 października 2026: użytkownik uznał testy zamknięte MVP 0.1.0 za zakończone (kod `9a54555`, APK `30CB381F…`). Kolejny etap: model zarabiania i przygotowanie release, w tym obowiązkowa wielojęzyczność. Wcześniejsze opisy oczekujących prób są historią iteracji; wersji produkcyjnej nie opublikowano.
 
 Aktualizacja pomiaru (commit `9a54555`): instrukcja P1 bez miniatury; zapamiętywany róg miniatury, domyślnie prawy dolny. Celownik i formularz długości przed pomocą; skrócony status pod kamerą nie przesuwa celownika. Domyślna metoda długości to krokomierz, potem ostatni jawny wybór użytkownika; istniejący formularz zachowuje swoje dane. Pierwsza zgoda krokomierza jest na początku pomiaru, przed sesją kierunku. Odmowa wybiera ręczną długość, a Start krokomierza już nie otwiera monitu. TypeScript i 80 testów TS przeszły. APK `30CB381F…` zbudowano i zainstalowano na Redmi 20 października 2026 z zachowaniem danych; instalacja Success i uruchomienie Status ok. Testy zamknięte zakończono decyzją użytkownika. Szczegóły: [opis](../docs/technical/pierwszy-pomiar.md).
@@ -63,7 +65,7 @@ Dotychczasowy pakiet Android, slug, schemat linków, baza i pliki logów zachowu
 - Osobne zamknięcie topologiczne i niezależny pomiar niedomknięcia.
 - Trwałe logi JSONL, podgląd, kopiowanie częściami i eksport JSONL/CSV.
 
-Dostępne są podgląd i udostępnienie PNG, edycja ostatniego boku z zachowaniem historii oraz ustawienia jednostki i długości kroku. Krokomierz wymaga zgody na rozpoznawanie aktywności na Androidzie 10+; bez sensora lub zgody nadal można wpisać długość ręcznie. Brak DXF, solvera i rozbudowanego edytora w tej wersji. Expo Go nie obsługuje własnego modułu pomiarowego. Nowa sesja sensora przy istniejącym obrysie wymaga ponownego odniesienia na znanym boku.
+Dostępne są podgląd i udostępnienie PNG, edycja ostatniego boku z zachowaniem historii oraz ustawienia jednostki i długości kroku. Krokomierz wymaga zgody na rozpoznawanie aktywności na Androidzie 10+; bez sensora lub zgody nadal można wpisać długość ręcznie. W kodzie dostępny również eksport DXF; solver i rozbudowany edytor pozostają poza zakresem. Expo Go nie obsługuje własnego modułu pomiarowego. Nowa sesja sensora przy istniejącym obrysie wymaga ponownego odniesienia na znanym boku.
 
 [Instrukcja użytkowania i próby terenowej](../docs/technical/prototyp.md) opisuje procedurę i ograniczenia, w tym ostrzeżenie Expo Doctor o pamięci Hermes w SDK 56.
 

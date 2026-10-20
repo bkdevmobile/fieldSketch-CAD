@@ -137,7 +137,7 @@ Przykład: 10 kroków -> 750 cm -> 7,5 m
 Przykład: 2,5 kroku -> 187,5 cm -> 1,875 m
 ```
 
-Formularz „Liczba kroków” dopuszcza dodatnie wartości ułamkowe, np. 2,5, aby można było oszacować niepełny krok. Pokazujemy użyty przelicznik i długość w wybranych m/cm. Geometria liczy w metrach. W docelowym, niewdrożonym eksporcie DXF planowana jest jednostka milimetrowa; przekątne kontrolne również pozostają dalszym zakresem.
+Formularz „Liczba kroków” dopuszcza dodatnie wartości ułamkowe, np. 2,5, aby można było oszacować niepełny krok. Pokazujemy użyty przelicznik i długość w wybranych m/cm. Geometria liczy w metrach. W eksporcie DXF jednostka odpowiada ustawieniom m/cm; przekątne kontrolne pozostają dalszym zakresem.
 
 Liczbę kroków i użyty przelicznik zachowujemy razem z obserwacją. Ustawienia pozwalają zmienić domyślną długość kroku bez przeliczania historii i przywróconego formularza. Surową liczbę z detektora zachowujemy obok liczby poprawionej. Automatyczny proces kalibracji nie jest wdrożony. Wynik w centymetrach jest jednostką prezentacji oszacowania, nie deklaracją centymetrowej dokładności.
 
@@ -249,21 +249,20 @@ Późniejszy solver F11 może minimalizować ważone reszty długości i kierunk
 
 ## 9 Eksport DXF
 
-Propozycja: tekstowy DXF R2000, współrzędne 2D z Z=0. Jednostka P1: **milimetr**, `$INSUNITS=4`. Współrzędne, wysokości tekstów i przesunięcia opisów przeliczamy z metrów przez mnożnik 1000. Sam nagłówek nie skaluje wartości [T8]. Liczby mają kropkę bez separatorów tysięcy.
+Implementacja z 20 października 2026: tekstowy DXF R2000, współrzędne 2D z Z=0. Jednostka z ustawień: metry (`$INSUNITS=6`) lub centymetry (`$INSUNITS=5`); zastępuje wcześniejszą propozycję milimetrów. Współrzędne, wysokości tekstów i przesunięcia opisów są przeliczane razem. Sam nagłówek nie skaluje wartości [T8]. Liczby mają kropkę bez separatorów tysięcy. [Zakres implementacji i stan weryfikacji](eksport-dxf.md).
 
 | Warstwa | Zawartość |
 | --- | --- |
-| OBRYS_KORYGOWANY | LWPOLYLINE, flaga closed po świadomym zamknięciu |
-| PUNKTY_SUROWE | POINT dla dostępnych surowych współrzędnych |
-| WYMIARY | LINE i TEXT z długościami, bez asocjatywnego DIMENSION |
-| ODNIESIENIA | LINE dla pomiarów kontrolnych |
-| OPISY | TEXT z identyfikatorami i jednostkami |
+| OUTLINE | LWPOLYLINE, flaga closed zgodna ze szkicem |
+| POINT_LABELS | TEXT z numerami punktów |
+| LENGTHS | TEXT z długościami i jednostkami, bez asocjatywnego DIMENSION |
+| NOTES | TEXT z nazwą szkicu i objaśnieniami |
 
-Generator obsługuje deklaracje warstw, liczbę wierzchołków, sekcje wybranej wersji DXF i EOF. Zamknięta polilinia nie duplikuje pierwszego wierzchołka. Minimalny eksport używa prostych etykiet ASCII, np. P1; obsługa polskich opisów wymaga osobnego sprawdzenia kodowania. Pełna nazwa projektu pozostaje w JSON.
+Generator obsługuje deklaracje warstw, liczbę wierzchołków, sekcje wybranej wersji DXF i EOF. Zamknięta polilinia nie duplikuje pierwszego wierzchołka. Etykiety punktów mają postać P1, a polskie opisy kodowanie DXF Unicode; sprawdzono je w LibreCAD. Długa nazwa może być skrócona w opisie eksportu, pełna pozostaje w szkicu.
 
-Eksport używa niezmiennej migawki `geometryRevision`. Najpierw zapisuje plik tymczasowy, następnie udostępnia ukończony wynik. Anulowanie udostępnienia nie usuwa projektu. Użytkownik wybiera warstwy pomocnicze i widzi konflikty przed eksportem.
+Eksport używa przekazanej wersji szkicu i `geometryRevision`. Najpierw zapisuje cały plik w cache, następnie udostępnia ukończony wynik. Anulowanie udostępnienia nie usuwa szkicu. Wszystkie warstwy pomocnicze są eksportowane; ich widoczność można zmienić w CAD.
 
-Test referencyjny: prostokąt 2 × 3 m daje 2000 × 3000 jednostek DXF, obwód 10000 i pole 6000000 jednostek kwadratowych. Plik musi otworzyć się z właściwą skalą i stanem polilinii w minimum dwóch dostępnych programach, np. LibreCAD i QCAD. AutoCAD jest dodatkowym testem, jeśli dostępny.
+Test referencyjny: prostokąt 2 × 3 m daje 2 × 3 jednostki przy m albo 200 × 300 przy cm. Przed release wymagane sprawdzenie właściwej skali i stanu polilinii w dwóch programach CAD. W tej iteracji sprawdzono import wizualny w LibreCAD i testy generatora; drugi CAD oraz próba udostępniania na telefonie pozostają otwarte.
 
 ## 10 Uprawnienia i błędy
 
@@ -287,7 +286,7 @@ Obsłużyć brak pamięci, błąd zapisu, przerwany eksport, cofnięte uprawnien
 
 Testy jednostkowe obejmują kąty, średnią kołową 359°/1°, układy odniesienia, oś kamery, pole i obwód, samoprzecięcia, niedomknięcie, reszty, blokady i odtwarzanie projektu. Przypadki wynikają z ręcznie policzonych figur i danych P0.
 
-Testy konwersji obejmują 1 krok = 75 cm, 10 kroków = 750 cm = 7,5 m = 7500 mm w DXF, 2,5 kroku = 187,5 cm, polski przecinek, błędne wartości i zachowanie przelicznika historycznej obserwacji. Testy terenowe rozdzielają błąd kierunku i błąd oszacowania odległości krokami. Pomiary referencyjne taśmą lub dalmierzem nadal służą jako niezależna kontrola.
+Testy konwersji obejmują 1 krok = 75 cm, 10 kroków = 750 cm = 7,5 m = 750 cm w DXF (zależnie od wybranej jednostki), 2,5 kroku = 187,5 cm, polski przecinek, błędne wartości i zachowanie przelicznika historycznej obserwacji. Testy terenowe rozdzielają błąd kierunku i błąd oszacowania odległości krokami. Pomiary referencyjne taśmą lub dalmierzem nadal służą jako niezależna kontrola.
 
 Testy integracyjne obejmują transakcje, migracje, ponowne otwarcie, korektę bez utraty obserwacji, kopię JSON i niezależne parsowanie DXF. Testy telefonu obejmują tło, obrót ekranu, brak kamery lub magnetometru i zgodność celownika. Emulator służy do UI; nie potwierdza dokładności sensorów.
 

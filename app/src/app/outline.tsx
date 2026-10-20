@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
-import { ArrowLeft, Check, Image, Maximize2, Pencil, Route } from 'lucide-react-native';
+import { ArrowLeft, Check, FileDown, Image, Maximize2, Pencil, Route } from 'lucide-react-native';
 import { OutlineCanvas } from '../components/OutlineCanvas';
 import { Button, Page, s, fmt, colors } from '../components/ui';
 import { Badge, Disclosure } from '../components/presentation';
 import { Dialog } from '../components/overlays';
 import { useStore } from '../infrastructure/store';
 import { lastSide, metrics, outlinePoints } from '../domain/geometry';
+import { shareDxf } from '../infrastructure/shareDxf';
 export default function Outline() {
-  const { id } = useLocalSearchParams<{ id: string }>(); const { projects, settings } = useStore();
+  const { id } = useLocalSearchParams<{ id: string }>(); const store = useStore(), { projects, settings } = store;
   const [expanded, setExpanded] = useState(false);
   const project = projects.find(p => p.id === id);
   if (!project) return <Page title="Obrys"><Text>Szkic niedostępny.</Text></Page>;
   const m = metrics(project), unit = settings.unit, factor = unit === 'cm' ? 100 : 1;
   const estimated = project.observations.some(o => project.activeObservationIds.includes(o.id) && o.lengthSource !== 'manual');
   return <Page title="Podsumowanie" subtitle={project.name} footer={
-    <><Button label="Eksportuj PNG" icon={Image} disabled={project.points.length < 2}
+    <><View style={s.row}><View style={{ flex: 1 }}><Button label="Eksportuj PNG" icon={Image} disabled={store.busy || project.points.length < 2}
       onPress={() => router.push({ pathname: '/export', params: { id } })} />
+    </View><View style={{ flex: 1 }}><Button label="Eksportuj DXF" icon={FileDown} secondary disabled={store.busy || project.points.length < 2}
+      onPress={() => store.run(async () => { await shareDxf(project, unit); })} /></View></View>
     <Button label={project.closed ? 'Wróć do szkicu' : 'Kontynuuj pomiar'} icon={ArrowLeft} secondary
       onPress={() => router.replace({ pathname: '/project', params: { id } })} /></>
   }>
@@ -40,6 +43,7 @@ export default function Outline() {
         <Text style={s.label}>P{i + 1}</Text><Text style={s.muted}>X {fmt(p.x * factor, 2)} {unit}</Text><Text style={s.muted}>Y {fmt(p.y * factor, 2)} {unit}</Text></View>)}
     </Disclosure>
     <Text style={s.muted}>{estimated ? 'Długości pochodzące z kroków są szacunkowe.' : 'Długości wpisane ręcznie.'}</Text>
+    <Text style={s.muted}>DXF: obrys 2D i opisy na osobnych warstwach. Jednostka: {unit}. Opisy długości są niezależnymi tekstami CAD.</Text>
     <Dialog visible={expanded} title="Szkic" subtitle={project.name} fullWidth onClose={() => setExpanded(false)}>
       <OutlineCanvas project={project} unit={unit} />
     </Dialog>
