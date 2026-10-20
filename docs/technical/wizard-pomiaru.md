@@ -1,8 +1,8 @@
 # Wizard pomiaru — zaakceptowany projekt UI
 
-Data: 19 października 2026. Status: wdrożony wizard MVP, poprawki po pierwszej próbie na telefonie.
+Data: 20 października 2026. Status: wizard MVP outlineGo po próbie terenowej i poprawkach podglądu.
 
-Dokument opisuje obowiązujący interfejs wdrożonego MVP w commicie `91dd0fe`. Zastępuje wcześniejsze warianty makiet i opisy przyrostów. Testy trybu względnego mają według użytkownika akceptowalną dokładność; zgłoszone nadliczanie kroków pozostaje do diagnozy.
+Dokument opisuje aktualny kod MVP w `b00dd74`. Zastępuje wcześniejsze warianty makiet i opisy przyrostów. Użytkownik zaakceptował dokładność prób trybu względnego i działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Stan kodu: `b00dd74` (ograniczenia przesuwania, animowany skokowy zoom i poluzowanie granic do środka podglądu). Telefon ma APK `256D426C…`, zbudowany i zainstalowany przed ostatnim poluzowaniem granic. Zoom i animacja są już w telefonie; szersze granice wymagają nowego buildu i instalacji. Ostatnia pełna kontrola: TypeScript i 60 testów TS; po poluzowaniu ponownie przeszły TypeScript oraz 10 testów podglądu. Nie wykonano nowego pełnego przebiegu wszystkich testów ani buildu po tej korekcie.
 
 ## Przebieg
 
@@ -23,7 +23,7 @@ Kroki 2–4 powtarzają się. Bok i punkt końcowy pozostają robocze do zatwier
 - Korekta ma układ **[L] [pole kąta] [P]**, a bezpośrednio poniżej znajduje się suwak. L oznacza skręt w lewo, P w prawo; wybrany kierunek jest wyróżniony zielonym wypełnieniem. Ten sam rząd pola i przycisków stosujemy w trybie ręcznym oraz edycji ostatniego boku. Przyciski zachowują pełne etykiety dostępności „W lewo”/„W prawo”.
 - W ustawieniach aplikacji wybieramy przyciąganie kąta: 90° (domyślnie), 10°, 5° albo wyłączone. Wyboru nie ma na ekranie pomiaru. Przyciąganie działa po zakończeniu ręcznej korekty pola: do najbliższej wielokrotności wybranego kąta, przy różnicy do 2° dla 90°/10° i do 1° dla 5°. Sam odczyt czujnika nie jest zaokrąglany. Reguła obejmuje również edycję ostatniego boku. Suwak ma niezależne, stałe zaokrąglanie do pełnych 5° opisane powyżej.
 - „Zmierz ponownie” ponawia odczyt z czujników.
-- Po nowej sesji sensora przy istniejących bokach nadal trzeba odtworzyć odniesienie na znanym boku.
+- Po nowej sesji sensora przy istniejących bokach trzeba odtworzyć odniesienie. Domyślnie wybrany jest ostatni zapisany bok, z instrukcją konkretnych punktów. Po zapisie C w ABCD: stań w B, skieruj kamerę na C, ustaw odniesienie, wróć do C i wskaż D. Można świadomie wybrać inny znany bok.
 
 ## Długość i jednostki
 
@@ -50,11 +50,15 @@ Dotknięcie miniatury otwiera dialog na pełną szerokość, wyśrodkowany piono
 
 Szkic dopasowuje się automatycznie po przechwyceniu kierunku, zakończeniu pomiaru długości, ręcznym wpisaniu długości oraz po korekcie kąta lub długości. Dopasowanie obejmuje cały zapisany obrys i element roboczy: wektor kierunku albo niezapisany bok z punktem końcowym. Podczas aktywnego liczenia kroków skala pozostaje stabilna; automatyczne dopasowanie następuje po „Stop”. Dla suwaka korekty dopasowanie następuje po zakończeniu gestu, a dla pola po zatwierdzeniu wartości. Przycisk „Dopasuj” pozostaje dostępny; można też ręcznie powiększyć podgląd.
 
+Duży podgląd obsługuje przesuwanie jednym palcem w obu osiach oraz pinch dwoma palcami. Zoom jest ograniczony do 50–800% widoku dopasowanego (100%). Poziomy: 50, 75, 100, 150, 200, 300, 400, 600 i 800%. Podczas gestu skala płynnie śledzi palce; po puszczeniu przechodzi do najbliższego poziomu animacją 180 ms. Przyciski ± wybierają sąsiedni poziom z tą samą animacją i wyłączają się na granicach. Przyciąganie zachowuje punkt pod środkiem palców, o ile pozwalają ograniczenia przesuwania. „Dopasuj” przywraca widok całego rysunku i skalę 100%.
+
+Granice przesuwania pozwalają skrajnej krawędzi szkicu dojść do środka podglądu w obu osiach. Dla małych, płaskich rysunków i pojedynczych punktów zachowujemy wcześniejszą swobodę ruchu. Rysunku nie można całkowicie odsunąć poza ekran; sprawdzenie obejmuje rzeczywiste odcinki, również ukośne.
+
 ## Zakończenie
 
 „Zakończ” jest stale dostępne. Przy niezapisanym boku najpierw wybieramy: „Zapisz”, „Odrzuć” lub „Wróć do pomiaru”. Zapis wymaga kompletnych poprawnych danych. Następnie:
 
-- **Zamknij obrys** — połącz ostatni zapisany punkt z P1 bez przesuwania punktów. Powstały bok oznacz jako wyliczony.
+- **Zamknij obrys** — połącz ostatni zapisany punkt z P1 bez przesuwania punktów. Powstały bok oznacz jako wyliczony. Jeśli ostatni zmierzony bok już wrócił do P1 (zbieżność numeryczna do 0,0000001 m), pomiń powtórzony wierzchołek w obliczeniach i rysowaniu, bez zerowego boku i fałszywego samoprzecięcia. Historia pozostaje zachowana; rzeczywistego niedomknięcia nie dociągamy automatycznie.
 - **Zostaw otwarty** — zakończ bez połączenia do P1.
 
 Zamknięcie topologiczne nie jest pomiarem ostatniego boku ani potwierdzeniem dokładności. Niezależny pomiar powrotny pozostaje osobną opcją. Bez niego nie pokazujemy zerowego błędu zamknięcia. Dotychczasowe reguły poprawności obrysu i obliczania pola nadal obowiązują.
@@ -92,11 +96,11 @@ Ikony konturowe Lucide towarzyszą akcjom, statusowi i etapom. Ikony dekoracyjne
 
 ## Stan implementacji i weryfikacji
 
-Aktualny kod: `91dd0fe`, aplikacja 0.1.0. Wdrożono opisany wizard, ręczne m/cm, natywny krokomierz `TYPE_STEP_DETECTOR`, SQLite v3 z formularzem i ustawieniami, edycję ostatniego boku z historią `supersedesId`, PNG oraz osobną diagnostykę. Stop, tło i zakończenie sesji wyłączają liczenie; zdarzenia kroków mają identyfikatory sesji i pomiaru. Android 10+ wymaga zgody ACTIVITY_RECOGNITION pobieranej przy Start.
+Aktualny kod: `b00dd74`, aplikacja 0.1.0. Wdrożono opisany wizard, ręczne m/cm, natywny krokomierz `TYPE_STEP_DETECTOR`, SQLite v3 z formularzem i ustawieniami, edycję ostatniego boku z historią `supersedesId`, PNG oraz osobną diagnostykę. Stop, tło i zakończenie sesji wyłączają liczenie; zdarzenia kroków mają identyfikatory sesji i pomiaru. Android 10+ wymaga zgody ACTIVITY_RECOGNITION pobieranej przy Start.
 
-Kontrola TypeScript i 44 testy TS przeszły. Pełny release build i zadanie 7 testów Kotlin zakończyły się bez błędów; zadanie Kotlin było `UP-TO-DATE`. Na emulatorze sprawdzono m.in. geometrię, zachowanie danych, PNG, listę projektów 3/+10, menu i anulowanie usuwania. Emulator nie ma detektora kroków i nie potwierdza fizycznego liczenia. Najnowszy APK zainstalowano na telefonie z zachowaniem danych; ADB potwierdził uruchomienie. Pełna próba najnowszego UI pozostaje do wykonania. Hash i szczegółowe granice weryfikacji są w [MEMO](../../MEMO.md).
+Ostatnia pełna kontrola: TypeScript i 60 testów TS. Po poluzowaniu granic: TypeScript i 10 testów podglądu. Pełny release build i zadanie 7 testów Kotlin zakończyły się bez błędów; zadanie Kotlin było `UP-TO-DATE`. Na emulatorze sprawdzono m.in. geometrię, zachowanie danych, PNG, listę projektów 3/+10, menu i anulowanie usuwania. Emulator nie ma detektora kroków i nie potwierdza fizycznego liczenia. APK sprzed ostatniego poluzowania granic zainstalowano na telefonie z zachowaniem danych; ADB potwierdził uruchomienie. Pełna próba najnowszego UI pozostaje do wykonania. Hash i szczegółowe granice weryfikacji są w [MEMO](../../MEMO.md).
 
-Krokomierz według próby użytkownika działa generalnie poprawnie, ale często dolicza 1–2 kroki. Dostępna jest korekta ręczna; przyczyna nie jest jeszcze naprawiona. Akceptacja dokładności trybu względnego dotyczy kierunku, nie stanowi akceptacji dokładności krokomierza.
+Po próbie użytkownik zaakceptował działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Korekta ręczna pozostaje dostępna. Nie wprowadzono automatycznego odejmowania kroków ani zmiany algorytmu.
 
 ## Obowiązujące uproszczenia interfejsu
 

@@ -1,6 +1,6 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
-Korekta granic przesuwania na życzenie użytkownika: skrajna krawędź szkicu może dojść do środka podglądu w obu osiach. Zachowano dotychczasową swobodę dla małych/płaskich rysunków i ochronę przed całkowitym zniknięciem ukośnego rysunku. TypeScript i 10 testów podglądu przeszły. Korektę zapisano w commicie razem z ograniczeniami i animowanym skokowym zoomem, bez nowego APK i instalacji; zainstalowany build `256D426C…` ma wcześniejsze, ciaśniejsze granice.
+Korekta granic przesuwania na życzenie użytkownika: skrajna krawędź szkicu może dojść do środka podglądu w obu osiach. Zachowano dotychczasową swobodę dla małych/płaskich rysunków i ochronę przed całkowitym zniknięciem ukośnego rysunku. TypeScript i 10 testów podglądu przeszły. Korektę zapisano w `b00dd74` razem z ograniczeniami i animowanym skokowym zoomem, bez nowego APK i instalacji; zainstalowany build `256D426C…` ma wcześniejsze, ciaśniejsze granice.
 
 Aktualizacja podglądu szkicu po instalacji — 20 października 2026: dodano ograniczenia przesuwania (mały rysunek pozostaje cały w widoku, powiększony nie może całkowicie zniknąć; sprawdzane są również ukośne odcinki), zoom 0,5–8× widoku dopasowanego i poziomy 0,5 / 0,75 / 1 / 1,5 / 2 / 3 / 4 / 6 / 8×. Po zakończeniu gestu skala przechodzi do najbliższego poziomu animacją 180 ms z zachowaniem środka gestu, o ile pozwalają granice przesuwania. Przyciski ± używają tych samych poziomów i są zablokowane na granicach. TypeScript i 60 testów TS przeszły. Pełny build `sketch-viewport-build.log` zakończył się `BUILD SUCCESSFUL in 2m 7s` (847 zadań, testy Kotlin `UP-TO-DATE`). APK zainstalowano 20 października 2026 na telefonie `a20fa219` przez `install -r` z zachowaniem danych: `Success`; uruchomienie `Status: ok`, `LaunchState: COLD`. Próba dotykowa ograniczeń i animacji przez użytkownika pozostaje do wykonania.
 
@@ -23,7 +23,7 @@ Decyzja marki — 20 października 2026: użytkownik przyjął nazwę **outlineG
 
 W kodzie wdrożono nazwę i logo outlineGo: nagłówek główny, mały znak w pozostałych nagłówkach, nagłówek pomiaru, nowy projekt i eksport PNG. Wektorowa geometria `app/assets/brand/mark.json` zasila komponent `Brand.tsx` oraz generator SVG/PNG `npm run assets:brand`. Ikona ma wersję tradycyjną, adaptacyjną i monochromatyczną, splash — ciepłe tło i zielony znak. `expo-splash-screen` 56.0.15 obsługuje start natywny; widok z logo i nazwą pozostaje podczas inicjalizacji danych, bez sztucznego opóźnienia. Nazwa pliku APK i nowo eksportowanych PNG/CSV używa outlineGo. Zachowano pakiet `pl.fieldsketch.cad.prototype`, schemat linków `fieldsketch`, slug i bazę `fieldsketch.db`, aby zachować ciągłość aktualizacji oraz dane. Zmiany marki zapisano w commicie wdrażającym branding outlineGo.
 
-Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; najnowszy commit aplikacji: `6972028` (poprawki po próbie terenowej). Branding zapisano w `3d28bd5`, notatki po wdrożeniu w `b044778`, checklistę w `b2a496f`. Kod, testy i dokumentacja poprawek są commitowane. Aktualizację notatek zapisano razem ze zmianami podglądu szkicu. Osobny nieśledzony plik `docs/tmp.txt` pozostawiono poza commitem i bez zmian. Nie wykonano pushowania.
+Aktualizacja: 20 października 2026. Gałąź `mvp_designed`; najnowszy commit aplikacji: `b00dd74` (granice przesuwania i animowany skokowy zoom); wcześniejsze poprawki po próbie terenowej: `6972028`. Branding zapisano w `3d28bd5`, notatki po wdrożeniu w `b044778`, checklistę w `b2a496f`. Kod, testy i dokumentacja poprawek są commitowane. Notatki po wdrożeniu zapisano razem ze zmianami podglądu szkicu. Bieżąca aktualizacja dokumentacji pozostaje bez commita. Osobny nieśledzony plik `docs/tmp.txt` pozostawiono poza commitem i bez zmian. Nie wykonano pushowania.
 
 ## Aktualny rezultat
 
@@ -108,7 +108,7 @@ Makiety i zrzuty są lokalnymi artefaktami ignorowanymi przez Git. Wizualizacja 
 
 ## Najbliższe prace i zakres
 
-1. Ponowna próba użytkownika po potwierdzonej instalacji poprawek: odniesienie B→C i kontynuacja CD, pierwszy wektor, pan/pinch, pełny powrót do P1, krótkie przyciski i odrzucenie odczytu przy ruchu telefonu. Szczegóły w [checkliście](docs/technical/checklista-proby-terenowej.md).
+1. Zbudowanie i instalacja APK z ostatnim poluzowaniem granic do środka podglądu (`b00dd74`), następnie ponowna próba użytkownika: odniesienie B→C i kontynuacja CD, pierwszy wektor, pan/pinch, pełny powrót do P1, krótkie przyciski i odrzucenie odczytu przy ruchu telefonu. Szczegóły w [checkliście](docs/technical/checklista-proby-terenowej.md).
 2. Odbiór poprawek na telefonie i zapisanie wyników ponownej próby.
 3. Ustalenie gotowości do testu zamkniętego po odbiorze poprawek. Krokomierz nie jest już traktowany jako otwarty błąd algorytmu na podstawie ostatniej oceny użytkownika.
 

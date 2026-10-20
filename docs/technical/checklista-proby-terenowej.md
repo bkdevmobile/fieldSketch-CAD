@@ -50,6 +50,11 @@ Wyznacz taśmą prostokąt, np. 2 × 3 m. W tej próbie wpisuj długości ręczn
 
 ## 3. Wygoda i wznowienie
 
+Po instalacji APK zawierającego `b00dd74` sprawdź dodatkowo:
+
+- [ ] **3.2a** Przesuń szkic we wszystkie strony: krawędź może dojść do środka podglądu, ale cały rysunek nie znika. Sprawdź też linię ukośną, poziomą i mały szkic.
+- [ ] **3.2b** Zmień skalę gestem i przyciskami ±: zakres 50–800%, poziomy 50/75/100/150/200/300/400/600/800%. Po puszczeniu palców następuje animowane dojście do poziomu (180 ms). Przyciski na granicach są wyłączone; „Dopasuj” wraca do 100% i pokazuje cały szkic. Nowy gest przerywa animację bez skoku.
+
 - [ ] **3.1** Przeciągnij miniaturę do czterech rogów: przyciąga się i samo przeciągnięcie nie otwiera podglądu.
 - [ ] **3.2** Dotknij miniatury: podgląd jest dialogiem na pełną szerokość, wyśrodkowanym w pionie. Sprawdź zoom, przesuwanie i dopasowanie. Zamknij przez Wstecz oraz ponownie przez krzyżyk; formularz zachowuje dane.
 - [ ] **3.3** Otwórz klawiaturę w polu kąta i długości: pole można odsłonić, miniatura nie blokuje edycji, dolne akcje pozostają poza przewijaną treścią i są dostępne.

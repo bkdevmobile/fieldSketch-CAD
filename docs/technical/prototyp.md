@@ -2,6 +2,8 @@
 
 Stan na 20 października 2026: aplikacja 0.1.0, branding w `3d28bd5`, kolejne poprawki po próbie użytkownika opisane w MEMO. Numer commita, aktualny APK i stan instalacji podaje [MEMO](../../MEMO.md). Jest to pomocniczy szkic terenowy, z eksportem PNG; pełny edytor, DXF i solver pozostają poza tym MVP.
 
+Stan kodu: `b00dd74` (ograniczenia przesuwania, animowany skokowy zoom i poluzowanie granic do środka podglądu). Telefon ma APK `256D426C…`, zbudowany i zainstalowany przed ostatnim poluzowaniem granic. Zoom i animacja są już w telefonie; szersze granice wymagają nowego buildu i instalacji. Ostatnia pełna kontrola: TypeScript i 60 testów TS; po poluzowaniu ponownie przeszły TypeScript oraz 10 testów podglądu. Nie wykonano nowego pełnego przebiegu wszystkich testów ani buildu po tej korekcie.
+
 ## Instalacja i aktualizacja
 
 Plik: `artifacts/outlineGo-0.1.0.apk` w repozytorium. Przenieś go na telefon i otwórz, zezwalając na instalację z wybranego źródła, albo użyj komputera z debugowaniem USB. Dla jedynego podłączonego fizycznego telefonu:
@@ -38,6 +40,10 @@ Android 10+ pyta o zgodę na rozpoznawanie aktywności przy uruchomieniu krokomi
 ## Szkic, korekty i wznowienie
 
 Szkic jest pływającą miniaturą w prawym dolnym rogu, nad stałymi dolnymi akcjami. Można ją przeciągnąć do innego rogu. Dotknij, aby otworzyć wyśrodkowany dialog na pełną szerokość. Przesuwaj szkic jednym palcem w dowolnym kierunku; rozsuwaj dwa palce, aby powiększyć, i zbliżaj, aby pomniejszyć. Dostępne są także przyciski ± i „Dopasuj”. Powrót nie zmienia etapu. Miniatura zmniejsza się przy klawiaturze; formularz można przewinąć ponad nią.
+
+Duży podgląd obsługuje przesuwanie jednym palcem w obu osiach oraz pinch dwoma palcami. Zoom jest ograniczony do 50–800% widoku dopasowanego (100%). Poziomy: 50, 75, 100, 150, 200, 300, 400, 600 i 800%. Podczas gestu skala płynnie śledzi palce; po puszczeniu przechodzi do najbliższego poziomu animacją 180 ms. Przyciski ± wybierają sąsiedni poziom z tą samą animacją i wyłączają się na granicach. Przyciąganie zachowuje punkt pod środkiem palców, o ile pozwalają ograniczenia przesuwania. „Dopasuj” przywraca widok całego rysunku i skalę 100%.
+
+Granice przesuwania pozwalają skrajnej krawędzi szkicu dojść do środka podglądu w obu osiach. Dla małych, płaskich rysunków i pojedynczych punktów zachowujemy wcześniejszą swobodę ruchu. Rysunku nie można całkowicie odsunąć poza ekran; sprawdzenie obejmuje rzeczywiste odcinki, również ukośne.
 
 Zapisane boki mają linię ciągłą, roboczy bok linię przerywaną i niezapisany punkt. Sam kierunek bez długości jest wektorem o umownej długości. Widok dopasowuje się po zatwierdzeniu kierunku, długości lub korekty oraz po Stop; podczas liczenia skala pozostaje stabilna.
 
@@ -78,6 +84,6 @@ Jeśli ostatni zmierzony bok już wrócił do P1, „Zamknij obrys” rozpoznaje
 
 W `app/`: `npm ci`, `npm run typecheck`, `npm test`, `npm run build:apk`. Wymagane Windows, Node 20.19.x, JDK, Android SDK 36 i NDK 27.1.12297006; sieć przy pierwszym pobieraniu zależności. `ANDROID_HOME` można wskazać jawnie. Projekt Android jest generowany; źródła modułu Kotlin są w `app/modules/fieldsketch-orientation`.
 
-Ostatnie sprawdzenie: TypeScript i 44 testy TS przeszły, pełny release build zakończył się sukcesem. Zadanie 7 testów Kotlin było `UP-TO-DATE`, raporty bez błędów. Emulator potwierdził m.in. geometrię, zapis, wznowienie, PNG oraz nową listę 3/+10, otwarcie wiersza/menu i anulowanie usuwania. Nie ma detektora kroków. Telefon potwierdził instalację i uruchomienie; pełnej próby całego najnowszego UI jeszcze nie potwierdzono. Nie deklarujemy, że każdy nowy element był osobno sprawdzony wizualnie.
+Ostatnia pełna kontrola APK: TypeScript i 60 testów TS przeszły, pełny release build zakończył się sukcesem. Po ostatnim poluzowaniu granic przesuwania przeszły TypeScript oraz 10 testów podglądu; ta korekta czeka na nowy build i instalację. Zadanie 7 testów Kotlin było `UP-TO-DATE`, raporty bez błędów. Emulator potwierdził m.in. geometrię, zapis, wznowienie, PNG oraz nową listę 3/+10, otwarcie wiersza/menu i anulowanie usuwania. Nie ma detektora kroków. Telefon potwierdził instalację i uruchomienie; pełnej próby całego najnowszego UI jeszcze nie potwierdzono. Nie deklarujemy, że każdy nowy element był osobno sprawdzony wizualnie.
 
 Ostatni wcześniejszy wynik Expo Doctor: 21/22, ostrzeżenie dotyczące pamięci Hermes w SDK 56. Nie wykonano migracji SDK ani nowej kontroli Doctor przy tej aktualizacji dokumentacji. Kontekst wcześniejszego sprawdzenia: [informacje Expo SDK 56](https://expo.dev/changelog/sdk-56). Szczegóły artefaktu, historii i ograniczeń: [MEMO](../../MEMO.md).

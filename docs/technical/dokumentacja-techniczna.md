@@ -1,6 +1,6 @@
-# Dokumentacja techniczna FieldSketch CAD
+# Dokumentacja techniczna outlineGo
 
-Wersja 0.7. Data: 19 października 2026. Wdrożone MVP w commicie `91dd0fe` oraz osobno architektura docelowa.
+Wersja 0.8. Data: 20 października 2026. Kod MVP w `b00dd74` oraz osobno architektura docelowa. APK na telefonie (`256D426C…`) zawiera skokowy zoom, ale poprzedza ostatnie poluzowanie granic przesuwania. Aktualny artefakt i instalację opisuje MEMO.
 
 ## Aktualny zakres implementacji
 
@@ -14,7 +14,11 @@ Pierwsza implementacja przechowuje migawki projektów, niezmienne obserwacje i o
 
 Zmiana globalnego trybu zatrzymuje sesję i unieważnia roboczy kierunek/odniesienie; nie przepisuje historycznych obserwacji. Formularz zachowuje wpisy, ale wznowienie zaczyna się od kierunku. Tryb sensorowy przy istniejących bokach wymaga odtworzenia odniesienia. Długość ręczna ma jawne źródło, surowe i poprawione kroki są zachowane osobno; edycja tworzy nową obserwację z `supersedesId`.
 
-Weryfikacja wydania: TypeScript, 44 testy TS i release build bez błędów; zadanie 7 testów Kotlin aktualne (`UP-TO-DATE`, raporty bez błędów). Instalacja i uruchomienie na telefonie potwierdzone. Użytkownik zaakceptował próby trybu względnego, ale zgłosił nadliczanie 1–2 kroków; przyczyna pozostaje nierozwiązana. Pełna próba ostatniego UI na telefonie pozostaje do wykonania. Szczegóły i hash APK są w [MEMO](../../MEMO.md).
+Weryfikacja ostatniego APK: TypeScript, 60 testów TS i pełny release build bez błędów; zadanie testów Kotlin `UP-TO-DATE`. Instalacja i uruchomienie na telefonie potwierdzone. Po późniejszym poluzowaniu granic przesuwania przeszły TypeScript oraz 10 testów podglądu, bez ponownego pełnego przebiegu ani buildu. Użytkownik zaakceptował próby trybu względnego i działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Ponowna próba poprawek pozostaje do wykonania. Szczegóły i hash APK są w [MEMO](../../MEMO.md).
+
+### Implementacja podglądu szkicu
+
+`OutlineCanvas.tsx` renderuje SVG i obsługuje dotyk przez PanResponder. Czyste funkcje w `domain/sketchViewport.ts` obliczają dopasowanie, przesuwanie, skalowanie względem środka palców, poziomy i granice. Zoom 0,5–8× przechodzi po zakończeniu gestu do najbliższego poziomu (odległość logarytmiczna); ± wybierają poziomy sąsiednie. `Animated.timing` interpoluje skalę i przesunięcie przez 180 ms; nowe dotknięcie zatrzymuje animację. Granice są stosowane podczas gestu i każdej klatki animacji. Test odcinków chroni ukośny rysunek przed zniknięciem mimo nakładania się jego prostokąta granicznego z podglądem. Miniatura ma osobne sterowanie: przeciąganie zmienia jej róg, a gesty rysunku działają w dużym podglądzie.
 
 ## 1 Cel i status decyzji
 
