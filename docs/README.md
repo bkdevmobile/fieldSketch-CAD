@@ -1,15 +1,24 @@
 # Dokumentacja outlineGo
 
-Ogólną kolejność etapów opisuje [plan rozwoju](plan-rozwoju.md). Zaakceptowany przebieg i decyzje UI opisuje [wizard pomiaru](technical/wizard-pomiaru.md).
+Stan dokumentacji: **21 października 2026**. Kod aplikacji: **acf99a0**, wersja 0.1.0. Wdrożono DXF, zasady Free/Plus bez zakupów, pięć języków, notatki, przypinanie i korekty zapisanych szkiców. TypeScript i 127 testów TS przeszły; najnowszy APK zbudowano i sprawdzono na emulatorze. Redmi ma wcześniejszy build DXF; nowej wersji nie instalowano na telefonie. Testy zamknięte wcześniejszego MVP zakończono decyzją użytkownika 20 października, bez publikacji produkcyjnej.
 
-Stan dokumentacji: 20 października 2026. Stan kodu: `b00dd74` (ograniczenia przesuwania, animowany skokowy zoom i poluzowanie granic do środka podglądu). Telefon ma APK `E083C357…` z poluzowanymi granicami oraz skokowym zoomem; build i instalacja z zachowaniem danych zostały potwierdzone 20 października 2026. Ostatnia pełna kontrola: TypeScript i 60 testów TS; po poluzowaniu ponownie przeszły TypeScript oraz 10 testów podglądu. Po tej korekcie nie powtarzano wszystkich testów TS; pełny build zakończył się sukcesem, a testy Kotlin były aktualne (`UP-TO-DATE`).
+## Obsługa i funkcje
 
-- [Instrukcja użytkowania, instalacji i testów](technical/prototyp.md) opisuje aktualny interfejs.
-- [Checklista i wynik próby terenowej](technical/checklista-proby-terenowej.md) zawiera zgłoszenia użytkownika i zakres ponownej kontroli podglądu.
-- [Stan prac i znane ograniczenia](../MEMO.md) podaje commit, artefakt i najbliższe zadania.
-- [Dokument techniczny](technical/dokumentacja-techniczna.md) oddziela wdrożone MVP od architektury docelowej.
+- [Instrukcja użytkowania, instalacji i testów](technical/prototyp.md)
+- [Wizard pomiaru i decyzje UI](technical/wizard-pomiaru.md)
+- [Prowadzenie pierwszego pomiaru](technical/pierwszy-pomiar.md)
+- [Notatki, przypinanie, edycja wymiarów i ponowny pomiar](technical/edycja-szkicu.md)
+- [Eksport DXF](technical/eksport-dxf.md)
+- [Zasady Free/Plus i stan integracji zakupów](technical/free-plus.md)
+- [Wielojęzyczność PL/EN/DE/ES/FR](technical/wielojezycznosc.md)
 
-- `business/` przechowuje dokumenty biznesowe i materiały źródłowe. Dostarczony plik Word został skopiowany bez zmian.
-- `technical/` przechowuje analizę oraz projekt techniczny w Markdown, wersjonowany razem z kodem.
+## Stan prac i materiały techniczne
 
-Wymagania źródłowe, decyzje użytkownika, propozycje techniczne i decyzje otwarte są rozróżnione w dokumentacji technicznej. Aktualizacja projektu technicznego nie zmienia automatycznie wymagań biznesowych.
+- [Plan rozwoju i prace przed release](plan-rozwoju.md)
+- [Stan prac, artefakty i historia wdrożeń](../MEMO.md)
+- [Dokument techniczny: implementacja i architektura docelowa](technical/dokumentacja-techniczna.md)
+- [Budowanie i testowanie aplikacji](../app/README.md)
+- [Historia próby terenowej i dodatkowe scenariusze nowych funkcji](technical/checklista-proby-terenowej.md)
+- [Analiza biznesowa](technical/analiza-biznesowa.md)
+
+Katalog `business/` zawiera źródłowe materiały biznesowe; dostarczony dokument Word pozostaje bez zmian. Katalog `technical/` zawiera dokumentację Markdown wersjonowaną razem z kodem. Opis architektury docelowej nie oznacza wdrożenia wszystkich proponowanych funkcji ani potwierdzenia dokładności sensorów. Wyniki wcześniejszych prób pozostają przypisane do sprawdzonych wersji.

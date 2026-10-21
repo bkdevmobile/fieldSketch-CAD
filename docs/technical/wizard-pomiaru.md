@@ -1,12 +1,12 @@
 # Wizard pomiaru — zaakceptowany projekt UI
 
-Aktualizacja preferencji po odbiorze pomocy: instrukcja P1 bez miniatury; jej róg jest zapamiętywany globalnie (domyślnie prawy górny). Domyślna metoda długości to krokomierz, potem ostatni jawny wybór użytkownika; istniejący formularz zachowuje swoje dane. Obsługa pierwszej zgody na krokomierz zachowuje etap długości i już przechwycony kierunek mimo zatrzymania sesji przez okno Androida. Szczegóły: [opis](pierwszy-pomiar.md).
+Aktualne preferencje: instrukcja P1 bez miniatury; zapamiętywany róg miniatury, domyślnie prawy dolny. Domyślna metoda długości to krokomierz, potem ostatni jawny wybór; formularz zachowuje swój przelicznik. Zgoda na krokomierz jest uzyskiwana przed sesją kierunku; odmowa wybiera ręczną długość. [Prowadzenie pierwszego pomiaru](pierwszy-pomiar.md).
 
-Data: 20 października 2026. Status: wizard MVP outlineGo po próbie terenowej i poprawkach podglądu.
+Data: 21 października 2026. Status: kod `acf99a0`, wizard z korektą zapisanych boków i ponownym pomiarem wybranego odcinka.
 
-Dokument opisuje aktualny kod MVP w `b00dd74`. Zastępuje wcześniejsze warianty makiet i opisy przyrostów. Użytkownik zaakceptował dokładność prób trybu względnego i działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Stan kodu: `b00dd74` (ograniczenia przesuwania, animowany skokowy zoom i poluzowanie granic do środka podglądu). Telefon ma APK `E083C357…` z poluzowanymi granicami oraz skokowym zoomem; build i instalacja z zachowaniem danych zostały potwierdzone 20 października 2026. Ostatnia pełna kontrola: TypeScript i 60 testów TS; po poluzowaniu ponownie przeszły TypeScript oraz 10 testów podglądu. Po tej korekcie nie powtarzano wszystkich testów TS; pełny build zakończył się sukcesem, a testy Kotlin były aktualne (`UP-TO-DATE`).
+Dokument opisuje aktualną implementację. Testy zamknięte wcześniejszego MVP zakończono 20 października decyzją użytkownika. Najnowszy APK przeszedł TypeScript, 127 testów TS, build i próbę emulatora; na telefonie pozostaje wcześniejszy build DXF. Ręczny ponowny pomiar sprawdzono na emulatorze, sensorowy i krokomierz wymagają próby fizycznej. [Artefakty i historia](../../MEMO.md).
 
-Po uwagach z testów zamkniętych dodano instrukcję z ilustracją, automatyczny start sesji, blokadę niegotowego odczytu i podpowiedź po dotknięciu celownika. Szczegóły i próba odbiorowa: [pierwszy pomiar](pierwszy-pomiar.md). Zmiana została sprawdzona na emulatorze oraz zainstalowana i uruchomiona na Redmi `a20fa219` 20 października 2026; próba użytkownika pozostaje do wykonania.
+Prowadzenie pierwszego pomiaru obejmuje instrukcję z ilustracją, automatyczny start sesji, blokadę niegotowego odczytu i podpowiedź po dotknięciu celownika. Szczegóły: [pierwszy pomiar](pierwszy-pomiar.md).
 
 ## Przebieg
 
@@ -41,7 +41,7 @@ Kroki 2–4 powtarzają się. Bok i punkt końcowy pozostają robocze do zatwier
 
 ## Szkic na żywo
 
-Po zapisaniu P1 szkic jest widoczny jako pływająca miniatura, początkowo w prawym górnym rogu nad stałym paskiem akcji. Można ją przeciągać w obu osiach; po puszczeniu przyciąga się do najbliższego z czterech rogów obszaru nad nawigacją. Wybrany róg jest zachowany podczas zmiany etapu, rozmiaru okna i otwierania klawiatury. Przeciągnięcie nie otwiera podglądu. Dostępność udostępnia także akcję przeniesienia do następnego rogu.
+Po zapisaniu P1 szkic jest widoczny jako pływająca miniatura, domyślnie w prawym dolnym rogu nad stałym paskiem akcji. Można ją przeciągać w obu osiach; po puszczeniu przyciąga się do najbliższego z czterech rogów obszaru nad nawigacją. Wybrany róg jest zachowany podczas zmiany etapu, rozmiaru okna i otwierania klawiatury. Przeciągnięcie nie otwiera podglądu. Dostępność udostępnia także akcję przeniesienia do następnego rogu.
 
 Dotknięcie miniatury otwiera dialog na pełną szerokość, wyśrodkowany pionowo na przyciemnionym tle. Zawiera zoom, przesuwanie i dopasowanie. „Wróć do pomiaru”, krzyżyk, dotknięcie tła lub systemowe Wstecz zamyka go bez utraty etapu. Przy klawiaturze miniatura jest mniejsza; zmiana dostępnej wysokości ponownie umieszcza ją w wybranym rogu. Formularz można przewinąć ponad miniaturę.
 
@@ -70,7 +70,10 @@ Zamknięcie topologiczne nie jest pomiarem ostatniego boku ani potwierdzeniem do
 ## Poprawki i przerwanie pracy
 
 - „Wstecz” zachowuje dane robocze.
-- Wybranie ostatniego zapisanego boku umożliwia poprawienie kierunku i długości albo cofnięcie zapisu. Nie oznacza to pełnego edytora wszystkich boków.
+- „Wymiary i punkty” w pomiarze, jego menu i podsumowaniu udostępnia tabelę wszystkich zmierzonych długości, wybór punktu i korektę kąta dochodzącego boku. Poprawki można zatwierdzić razem z podglądem przed zapisem.
+- „Zmierz ten bok ponownie” uruchamia kreator dla wybranego zapisanego odcinka; zapis zastępuje pomiar, zachowuje historię i przelicza dalsze punkty. Nie dodaje punktów i działa w zamkniętym szkicu oraz przy limicie Free. W trybie sensorowym odniesienie jest odtwarzane zgodnie z instrukcją.
+- Wyliczony bok do P1 ma osobne pole długości; jego zmiana dopasowuje ostatni narożnik, zachowując długość poprzedniego boku. Niewykonalne długości blokują zapis.
+- Sekcja „Notatka do szkicu” ma osobny przycisk zapisu. Metadane zachowują roboczy formularz; zmiana geometrii z innego ekranu unieważnia formularz starej rewizji. [Pełne reguły korekt](edycja-szkicu.md).
 - Punkty i roboczy etap zapisujemy automatycznie. Utrwalenie szkicu roboczego nie zatwierdza boku w geometrii.
 - Po wznowieniu przywracamy wpisy i wracamy do etapu kierunku, który wymaga ponownego przechwycenia. W trybie sensorowym przy istniejących bokach odtwarzamy odniesienie na znanym boku. Przerwy nie zaliczamy do aktywnego pomiaru kroków.
 
@@ -80,7 +83,7 @@ Sprawdzić cykl kilku boków, korekty kąta i długości, oba źródła długoś
 
 ## Udostępnienie wyniku w MVP
 
-W tej wersji wystarczy eksport szkicu do PNG: czytelny obraz z wymiarami i oznaczeniem, że długości pochodzące z kroków są szacunkowe. PNG jest jedynym wymaganym formatem udostępniania szkicu w MVP; DXF i inne formaty wyniku pozostają poza tym zakresem. Ustalenie nie zmienia dostępnego eksportu logów diagnostycznych JSONL/CSV.
+PNG zawiera obrys, numery punktów, tabelę wymiarów i źródeł długości, notatkę oraz oznaczenia wartości szacunkowych i wyliczonego zamknięcia. Free dodaje znak wodny poza treścią. DXF jest wdrożony i objęty bramką Plus, lecz zakupy nie są jeszcze podłączone, więc obecny build Free go nie odblokowuje. Opisy punktów i wymiarów omijają linie obrysu oraz inne etykiety w podglądzie i DXF; w PNG wymiary pozostają w tabeli. [DXF](eksport-dxf.md), [Free/Plus](free-plus.md). Eksporty JSONL/CSV służą diagnostyce.
 
 ## Wybrany wariant makiety i uwagi do układu
 
@@ -102,7 +105,7 @@ Ikony konturowe Lucide towarzyszą akcjom, statusowi i etapom. Ikony dekoracyjne
 
 Aktualny kod: `b00dd74`, aplikacja 0.1.0. Wdrożono opisany wizard, ręczne m/cm, natywny krokomierz `TYPE_STEP_DETECTOR`, SQLite v3 z formularzem i ustawieniami, edycję ostatniego boku z historią `supersedesId`, PNG oraz osobną diagnostykę. Stop, tło i zakończenie sesji wyłączają liczenie; zdarzenia kroków mają identyfikatory sesji i pomiaru. Android 10+ wymaga zgody ACTIVITY_RECOGNITION pobieranej przy Start.
 
-Ostatnia pełna kontrola: TypeScript i 60 testów TS. Po poluzowaniu granic: TypeScript i 10 testów podglądu. Pełny release build i zadanie 7 testów Kotlin zakończyły się bez błędów; zadanie Kotlin było `UP-TO-DATE`. Na emulatorze sprawdzono m.in. geometrię, zachowanie danych, PNG, listę projektów 3/+10, menu i anulowanie usuwania. Emulator nie ma detektora kroków i nie potwierdza fizycznego liczenia. APK z ostatnim poluzowaniem granic zainstalowano na telefonie z zachowaniem danych; ADB potwierdził uruchomienie. Pełna próba najnowszego UI pozostaje do wykonania. Hash i szczegółowe granice weryfikacji są w [MEMO](../../MEMO.md).
+Aktualna kontrola kodu `acf99a0`: TypeScript i 127 testów TS przeszły; pełny build APK zakończył się sukcesem w 10m 38s, testy Kotlin UP-TO-DATE. Emulator zachował 10 szkiców; potwierdzono notatkę i przypięcie po restarcie, korektę 200 → 250 cm oraz ręczny ponowny pomiar do 300 cm. Obejrzano nowy edytor i trzy rendery PNG. Emulator nie ma detektora kroków i nie potwierdza dokładności fizycznych sensorów. Nowego APK nie instalowano na telefonie. Hash, wcześniejsze wyniki i pozostałe próby: [MEMO](../../MEMO.md).
 
 Po próbie użytkownik zaakceptował działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Korekta ręczna pozostaje dostępna. Nie wprowadzono automatycznego odejmowania kroków ani zmiany algorytmu.
 
@@ -110,20 +113,20 @@ Po próbie użytkownik zaakceptował działanie krokomierza; dodatkowe zliczenia
 
 ### Nawigacja i ekran pomiaru
 
-Na stronie głównej przycisk menu ⋮ znajduje się po prawej stronie nagłówka i otwiera kompaktową listę Ustawienia / Logi pomiarowe przy przycisku. Menu projektu na liście oraz menu w pomiarze używają tego samego rozwijanego komponentu. Dotknięcie tła i systemowe Wstecz zamykają menu. Nowy projekt ma osobny formularz z nazwą, podsumowaniem globalnych ustawień i stałym przyciskiem utworzenia.
+Na stronie głównej przycisk menu ⋮ znajduje się po prawej stronie nagłówka i otwiera kompaktową listę Ustawienia / Logi pomiarowe / outlineGo Plus przy przycisku. Menu projektu na liście oraz menu w pomiarze używają tego samego rozwijanego komponentu. Dotknięcie tła i systemowe Wstecz zamykają menu. Nowy projekt ma osobny formularz z nazwą, podsumowaniem globalnych ustawień i stałym przyciskiem utworzenia.
 
 Potwierdzenia usuwania, cofnięcia, ostrzeżeń odczytu, zakończenia, niezapisanego boku, wyboru jednostki i komunikaty aplikacji są własnymi dialogami Teren: ciepłe jasne tło, zielone akcje, wyróżniona akcja destrukcyjna i spokojne anulowanie. Systemowe zgody Androida i systemowe udostępnianie plików nadal obsługuje system operacyjny.
 
 Pozostałe ekrany używają tego samego stylu: ustawienia w trzech sekcjach z wyborem segmentowym; podsumowanie ze szkicem, obwodem/polem i rozwijanymi współrzędnymi; edycja ostatniego boku z L/pole/P, suwakiem co 5° i źródłem długości; podgląd PNG bez kontrolek w samym obrazie. Lista logów i treść migawki są osobnymi stanami; kopiowanie i eksport są w stałym dolnym pasku. Diagnostyka zachowuje dane techniczne i kontekst próby poza pomiarem.
 
-Lista projektów jest prosta: w każdym wierszu nazwa (jedna linia, długie nazwy skracane wielokropkiem), data ostatniej zmiany oraz przycisk ⋮. Dotknięcie nazwy/daty otwiera projekt. Menu danego projektu zawiera „Otwórz” i „Usuń”; usunięcie wymaga dotychczasowego potwierdzenia. Menu jest osobnym przyciskiem i nie otwiera równocześnie pomiaru. Na początku widoczne są 3 ostatnio zmienione projekty. „Więcej” dopisuje do widoku po 10 następnych i znika po wyświetleniu wszystkich. Kolejność: data ostatniej zmiany malejąco. SQLite nadal dostarcza pełną listę do współdzielonego magazynu; limit dotyczy pozycji pokazywanych na stronie głównej.
+Lista szkiców ma nazwę, datę ostatniej zmiany, ikonę przypięcia i menu ⋮: Otwórz / Przypnij lub Odepnij / Usuń. Dotknięcie wiersza otwiera szkic; usunięcie wymaga potwierdzenia. Początkowo widoczne są 3 pozycje, „Więcej” dodaje po 10. Przypięte szkice są pierwsze, wewnątrz obu grup według daty ostatniej zmiany malejąco. SQLite dostarcza pełną listę; limit widoku nie ukrywa trwale istniejących danych.
 
 - Ustawienia obejmują domyślne m/cm, długość kroku, przyciąganie oraz globalny tryb kierunku (domyślnie względny). Tryb obowiązuje we wszystkich projektach przy kolejnych pomiarach. Zmiana zatrzymuje aktywną sesję i unieważnia roboczy kierunek oraz odniesienie; długość robocza i zapisane obserwacje pozostają zachowane. Brak wybranego sensora na urządzeniu oznacza użycie trybu ręcznego.
 - Po przechwyceniu pokazujemy kąt. „Popraw kąt” rozwija pole, lewo/prawo i suwak; domyślnie są schowane. W trybie ręcznym pola są widoczne od razu. Błędna korekta odsłania pole z komunikatem.
 - Przy kierunku pokazujemy wyłącznie prosty status: stabilizowanie, gotowy lub ostrzeżenie. Przycisk „Szczegóły odczytu” i szczegóły liczbowe usunięto z ekranu pomiaru na życzenie użytkownika. Status „Telefon stabilny — możesz zapisać kierunek” jest zielony przy aktywnej sesji, gotowym oknie próbek, rzucie poziomym co najmniej 0,2, jakości co najmniej 2/3 i rozrzucie do 3°. Odtworzenie odniesienia i ostrzeżenia pozostają widoczne automatycznie.
 - W kroku długości pozostają „Wpisz długość” i „Krokomierz”. Zamiast dwóch przycisków m/cm jest kompaktowa, klikalna jednostka. Zmiana przelicza wartość, zachowując fizyczną długość.
 - Na polecenie użytkownika usunięto całkowicie „Więcej opcji” i jego zawartość z ekranu pomiaru. Tryb kierunku oraz długość kroku ustawiamy globalnie w ustawieniach. Dotychczasowe pomiary i przywrócony formularz zachowują użyty przelicznik; następny bok otrzymuje wartość z ustawień. Korekta liczby kroków nadal jest dostępna.
-- Menu projektu ⋮ zawiera cofnięcie boku/zamknięcia, dostępny przy kompletnym podsumowaniu niezależny pomiar powrotu do P1, diagnostykę i ustawienia. Cofnięcie wymaga potwierdzenia odrzucenia bieżącego niezapisanego pomiaru; jeśli potrzebna jest sesja do logowania, otwieramy ją automatycznie.
+- Menu projektu ⋮ zawiera „Wymiary i punkty”, pomoc, cofnięcie boku/zamknięcia, dostępny przy kompletnym podsumowaniu niezależny pomiar powrotu do P1, diagnostykę i ustawienia. Cofnięcie wymaga potwierdzenia odrzucenia bieżącego niezapisanego pomiaru; jeśli potrzebna jest sesja do logowania, otwieramy ją automatycznie.
 - Osobny ekran „Diagnostyka” zawiera kontekst próby, niezależną wartość odniesienia, logi i ręczne zatrzymanie sesji czujników. Dostęp z ustawień oraz menu projektu. Powrót zachowuje etap i formularz, o ile nie zatrzymano sesji; zatrzymanie wymaga ponownego przechwycenia.
 - Stałe dolne akcje i pływająca miniatura szkicu pozostają dostępne. Nie ma globalnego przełącznika pokazywania zaawansowanych opcji.
 
@@ -131,4 +134,4 @@ Poprawki po próbie na telefonie: przyciąganie kąta konfigurowane wyłącznie 
 
 ## Decyzje otwarte
 
-Do ustalenia pozostają kryteria odbioru przed testem zamkniętym, użytkownik docelowy i model zarabiania. Obecny układ jest wdrożony i wymaga próby na telefonie. DXF, solver i migracja SDK pozostają poza bieżącym zakresem.
+Testy zamknięte wcześniejszego MVP zakończono. Zasady Free/Plus zaakceptowano; limity, oferta i znak wodny są wdrożone. Pozostają zakup i przywracanie Plus, trwałe uprawnienie offline, doprecyzowanie użytkownika docelowego, przegląd tłumaczeń i wyglądu, fizyczna próba nowych korekt oraz kontrola DXF w CAD i przygotowanie publikacji. Solver sieci i migracja SDK pozostają poza bieżącym zakresem. [Aktualny plan](../plan-rozwoju.md).

@@ -2,6 +2,8 @@
 
 Status: zasady zaakceptowane przez użytkownika 20 października 2026. Punkt ustaleń zamknięty. W kodzie wdrożono limity Free, znak wodny PNG, ofertę Plus i kontrolę dostępu do DXF. Zakup, przywracanie i trwałe uprawnienie Plus pozostają do podłączenia. Instalacja na telefonie wymaga osobnego wdrożenia aktualnego APK.
 
+Aktualizacja 21 października 2026, kod `acf99a0`: notatki, przypinanie, zbiorcza korekta wymiarów i ponowny pomiar istniejącego boku są dostępne w Free. Nie zwiększają limitu punktów ani szkiców; korekty działają także na istniejących danych ponad limit. Notatka trafia do PNG ze znakiem wodnym; eksport DXF z notatką nadal wymaga Plus. [Zasady edycji](edycja-szkicu.md).
+
 ## Oferta
 
 **Plus: 29,99 zł jednorazowo**, zakup niezużywalny przez Google Play Billing, bez własnego backendu i bez konta outlineGo. Ceny dla pozostałych rynków pozostają do ustalenia.
@@ -58,11 +60,13 @@ Plan jest odczytywany centralnie ze store i obecnie ma wartość `free`; nie ma 
 
 Do wykonania: Google Play Billing, przywracanie i trwałe uprawnienie, w tym zachowanie Plus offline, obsługa zakupu oczekującego, anulowania, przerwania aplikacji i ponownego otrzymania tego samego zakupu bez podwójnego przetwarzania. Wartość planu należy zasilać potwierdzonym uprawnieniem. Eksport DXF: [zakres i weryfikacja](eksport-dxf.md).
 
-Weryfikacja kodu: TypeScript i 99 testów TS przeszły. Testy obejmują P7→P8/P8→P9, wyliczone zamknięcie i blokadę wyjątku powrotu przy P8, czwarty szkic, zwolnienie miejsca po usunięciu, większe archiwum i korektę po utracie Plus, pasek PNG bez zmiany rysunku/oznaczeń szacunkowych oraz odmowę zapisu DXF bez Plus. W SQLite sprawdzono też brak utraty danych po odrzuconym zapisie.
+Weryfikacja aktualnego kodu: TypeScript i 127 testów TS przeszły. Poniższa próba limitów pochodzi z iteracji Free/Plus z 20 października, dla której przeszło 99 testów TS. Testy obejmują P7→P8/P8→P9, wyliczone zamknięcie i blokadę wyjątku powrotu przy P8, czwarty szkic, zwolnienie miejsca po usunięciu, większe archiwum i korektę po utracie Plus, pasek PNG bez zmiany rysunku/oznaczeń szacunkowych oraz odmowę zapisu DXF bez Plus. W SQLite sprawdzono też brak utraty danych po odrzuconym zapisie.
 
 Próba na emulatorze Pixel 8 API 36: aktualizacja zachowała 10 istniejących szkiców. Potwierdzono komunikat limitu tworzenia, ofertę 29,99 zł z informacją o niedostępnym zakupie, bramkę DXF, podgląd PNG z osobnym paskiem i wygenerowanie obrazu do systemowego arkusza udostępniania (bez wysyłania). Testowy szkic Mode9 doprowadzono od P2 do P8; dalszy pomiar zastąpił panel limitu. Po restarcie aplikacji wyliczone zamknięcie przy P8 przeszło bez przechwycenia kierunku i otworzyło podsumowanie. Po próbie ukryto niepasujący komunikat wznowienia o ponownym celowaniu na ekranie limitu. Logcat AndroidRuntime:E / ReactNativeJS:E bez wpisów. Emulator zamknięto, danych nie czyszczono.
 
 Obejrzano zrzuty `artifacts/free-plus-offer.png` i `artifacts/free-png-preview.png`; zrzuty limitów: `free-project-limit.png`, `free-point-limit-final.png`. Plus i utrata uprawnienia były sprawdzane testami polityki i bazy, bez zakupu Google Play. Wdrożenia na fizycznym telefonie w tej iteracji nie wykonano.
 
 
-Najnowszy lokalny APK Free/Plus: SHA256 B86BAD59E48C12945617EE5764B3F6FFC3B0C7A5C8DE5E33914D57D92FD1162B, 85272803 bajtów; BUILD SUCCESSFUL in 1m. Log artifacts/free-plus-build-final.log; testy Kotlin UP-TO-DATE. Nie instalowano tej iteracji na telefonie.
+Historyczny APK iteracji Free/Plus: SHA256 B86BAD59E48C12945617EE5764B3F6FFC3B0C7A5C8DE5E33914D57D92FD1162B, 85272803 bajtów; BUILD SUCCESSFUL in 1m. Log artifacts/free-plus-build-final.log; testy Kotlin UP-TO-DATE. Nie instalowano tej iteracji na telefonie.
+
+Aktualny APK z edycją szkiców (D16ED88C…) zbudowano i sprawdzono na emulatorze 21 października, zachowując 10 szkiców. Telefon pozostaje na wcześniejszym buildzie DXF bez limitów. Pełne dane artefaktu i stan wdrożenia: [MEMO](../../MEMO.md).

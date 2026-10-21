@@ -1,8 +1,8 @@
 # Notatki, przypinanie i korekta szkicu
 
-Zmiany z 21 października 2026.
+Zmiany z 21 października 2026, zapisane w commicie `acf99a0` na gałęzi `prerelease`. Najnowszy APK zainstalowano tylko na emulatorze; Redmi nadal ma wcześniejszy build DXF.
 
-- Notatka jest dostępna w rozwijanej sekcji na ekranie pomiaru i podsumowania. Przycisk „Zapisz notatkę” zapisuje tekst w projekcie. Notatka trafia także do PNG i na warstwę NOTES w DXF.
+- Notatka jest dostępna w rozwijanej sekcji na ekranie pomiaru i podsumowania. Przycisk „Zapisz notatkę” zapisuje tekst w projekcie; przed zamknięciem aplikacji należy poczekać na zakończenie zapisu. Notatka trafia także do PNG i na warstwę NOTES w DXF.
 - Menu szkicu na liście zawiera „Przypnij szkic” / „Odepnij szkic”. Przypięte projekty są pierwsze; wewnątrz obu grup obowiązuje kolejność ostatniej zmiany. Zapis metadanych nie usuwa formularza niedokończonego pomiaru ani nie zmienia geometrii. Starsze projekty nie wymagają migracji tabel.
 - „Wymiary i punkty” na ekranie pomiaru, w jego menu i w podsumowaniu otwiera tabelę wszystkich zmierzonych boków. Można zmienić wiele długości i zatwierdzić je razem. Jednostka pochodzi z ustawień. Podgląd przelicza się przed zapisem; anulowanie nie zmienia projektu.
 - Wybranie wiersza i przyciski poprzedniego/następnego punktu wybierają bok dochodzący do punktu. Korekta jego kąta przelicza dalsze punkty, zachowując ich skręty i długości. P1 pozostaje początkiem lokalnego układu, a pierwszy bok zachowuje kierunek odniesienia.

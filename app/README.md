@@ -1,22 +1,10 @@
 # Aplikacja outlineGo
 
-21 października 2026: dodano notatki do szkiców (także w PNG/DXF), przypinanie na liście, zbiorczą korektę długości i kątów, wybór punktów do ponownego pomiaru oraz unikanie kolizji opisów z obrysem. Funkcje są dostępne przez „Wymiary i punkty” podczas pomiaru i w podsumowaniu. TypeScript i 127 testów TS przeszły. [Zakres i zasady korekt](../docs/technical/edycja-szkicu.md).
+Stan na 21 października 2026: kod aplikacji `acf99a0`, wersja 0.1.0. TypeScript i 127 testów TS przeszły; APK zbudowano i sprawdzono na emulatorze, zachowując 10 szkiców. Najnowszy APK nie został zainstalowany na telefonie. Redmi ma wcześniejszy build DXF `9E8708ED…` z 20 października. Aktualny plik, pełny hash i historię wdrożeń opisuje [MEMO](../MEMO.md).
 
-Nowa iteracja w kodzie: limity Free (8 punktów / 3 szkice), znak wodny PNG w dodatkowym pasku, oferta Plus 29,99 zł jednorazowo i blokada DXF bez Plus. Wszystkie istniejące szkice pozostają dostępne, także ponad limit. Plan jest centralnie Free do czasu podłączenia zakupu; ekran wyraźnie informuje, że zakup Plus nie jest jeszcze dostępny. TypeScript i 99 testów TS przeszły. Ta iteracja nie została jeszcze zainstalowana na telefonie. [Zasady i stan wdrożenia](../docs/technical/free-plus.md).
+Wdrożono notatki (również w PNG/DXF), przypinanie, zbiorczą korektę długości i kątów, wybór boku do ponownego pomiaru oraz unikanie kolizji opisów. Edytor „Wymiary i punkty” jest dostępny w pomiarze i podsumowaniu. [Zasady korekt](../docs/technical/edycja-szkicu.md).
 
-Nowa funkcja w kodzie: eksport DXF z podsumowania, obrys 2D i opisy na osobnych warstwach, jednostka m/cm z ustawień. TypeScript i 92 testy TS przeszły; import wizualny sprawdzono w LibreCAD. Kod `172ebe8`; APK `9E8708ED…` zbudowano i zainstalowano na Redmi 20 października 2026 z zachowaniem danych (Success, uruchomienie Status ok / COLD). Próba udostępniania na telefonie pozostaje otwarta. Do czasu wdrożenia zakupów eksport dostępny bez blokady Plus. [Zakres i weryfikacja](../docs/technical/eksport-dxf.md).
-
-Status na 20 października 2026: użytkownik uznał testy zamknięte MVP 0.1.0 za zakończone (kod `9a54555`, APK `30CB381F…`). Kolejny etap: model zarabiania i przygotowanie release, w tym obowiązkowa wielojęzyczność. Wcześniejsze opisy oczekujących prób są historią iteracji; wersji produkcyjnej nie opublikowano.
-
-Aktualizacja pomiaru (commit `9a54555`): instrukcja P1 bez miniatury; zapamiętywany róg miniatury, domyślnie prawy dolny. Celownik i formularz długości przed pomocą; skrócony status pod kamerą nie przesuwa celownika. Domyślna metoda długości to krokomierz, potem ostatni jawny wybór użytkownika; istniejący formularz zachowuje swoje dane. Pierwsza zgoda krokomierza jest na początku pomiaru, przed sesją kierunku. Odmowa wybiera ręczną długość, a Start krokomierza już nie otwiera monitu. TypeScript i 80 testów TS przeszły. APK `30CB381F…` zbudowano i zainstalowano na Redmi 20 października 2026 z zachowaniem danych; instalacja Success i uruchomienie Status ok. Testy zamknięte zakończono decyzją użytkownika. Szczegóły: [opis](../docs/technical/pierwszy-pomiar.md).
-
-Iteracja po testach zamkniętych: instrukcja pierwszego pomiaru z ilustracją, automatyczne sesje, podpowiedź celowania telefonem, blokada zapisu przed gotowością i nazwy akcji zamiast ogólnego Dalej. TypeScript i 69 testów TS oraz build przeszły. APK `47918454…` zainstalowano na telefonie Redmi `a20fa219` 20 października 2026 z zachowaniem danych; ADB potwierdził instalację i uruchomienie. [Opis i próba odbiorowa](../docs/technical/pierwszy-pomiar.md).
-
-Poprzednia iteracja podglądu, commit `b00dd74`. Krawędź szkicu może dojść do środka podglądu, przy ochronie przed całkowitym zniknięciem rysunku. Ta korekta jest w APK `E083C357…`, zbudowanym i zainstalowanym na telefonie 20 października 2026 (`install -r`, dane zachowane; `Success`, uruchomienie `Status: ok`, `LaunchState: COLD`). Po korekcie przeszły TypeScript i 10 testów podglądu.
-
-Aktualizacja podglądu szkicu zainstalowana na telefonie 20 października 2026: ograniczone przesuwanie szkicu, zoom 50–800% widoku dopasowanego i poziomy 50/75/100/150/200/300/400/600/800%. Pinch płynnie śledzi palce, a po puszczeniu animuje przejście do najbliższego poziomu w 180 ms. Przyciski ± przełączają poziomy z tą samą animacją. TypeScript i 60 testów TS przeszły. Pełny build zakończył się sukcesem; APK zainstalowano przez `install -r` z zachowaniem danych i uruchomiono (`Success`, `Status: ok`, `LaunchState: COLD`). Kontrola dotykowa przez użytkownika pozostaje do wykonania.
-
-Aktualizacja po próbie terenowej 20 października 2026, commit `6972028`: domyślne odniesienie na ostatnim zapisanym boku z instrukcją punktów, dopasowanie pierwszego wektora, pan w obu osiach i pinch w szkicu, poprawne zamknięcie obwodu wracającego do P1, szersze przyciski, komunikaty odczytu bez technicznego błędu Expo i nazewnictwo „szkic”. TypeScript i 56 testów TS przeszły. Użytkownik zaakceptował krokomierz; dodatkowe zliczenia wiąże z ruchem telefonu. Wynik i zakres ponownej próby: [checklista](../docs/technical/checklista-proby-terenowej.md). Pełny build i instalacja na emulatorze przeszły; poprawki zainstalowano 20 października 2026 na telefonie `a20fa219` przez `install -r` z zachowaniem danych (`Success`, uruchomienie `Status: ok`). Ponowna próba na telefonie, w tym gest dwoma palcami i wznowienie B→C, pozostaje do wykonania. Stan APK i instalacji: [MEMO](../MEMO.md).
+Interfejs PL/EN/DE/ES/FR, domyślnie język telefonu z angielskim jako rezerwowym. Free: 8 punktów / 3 szkice, PNG ze znakiem wodnym, DXF zablokowany. Zakup i przywracanie Plus (29,99 zł jednorazowo) pozostają do wdrożenia; obecny plan to Free. [Specyfikacja Free/Plus](../docs/technical/free-plus.md).
 
 Prototyp Android w **React Native 0.85.3 + Expo SDK 56 + TypeScript**, z lokalnym modułem Kotlin. Wersje są przypięte w `package-lock.json`.
 
@@ -48,7 +36,10 @@ Dotychczasowy pakiet Android, slug, schemat linków, baza i pliki logów zachowu
 - Miniatura szkicu jest przeciągana i przyciągana do najbliższego rogu obszaru nad dolną nawigacją. Dotknięcie otwiera wyśrodkowany pionowo dialog na pełną szerokość. Wstecz, tło i krzyżyk zamykają go bez utraty formularza; dostępność ma akcję przełączania rogu.
 
 - Menu ⋮ po prawej stronie nagłówka strony głównej zawiera Ustawienia i Logi pomiarowe. Usunięto te przyciski spod listy projektów.
-- Projekty w prostych wierszach: nazwa, data ostatniej zmiany i menu ⋮ (Otwórz/Usuń). Dotknięcie wiersza otwiera projekt. Początkowo 3 najnowsze pozycje, „Więcej” pokazuje po 10 kolejnych.
+- Projekty w prostych wierszach: nazwa, data ostatniej zmiany i menu ⋮ (Otwórz/Przypnij lub Odepnij/Usuń). Przypięte szkice są pierwsze, wewnątrz obu grup kolejność ostatniej zmiany. Początkowo 3 pozycje, „Więcej” dodaje po 10.
+- Notatka z osobnym zapisem w pomiarze i podsumowaniu; zapis metadanych zachowuje roboczy formularz.
+- „Wymiary i punkty”: zbiorcza edycja długości, korekta kąta wybranego boku, nawigacja po punktach i ponowny pomiar przez kreator. Korekty zachowują historię i przeliczają dalsze punkty; działają także w zamkniętym szkicu i przy limicie Free.
+- Opisy podglądu, PNG i DXF omijają boki, punkty i pozostałe etykiety. Notatka jest dołączana do eksportów.
 
 - Projekty SQLite i automatyczny zapis zatwierdzonych boków.
 - Tylna kamera i celownik; kierunek magnetyczny, względny lub ręczny.
@@ -69,14 +60,12 @@ Dotychczasowy pakiet Android, slug, schemat linków, baza i pliki logów zachowu
 - Osobne zamknięcie topologiczne i niezależny pomiar niedomknięcia.
 - Trwałe logi JSONL, podgląd, kopiowanie częściami i eksport JSONL/CSV.
 
-Dostępne są podgląd i udostępnienie PNG, edycja ostatniego boku z zachowaniem historii oraz ustawienia jednostki i długości kroku. Krokomierz wymaga zgody na rozpoznawanie aktywności na Androidzie 10+; bez sensora lub zgody nadal można wpisać długość ręcznie. W kodzie dostępny również eksport DXF; solver i rozbudowany edytor pozostają poza zakresem. Expo Go nie obsługuje własnego modułu pomiarowego. Nowa sesja sensora przy istniejącym obrysie wymaga ponownego odniesienia na znanym boku.
+Dostępne są podgląd i udostępnienie PNG oraz eksport DXF wymagający Plus. Korekty zapisanych boków zachowują historię źródłową. Krokomierz wymaga zgody na rozpoznawanie aktywności na Androidzie 10+; bez sensora lub zgody można wpisać długość ręcznie. Nowa sesja sensorowa przy istniejących bokach wymaga odniesienia na znanym boku. Solver sieci, przekątne i rozbudowany edytor ograniczeń pozostają poza aktualnym zakresem. Expo Go nie obsługuje modułu natywnego.
 
 [Instrukcja użytkowania i próby terenowej](../docs/technical/prototyp.md) opisuje procedurę i ograniczenia, w tym ostrzeżenie Expo Doctor o pamięci Hermes w SDK 56.
 
-## Stan weryfikacji — 20 października 2026
+## Weryfikacja — 21 października 2026
 
-Aktualizacja marki 20 października 2026: TypeScript, 47 testów TS, pełny release build i zadanie testów Kotlin przeszły. APK outlineGo zainstalowano na emulatorze z zachowaniem 5 projektów. Sprawdzono natywny splash, ikonę pod maską launchera, nazwę, nagłówki oraz logo w PNG. Ten sam APK zainstalowano 20 października 2026 na telefonie `23124RA7EO` (`a20fa219`) przez `install -r`, z zachowaniem danych; ADB potwierdził `Success` i uruchomienie `Status: ok`, `LaunchState: COLD`. Branding zapisano w commicie `3d28bd5` (`mvp_designed`). Aktualny plik i hash są w MEMO; poniższe akapity opisują wcześniejsze wydania.
+TypeScript i 127 testów TS przeszły. Pełny build: BUILD SUCCESSFUL in 10m 38s; zadanie testów Kotlin UP-TO-DATE. APK z kodu acf99a0 zainstalowano na emulatorze przez install -r z zachowaniem 10 szkiców. Potwierdzono przypięcie i notatkę po restarcie, korektę 200 → 250 cm oraz ręczny ponowny pomiar P1 → P2 do 300 cm z powrotem do edytora. Końcowy proces aplikacji bez wpisów logcat AndroidRuntime:E / ReactNativeJS:E. Obejrzano ekran edytora i trzy rendery PNG komponentu eksportu.
 
-Commit aplikacji: `91dd0fe`. TypeScript i 44 testy TS przeszły. Pełny skrypt budowania zakończył się sukcesem; zadanie 7 testów Kotlin było aktualne (`UP-TO-DATE`, zapisane wyniki bez błędów). APK zainstalowano przez `adb install -r` na telefonie `23124RA7EO`; ADB potwierdził uruchomienie. Emulator potwierdził listę 3 pozycji, „Więcej”, otwieranie z wiersza/menu oraz anulowanie usuwania. Fizycznej próby całego najnowszego UI jeszcze nie potwierdzono.
-
-Następnie wdrożono wybrany styl Teren (`1a5acbe`). Ówczesny build obejmował pozostałe ekrany, rozwijane menu, własne dialogi oraz przeciąganie miniatury. TypeScript, 47 testów TS i pełny build przeszły. APK sprawdzono na emulatorze, a następnie zainstalowano 19 października 2026 na telefonie `23124RA7EO` przez `adb install -r`, zachowując dane. ADB potwierdził instalację i uruchomienie. Pełna próba nowego UI na telefonie pozostaje do wykonania. Hash i rozmiar aktualnego APK podaje MEMO.
+Najnowszego APK nie instalowano na telefonie. Ponowny pomiar z kierunkiem sensorowym i krokomierzem oraz nowy układ DXF wymagają odpowiednio próby fizycznej i kontroli w CAD. Wyniki wcześniejszych wdrożeń, hash i rozmiar APK są w [MEMO](../MEMO.md).

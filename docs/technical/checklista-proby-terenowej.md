@@ -104,3 +104,21 @@ Ocena testera: …
 Proponowane warunki przejścia do testu zamkniętego: pełny pomiar offline, zapis/wznowienie i PNG przechodzą bez utraty danych; interfejs pozwala ukończyć pomiar; poprawki zgłoszonych problemów przechodzą ponowną próbę na telefonie. Krokomierz został zaakceptowany przez użytkownika z ręczną korektą ruchów telefonu. Nie ustalamy tutaj nowego progu dokładności sensorów.
 
 Opis działania: [instrukcja MVP](prototyp.md). Aktualny build i granice potwierdzenia: [MEMO](../../MEMO.md).
+
+## Dodatkowe próby edycji szkicu — 21 października 2026
+
+Dotyczy kodu `acf99a0`, APK D16ED88C…; pełny hash w [MEMO](../../MEMO.md). To osobne scenariusze po zakończeniu wcześniejszych testów zamkniętych. Nie zmieniają historycznych wyników powyżej. Najnowszy APK jest na emulatorze, a na telefonie pozostaje starszy build DXF.
+
+Potwierdzone na emulatorze: zachowanie 10 szkiców po aktualizacji, przypięcie i notatka po restarcie, zapis korekty 200 → 250 cm oraz ręczny ponowny pomiar P1 → P2 do 300 cm z powrotem do edytora. Przeliczanie dalszych punktów i historia mają testy automatyczne. Poniższe próby na telefonie pozostają niewykonane.
+
+- [ ] Zapisz wielowierszową notatkę z polskimi znakami, poczekaj na zakończenie zapisu, zamknij i otwórz aplikację. Sprawdź tekst w szkicu i PNG.
+- [ ] Przypnij starszy szkic; sprawdź pierwszeństwo na liście, zachowanie po restarcie i odpięcie. Żaden inny szkic nie znika.
+- [ ] Po zakończeniu pomiaru zmień kilka długości w „Wymiary i punkty”. Sprawdź podgląd, zapis, pole i obwód; otwórz szkic ponownie. Osobno anuluj niezapisane korekty.
+- [ ] W trakcie rysowania wybierz wcześniejszy punkt i „Zmierz ten bok ponownie”. W trybie względnym wykonaj wskazane odniesienie, zmierz kierunek i długość krokomierzem, zapisz. Sprawdź dalsze punkty i kontynuację szkicu; oryginalna obserwacja pozostaje w historii.
+- [ ] Anuluj ponowny pomiar wcześniejszego boku: zapisana geometria pozostaje bez zmian. Po korekcie z innego ekranu stary roboczy kierunek nie jest używany do zapisu.
+- [ ] Powtórz korektę i ponowny pomiar w zamkniętym szkicu oraz przy P8 w Free. Korekta nie dodaje punktów i nie wymaga Plus.
+- [ ] Zmień długość wyliczonego zamknięcia do P1. Sprawdź przesunięcie ostatniego narożnika i zachowanie długości poprzedniego boku; niemożliwy zestaw długości blokuje zapis.
+- [ ] Wąski ukośny i wklęsły szkic: obejrzyj punkty i napisy w podglądzie oraz natywnie wygenerowanym PNG, także po zoomie. Napisy mają omijać linie i inne etykiety.
+- [ ] Nowy DXF z notatką i korektami: sprawdź w CAD geometrię, skalę m/cm, warstwy i czytelność opisów. Próba eksportu w aktualnej aplikacji wymaga wcześniej podłączonego uprawnienia Plus; stary build na Redmi nie obejmuje tego przyrostu.
+
+Zapisz datę, urządzenie, hash APK, wynik i logi. Pominięte próby pozostaw niezaznaczone; emulator nie potwierdza działania fizycznych sensorów. [Zasady korekt](edycja-szkicu.md).

@@ -1,10 +1,10 @@
 # Dokumentacja techniczna outlineGo
 
-Wersja 0.8. Data: 20 października 2026. Kod MVP w `b00dd74` oraz osobno architektura docelowa. APK na telefonie (`E083C357…`) zawiera skokowy zoom i ostatnie poluzowanie granic przesuwania. Aktualny artefakt i instalację opisuje MEMO.
+Wersja 0.9. Data: 21 października 2026. Stan implementacji: `acf99a0`, aplikacja 0.1.0. Najnowszy APK sprawdzono na emulatorze; telefon nadal ma wcześniejszy build DXF. Sekcje o ograniczeniach i solverze opisują architekturę docelową. Artefakty i instalacje: [MEMO](../../MEMO.md).
 
 ## Aktualny zakres implementacji
 
-Kod MVP w `app/` realizuje wizard pomiaru, kamerę, trzy globalnie wybierane tryby kierunku, ręczne m/cm i natywny krokomierz Start/Stop, projekty i formularze SQLite v3, cofanie i edycję ostatniego boku z historią, zamknięcie, pole, obwód, PNG oraz trwałe logi JSONL/CSV. APK 0.1.0 jest zainstalowany na telefonie użytkownika. [Instrukcja](prototyp.md) opisuje aktualny interfejs. DXF, przekątne kontrolne, pełna edycja i solver poniżej pozostają projektem dalszego P1.
+Kod w `app/` realizuje wizard pomiaru, kamerę, trzy globalne tryby kierunku, ręczne m/cm i natywny krokomierz Start/Stop, projekty i formularze SQLite v3, cofanie, korekty zapisanych boków z historią, zamknięcie, pole i obwód, PNG, DXF, notatki, przypinanie oraz trwałe logi JSONL/CSV. Interfejs działa w PL/EN/DE/ES/FR. Wdrożono limity Free i bramkę DXF; zakup, przywracanie i trwałe uprawnienie Plus pozostają do podłączenia. Przekątne kontrolne, edytor ograniczeń i solver sieci pozostają zakresem docelowym. [Instrukcja](prototyp.md), [Free/Plus](free-plus.md), [edycja szkicu](edycja-szkicu.md).
 
 Pierwsza implementacja przechowuje migawki projektów, niezmienne obserwacje i operacje w SQLite, a próbki JSONL zapisuje natywnie. Dane surowe i skorygowane nie są jeszcze osobnymi edytowalnymi obrysami; prototyp nie wykonuje dopasowania. Metadane logów są w plikach towarzyszących. Sumy kontrolne i import kopii projektu opisane w architekturze docelowej nie należą do tego przyrostu.
 
@@ -12,15 +12,25 @@ Pierwsza implementacja przechowuje migawki projektów, niezmienne obserwacje i o
 
 Wielojęzyczność wdrożono 20 października 2026: PL, EN, DE, ES i FR. Domyślnie język systemowy z angielskim jako rezerwowym; ręczny wybór w ustawieniach jest zapamiętywany. Lokalizacja obejmuje interfejs, dialogi, pomoc, błędy, dostępność i opisy eksportów oraz formatowanie liczb i dat. Jednostki, nazwy szkiców, notatki i geometria pozostają niezależne od języka. Android 13+ synchronizuje wybór z systemowym językiem aplikacji. Szczegóły i zakres weryfikacji: [wielojęzyczność](wielojezycznosc.md).
 
-[Wizard pomiaru](wizard-pomiaru.md) opisuje obowiązujący UI: stałe dolne akcje, pływający szkic, kierunek z ogólnym zielonym statusem gotowości, korektę `[L] [kąt] [P]` z suwakiem co pełne 5° i długość z kontrolkami `[−] [kroki] [+] [Start/Stop]`. Ustawienia globalne obejmują m/cm, długość kroku, tryb kierunku i przyciąganie pola kąta. Nie ma dodatkowych opcji ani szczegółów odczytu na ekranie pomiaru. Diagnostyka jest osobnym ekranem. Lista pokazuje 3 ostatnio zmienione projekty i po 10 kolejnych po „Więcej”.
+[Wizard pomiaru](wizard-pomiaru.md) opisuje obowiązujący UI: stałe dolne akcje, pływający szkic, kierunek z ogólnym zielonym statusem gotowości, korektę `[L] [kąt] [P]` z suwakiem co pełne 5° i długość z kontrolkami `[−] [kroki] [+] [Start/Stop]`. Ustawienia globalne obejmują m/cm, długość kroku, tryb kierunku i przyciąganie pola kąta. Nie ma dodatkowych opcji ani szczegółów odczytu na ekranie pomiaru. Diagnostyka jest osobnym ekranem. Lista pokazuje początkowo 3 szkice, najpierw przypięte, następnie pozostałe; w obu grupach według ostatniej zmiany. „Więcej” dodaje po 10.
 
 Zmiana globalnego trybu zatrzymuje sesję i unieważnia roboczy kierunek/odniesienie; nie przepisuje historycznych obserwacji. Formularz zachowuje wpisy, ale wznowienie zaczyna się od kierunku. Tryb sensorowy przy istniejących bokach wymaga odtworzenia odniesienia. Długość ręczna ma jawne źródło, surowe i poprawione kroki są zachowane osobno; edycja tworzy nową obserwację z `supersedesId`.
 
-Weryfikacja ostatniego APK: TypeScript, 60 testów TS i pełny release build bez błędów; zadanie testów Kotlin `UP-TO-DATE`. Instalacja i uruchomienie na telefonie potwierdzone. Po późniejszym poluzowaniu granic przesuwania przeszły TypeScript oraz 10 testów podglądu, bez ponownego pełnego przebiegu wszystkich testów TS. Następnie pełny build i instalacja na telefonie zakończyły się sukcesem. Użytkownik zaakceptował próby trybu względnego i działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Ponowna próba poprawek pozostaje do wykonania. Szczegóły i hash APK są w [MEMO](../../MEMO.md).
+Weryfikacja kodu `acf99a0`: TypeScript i 127 testów TS przeszły, pełny build APK zakończył się sukcesem w 10m 38s; zadanie testów Kotlin było UP-TO-DATE. Na emulatorze zachowano 10 szkiców i potwierdzono przypięcie oraz notatkę po restarcie, korektę 200 → 250 cm i ręczny ponowny pomiar P1 → P2 do 300 cm. Obejrzano ekran edytora i trzy rendery PNG. Końcowy proces aplikacji bez wpisów logcat AndroidRuntime:E / ReactNativeJS:E. Najnowszy APK nie został zainstalowany na telefonie; Redmi nadal ma wcześniejszy build DXF `9E8708ED…`. Fizyczny ponowny pomiar sensorami/krokomierzem i kontrola nowego DXF w CAD pozostają do wykonania. Szczegóły artefaktu: [MEMO](../../MEMO.md).
 
 ### Implementacja podglądu szkicu
 
 `OutlineCanvas.tsx` renderuje SVG i obsługuje dotyk przez PanResponder. Czyste funkcje w `domain/sketchViewport.ts` obliczają dopasowanie, przesuwanie, skalowanie względem środka palców, poziomy i granice. Zoom 0,5–8× przechodzi po zakończeniu gestu do najbliższego poziomu (odległość logarytmiczna); ± wybierają poziomy sąsiednie. `Animated.timing` interpoluje skalę i przesunięcie przez 180 ms; nowe dotknięcie zatrzymuje animację. Granice są stosowane podczas gestu i każdej klatki animacji. Test odcinków chroni ukośny rysunek przed zniknięciem mimo nakładania się jego prostokąta granicznego z podglądem. Miniatura ma osobne sterowanie: przeciąganie zmienia jej róg, a gesty rysunku działają w dużym podglądzie.
+
+### Implementacja korekt i metadanych
+
+`Project` ma opcjonalne pola `note` i `pinned`; starsze szkice bez tych pól działają bez migracji tabel. `ProjectRepository.updateMetadata` w transakcji odczytuje aktualny szkic i zapisuje metadane, zachowując obserwacje, rewizję geometrii i roboczy formularz. Lista jest sortowana po przypięciu i dacie zmiany.
+
+Ekran `dimensions.tsx` udostępnia tabelę długości, wybór boku do korekty kąta i ponownego pomiaru oraz podgląd przed zatwierdzeniem. `correctSides` przelicza kolejne wierzchołki z zachowaniem ich skrętów i identyfikatorów. Nowe obserwacje mają `supersedesId`; źródłowe pozostają niezmienne. Zmiana długości w tabeli oznacza źródło ręczne, sama zmiana kąta zachowuje dane kroków. Niezależny pomiar zamknięcia jest ponownie zakotwiczany w skorygowanym ostatnim punkcie. Korekta wyliczonej długości do P1 używa przecięcia dwóch okręgów i wybiera bliższe poprzedniemu położenie ostatniego narożnika; niewykonalne długości blokują zapis. Nie jest to wyrównanie całej sieci.
+
+Ponowny pomiar korzysta z prefiksu punktów w istniejącym kreatorze; zapis zastępuje wybraną obserwację w pełnym szkicu. Nie dodaje punktu i działa przy limicie Free. Formularze są przypisane do rewizji, dla której je wczytano; korekta z innego ekranu nie przenosi starego formularza na nową geometrię. Zwykły zapis kolejnego boku zachowuje aktywne odniesienie sensorowe.
+
+`domain/labelLayout.ts` rozmieszcza prostokąty tekstu z kontrolą kolizji z odcinkami, punktami i pozostałymi etykietami. Korzystają z niego podgląd, PNG i DXF. PNG dopasowuje obszar rysunku do etykiet, wymiary pozostają w tabeli; DXF ma poziome teksty na osobnych warstwach. Notatka jest dodawana do eksportów poza obrysem. [Szczegóły i ograniczenia](edycja-szkicu.md).
 
 ## 1 Cel i status decyzji
 
@@ -54,7 +64,7 @@ P1 obejmuje projekty lokalne, punkty, ręczne wprowadzanie długości w krokach 
 
 Aktualne MVP przyjmuje zarówno ręczne długości w m/cm (np. odczytane z miarki), jak i szacowanie krokami. Bezpośrednia integracja z dalmierzem pozostaje dalszym zakresem. Źródłowy dokument Word zachowuje pierwotną treść.
 
-Poza zakresem pozostają chmura, logowanie, płatności, LiDAR, obowiązkowe ARCore, automatyczna rekonstrukcja 3D i certyfikacja dokładności.
+Chmura, logowanie, LiDAR, obowiązkowe ARCore, automatyczna rekonstrukcja 3D i certyfikacja dokładności pozostają poza bieżącym zakresem. Płatności Plus są planowane przed release, bez własnego backendu; nie są jeszcze wdrożone.
 
 ## 3 Architektura i technologie
 
@@ -119,7 +129,7 @@ Zewnętrzny `app/` jest katalogiem projektu, a `app/src/app/` katalogiem wdrożo
 
 ## 5 Ekrany i rejestracja pomiaru
 
-Lista projektów pokazuje jednoliniowe nazwy, daty ostatniej zmiany i menu Otwórz/Usuń; początkowo 3 projekty, następnie po 10. Kliknięcie wiersza otwiera projekt. Ustawienia i logi są w menu nagłówka. Ustawienia zawierają globalny tryb kierunku, domyślne m/cm i długość kroku oraz przyciąganie pola kąta. Jednostka wewnętrzna to metr.
+Lista szkiców pokazuje jednoliniowe nazwy, daty ostatniej zmiany, ikonę przypięcia i menu Otwórz/Przypnij lub Odepnij/Usuń. Początkowo widoczne są 3 pozycje, następnie po 10, w kolejności przypięte → pozostałe i według daty zmiany w każdej grupie. Kliknięcie wiersza otwiera szkic. Ustawienia, logi i oferta Plus są w menu nagłówka. Ustawienia zawierają język, globalny tryb kierunku, domyślne m/cm i długość kroku oraz przyciąganie pola kąta. Jednostka wewnętrzna to metr.
 
 Ekran pomiaru pokazuje celownik i ogólny status gotowości, bez szczegółów liczbowych. Użytkownik zamraża kierunek, opcjonalnie poprawia skręt, podaje długość ręcznie lub mierzy ją krokomierzem, następnie sprawdza i zapisuje punkt. Kierunek pozostaje przypisany do punktu początkowego. Roboczy bok jest widoczny w pływającym szkicu; nawigacja pozostaje poza scrollem.
 
