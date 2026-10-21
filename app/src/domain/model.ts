@@ -16,6 +16,7 @@ export interface Observation {
   predictedEnd: Point; createdAt: string;
 }
 export interface Project {
+  note?: string; pinned?: boolean;
   id: string; schemaVersion: 1; name: string; createdAt: string; updatedAt: string;
   geometryRevision: number; mode: SurveyMode; points: Point[]; observations: Observation[];
   activeObservationIds: string[]; closed: boolean; closureObservationId: string | null;

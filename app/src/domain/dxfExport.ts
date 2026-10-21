@@ -1,3 +1,4 @@
+import { placeLabels, DrawingLabel } from './labelLayout';
 import { t } from '../i18n';
 import { distance, outlinePoints } from './geometry';
 import type { Project } from './model';
@@ -93,7 +94,10 @@ export function dxfExport(project: Project, unit: DxfUnit = 'm'): string {
   entity('LWPOLYLINE', 'OUTLINE'); pair(100, 'AcDbPolyline');
   pair(90, vertices.length); pair(70, project.closed ? 1 : 0);
   for (const p of vertices) { pair(10, p.x); pair(20, p.y); }
-  vertices.forEach((p, index) => text(`P${index + 1}`, p.x + gap / 2, p.y + gap / 2, 'POINT_LABELS'));
+  const labelScale = 14 / height;
+  const screenVertices = vertices.map(p => ({ x: p.x * labelScale, y: -p.y * labelScale }));
+  const segments: [typeof screenVertices[number], typeof screenVertices[number]][] = [];
+  const labels: DrawingLabel[] = screenVertices.map((p, i) => ({ text: 'P' + (i + 1), anchor: p, fontSize: 14, kind: 'point' }));
   const measuredReturn = vertices.length < project.points.length;
   const observations = new Map(project.observations.map(o => [o.id, o]));
   for (let i = 0; i < vertices.length - (project.closed ? 0 : 1); i++) {
@@ -103,19 +107,19 @@ export function dxfExport(project: Project, unit: DxfUnit = 'm'): string {
     const automatic = project.closed && i === vertices.length - 1 && !measuredReturn;
     const observation = observations.get(project.activeObservationIds[i] ?? '');
     const estimated = !automatic && !!observation && observation.lengthSource !== 'manual';
-    let rotation = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
-    if (rotation > 90) rotation -= 180;
-    if (rotation <= -90) rotation += 180;
-    const x = (a.x + b.x) / 2 - (b.y - a.y) / length * gap;
-    const y = (a.y + b.y) / 2 + (b.x - a.x) / length * gap;
-    text(`${estimated ? '~ ' : ''}${length.toFixed(2)} ${unit}${automatic ? ' (auto)' : ''}`, x, y, 'LENGTHS', rotation, true);
+    segments.push([screenVertices[i]!, screenVertices[(i + 1) % vertices.length]!]);
+    labels.push({ text: `${estimated ? '~ ' : ''}${length.toFixed(2)} ${unit}${automatic ? ' (auto)' : ''}`, anchor: { x: (a.x + b.x) / 2 * labelScale, y: -(a.y + b.y) / 2 * labelScale }, fontSize: 14, kind: 'length' });
   }
+  const placed = placeLabels(labels, segments, screenVertices);
+  placed.forEach(l => text(l.text, (l.box.x + 5) / labelScale, -(l.box.y + 4 + l.fontSize) / labelScale, l.kind === 'point' ? 'POINT_LABELS' : 'LENGTHS'));
+  const notesTop = Math.min(minY, ...placed.map(l => -(l.box.y + l.box.height) / labelScale));
   const notes = [`outlineGo - ${project.name}`, t("Układ lokalny XY; jednostka: {0}.", [unit])];
   if (project.activeObservationIds.some(id => observations.get(id)?.lengthSource !== 'manual' && observations.has(id)))
     notes.push(t("~ długość z kroków jest szacunkowa."));
   if (project.closed && !measuredReturn) notes.push(t("(auto) bok zamykający jest wyliczony z punktów."));
   if (project.closureObservationId) notes.push(t("Niezależny pomiar zamknięcia nie koryguje geometrii obrysu."));
-  notes.forEach((note, i) => text(note, minX, minY - gap * (i + 2), 'NOTES'));
+  if (project.note) notes.push(...project.note.split(/\r?\n/).flatMap(line => line.match(/.{1,100}/gu) ?? ['']));
+  notes.forEach((note, i) => text(note, minX, notesTop - gap * (i + 2), 'NOTES'));
   end(); pair(0, 'EOF');
   return tags.join('\r\n') + '\r\n';
 }

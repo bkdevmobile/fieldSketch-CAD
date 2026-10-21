@@ -129,3 +129,75 @@ export function metrics(project: Project) {
   return { perimeter, area: project.closed && !intersects ? Math.abs(signed) / 2 : null,
     intersects, closure: dx === null || dy === null ? null : { dx, dy, norm: Math.hypot(dx, dy) } };
 }
+
+export const activeSides = (project: Project): Observation[] => project.activeObservationIds
+  .map(key => project.observations.find(o => o.id === key)!).filter(o => o?.kind === 'side');
+export interface SideCorrection { observationId: string; measurement: LengthMeasurement; theta: number;
+  capture?: Capture | null; mode?: SurveyMode; referenceFrameId?: string; capturedTheta?: number }
+// Rebuild downstream vertices with their original turns, preserving IDs and raw history.
+export function correctSides(project: Project, corrections: SideCorrection[]): Project {
+  const sides = activeSides(project), edits = new Map(corrections.map(c => [c.observationId, c]));
+  if (edits.size !== corrections.length || corrections.some(c => !sides.some(o => o.id === c.observationId)))
+    throw new Error(t("Brak boku do poprawienia."));
+  const points = [project.points[0]!], observations = [...project.observations], activeObservationIds: string[] = [];
+  let delta = 0;
+  const now = new Date().toISOString();
+  for (const original of sides) {
+    const edit = edits.get(original.id);
+    const theta = edit ? normalize(edit.theta) : normalize(original.theta + delta);
+    if (!Number.isFinite(theta)) throw new Error(t("Nieprawidłowy kierunek."));
+    delta = normalize(theta - original.theta);
+    const length = edit ? measurementLength(edit.measurement) : { lengthM: original.lengthM, lengthCm: original.lengthCm };
+    const end = { ...nextPoint(points.at(-1)!, length.lengthM, theta), id: original.toPointId };
+    const moved = !!edit || distance(end, original.predictedEnd) > 1e-10 || Math.abs(normalize(theta - original.theta)) > 1e-10;
+    let observation = original;
+    if (moved) {
+      observation = { ...original, id: id(), supersedesId: original.id, ...length, theta, predictedEnd: end, createdAt: now };
+      if (edit) {
+        observation = { ...observation, lengthSource: edit.measurement.source,
+          stepCount: edit.measurement.source === 'steps' ? edit.measurement.steps : null,
+          stepLengthCm: edit.measurement.source === 'steps' ? edit.measurement.stepLengthCm : null,
+          stepMeasurementId: edit.measurement.source === 'steps' ? edit.measurement.measurementId : undefined,
+          detectedSteps: edit.measurement.source === 'steps' ? edit.measurement.detectedSteps : undefined,
+          capture: edit.capture !== undefined ? edit.capture : original.capture,
+          mode: edit.mode ?? original.mode, referenceFrameId: edit.referenceFrameId ?? original.referenceFrameId,
+          capturedTheta: edit.capturedTheta ?? original.capturedTheta ?? original.theta };
+      }
+      observations.push(observation);
+    }
+    points.push(end); activeObservationIds.push(observation.id);
+  }
+  let closureObservationId = project.closureObservationId;
+  const closure = project.observations.find(o => o.id === closureObservationId);
+  if (closure) {
+    const predictedEnd = nextPoint(points.at(-1)!, closure.lengthM, closure.theta);
+    const revised = { ...closure, id: id(), supersedesId: closure.id, predictedEnd, createdAt: now };
+    observations.push(revised); activeObservationIds.push(revised.id); closureObservationId = revised.id;
+  }
+  return { ...project, points, observations, activeObservationIds, closureObservationId,
+    geometryRevision: project.geometryRevision + 1, updatedAt: now };
+}
+export function measurementPrefix(project: Project, index: number): Project {
+  return { ...project, points: project.points.slice(0, index + 1), activeObservationIds: activeSides(project).slice(0, index).map(o => o.id),
+    closed: false, closureObservationId: null };
+}
+
+// Set a calculated closing length by intersecting circles at P1 and the penultimate vertex.
+export function correctClosingLength(project: Project, lengthM: number): Project {
+  if (!project.closed || project.points.length < 3) throw new Error(t("Potrzeba otwartego obrysu z minimum trzema punktami."));
+  measurementLength({ source: 'manual', value: lengthM, unit: 'm' });
+  const first = project.points[0]!, a = project.points.at(-2)!, b = project.points.at(-1)!;
+  const original = activeSides(project).at(-1)!;
+  const d = distance(a, first), radius = original.lengthM;
+  if (d < 1e-10) throw new Error(t("Podane długości nie pozwalają zamknąć obrysu. Popraw sąsiedni bok."));
+  const x = (radius * radius - lengthM * lengthM + d * d) / (2 * d);
+  const h2 = radius * radius - x * x;
+  if (h2 < -1e-8 || d > radius + lengthM + 1e-8 || d < Math.abs(radius - lengthM) - 1e-8)
+    throw new Error(t("Podane długości nie pozwalają zamknąć obrysu. Popraw sąsiedni bok."));
+  const ux = (first.x - a.x) / d, uy = (first.y - a.y) / d, h = Math.sqrt(Math.max(0, h2));
+  const candidates = [-1, 1].map(sign => ({ id: b.id, x: a.x + x * ux - sign * h * uy, y: a.y + x * uy + sign * h * ux }));
+  const end = candidates.sort((u, v) => distance(u, b) - distance(v, b))[0]!;
+  return correctSides(project, [{ observationId: original.id, measurement: original.lengthSource === 'steps'
+    ? { source: 'steps', steps: original.stepCount!, stepLengthCm: original.stepLengthCm!, measurementId: original.stepMeasurementId, detectedSteps: original.detectedSteps }
+    : { source: 'manual', value: radius, unit: 'm' }, theta: Math.atan2(end.y - a.y, end.x - a.x) }]);
+}

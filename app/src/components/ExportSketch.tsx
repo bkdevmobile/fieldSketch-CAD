@@ -17,11 +17,15 @@ export const ExportSketch = forwardRef<Svg, { project: Project; displayWidth: nu
     <Text x="64" y="119" fontSize="34" fill="#142B28" fontWeight="bold">{project.name.slice(0, 42)}</Text>
     {project.name.length > 42 && <Text x="64" y="155" fontSize="28" fill="#142B28">{project.name.slice(42, 92)}{project.name.length > 92 ? '…' : ''}</Text>}
     <Text x="64" y="195" fontSize="22" fill="#52665C">{project.closed ? t("Obrys zamknięty") : t("Obrys otwarty")} · {drawing.points.length}{' '}{t("punktów · wymiary w metrach")}</Text>
+    <Svg x={64} y={215} width={952} height={500} viewBox={[drawing.drawingBounds.x, drawing.drawingBounds.y, drawing.drawingBounds.width, drawing.drawingBounds.height].join(' ')}>
     <Polyline points={drawing.points.map(p => `${p.x},${p.y}`).join(' ')} fill={project.closed ? '#EDF4EF' : 'none'} stroke="#235B43" strokeWidth="4" />
     {project.closed && <Line x1={drawing.points.at(-1)!.x} y1={drawing.points.at(-1)!.y}
       x2={drawing.points[0]!.x} y2={drawing.points[0]!.y} stroke="#235B43" strokeWidth="4" strokeDasharray={project.closureObservationId || drawing.measuredReturn ? undefined : '8 7'} />}
-    {drawing.points.map(p => <G key={p.id}><Circle cx={p.x} cy={p.y} r="7" fill="#235B43" />
-      <Text x={p.x + 13} y={p.y - 13} fontSize="24" fontWeight="bold" fill="#142B28">{p.label}</Text></G>)}
+    {drawing.points.map(p => <Circle key={p.id} cx={p.x} cy={p.y} r="7" fill="#235B43" />)}
+    {drawing.labels.map((l, i) => <Text key={i} x={l.box.x + 5} y={l.box.y + 4 + l.fontSize} fontSize={l.fontSize} fontWeight="bold" fill="#142B28">{l.text}</Text>)}
+    </Svg>
+    {!!drawing.noteLines.length && <Text x="64" y={drawing.noteY - 30} fontSize="22" fontWeight="bold" fill="#142B28">{t("Notatka do szkicu")}</Text>}
+    {drawing.noteLines.map((line, i) => <Text key={'note-' + i} x="64" y={drawing.noteY + i * 30} fontSize="22" fill="#52665C">{line}</Text>)}
     <Line x1="64" x2="1016" y1="735" y2="735" stroke="#D9E2D9" />
     <Text x="64" y="778" fontSize="22" fill="#52665C">{project.closed ? t("Obwód") : t("Długość trasy")}</Text>
     <Text x="64" y="825" fontSize="34" fontWeight="bold" fill="#142B28">{fmt(drawing.metrics.perimeter, 2)} m</Text>

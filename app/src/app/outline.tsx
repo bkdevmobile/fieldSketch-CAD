@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { ArrowLeft, Check, FileDown, Image, Maximize2, Pencil, Route } from 'lucide-react-native';
+import { SketchNote } from '../components/SketchNote';
 import { OutlineCanvas } from '../components/OutlineCanvas';
 import { Button, Page, s, fmt, colors } from '../components/ui';
 import { Badge, Disclosure } from '../components/presentation';
@@ -42,6 +43,9 @@ export default function Outline() {
     </View>
     {!!lastSide(project) && !project.closureObservationId && <Button label={t("Popraw ostatni bok")} icon={Pencil} secondary
       onPress={() => router.push({ pathname: '/edit-side', params: { id } })} />}
+    <SketchNote project={project} />
+    {!!project.activeObservationIds.length && <Button label={t("Wymiary i punkty")} icon={Pencil} secondary disabled={store.busy}
+      onPress={() => router.push({ pathname: '/dimensions', params: { id } })} />}
     <Disclosure title={t("Punkty w układzie lokalnym")}>
       {project.points.map((p, i) => <View key={p.id} style={[s.row, { justifyContent: 'space-between', borderBottomWidth: 1, borderColor: colors.line, paddingVertical: 8 }]}>
         <Text style={s.label}>P{i + 1}</Text><Text style={s.muted}>X {fmt(p.x * factor, 2)} {unit}</Text><Text style={s.muted}>Y {fmt(p.y * factor, 2)} {unit}</Text></View>)}

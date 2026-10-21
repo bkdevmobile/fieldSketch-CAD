@@ -162,3 +162,20 @@ test('pozycja miniatury i ostatnia metoda długości przetrwają odtworzenie baz
   expect(await next.settings()).toMatchObject({ sketchCorner: 'bottom-left', lengthInput: 'manual' });
   db.raw.close(); reopened.raw.close();
 });
+
+test('pin and note survive reopening and metadata edits preserve the unfinished measurement', async () => {
+  const SQL = await initSqlJs(), db = new SqlAdapter(new SQL.Database()), repo = new ProjectRepository(db);
+  await repo.initialize();
+  const older = { ...newProject('Starszy', 'manual'), updatedAt: '2020-01-01T00:00:00.000Z' };
+  const newer = { ...newProject('Nowszy', 'manual'), updatedAt: '2090-01-01T00:00:00.000Z' };
+  await repo.save(older, 'create'); await repo.save(newer, 'create');
+  const draft: SurveyDraft = { revision: 0, step: 'length', length: '2,5', steps: '', lengthSource: 'manual', unit: 'm', turn: '0', turnSide: 'left' };
+  await repo.saveDraft(older.id, draft);
+  await repo.updateMetadata(older.id, { pinned: true, note: 'Brama od północy\nSzerokość do sprawdzenia' });
+  expect((await repo.list())[0]!.id).toBe(older.id); expect(await repo.loadDraft(older.id)).toEqual(draft);
+  const copy = new SqlAdapter(new SQL.Database(db.raw.export())), reopened = new ProjectRepository(copy); await reopened.initialize();
+  expect(await reopened.load(older.id)).toMatchObject({ pinned: true, note: 'Brama od północy\nSzerokość do sprawdzenia', geometryRevision: 0 });
+  await reopened.updateMetadata(older.id, { pinned: false });
+  expect((await reopened.list())[0]!.id).toBe(newer.id); expect((await reopened.load(older.id))!.note).toContain('Brama');
+  copy.raw.close(); db.raw.close();
+});

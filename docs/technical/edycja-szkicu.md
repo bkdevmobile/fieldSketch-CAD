@@ -1,0 +1,21 @@
+# Notatki, przypinanie i korekta szkicu
+
+Zmiany z 21 października 2026.
+
+- Notatka jest dostępna w rozwijanej sekcji na ekranie pomiaru i podsumowania. Przycisk „Zapisz notatkę” zapisuje tekst w projekcie. Notatka trafia także do PNG i na warstwę NOTES w DXF.
+- Menu szkicu na liście zawiera „Przypnij szkic” / „Odepnij szkic”. Przypięte projekty są pierwsze; wewnątrz obu grup obowiązuje kolejność ostatniej zmiany. Zapis metadanych nie usuwa formularza niedokończonego pomiaru ani nie zmienia geometrii. Starsze projekty nie wymagają migracji tabel.
+- „Wymiary i punkty” na ekranie pomiaru, w jego menu i w podsumowaniu otwiera tabelę wszystkich zmierzonych boków. Można zmienić wiele długości i zatwierdzić je razem. Jednostka pochodzi z ustawień. Podgląd przelicza się przed zapisem; anulowanie nie zmienia projektu.
+- Wybranie wiersza i przyciski poprzedniego/następnego punktu wybierają bok dochodzący do punktu. Korekta jego kąta przelicza dalsze punkty, zachowując ich skręty i długości. P1 pozostaje początkiem lokalnego układu, a pierwszy bok zachowuje kierunek odniesienia.
+- „Zmierz ten bok ponownie” otwiera istniejący kreator z kamerą, kierunkiem ręcznym lub sensorowym oraz długością ręczną lub krokomierzem. Przed uruchomieniem trzeba zapisać lub anulować zmiany w tabeli. W trybie względnym należy odtworzyć odniesienie zgodnie z instrukcją. Zapis zastępuje wybrany bok i przelicza dalsze punkty; anulowanie zachowuje geometrię. Nie dodaje punktów, więc działa również przy limicie Free i w zamkniętym szkicu.
+- W zamkniętym szkicu można również zmienić długość wyliczonego boku do P1. Ostatni narożnik jest wyznaczany z przecięcia dwóch okręgów, przy zachowaniu długości poprzedniego boku; wybierane jest bliższe poprzedniemu położenie. Niewykonalny zestaw długości blokuje zapis. To lokalna korekta ostatniego narożnika, bez wyrównania całej sieci pomiarowej.
+- Oryginalne obserwacje pozostają niezmienne. Korekty tworzą nowe obserwacje powiązane przez `supersedesId`, zachowują identyfikatory punktów i przeliczają pole, obwód oraz niezależny pomiar niedomknięcia. Edycja długości w tabeli oznacza źródło ręczne; sama zmiana kąta zachowuje informację o krokach.
+- W podglądzie, PNG i DXF pozycje opisów są wyszukiwane z kontrolą kolizji prostokąta tekstu ze wszystkimi bokami, punktami i wcześniej ułożonymi etykietami. Gęste układy mogą przesunąć etykietę dalej od punktu. PNG dopasowuje obszar rysunku do opisów; DXF używa poziomych, osobnych tekstów CAD. Wymiary PNG nadal są w tabeli.
+- Nowe komunikaty mają tłumaczenia PL/EN/DE/ES/FR.
+
+## Weryfikacja
+
+TypeScript i 127 testów TS przeszły. Nowe testy obejmują przeliczenie wcześniejszych i wielu boków, niezmienność historii, zachowanie identyfikatorów punktów, niezależne zamknięcie, korektę boku zamykającego i odrzucenie niemożliwej geometrii, prefiks ponownego pomiaru, niepoprawne długości, kolizje opisów w trudnych układach oraz ponowne otwarcie SQLite z notatką, przypięciem i niezapisanym formularzem. Obejrzano rendery komponentu ExportSketch dla prostokąta, wąskiego obrysu ukośnego i obrysu wklęsłego (`artifacts/sketch-editing-*.png`); render kontrolny zastępuje natywny SVG odpowiednikami SVG oraz pomija znak graficzny marki.
+
+Próba fizyczna: ponownie zmierzyć wcześniejszy bok w trybie względnym i krokomierzem, sprawdzić kolejne punkty i kontynuację pomiaru. Sprawdzić też nowy DXF w programie CAD. Automatyczne testy geometrii nie zastępują tej próby.
+
+APK: BUILD SUCCESSFUL in 10m 38s (847 zadań, 58 wykonanych), testy Kotlin UP-TO-DATE; SHA256 D16ED88C4A8A38E559EE3038CB4F7B64A0BE6F02BD409A6922AE5F02F3E480CF, 85426619 bajtów. Instalacja na emulatorze przez install -r: Success; start COLD / Status ok. Zachowano 10 szkiców. Potwierdzono trwałość przypięcia i notatki po force-stop, zapis korekty 200 → 250 cm i odtworzenie wartości po otwarciu, pełne przejście ręcznego ponownego pomiaru P1 → P2 do 300 cm oraz powrót do edytora. Obejrzano zrzut nowego edytora. W końcowym procesie aplikacji brak wpisów logcat AndroidRuntime:E / ReactNativeJS:E. Telefon nie był aktualizowany.

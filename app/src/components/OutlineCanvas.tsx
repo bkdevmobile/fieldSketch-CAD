@@ -1,8 +1,9 @@
 import { t } from '../i18n';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Easing, Keyboard, PanResponder, View, Text } from 'react-native';
-import Svg, { Circle, G, Line, Polyline, Text as SvgText } from 'react-native-svg';
+import Svg, { Circle, G, Line, Polyline, Rect, Text as SvgText } from 'react-native-svg';
 import type { Project } from '../domain/model';
+import { placeLabels, DrawingLabel } from '../domain/labelLayout';
 import { distance, outlinePoints } from '../domain/geometry';
 import { beginCanvasGesture, CanvasGesture, CanvasTouch, constrainCanvas, fitCanvas, moveCanvasGesture, nextZoom, scaleCanvas, snapZoom } from '../domain/sketchViewport';
 import { Button, colors, fmt, s } from './ui';
@@ -86,6 +87,15 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
   const path = project.closed ? [...points, points[0]!] : points;
   const draft = endpoint && screen(endpoint), start = points.at(-1)!;
   const label = (length: number) => `${fmt(length * (unit === 'cm' ? 100 : 1), 2)} ${unit}`;
+  const segments: [{ x: number; y: number }, { x: number; y: number }][] = path.slice(1).map((p, i) => [{ x: path[i]!.sx, y: path[i]!.sy }, { x: p.sx, y: p.sy }]);
+  if (draft) segments.push([{ x: start.sx, y: start.sy }, { x: draft.sx, y: draft.sy }]);
+  const labels: DrawingLabel[] = points.map((p, i) => ({ text: 'P' + (i + 1), anchor: { x: p.sx, y: p.sy }, fontSize: 13, kind: 'point' }));
+  if (!thumbnail) path.slice(1).forEach((p, i) => { const a = path[i]!; labels.push({ text: label(distance(a, p)), anchor: { x: (a.sx + p.sx) / 2, y: (a.sy + p.sy) / 2 }, fontSize: 11, kind: 'length' }); });
+  if (draft) {
+    if (preview?.lengthM !== undefined) labels.push({ text: 'P' + (points.length + 1), anchor: { x: draft.sx, y: draft.sy }, fontSize: 13, kind: 'point' });
+    if (!thumbnail) labels.push({ text: preview?.lengthM === undefined ? t("kierunek") : label(preview.lengthM), anchor: { x: (start.sx + draft.sx) / 2, y: (start.sy + draft.sy) / 2 }, fontSize: 12, kind: 'length' });
+  }
+  const placed = placeLabels(labels, segments, [...points.map(p => ({ x: p.sx, y: p.sy })), ...(draft ? [{ x: draft.sx, y: draft.sy }] : [])], { x: 4, y: 4, width: width - 8, height: height - 8 });
   return <View style={{ gap: 8 }}>
     {!thumbnail && <View style={s.row}><Text style={[s.label, { flex: 1 }]}>{t("Szkic na żywo")}</Text>
       {!(compact && keyboardOpen) && <>
@@ -106,19 +116,17 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
         {project.closed && points.length >= 3 && <Line x1={points.at(-1)!.sx} y1={points.at(-1)!.sy}
           x2={points[0]!.sx} y2={points[0]!.sy} stroke={colors.green} strokeWidth={2.5}
           strokeDasharray={project.closureObservationId || points.length < project.points.length ? undefined : '3 4'} />}
-        {points.map((p, i) => <G key={p.id}><Circle cx={p.sx} cy={p.sy} r={5} fill={colors.green} stroke="white" strokeWidth={2} />
-          <SvgText x={p.sx + 9} y={p.sy - 9} fill={colors.ink} fontSize={13} fontWeight="bold">P{i + 1}</SvgText></G>)}
-        {!thumbnail && path.slice(1).map((p, i) => { const a = path[i]!; return <SvgText key={`${a.id}-${p.id}`} x={(a.sx + p.sx) / 2}
-          y={(a.sy + p.sy) / 2 - 14} textAnchor="middle" fill={colors.green} fontSize={11}>{label(distance(a, p))}</SvgText>; })}
+        {points.map(p => <Circle key={p.id} cx={p.sx} cy={p.sy} r={5} fill={colors.green} stroke="white" strokeWidth={2} />)}
+
         {draft && <G>
           <Line x1={start.sx} y1={start.sy} x2={draft.sx} y2={draft.sy} stroke={colors.green} strokeWidth={2.5} strokeDasharray="7 5" />
           {preview?.lengthM === undefined ? <G transform={`translate(${draft.sx},${draft.sy}) rotate(${-preview!.theta * 180 / Math.PI})`}>
             <Polyline points="-11,-6 0,0 -11,6" fill="none" stroke={colors.green} strokeWidth={2.5} />
-          </G> : <><Circle cx={draft.sx} cy={draft.sy} r={6} fill="white" stroke={colors.green} strokeWidth={2} />
-            <SvgText x={draft.sx + 9} y={draft.sy - 9} fill={colors.ink} fontSize={13}>P{points.length + 1}</SvgText></>}
-          {!thumbnail && <SvgText x={(start.sx + draft.sx) / 2} y={(start.sy + draft.sy) / 2 - 14} textAnchor="middle" fill={colors.green} fontSize={12}>
-            {preview?.lengthM === undefined ? t("kierunek") : label(preview.lengthM)}</SvgText>}
+          </G> : <Circle cx={draft.sx} cy={draft.sy} r={6} fill="white" stroke={colors.green} strokeWidth={2} />}
+
         </G>}
+        {placed.map((l, i) => <G key={'label-' + i}><Rect x={l.box.x} y={l.box.y} width={l.box.width} height={l.box.height} rx={3} fill={colors.bg} opacity={0.95} /><SvgText x={l.box.x + 5} y={l.box.y + 4 + l.fontSize}
+          fill={l.kind === 'point' ? colors.ink : colors.green} fontSize={l.fontSize} fontWeight={l.kind === 'point' ? 'bold' : 'normal'}>{l.text}</SvgText></G>)}
       </Svg>
     </View>
     {!thumbnail && !(compact && keyboardOpen) && <Text style={s.muted}>{draft ? t("Linia przerywana: pomiar przed zapisem.") : t("Zapisane boki: linia ciągła.")} {!compact && t("Przesuwaj palcem; zbliżaj lub rozsuwaj dwa palce, aby zmienić skalę.")}</Text>}

@@ -6,7 +6,7 @@ import { Button, colors, Page, s } from '../components/ui';
 import { MenuAnchor, PopupMenu, useDialogs } from '../components/overlays';
 import { useStore } from '../infrastructure/store';
 import { orientation } from '../infrastructure/native';
-import { ChevronDown, EllipsisVertical, FileText, FolderOpen, Plus, Settings2, Trash2 } from 'lucide-react-native';
+import { ChevronDown, EllipsisVertical, FileText, FolderOpen, Pin, PinOff, Plus, Settings2, Trash2 } from 'lucide-react-native';
 import { BrandLogo, BrandMark } from '../components/Brand';
 import { canCreateProject } from '../domain/access';
 import { usePlusOffer } from '../components/PlusOffer';
@@ -38,6 +38,8 @@ export default function Projects() {
     ]} />
     <PopupMenu visible={!!selectedProject} anchor={anchor} title={selectedProject?.name} onClose={() => setProjectMenu(null)} items={[
       { label: t("Otwórz"), icon: FolderOpen, disabled: store.busy, onPress: () => { if (selectedProject) openProject(selectedProject.id); } },
+      { label: selectedProject?.pinned ? t("Odepnij szkic") : t("Przypnij szkic"), icon: selectedProject?.pinned ? PinOff : Pin, disabled: store.busy,
+        onPress: () => store.run(async () => { if (selectedProject) { await store.repo!.updateMetadata(selectedProject.id, { pinned: !selectedProject.pinned }); await store.refresh(); } }) },
       { label: t("Usuń"), icon: Trash2, danger: true, disabled: store.busy, onPress: () => { if (selectedProject) remove(selectedProject.id); } },
     ]} />
     <Button label={t("Nowy szkic")} icon={Plus} onPress={() => {
@@ -53,6 +55,7 @@ export default function Projects() {
         <Pressable accessibilityRole="button" accessibilityLabel={t("Otwórz szkic {0}", [p.name])} disabled={store.busy}
           onPress={() => openProject(p.id)} style={({ pressed }) => ({ flex: 1, minWidth: 0, minHeight: 64, paddingVertical: 16,
             flexDirection: 'row', alignItems: 'center', gap: 12, opacity: pressed ? 0.65 : 1 })}>
+          {p.pinned && <Pin size={16} color={colors.green} accessibilityLabel={t("Przypięty szkic")} />}
           <Text numberOfLines={1} ellipsizeMode="tail" style={[s.text, { flex: 1, fontWeight: '600' }]}>{p.name}</Text>
           <Text numberOfLines={1} style={[s.muted, { flexShrink: 0 }]}>{formatDate(p.updatedAt)}</Text>
         </Pressable>

@@ -1,5 +1,5 @@
 import { t } from '../i18n';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, Keyboard, Pressable, Text, View } from 'react-native';
 import { Dialog, MenuAnchor, PopupMenu, useDialogs } from '../components/overlays';
 import { CameraView, useCameraPermissions } from 'expo-camera';
@@ -12,7 +12,7 @@ import { StepControls } from '../components/StepControls';
 import { SurveyHeading } from '../components/SurveyHeading';
 import { Activity, ArrowLeft, ArrowRight, Camera, Check, ChevronDown, CircleAlert, CircleCheck, Compass, Crosshair, EllipsisVertical, Flag, Footprints, MapPin, Pencil, RotateCcw, Ruler, Settings2, SlidersHorizontal, Undo2 } from 'lucide-react-native';
 import { Capture, Project, SurveyMode } from '../domain/model';
-import { closeOutline, commitMeasurement, LengthMeasurement, measurementLength, metrics, normalize, parsePositive, undoLast } from '../domain/geometry';
+import { activeSides, correctSides, measurementPrefix, closeOutline, commitMeasurement, LengthMeasurement, measurementLength, metrics, normalize, parsePositive, undoLast } from '../domain/geometry';
 import { convertLengthInput, defaultReferenceIndex, headingFromTurn, previousHeading, referenceOffset, snapTurn, SurveyDraft, turnFromHeading, WizardStep } from '../domain/survey';
 import { orientation } from '../infrastructure/native';
 import { message, useStore } from '../infrastructure/store';
@@ -20,6 +20,7 @@ import { usePedometer } from '../infrastructure/usePedometer';
 import { requestStepPermissionBeforeDirection } from '../infrastructure/stepPermission';
 import { captureErrorText } from '../domain/captureError';
 import { directionReady } from '../domain/directionReadiness';
+import { SketchNote } from '../components/SketchNote';
 import { MeasurementHelp } from '../components/MeasurementHelp';
 import { canAddPoint, AccessLimitError } from '../domain/access';
 import { usePlusOffer } from '../components/PlusOffer';
@@ -29,8 +30,11 @@ interface Frozen { theta: number; capture: Capture | null; sessionId: string; au
 export default function Survey() {
   const Alert = useDialogs();
   const plus = usePlusOffer();
-  const { id } = useLocalSearchParams<{ id: string }>();
-  const store = useStore(), project = store.projects.find(p => p.id === id);
+  const { id, remeasure } = useLocalSearchParams<{ id: string; remeasure?: string }>();
+  const store = useStore(), savedProject = store.projects.find(p => p.id === id);
+  const targetIndex = savedProject && remeasure ? activeSides(savedProject).findIndex(o => o.id === remeasure) : -1;
+  const target = savedProject && targetIndex >= 0 ? activeSides(savedProject)[targetIndex] : undefined;
+  const project = useMemo(() => savedProject && target ? measurementPrefix(savedProject, targetIndex) : savedProject, [savedProject, targetIndex, target?.id]);
   const preferredMode = store.settings.directionMode;
   const mode: SurveyMode = preferredMode === 'manual' || !store.capabilities || store.capabilities[preferredMode] ? preferredMode : 'manual';
   const [permission, requestPermission] = useCameraPermissions();
@@ -60,12 +64,14 @@ export default function Survey() {
   useFocusEffect(useCallback(() => { setFocused(true); return () => setFocused(false); }, []));
   const [menuAnchor, setMenuAnchor] = useState<MenuAnchor>();
   const [hydrated, setHydrated] = useState(false), [draftError, setDraftError] = useState(''), [resumeNote, setResumeNote] = useState('');
+  const [draftRevision, setDraftRevision] = useState(-1);
+  const ownRevision = useRef(-1);
   const writes = useRef<Promise<void>>(Promise.resolve());
   const finishing = useRef(false);
   const permissionFlow = useRef(false), permissionResumeSession = useRef<string | null>(null);
   const lastMode = useRef(mode), screenFocused = useRef(focused); screenFocused.current = focused;
   const active = store.sessionProject === id && !!store.sessionId;
-  const pointLimit = !!project && !canAddPoint(project, store.plan);
+  const pointLimit = !target && !!project && !canAddPoint(project, store.plan);
   const previous = project ? previousHeading(project) : 0;
   const first = project?.points.length === 1;
   const needsReference = mode !== 'manual' && offset === null && !first;
@@ -79,7 +85,7 @@ export default function Survey() {
       : { source: 'steps', steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength), measurementId: stepMeasurementId, detectedSteps };
     lengthM = measurementLength(measurement).lengthM;
   } catch { measurement = undefined; }
-  const draft: SurveyDraft | null = project ? { revision: project.geometryRevision, step, length, steps, lengthSource, unit, turn, turnSide, stepLengthCm: stepLength, stepMeasurementId, detectedSteps } : null;
+  const draft: SurveyDraft | null = project && !remeasure && draftRevision >= 0 ? { revision: draftRevision, step, length, steps, lengthSource, unit, turn, turnSide, stepLengthCm: stepLength, stepMeasurementId, detectedSteps } : null;
   const latest = useRef({ draft, repo: store.repo, id });
   latest.current = { draft, repo: store.repo, id };
   const enqueueDraft = () => {
@@ -92,7 +98,7 @@ export default function Survey() {
     if (!project || !store.repo) return;
     let mounted = true;
     setHydrated(false);
-    void store.repo.loadDraft(id).then(saved => {
+    void (remeasure ? Promise.resolve(null) : store.repo.loadDraft(id)).then(saved => {
       if (!mounted) return;
       if (saved && saved.revision === project.geometryRevision) {
         setLength(saved.length); setSteps(saved.steps); setUnit(saved.unit); setLengthSource(saved.lengthSource);
@@ -100,11 +106,17 @@ export default function Survey() {
         setTurn(saved.turn); setTurnSide(saved.turnSide);
         setStep(saved.step === 'start' ? 'start' : 'direction');
         setResumeNote('Przywrócono wpisane dane. Przechwyć kierunek ponownie przed zapisaniem punktu.');
-      } else { setStep(project.points.length === 1 ? 'start' : 'direction'); setLengthSource(store.settings.lengthInput ?? 'steps'); setUnit(store.settings.unit); setStepLength(String(store.settings.stepLengthCm)); }
+      } else {
+        setLength(''); setSteps(''); setTurn('0'); setTurnSide('left'); setFrozen(null);
+        if (ownRevision.current !== project.geometryRevision) setOffset(null);
+        setStepMeasurementId(undefined); setDetectedSteps(undefined); setResumeNote('');
+        setStep(!target && project.points.length === 1 ? 'start' : 'direction'); setLengthSource(store.settings.lengthInput ?? 'steps'); setUnit(store.settings.unit); setStepLength(String(store.settings.stepLengthCm));
+      }
+      setDraftRevision(project.geometryRevision);
       setHydrated(true);
     }, error => { if (mounted) setDraftError(message(error)); });
     return () => { mounted = false; };
-  }, [id, store.repo]);
+  }, [id, remeasure, store.repo, project?.geometryRevision]);
   useEffect(() => { if (hydrated) enqueueDraft(); }, [hydrated, id, step, length, steps, unit, lengthSource, turn, turnSide, stepLength, stepMeasurementId, detectedSteps, project?.geometryRevision]);
   useEffect(() => {
     if (!pedometer.reading) return;
@@ -213,16 +225,21 @@ export default function Survey() {
     await writes.current;
     try { await store.repo!.save(next, kind, store.plan); }
     catch (error) { await store.log('project_save_failed', { kind, message: String(error) }); throw error; }
+    ownRevision.current = next.geometryRevision;
     setFrozen(null); setLength(''); setSteps(''); setStepLength(String(store.settings.stepLengthCm)); setStepMeasurementId(undefined); setDetectedSteps(undefined); setTurn('0'); setStep('direction'); fit();
     await store.refresh();
     try { await store.log(`${kind}_committed`, { geometryRevision: next.geometryRevision }); }
     catch { throw new Error(t("Pomiar zapisano, ale nie udało się dopisać potwierdzenia do loga. Sprawdź pamięć telefonu.")); }
   };
   const saveCurrent = async (closure = false, selected = measurement) => {
-    if (!canAddPoint(project, store.plan)) throw new AccessLimitError('points');
+    if (!target && !canAddPoint(project, store.plan)) throw new AccessLimitError('points');
     if (!frozenValid || theta === undefined || !selected) throw new Error(t("Uzupełnij kierunek oraz dodatnią długość."));
-    const next = commitMeasurement(project, selected, theta, mode, frozen!.sessionId, frozen!.capture, closure, frozen!.theta);
-    await persist(next, closure ? 'closure_measured' : 'side_added');
+    if (remeasure && !target) throw new Error(t("Brak boku do poprawienia."));
+    const next = target && savedProject ? correctSides(savedProject, [{ observationId: target.id, measurement: selected, theta,
+      mode, referenceFrameId: frozen!.sessionId, capture: frozen!.capture, capturedTheta: frozen!.theta }])
+      : commitMeasurement(project, selected, theta, mode, frozen!.sessionId, frozen!.capture, closure, frozen!.theta);
+    await persist(next, target ? 'side_remeasured' : closure ? 'closure_measured' : 'side_added', savedProject);
+    if (target) { await store.stop(); router.back(); }
     return next;
   };
   const chooseFinish = (base: Project) => Alert.alert(t("Zakończ pomiar"), t("Zamknij obrys połączeniem do P1 albo zachowaj go otwartym."), [
@@ -327,7 +344,7 @@ export default function Survey() {
   const previewTheta = pointLimit ? undefined : theta ?? (step === 'direction' ? liveTheta : undefined);
   const title = { start: t("Zapisz pierwszy punkt"), direction: needsReference ? t("Odtwórz odniesienie") : t("Wskaż kierunek"),
     angle: t("Kierunek zapisany"), length: t("Podaj długość"), review: t("Sprawdź bok przed zapisem") }[step];
-  const blocked = store.busy || !hydrated || !!draftError || pedometer.walking;
+  const blocked = (!!remeasure && !target) || store.busy || !hydrated || !!draftError || pedometer.walking;
   const turnFields = <>
     {first ? <Text style={s.text}>{t("Pierwszy bok wyznacza kierunek 0° szkicu.")}</Text> : <>
       <AngleControls value={turn} side={turnSide} onChange={value => updateTurn(value)} onEndEditing={applySnap}
@@ -335,7 +352,7 @@ export default function Survey() {
       {!!angleError && <Text accessibilityRole="alert" style={s.warningText}>{angleError}</Text>}
     </>}
   </>;
-  const subtitle = pointLimit && !project.closed ? t("{0} punktów · limit Free", [project.points.length]) : t("Punkt P{0} → P{1} · {2}", [project.points.length, project.points.length + 1, t(modeLabels[mode])]);
+  const subtitle = target ? t("Ponowny pomiar: P{0} → P{1}", [targetIndex + 1, targetIndex + 2]) : pointLimit && !project.closed ? t("{0} punktów · limit Free", [project.points.length]) : t("Punkt P{0} → P{1} · {2}", [project.points.length, project.points.length + 1, t(modeLabels[mode])]);
   return <Page title={project.name} subtitle={subtitle}
     heading={<SurveyHeading name={project.name} subtitle={subtitle} step={step} closed={project.closed} showSteps={!pointLimit || project.closed} />}
     compactHeader resetKey={step} overlay={step !== 'start' && <FloatingSketch project={project} unit={unit} fitKey={fitKey}
@@ -353,15 +370,15 @@ export default function Survey() {
               disabled={blocked || theta === undefined || (step === 'length' && !measurement)} />}
         </View>
       </View>}
-      <Button label={project.closed ? t("Zobacz podsumowanie") : t("Zakończ")} icon={Flag} quiet disabled={store.busy || !hydrated}
-        onPress={project.closed ? () => router.push({ pathname: '/outline', params: { id } }) : finish} />
+      <Button label={target ? t("Anuluj ponowny pomiar") : project.closed ? t("Zobacz podsumowanie") : t("Zakończ")} icon={Flag} quiet disabled={store.busy || !hydrated}
+        onPress={target ? () => { void store.run(async () => { await store.stop(); router.back(); }); } : project.closed ? () => router.push({ pathname: '/outline', params: { id } }) : finish} />
     </>}>
     <Stack.Screen options={{ headerRight: () => <Pressable accessibilityRole="button" accessibilityLabel={t("Menu szkicu")}
       onPress={event => { Keyboard.dismiss(); setMenuAnchor({ x: event.nativeEvent.pageX + 22, y: event.nativeEvent.pageY + 22 }); setMenu(true); }} style={{ minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' }}>
       <EllipsisVertical size={22} strokeWidth={1.8} color={colors.ink} accessible={false} /></Pressable> }} />
     <PopupMenu visible={menu} anchor={menuAnchor} title={project.name} onClose={() => setMenu(false)} items={[
       { label: project.closed ? t("Cofnij zamknięcie") : t("Cofnij ostatni bok"), icon: Undo2,
-        disabled: blocked || (!project.closed && project.points.length < 2), onPress: () => {
+        disabled: blocked || !!remeasure || (!project.closed && project.points.length < 2), onPress: () => {
           Alert.alert(t("Cofnąć zapis?"), t("Bieżący niezapisany pomiar zostanie odrzucony. Obserwacja źródłowa pozostanie w historii."), [
             { text: t("Anuluj"), style: 'cancel' }, { text: t("Cofnij"), icon: Undo2, onPress: () => store.run(async () => {
               if (!active) await store.start(project, mode);
@@ -369,14 +386,20 @@ export default function Survey() {
             }) },
           ]);
         } },
-      ...(step === 'review' && !pointLimit && project.points.length >= 3 && !project.closed ? [{ label: t("Zapisz jako pomiar powrotu do P1"), icon: MapPin,
+      ...(!remeasure && step === 'review' && !pointLimit && project.points.length >= 3 && !project.closed ? [{ label: t("Zapisz jako pomiar powrotu do P1"), icon: MapPin,
         disabled: blocked || !frozenValid || !measurement || theta === undefined,
         onPress: () => { void store.run(async () => { await saveCurrent(true); }); } }] : []),
+      { label: t("Wymiary i punkty"), icon: Pencil, disabled: blocked || !!remeasure || project.points.length < 2,
+        onPress: () => router.push({ pathname: '/dimensions', params: { id } }) },
       { label: t("Diagnostyka szkicu"), icon: Activity, disabled: blocked, onPress: () => router.push({ pathname: '/diagnostics', params: { id } }) },
       { label: t("Jak wykonać pomiar?"), icon: Compass, disabled: pedometer.walking, onPress: () => setHelp(true) },
       { label: t('Ustawienia'), icon: Settings2, disabled: blocked, onPress: () => router.push('/settings') },
     ]} />
     {plus.offer}
+    {!remeasure && <SketchNote project={project} />}
+    {!remeasure && project.points.length > 1 && <Button label={t("Wymiary i punkty")} secondary disabled={blocked}
+      onPress={() => router.push({ pathname: '/dimensions', params: { id } })} />}
+    {!!remeasure && !target && <Text style={s.warningText}>{t("Brak boku do poprawienia.")}</Text>}
     {!!draftError && <View style={s.warning}><Text accessibilityRole="alert" style={s.warningText}>{t("Nie udało się zachować etapu roboczego:")}{' '}{draftError}</Text>
       <Button label={t("Ponów zapis etapu")} secondary onPress={enqueueDraft} /></View>}
     {!!resumeNote && !pointLimit && <Text style={s.muted}>{t(resumeNote)}</Text>}

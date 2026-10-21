@@ -45,7 +45,7 @@ export class ProjectRepository {
   }
   async list(): Promise<Project[]> {
     const rows = await this.db.getAllAsync<{ body: string }>('SELECT body FROM projects ORDER BY updated_at DESC');
-    return rows.map(row => this.decode(row.body));
+    return rows.map(row => this.decode(row.body)).sort((a, b) => Number(!!b.pinned) - Number(!!a.pinned) || b.updatedAt.localeCompare(a.updatedAt));
   }
   private decode(body: string): Project {
     const p: Project = JSON.parse(body);
@@ -76,6 +76,14 @@ export class ProjectRepository {
       await this.db.runAsync('INSERT INTO operations (project_id,revision,kind,body) VALUES (?,?,?,?)',
         project.id, project.geometryRevision, kind, serialized);
       await this.db.runAsync('DELETE FROM survey_drafts WHERE project_id=?', project.id);
+    });
+  }
+  async updateMetadata(projectId: string, patch: { note?: string; pinned?: boolean }) {
+    await this.db.withTransactionAsync(async () => {
+      const project = await this.load(projectId);
+      if (!project) throw new Error(t("Szkic niedostępny."));
+      const next = { ...project, ...patch, updatedAt: new Date().toISOString() };
+      await this.db.runAsync('UPDATE projects SET updated_at=?, body=? WHERE id=?', next.updatedAt, JSON.stringify(next), projectId);
     });
   }
   async loadDraft(projectId: string): Promise<SurveyDraft | null> {

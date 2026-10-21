@@ -28,6 +28,7 @@ function Navigation() {
       <Stack.Screen name="settings" options={{ title: t('Ustawienia') }} />
       <Stack.Screen name="diagnostics" options={{ title: t("Diagnostyka") }} />
       <Stack.Screen name="edit-side" options={{ title: t("Korekta boku") }} />
+      <Stack.Screen name="dimensions" options={{ title: t("Wymiary i punkty") }} />
       <Stack.Screen name="export" options={{ title: t("Eksport PNG") }} />
       <Stack.Screen name="plus" options={{ title: 'outlineGo Plus' }} />
     </Stack>, [language]);
