@@ -38,14 +38,14 @@ test('otwarta polilinia ma lokalne XY, etykiety i nie dodaje zamknięcia', () =>
   expect(result.xy[2]![0]).toBeCloseTo(3);
   expect(result.xy[2]![1]).toBeCloseTo(4);
   expect(result.labels).toEqual(['P1', 'P2', 'P3']);
-  expect(result.lengths).toEqual(['3.00 m', '~ 4.00 m']);
+  expect(result.lengths).toEqual(['3 m', '~ 4 m']);
 });
 
 test('zamknięty trójkąt 3/4/5 ma flagę zamknięcia i wyliczony bok bez duplikatu P1', () => {
   const result = read(dxfExport(closeOutline(triangle())));
   expect(result.all(result.polyline, 70)).toEqual(['1']);
   expect(result.all(result.polyline, 90)).toEqual(['3']);
-  expect(result.lengths).toEqual(['3.00 m', '~ 4.00 m', '5.00 m (auto)']);
+  expect(result.lengths).toEqual(['3 m', '~ 4 m', '5 m (auto)']);
 });
 
 test('centymetry przeliczają geometrię, opisy i deklarację jednostki razem', () => {
@@ -54,7 +54,7 @@ test('centymetry przeliczają geometrię, opisy i deklarację jednostki razem', 
     const unitsIndex = result.groups.findIndex(g => g.code === 9 && g.value === '$INSUNITS');
     expect(result.groups[unitsIndex + 1]).toEqual({ code: 70, value: code });
     expect(result.xy[1]).toEqual([side, 0]);
-    expect(result.lengths[0]).toBe(`${side.toFixed(2)} ${unit}`);
+    expect(result.lengths[0]).toBe(`${side} ${unit}`);
   }
 });
 
@@ -72,7 +72,7 @@ test('zmierzony pełny powrót nie tworzy piątego narożnika i zerowego boku', 
     project = commitMeasurement(project, { source: 'manual', value: 3, unit: 'm' }, theta, 'manual', 's', null);
   const result = read(dxfExport(closeOutline(project)));
   expect(result.xy).toHaveLength(4);
-  expect(result.lengths).toEqual(Array(4).fill('3.00 m'));
+  expect(result.lengths).toEqual(Array(4).fill('3 m'));
   expect(result.labels).toEqual(['P1', 'P2', 'P3', 'P4']);
 });
 
@@ -82,13 +82,13 @@ test('rzeczywista szczelina nie jest dociągana ani pomijana', () => {
   const result = read(dxfExport(project));
   expect(result.xy).toHaveLength(4);
   expect(result.xy.at(-1)).toEqual([0.1, 0]);
-  expect(result.lengths.at(-1)).toBe('0.10 m (auto)');
+  expect(result.lengths.at(-1)).toBe('0.1 m (auto)');
 });
 
 test('poprawiony bok używa aktualnej geometrii, a eksport nie modyfikuje historii', () => {
   const project = editLastSide(triangle(), { source: 'manual', value: 2, unit: 'm' }, -Math.PI / 2);
   const before = JSON.stringify(project);
-  expect(read(dxfExport(project)).lengths).toEqual(['3.00 m', '2.00 m']);
+  expect(read(dxfExport(project)).lengths).toEqual(['3 m', '2 m']);
   expect(JSON.stringify(project)).toBe(before);
 });
 

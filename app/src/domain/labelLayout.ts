@@ -35,7 +35,7 @@ export function placeLabels(labels: DrawingLabel[], segments: [LabelPoint, Label
       }
     }
     if (!result) {
-      const x = Math.max(...vertices.map(p => p.x), 0) + 24;
+      const x = (vertices.length ? Math.max(...vertices.map(p => p.x)) : label.anchor.x) + 24;
       let y = label.anchor.y;
       while (!free({ x, y, width, height })) y += height + 4;
       result = { x, y, width, height };

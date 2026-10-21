@@ -8,6 +8,8 @@ Stan dokumentacji: **21 października 2026**. Kod aplikacji: **acf99a0**, wersja
 - [Wizard pomiaru i decyzje UI](technical/wizard-pomiaru.md)
 - [Prowadzenie pierwszego pomiaru](technical/pierwszy-pomiar.md)
 - [Notatki, przypinanie, edycja wymiarów i ponowny pomiar](technical/edycja-szkicu.md)
+- [Precyzja kątów i długości](technical/precyzja-wymiarow.md)
+- [Eksport PNG i dopasowanie obrazu](technical/eksport-png.md)
 - [Eksport DXF](technical/eksport-dxf.md)
 - [Zasady Free/Plus i stan integracji zakupów](technical/free-plus.md)
 - [Wielojęzyczność PL/EN/DE/ES/FR](technical/wielojezycznosc.md)

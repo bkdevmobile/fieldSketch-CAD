@@ -33,11 +33,11 @@ export default function Outline() {
       <Button label={t("Powiększ szkic")} icon={Maximize2} quiet onPress={() => setExpanded(true)} /></View>
     <View style={s.card}><Badge label={project.closed ? t("Obrys zamknięty") : t("Otwarta trasa")} icon={project.closed ? Check : Route} />
       <View style={[s.row, { alignItems: 'flex-start' }]}><View style={{ flex: 1, minWidth: 120, gap: 4 }}>
-        <Text style={s.label}>{project.closed ? t("Obwód") : t("Długość trasy")}</Text><Text style={s.measureValue}>{fmt(m.perimeter * factor, 2)} <Text style={s.muted}>{unit}</Text></Text></View>
+        <Text style={s.label}>{project.closed ? t("Obwód") : t("Długość trasy")}</Text><Text style={s.measureValue}>{fmt(m.perimeter * factor, 3)} <Text style={s.muted}>{unit}</Text></Text></View>
         <View style={{ flex: 1, minWidth: 100, gap: 4 }}><Text style={s.label}>{t("Pole")}</Text><Text style={s.measureValue}>{m.area === null ? '—' : fmt(m.area, 2)} <Text style={s.muted}>{m.area === null ? '' : 'm²'}</Text></Text></View></View>
       {m.intersects && <Text style={s.warningText}>{t("Samoprzecięcie obrysu. Pole nie jest prezentowane.")}</Text>}
       <View style={{ borderTopWidth: 1, borderColor: colors.line, paddingTop: 12, gap: 6 }}>
-        <Text style={s.muted}>{m.closure ? t("Błąd zamknięcia: {0} {1}\nΔX {2} {3} · ΔY {4} {5}", [fmt(m.closure.norm * factor, 2), unit, fmt(m.closure.dx * factor, 2), unit, fmt(m.closure.dy * factor, 2), unit]) : t("Brak niezależnego pomiaru zamknięcia.")}</Text>
+        <Text style={s.muted}>{m.closure ? t("Błąd zamknięcia: {0} {1}\nΔX {2} {3} · ΔY {4} {5}", [fmt(m.closure.norm * factor, 3), unit, fmt(m.closure.dx * factor, 3), unit, fmt(m.closure.dy * factor, 3), unit]) : t("Brak niezależnego pomiaru zamknięcia.")}</Text>
         {project.closed && !project.closureObservationId && <Text style={s.muted}>{outlinePoints(project.points, true).length < project.points.length ? t("Ostatni zmierzony bok wraca do P1.") : t("Bok zamykający do P1 jest wyliczony.")}</Text>}
       </View>
     </View>
@@ -48,7 +48,7 @@ export default function Outline() {
       onPress={() => router.push({ pathname: '/dimensions', params: { id } })} />}
     <Disclosure title={t("Punkty w układzie lokalnym")}>
       {project.points.map((p, i) => <View key={p.id} style={[s.row, { justifyContent: 'space-between', borderBottomWidth: 1, borderColor: colors.line, paddingVertical: 8 }]}>
-        <Text style={s.label}>P{i + 1}</Text><Text style={s.muted}>X {fmt(p.x * factor, 2)} {unit}</Text><Text style={s.muted}>Y {fmt(p.y * factor, 2)} {unit}</Text></View>)}
+        <Text style={s.label}>P{i + 1}</Text><Text style={s.muted}>X {fmt(p.x * factor, 3)} {unit}</Text><Text style={s.muted}>Y {fmt(p.y * factor, 3)} {unit}</Text></View>)}
     </Disclosure>
     <Text style={s.muted}>{estimated ? t("Długości pochodzące z kroków są szacunkowe.") : t("Długości wpisane ręcznie.")}</Text>
     <Text style={s.muted}>{t("DXF: obrys 2D i opisy na osobnych warstwach. Jednostka:")}{' '}{unit}{t(". Opisy długości są niezależnymi tekstami CAD.")}</Text>

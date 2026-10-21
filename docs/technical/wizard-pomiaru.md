@@ -29,6 +29,8 @@ Kroki 2–4 powtarzają się. Bok i punkt końcowy pozostają robocze do zatwier
 - „Zmierz ponownie” ponawia odczyt z czujników.
 - Po nowej sesji sensora przy istniejących bokach trzeba odtworzyć odniesienie. Domyślnie wybrany jest ostatni zapisany bok, z instrukcją konkretnych punktów. Po zapisie C w ABCD: stań w B, skieruj kamerę na C, ustaw odniesienie, wróć do C i wskaż D. Można świadomie wybrać inny znany bok.
 
+Kąt przechwycony przez aparat jest od 21 października zaokrąglany do pełnego stopnia przed zapisem; ręczne pole dopuszcza maksymalnie 2 miejsca po przecinku. Długości obliczane i wpisywane mają maksymalnie 3 miejsca w bieżącej jednostce m/cm. Surowe odczyty pozostają w historii. [Precyzja wymiarów](precyzja-wymiarow.md).
+
 ## Długość i jednostki
 
 - Automatyczny krokomierz działa tylko między „Start” i „Stop”.

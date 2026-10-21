@@ -4,6 +4,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useStore } from '../infrastructure/store';
 import type { LucideIcon } from 'lucide-react-native';
 import { formatNumber, translateError } from '../i18n';
+import { decimalInput } from '../domain/precision';
 export const colors = { ink: '#183A2C', muted: '#607267', green: '#1B684B', mint: '#E7EEE2', bg: '#F5F4EE', line: '#DBE4D9', amber: '#8D4D14', white: '#FFFEFA', onGreen: '#FFFFFF', ready: '#177043' };
 export function Page({ title, subtitle, children, footer, overlay, heading, resetKey, compactHeader = false }: {
   title: string; subtitle?: string; children: React.ReactNode; footer?: React.ReactNode; overlay?: React.ReactNode; heading?: React.ReactNode; resetKey?: string; compactHeader?: boolean;
@@ -48,8 +49,11 @@ export function Page({ title, subtitle, children, footer, overlay, heading, rese
     <Text style={compactHeader ? s.h2 : s.title}>{title}</Text>
     {subtitle && <Text style={s.subtitle}>{subtitle}</Text>}</>}
     {!!error && <View accessibilityRole="alert" style={s.warning}><Text style={s.warningText}>{translateError(error)}</Text></View>}
-    {busy && <ActivityIndicator color={colors.green} />}{children}
+    {children}
   </ScrollView>
+  {busy && <View pointerEvents="none" style={{ position: 'absolute', top: 8, right: 16, padding: 8, borderRadius: 20, backgroundColor: colors.white }}>
+    <ActivityIndicator color={colors.green} />
+  </View>}
   {overlay}
   </View>
   {footer && <View style={s.footer}>{footer}</View>}
@@ -67,11 +71,15 @@ export function Button({ label, onPress, secondary = false, disabled = false, da
     {IconEnd && <IconEnd size={18} strokeWidth={1.8} color={foreground} accessible={false} />}
   </Pressable>;
 }
-export function Field({ label, value, onChangeText, numeric = false, placeholder = '', onEndEditing, disabled = false }: {
+export function Field({ label, value, onChangeText, numeric = false, placeholder = '', onEndEditing, disabled = false, decimalPlaces }: {
   label: string; value: string; onChangeText(value: string): void; numeric?: boolean; placeholder?: string; onEndEditing?(): void; disabled?: boolean;
+  decimalPlaces?: number;
 }) {
   return <View style={{ gap: 7 }}><Text style={s.label}>{label}</Text><TextInput accessibilityLabel={label} value={value}
-    onChangeText={onChangeText} onEndEditing={onEndEditing} editable={!disabled} accessibilityState={{ disabled }} placeholder={placeholder} placeholderTextColor={colors.muted}
+    onChangeText={text => {
+      const next = decimalPlaces === undefined ? text : decimalInput(text, decimalPlaces);
+      if (next !== null) onChangeText(next);
+    }} onEndEditing={onEndEditing} editable={!disabled} accessibilityState={{ disabled }} placeholder={placeholder} placeholderTextColor={colors.muted}
     keyboardType={numeric ? 'decimal-pad' : 'default'} style={s.input} /></View>;
 }
 export const fmt = formatNumber;

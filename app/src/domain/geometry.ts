@@ -1,8 +1,11 @@
 import { t } from '../i18n';
 import { Capture, id, Observation, Point, Project, STEP_LENGTH_CM, SurveyMode } from './model';
-export function parsePositive(input: string): number {
+import { LENGTH_DECIMALS, roundDecimal } from './precision';
+export function parsePositive(input: string, maxDecimals?: number): number {
   const normalized = input.trim().replace(',', '.');
   if (!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(normalized)) throw new Error(t("Wpisz dodatnią liczbę, np. 2,5."));
+  if (maxDecimals !== undefined && (normalized.split('.')[1]?.length ?? 0) > maxDecimals)
+    throw new Error(t("Wpisz dodatnią liczbę, np. 2,5."));
   const value = Number(normalized);
   if (!Number.isFinite(value) || value <= 0) throw new Error(t("Wartość musi być dodatnia i skończona."));
   return value;
@@ -31,9 +34,16 @@ export function commitSide(project: Project, steps: number, theta: number, mode:
   return commitMeasurement(project, { source: 'steps', steps, stepLengthCm: STEP_LENGTH_CM }, theta, mode, referenceFrameId, capture, closure);
 }
 export type LengthMeasurement = { source: 'manual'; value: number; unit: 'm' | 'cm' }
-  | { source: 'steps'; steps: number; stepLengthCm: number; measurementId?: string; detectedSteps?: number };
+  | { source: 'steps'; steps: number; stepLengthCm: number; unit?: 'm' | 'cm'; measurementId?: string; detectedSteps?: number };
 export function measurementLength(measurement: LengthMeasurement) {
-  if (measurement.source === 'steps') return stepsToLength(measurement.steps, measurement.stepLengthCm);
+  if (measurement.source === 'steps') {
+    const raw = stepsToLength(measurement.steps, measurement.stepLengthCm);
+    if (measurement.unit === undefined) return raw;
+    const factor = measurement.unit === 'cm' ? 100 : 1;
+    const lengthM = roundDecimal(raw.lengthM * factor, LENGTH_DECIMALS) / factor;
+    if (lengthM <= 0) throw new Error(t("Nieprawidłowa długość."));
+    return { lengthM, lengthCm: lengthM * 100 };
+  }
   if (!Number.isFinite(measurement.value) || measurement.value <= 0) throw new Error(t("Nieprawidłowa długość."));
   const lengthM = measurement.unit === 'cm' ? measurement.value / 100 : measurement.value;
   if (!Number.isFinite(lengthM * 100) || lengthM <= 0) throw new Error(t("Długość poza zakresem obliczeń."));
@@ -76,18 +86,19 @@ export function undoLast(project: Project): Project {
 export function lastSide(project: Project): Observation | undefined {
   return project.observations.find(o => o.id === project.activeObservationIds.at(-1) && o.kind === 'side');
 }
-export function editLastSide(project: Project, measurement: LengthMeasurement, theta: number): Project {
+export function editLastSide(project: Project, measurement: LengthMeasurement, theta: number, preserveLength = false): Project {
   const original = lastSide(project);
   if (!original || project.points.length < 2) throw new Error(t("Brak ostatniego boku do poprawienia."));
   if (project.closureObservationId) throw new Error(t("Najpierw cofnij niezależny pomiar zamknięcia."));
   if (!Number.isFinite(theta)) throw new Error(t("Nieprawidłowy kierunek."));
-  const length = measurementLength(measurement);
+  const length = preserveLength ? { lengthM: original.lengthM, lengthCm: original.lengthCm } : measurementLength(measurement);
   const from = project.points.at(-2)!, oldEnd = project.points.at(-1)!;
   const end = { ...nextPoint(from, length.lengthM, theta), id: oldEnd.id };
   const observation: Observation = { ...original, id: id(), supersedesId: original.id,
     capturedTheta: original.capturedTheta ?? original.theta, theta: normalize(theta), ...length,
-    lengthSource: measurement.source, stepCount: measurement.source === 'steps' ? measurement.steps : null,
-    stepLengthCm: measurement.source === 'steps' ? measurement.stepLengthCm : null,
+    lengthSource: preserveLength ? original.lengthSource : measurement.source,
+    stepCount: preserveLength ? original.stepCount : measurement.source === 'steps' ? measurement.steps : null,
+    stepLengthCm: preserveLength ? original.stepLengthCm : measurement.source === 'steps' ? measurement.stepLengthCm : null,
     predictedEnd: end, createdAt: new Date().toISOString() };
   return { ...project, points: [...project.points.slice(0, -1), end],
     observations: [...project.observations, observation], activeObservationIds: [...project.activeObservationIds.slice(0, -1), observation.id],
@@ -133,6 +144,7 @@ export function metrics(project: Project) {
 export const activeSides = (project: Project): Observation[] => project.activeObservationIds
   .map(key => project.observations.find(o => o.id === key)!).filter(o => o?.kind === 'side');
 export interface SideCorrection { observationId: string; measurement: LengthMeasurement; theta: number;
+  preserveLength?: boolean;
   capture?: Capture | null; mode?: SurveyMode; referenceFrameId?: string; capturedTheta?: number }
 // Rebuild downstream vertices with their original turns, preserving IDs and raw history.
 export function correctSides(project: Project, corrections: SideCorrection[]): Project {
@@ -147,18 +159,18 @@ export function correctSides(project: Project, corrections: SideCorrection[]): P
     const theta = edit ? normalize(edit.theta) : normalize(original.theta + delta);
     if (!Number.isFinite(theta)) throw new Error(t("Nieprawidłowy kierunek."));
     delta = normalize(theta - original.theta);
-    const length = edit ? measurementLength(edit.measurement) : { lengthM: original.lengthM, lengthCm: original.lengthCm };
+    const length = edit && !edit.preserveLength ? measurementLength(edit.measurement) : { lengthM: original.lengthM, lengthCm: original.lengthCm };
     const end = { ...nextPoint(points.at(-1)!, length.lengthM, theta), id: original.toPointId };
     const moved = !!edit || distance(end, original.predictedEnd) > 1e-10 || Math.abs(normalize(theta - original.theta)) > 1e-10;
     let observation = original;
     if (moved) {
       observation = { ...original, id: id(), supersedesId: original.id, ...length, theta, predictedEnd: end, createdAt: now };
       if (edit) {
-        observation = { ...observation, lengthSource: edit.measurement.source,
+        observation = { ...observation, ...(edit.preserveLength ? {} : { lengthSource: edit.measurement.source,
           stepCount: edit.measurement.source === 'steps' ? edit.measurement.steps : null,
           stepLengthCm: edit.measurement.source === 'steps' ? edit.measurement.stepLengthCm : null,
           stepMeasurementId: edit.measurement.source === 'steps' ? edit.measurement.measurementId : undefined,
-          detectedSteps: edit.measurement.source === 'steps' ? edit.measurement.detectedSteps : undefined,
+          detectedSteps: edit.measurement.source === 'steps' ? edit.measurement.detectedSteps : undefined }),
           capture: edit.capture !== undefined ? edit.capture : original.capture,
           mode: edit.mode ?? original.mode, referenceFrameId: edit.referenceFrameId ?? original.referenceFrameId,
           capturedTheta: edit.capturedTheta ?? original.capturedTheta ?? original.theta };
@@ -197,7 +209,7 @@ export function correctClosingLength(project: Project, lengthM: number): Project
   const ux = (first.x - a.x) / d, uy = (first.y - a.y) / d, h = Math.sqrt(Math.max(0, h2));
   const candidates = [-1, 1].map(sign => ({ id: b.id, x: a.x + x * ux - sign * h * uy, y: a.y + x * uy + sign * h * ux }));
   const end = candidates.sort((u, v) => distance(u, b) - distance(v, b))[0]!;
-  return correctSides(project, [{ observationId: original.id, measurement: original.lengthSource === 'steps'
+  return correctSides(project, [{ observationId: original.id, preserveLength: true, measurement: original.lengthSource === 'steps'
     ? { source: 'steps', steps: original.stepCount!, stepLengthCm: original.stepLengthCm!, measurementId: original.stepMeasurementId, detectedSteps: original.detectedSteps }
     : { source: 'manual', value: radius, unit: 'm' }, theta: Math.atan2(end.y - a.y, end.x - a.x) }]);
 }

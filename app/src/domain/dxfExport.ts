@@ -1,4 +1,5 @@
 import { placeLabels, DrawingLabel } from './labelLayout';
+import { decimalText } from './precision';
 import { t } from '../i18n';
 import { distance, outlinePoints } from './geometry';
 import type { Project } from './model';
@@ -108,7 +109,7 @@ export function dxfExport(project: Project, unit: DxfUnit = 'm'): string {
     const observation = observations.get(project.activeObservationIds[i] ?? '');
     const estimated = !automatic && !!observation && observation.lengthSource !== 'manual';
     segments.push([screenVertices[i]!, screenVertices[(i + 1) % vertices.length]!]);
-    labels.push({ text: `${estimated ? '~ ' : ''}${length.toFixed(2)} ${unit}${automatic ? ' (auto)' : ''}`, anchor: { x: (a.x + b.x) / 2 * labelScale, y: -(a.y + b.y) / 2 * labelScale }, fontSize: 14, kind: 'length' });
+    labels.push({ text: `${estimated ? '~ ' : ''}${decimalText(length, 3)} ${unit}${automatic ? ' (auto)' : ''}`, anchor: { x: (a.x + b.x) / 2 * labelScale, y: -(a.y + b.y) / 2 * labelScale }, fontSize: 14, kind: 'length' });
   }
   const placed = placeLabels(labels, segments, screenVertices);
   placed.forEach(l => text(l.text, (l.box.x + 5) / labelScale, -(l.box.y + 4 + l.fontSize) / labelScale, l.kind === 'point' ? 'POINT_LABELS' : 'LENGTHS'));

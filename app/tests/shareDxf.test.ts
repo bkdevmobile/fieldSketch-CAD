@@ -20,7 +20,7 @@ test('zapisuje plik DXF w wybranej jednostce i udostępnia go jako plik CAD', as
   const project = sample();
   await shareDxf(project, 'cm', 'plus');
   expect(File).toHaveBeenCalledWith('/cache', `outlinego-${project.id}-r${project.geometryRevision}-cm.dxf`);
-  expect(file.write).toHaveBeenCalledWith(expect.stringContaining('200.00 cm'));
+  expect(file.write).toHaveBeenCalledWith(expect.stringContaining('200 cm'));
   expect(Sharing.shareAsync).toHaveBeenCalledWith(file.uri, expect.objectContaining({ mimeType: 'image/vnd.dxf', UTI: 'com.autodesk.dxf' }));
 });
 

@@ -2,6 +2,7 @@ import { t } from '../i18n';
 import React from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import { colors, s } from './ui';
+import { ANGLE_DECIMALS, decimalInput } from '../domain/precision';
 
 export function AngleControls({ value, side, onChange, onSideChange, onEndEditing, disabled = false,
   label = t("Kąt skrętu od poprzedniego boku (°)") }: {
@@ -18,7 +19,9 @@ export function AngleControls({ value, side, onChange, onSideChange, onEndEditin
     <Text style={s.label}>{label}</Text>
     <View style={{ flexDirection: 'row', gap: 8, alignItems: 'stretch' }}>
       {direction('left', t('L'))}
-      <TextInput accessibilityLabel={label} value={value} onChangeText={onChange} onEndEditing={onEndEditing}
+      <TextInput accessibilityLabel={label} value={value} onChangeText={text => {
+        const next = decimalInput(text, ANGLE_DECIMALS); if (next !== null) onChange(next);
+      }} onEndEditing={onEndEditing}
         editable={!disabled} accessibilityState={{ disabled }} keyboardType="decimal-pad"
         style={[s.input, { flex: 1, minWidth: 0, paddingVertical: 8, textAlign: 'center', fontSize: 24, fontWeight: '600', fontVariant: ['tabular-nums'] }]} />
       {direction('right', t('P'))}

@@ -86,7 +86,7 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
   const points = outlinePoints(project.points, project.closed).map(p => ({ ...p, ...screen(p) }));
   const path = project.closed ? [...points, points[0]!] : points;
   const draft = endpoint && screen(endpoint), start = points.at(-1)!;
-  const label = (length: number) => `${fmt(length * (unit === 'cm' ? 100 : 1), 2)} ${unit}`;
+  const label = (length: number) => `${fmt(length * (unit === 'cm' ? 100 : 1), 3)} ${unit}`;
   const segments: [{ x: number; y: number }, { x: number; y: number }][] = path.slice(1).map((p, i) => [{ x: path[i]!.sx, y: path[i]!.sy }, { x: p.sx, y: p.sy }]);
   if (draft) segments.push([{ x: start.sx, y: start.sy }, { x: draft.sx, y: draft.sy }]);
   const labels: DrawingLabel[] = points.map((p, i) => ({ text: 'P' + (i + 1), anchor: { x: p.sx, y: p.sy }, fontSize: 13, kind: 'point' }));
@@ -95,7 +95,9 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
     if (preview?.lengthM !== undefined) labels.push({ text: 'P' + (points.length + 1), anchor: { x: draft.sx, y: draft.sy }, fontSize: 13, kind: 'point' });
     if (!thumbnail) labels.push({ text: preview?.lengthM === undefined ? t("kierunek") : label(preview.lengthM), anchor: { x: (start.sx + draft.sx) / 2, y: (start.sy + draft.sy) / 2 }, fontSize: 12, kind: 'length' });
   }
-  const placed = placeLabels(labels, segments, [...points.map(p => ({ x: p.sx, y: p.sy })), ...(draft ? [{ x: draft.sx, y: draft.sy }] : [])], { x: 4, y: 4, width: width - 8, height: height - 8 });
+  // The viewport clips the drawing and its labels together. Constraining labels
+  // to its bounds would pull descriptions of offscreen geometry back into view.
+  const placed = placeLabels(labels, segments, [...points.map(p => ({ x: p.sx, y: p.sy })), ...(draft ? [{ x: draft.sx, y: draft.sy }] : [])]);
   return <View style={{ gap: 8 }}>
     {!thumbnail && <View style={s.row}><Text style={[s.label, { flex: 1 }]}>{t("Szkic na żywo")}</Text>
       {!(compact && keyboardOpen) && <>

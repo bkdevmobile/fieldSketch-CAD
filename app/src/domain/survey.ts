@@ -1,6 +1,7 @@
 import { t } from '../i18n';
 import { normalize, parsePositive } from './geometry';
 import type { AngleSnap, Project } from './model';
+import { ANGLE_DECIMALS, LENGTH_DECIMALS, decimalText, roundDecimal } from './precision';
 
 export type WizardStep = 'start' | 'direction' | 'angle' | 'length' | 'review';
 export interface SurveyDraft {
@@ -28,7 +29,7 @@ export function previousHeading(project: Project) {
 }
 export function headingFromTurn(previous: number, input: string, side: 'left' | 'right') {
   const text = input.trim().replace(',', '.');
-  if (!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(text)) throw new Error(t("Wpisz kąt od 0 do 180°."));
+  if (!/^(?:\d+(?:\.\d{0,2})?|\.\d{1,2})$/.test(text)) throw new Error(t("Wpisz kąt od 0 do 180°."));
   const angle = Number(text);
   if (!Number.isFinite(angle) || angle < 0 || angle > 180) throw new Error(t("Kąt skrętu musi mieścić się w zakresie 0–180°."));
   return normalize(previous + (side === 'left' ? 1 : -1) * angle * Math.PI / 180);
@@ -36,12 +37,14 @@ export function headingFromTurn(previous: number, input: string, side: 'left' | 
 export function turnFromHeading(previous: number, heading: number, stepDegrees = 0) {
   const delta = normalize(heading - previous);
   const degrees = Math.abs(delta) * 180 / Math.PI;
-  return { turn: String(stepDegrees ? Math.round(degrees / stepDegrees) * stepDegrees : Number(degrees.toFixed(2))), turnSide: delta < 0 ? 'right' as const : 'left' as const };
+  return { turn: String(stepDegrees ? Math.round(degrees / stepDegrees) * stepDegrees : roundDecimal(degrees, ANGLE_DECIMALS)), turnSide: delta < 0 ? 'right' as const : 'left' as const };
 }
 export function convertLengthInput(input: string, from: 'm' | 'cm', to: 'm' | 'cm') {
   if (from === to || !input.trim()) return input;
   const value = parsePositive(input) * (to === 'cm' ? 100 : 0.01);
-  return String(Number(value.toPrecision(12))).replace('.', ',');
+  const rounded = roundDecimal(value, LENGTH_DECIMALS);
+  if (rounded <= 0) throw new Error(t("Nieprawidłowa długość."));
+  return decimalText(rounded, LENGTH_DECIMALS).replace('.', ',');
 }
 export function snapTurn(input: string, interval: AngleSnap): string {
   headingFromTurn(0, input, 'left');

@@ -10,6 +10,7 @@ import { Segments } from '../components/presentation';
 import { Check } from 'lucide-react-native';
 import { editLastSide, lastSide, LengthMeasurement, measurementLength, parsePositive } from '../domain/geometry';
 import { convertLengthInput, headingFromTurn, previousHeading, snapTurn, turnFromHeading } from '../domain/survey';
+import { decimalText } from '../domain/precision';
 import { useStore } from '../infrastructure/store';
 
 export default function EditSide() {
@@ -22,13 +23,15 @@ export default function EditSide() {
   const [turn, setTurn] = useState('0'), [side, setSide] = useState<'left' | 'right'>('left');
   const [fitKey, setFitKey] = useState(0);
   const [delta, setDelta] = useState(0), sliderBase = useRef(0);
+  const lengthTouched = useRef(false), angleTouched = useRef(false);
   const angleEdited = useRef(false), turnDraft = useRef(turn);
   turnDraft.current = turn;
   useEffect(() => {
     if (!project || !original) return;
-    setLength(String(original.lengthM).replace('.', ','));
+    lengthTouched.current = false; angleTouched.current = false;
+    setLength(decimalText(original.lengthM, 3).replace('.', ','));
     setSource(original.lengthSource === 'manual' ? 'manual' : 'steps');
-    setSteps(String(original.stepCount ?? '')); setStepLength(String(original.stepLengthCm ?? store.settings.stepLengthCm));
+    setSteps(String(original.stepCount ?? '')); setStepLength(decimalText(original.stepLengthCm ?? store.settings.stepLengthCm, 3));
     const previous = previousHeading({ ...project, points: project.points.slice(0, -1) });
     const values = turnFromHeading(previous, original.theta); setTurn(values.turn); setSide(values.turnSide);
     sliderBase.current = Number(values.turn.replace(',', '.')); setDelta(0);
@@ -39,10 +42,12 @@ export default function EditSide() {
   let preview = project, valid = false, error = '';
   let measurement: LengthMeasurement | undefined, theta = 0;
   try {
-    measurement = source === 'manual' ? { source: 'manual', value: parsePositive(length), unit }
-      : { source: 'steps', steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength) };
-    theta = project.points.length === 2 ? original.theta : headingFromTurn(previousHeading({ ...project, points: project.points.slice(0, -1) }), turn, side);
-    preview = editLastSide(project, measurement, theta); valid = true;
+    measurement = !lengthTouched.current ? (original.lengthSource === 'manual'
+      ? { source: 'manual', value: original.lengthM, unit: 'm' }
+      : { source: 'steps', steps: original.stepCount!, stepLengthCm: original.stepLengthCm! }) : source === 'manual' ? { source: 'manual', value: parsePositive(length, 3), unit }
+      : { source: 'steps', unit, steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength) };
+    theta = !angleTouched.current || project.points.length === 2 ? original.theta : headingFromTurn(previousHeading({ ...project, points: project.points.slice(0, -1) }), turn, side);
+    preview = editLastSide(project, measurement, theta, !lengthTouched.current); valid = true;
   } catch (e) { error = e instanceof Error ? e.message : String(e); }
   const applySnap = () => {
     let value = turnDraft.current;
@@ -54,8 +59,8 @@ export default function EditSide() {
   const save = () => store.run(async () => {
     if (!measurement || !valid) throw new Error(t("Uzupełnij poprawny kąt i długość."));
     const selectedTurn = applySnap();
-    const selectedTheta = project.points.length === 2 ? original.theta : headingFromTurn(previousHeading({ ...project, points: project.points.slice(0, -1) }), selectedTurn, side);
-    const next = editLastSide(project, measurement, selectedTheta);
+    const selectedTheta = !angleTouched.current || project.points.length === 2 ? original.theta : headingFromTurn(previousHeading({ ...project, points: project.points.slice(0, -1) }), selectedTurn, side);
+    const next = editLastSide(project, measurement, selectedTheta, !lengthTouched.current);
     const opened = store.sessionProject !== id || !store.sessionId;
     if (opened) await store.start(project, 'manual');
     try {
@@ -71,27 +76,28 @@ export default function EditSide() {
     <View style={s.card}>
       {project.points.length === 2 ? <Text style={s.text}>{t("Pierwszy bok zachowuje kierunek odniesienia.")}</Text> : <>
         <AngleControls label={t("Kąt skrętu (°)")} value={turn} side={side} disabled={store.busy}
-          onChange={value => { angleEdited.current = true; turnDraft.current = value; setTurn(value); setDelta(0); sliderBase.current = Number(value.replace(',', '.')) || 0; }} onEndEditing={() => {
+          onChange={value => { angleTouched.current = true; angleEdited.current = true; turnDraft.current = value; setTurn(value); setDelta(0); sliderBase.current = Number(value.replace(',', '.')) || 0; }} onEndEditing={() => {
             const value = applySnap(); sliderBase.current = Number(value.replace(',', '.')) || 0; setDelta(0);
           }}
-          onSideChange={value => { setSide(value); setFitKey(v => v + 1); }} />
+          onSideChange={value => { angleTouched.current = true; setSide(value); setFitKey(v => v + 1); }} />
         <AngleSlider value={delta} disabled={store.busy} onChange={value => {
-          angleEdited.current = false; setDelta(value);
+          angleTouched.current = true; angleEdited.current = false; setDelta(value);
           const next = String(Math.max(0, Math.min(180, Math.round((sliderBase.current + value) / 5) * 5)));
           turnDraft.current = next; setTurn(next);
         }} onComplete={() => setFitKey(v => v + 1)} />
       </>}
       <Segments<'manual' | 'steps'> label={t("Źródło długości")} value={source} options={[{ value: 'manual', label: t("Długość") }, { value: 'steps', label: t('Kroki') }]} onChange={next => {
-        if (source === 'steps' && next === 'manual') { try { setLength(String(measurementLength({ source: 'steps', steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength) }).lengthM * (unit === 'cm' ? 100 : 1)).replace('.', ',')); } catch { } }
+        lengthTouched.current = true;
+        if (source === 'steps' && next === 'manual') { try { setLength(decimalText(measurementLength({ source: 'steps', steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength) }).lengthM * (unit === 'cm' ? 100 : 1), 3).replace('.', ',')); } catch { } }
         setSource(next);
       }} />
-      {source === 'manual' ? <><Field label={t("Długość boku ({0})", [unit])} numeric value={length} onChangeText={setLength} onEndEditing={() => setFitKey(v => v + 1)} />
+      {source === 'manual' ? <><Field label={t("Długość boku ({0})", [unit])} numeric decimalPlaces={3} value={length} onChangeText={value => { lengthTouched.current = true; setLength(value); }} onEndEditing={() => setFitKey(v => v + 1)} />
         <Segments<'m' | 'cm'> label={t("Jednostka długości")} value={unit} options={[{ value: 'm', label: 'm' }, { value: 'cm', label: 'cm' }]}
-          onChange={next => { void store.run(async () => { setLength(convertLengthInput(length, unit, next)); setUnit(next); }); }} /></>
-        : <><Field label={t("Liczba kroków")} numeric value={steps} onChangeText={setSteps} onEndEditing={() => setFitKey(v => v + 1)} />
-          <Field label={t("Długość kroku dla tego boku (cm)")} numeric value={stepLength} onChangeText={setStepLength} onEndEditing={() => setFitKey(v => v + 1)} /></>}
+          onChange={next => { void store.run(async () => { lengthTouched.current = true; setLength(convertLengthInput(length, unit, next)); setUnit(next); }); }} /></>
+        : <><Field label={t("Liczba kroków")} numeric value={steps} onChangeText={value => { lengthTouched.current = true; setSteps(value); }} onEndEditing={() => setFitKey(v => v + 1)} />
+          <Field label={t("Długość kroku dla tego boku (cm)")} numeric decimalPlaces={3} value={stepLength} onChangeText={value => { lengthTouched.current = true; setStepLength(value); }} onEndEditing={() => setFitKey(v => v + 1)} /></>}
       {!!error && <Text style={s.warningText}>{error}</Text>}
-      {valid && measurement && <Text style={s.measureValue}>{fmt(measurementLength(measurement).lengthM, 2)} m</Text>}
+      {valid && measurement && <Text style={s.measureValue}>{fmt(lengthTouched.current ? measurementLength(measurement).lengthM : original.lengthM, 3)} m</Text>}
     </View>
     <OutlineCanvas project={preview} fitKey={fitKey} />
     <Text style={s.muted}>{t("Wcześniejsze punkty pozostają na miejscu. Zmieniasz końcowy punkt boku; pomiar źródłowy pozostaje w historii.")}</Text>

@@ -5,7 +5,7 @@ Pierwszą wersję wdrożono 20 października 2026. Stan aktualny: `acf99a0` z 21
 ## Format i zawartość
 
 - Tekstowy DXF AutoCAD 2000 (`AC1015`), lokalny układ XY, Z=0. P1 pozostaje w swoim początku; eksport nie stosuje transformacji podglądu ani nie odwraca osi Y.
-- Jednostka z ustawień aplikacji: m (`$INSUNITS=6`) lub cm (`$INSUNITS=5`). Przeliczane są współrzędne, opisy i rozmiary tekstu. Geometria pozostaje z pełną precyzją liczb; opisy długości mają dwa miejsca po kropce.
+- Jednostka z ustawień aplikacji: m (`$INSUNITS=6`) lub cm (`$INSUNITS=5`). Przeliczane są współrzędne, opisy i rozmiary tekstu. Geometria pozostaje z pełną precyzją liczb; opisy długości mają maksymalnie trzy miejsca po kropce, bez końcowych zer. [Zasady precyzji](precyzja-wymiarow.md).
 - `OUTLINE`: jedna `LWPOLYLINE`, flaga zamknięcia zgodna ze szkicem. Zamknięcie nie dodaje kopii P1. Numerycznie pokrywający się końcowy punkt istniejącego zamkniętego szkicu pomijany jak w podglądzie/PNG; rzeczywista szczelina nie jest korygowana.
 - `POINT_LABELS`: poziome teksty P1, P2 itd., odsuwane od boków, punktów i pozostałych etykiet.
 - `LENGTHS`: poziome teksty przy bokach z jednostką, z kontrolą kolizji; `~` oznacza długość z kroków, `(auto)` geometrycznie wyliczony bok zamykający. Opisy są niezależnymi tekstami, bez asocjatywnego `DIMENSION`.

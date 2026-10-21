@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { Button, Field, Page, s } from '../components/ui';
+import { roundedInput } from '../domain/precision';
 import { parsePositive } from '../domain/geometry';
 import { useStore } from '../infrastructure/store';
 import type { AngleSnap, SurveyMode } from '../domain/model';
@@ -13,7 +14,7 @@ import { LANGUAGES, LANGUAGE_NAMES, LanguagePreference } from '../i18n';
 export default function Settings() {
   const store = useStore();
   const [unit, setUnit] = useState(store.settings.unit);
-  const [stepLength, setStepLength] = useState(String(store.settings.stepLengthCm).replace('.', ','));
+  const [stepLength, setStepLength] = useState(roundedInput(String(store.settings.stepLengthCm), 3));
   const [angleSnap, setAngleSnap] = useState<AngleSnap>(store.settings.angleSnap);
   const [directionMode, setDirectionMode] = useState<SurveyMode>(store.settings.directionMode);
   const [language, setLanguage] = useState<LanguagePreference>(store.settings.language ?? 'system');
@@ -24,7 +25,7 @@ export default function Settings() {
   return <Page title={t("Ustawienia")} subtitle={t("Dla wszystkich szkiców")} footer={
     <Button label={t("Zapisz ustawienia")} icon={Check} disabled={store.busy || !store.repo} onPress={() => store.run(async () => {
       const languageChanged = language !== (store.settings.language ?? 'system');
-      await store.updateSettings({ unit, stepLengthCm: parsePositive(stepLength), angleSnap, directionMode, language });
+      await store.updateSettings({ unit, stepLengthCm: parsePositive(stepLength, 3), angleSnap, directionMode, language });
       // Keep this screen mounted while the native stack updates translated headers.
       if (!languageChanged) router.back();
     })} />}>
@@ -36,7 +37,7 @@ export default function Settings() {
     <View style={s.card}><SectionTitle title={t("Długość")} icon={Ruler} />
       <Text style={s.label}>{t("Domyślna jednostka")}</Text><Segments<'m' | 'cm'> label={t("Domyślna jednostka")} value={unit} onChange={setUnit}
         options={[{ value: 'm', label: t("Metry") }, { value: 'cm', label: t("Centymetry") }]} />
-      <Field label={t("Długość jednego kroku (cm)")} numeric value={stepLength} onChangeText={setStepLength} />
+      <Field label={t("Długość jednego kroku (cm)")} numeric decimalPlaces={3} value={stepLength} onChangeText={setStepLength} />
       <Text style={s.muted}>{t("Zmiana ustawienia nie przelicza zapisanych boków ani przywróconego pomiaru roboczego.")}</Text>
     </View>
     <View style={s.card}><SectionTitle title={t("Przyciąganie kąta")} icon={Magnet} />

@@ -44,6 +44,10 @@ Prowadzenie pierwszego pomiaru obejmuje ilustrację, automatyczny start sesji, b
 
 Na Androidzie 10+ zgoda na rozpoznawanie aktywności jest uzyskiwana przed uruchomieniem sesji kierunku, także przy wznowieniu bez wcześniejszej zgody. Odmowa wybiera ręczne podanie długości. Start krokomierza sprawdza zgodę i nie otwiera ponownie okna uprawnień. Kamera nie jest potrzebna w trybie ręcznym. Dane pomiarowe i logi pozostają na telefonie.
 
+## Precyzja wymiarów
+
+Kąt z aparatu jest zaokrąglany do pełnego stopnia. Ręcznie można wpisać maksymalnie 2 cyfry po przecinku. Długości obliczane i wpisywane ręcznie mają maksymalnie 3 miejsca w wybranej jednostce m/cm; dotyczy także korekt i opisów w eksportach. Zmiana jednostki zaokrągla roboczą wartość do 3 miejsc. Samo otwarcie starego szkicu nie przelicza jego danych. [Zasady i przykłady](precyzja-wymiarow.md).
+
 ## Szkic, korekty i wznowienie
 
 Po zapisaniu P1 szkic jest pływającą miniaturą, domyślnie w prawym dolnym rogu, nad stałymi dolnymi akcjami. Można ją przeciągnąć do innego rogu. Dotknij, aby otworzyć wyśrodkowany dialog na pełną szerokość. Przesuwaj szkic jednym palcem w dowolnym kierunku; rozsuwaj dwa palce, aby powiększyć, i zbliżaj, aby pomniejszyć. Dostępne są także przyciski ± i „Dopasuj”. Powrót nie zmienia etapu. Miniatura zmniejsza się przy klawiaturze; formularz można przewinąć ponad nią.
@@ -75,6 +79,8 @@ W zamkniętym szkicu pole długości wyliczonego boku do P1 pozwala dopasować o
 „Zakończ” rozstrzyga niezapisany bok (Zapisz/Odrzuć/Wróć), a potem pozwala zamknąć obrys lub zostawić go otwartym. Zamknięcie dodaje wyliczone połączenie do P1 bez przesuwania punktów. Jest osobne od niezależnego pomiaru powrotnego; bez takiego pomiaru nie pokazujemy zerowego błędu zamknięcia.
 
 W podsumowaniu dostępne są notatka, „Wymiary i punkty”, dotychczasowa korekta ostatniego boku i eksporty. PNG zawiera szkic, tabelę wymiarów i źródeł długości, notatkę, oznaczenia wartości szacunkowych oraz wyliczonego zamknięcia; w Free także znak wodny pod treścią. Opisy punktów są odsuwane od obrysu i innych etykiet. „DXF · Plus” pokazuje ofertę; rzeczywisty eksport wymaga Plus. Zakup nie jest jeszcze dostępny, więc obecny build Free nie odblokowuje DXF. Wcześniejszy APK na Redmi ma DXF bez blokady. Generator DXF zachowuje obrys, numery punktów, długości i notatkę na osobnych warstwach; jednostka m/cm pochodzi z ustawień. JSONL/CSV służy diagnostyce.
+
+PNG dopasowuje wysokość obrazu do proporcji szkicu i zawartości. Rysunek wykorzystuje dostępną szerokość z zachowaniem proporcji, a tabela i notatka znajdują się bezpośrednio pod nim. Płaski szkic nie dostaje zbędnej wysokiej planszy. [Układ i weryfikacja PNG](eksport-png.md).
 
 ## Diagnostyka i logi
 

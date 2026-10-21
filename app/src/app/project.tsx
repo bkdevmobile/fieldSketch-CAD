@@ -18,6 +18,7 @@ import { orientation } from '../infrastructure/native';
 import { message, useStore } from '../infrastructure/store';
 import { usePedometer } from '../infrastructure/usePedometer';
 import { requestStepPermissionBeforeDirection } from '../infrastructure/stepPermission';
+import { roundedInput } from '../domain/precision';
 import { captureErrorText } from '../domain/captureError';
 import { directionReady } from '../domain/directionReadiness';
 import { SketchNote } from '../components/SketchNote';
@@ -81,8 +82,8 @@ export default function Survey() {
   catch (error) { angleError = message(error); }
   let measurement: LengthMeasurement | undefined, lengthM: number | undefined;
   try {
-    measurement = lengthSource === 'manual' ? { source: 'manual', value: parsePositive(length), unit }
-      : { source: 'steps', steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength), measurementId: stepMeasurementId, detectedSteps };
+    measurement = lengthSource === 'manual' ? { source: 'manual', value: parsePositive(length, 3), unit }
+      : { source: 'steps', unit, steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength), measurementId: stepMeasurementId, detectedSteps };
     lengthM = measurementLength(measurement).lengthM;
   } catch { measurement = undefined; }
   const draft: SurveyDraft | null = project && !remeasure && draftRevision >= 0 ? { revision: draftRevision, step, length, steps, lengthSource, unit, turn, turnSide, stepLengthCm: stepLength, stepMeasurementId, detectedSteps } : null;
@@ -101,9 +102,9 @@ export default function Survey() {
     void (remeasure ? Promise.resolve(null) : store.repo.loadDraft(id)).then(saved => {
       if (!mounted) return;
       if (saved && saved.revision === project.geometryRevision) {
-        setLength(saved.length); setSteps(saved.steps); setUnit(saved.unit); setLengthSource(saved.lengthSource);
+        setLength(roundedInput(saved.length, 3)); setSteps(saved.steps); setUnit(saved.unit); setLengthSource(saved.lengthSource);
         setStepLength(saved.stepLengthCm ?? String(store.settings.stepLengthCm)); setStepMeasurementId(saved.stepMeasurementId); setDetectedSteps(saved.detectedSteps);
-        setTurn(saved.turn); setTurnSide(saved.turnSide);
+        setTurn(roundedInput(saved.turn, 2)); setTurnSide(saved.turnSide);
         setStep(saved.step === 'start' ? 'start' : 'direction');
         setResumeNote('Przywrócono wpisane dane. Przechwyć kierunek ponownie przed zapisaniem punktu.');
       } else {
@@ -171,7 +172,7 @@ export default function Survey() {
     angleEdited.current = false;
     setCorrectAngle(false);
     setFrozen(value); setSliderBase(value.theta); setFineDelta(0);
-    const values = turnFromHeading(previous, first ? 0 : value.theta);
+    const values = turnFromHeading(previous, first ? 0 : value.theta, value.capture ? 1 : 0);
     setTurn(values.turn); setTurnSide(values.turnSide); setResumeNote(''); setStep('angle'); fit();
   };
   const acceptCapture = async (capture: Capture) => {
@@ -279,7 +280,7 @@ export default function Survey() {
     if (!pedometer.walking) { presentFinish(); return; }
     store.run(async () => {
       const result = await stopWalking();
-      presentFinish({ source: 'steps', steps: result.steps, stepLengthCm: parsePositive(stepLength), measurementId: result.measurementId, detectedSteps: result.steps });
+      presentFinish({ source: 'steps', unit, steps: result.steps, stepLengthCm: parsePositive(stepLength), measurementId: result.measurementId, detectedSteps: result.steps });
     });
   };
   const startWalking = () => store.run(async () => {
@@ -456,7 +457,7 @@ export default function Survey() {
             <View style={{ flex: 1 }}><Button label={t("Krokomierz")} icon={Footprints} compact disabled={pedometer.walking || store.busy} secondary={lengthSource !== 'steps'} onPress={() => chooseLengthSource('steps')} /></View></View>
           <View style={s.workPanel}>
           {lengthSource === 'manual' ? <>
-            <Field label={t("Długość boku ({0})", [unit])} value={length} onChangeText={setLength} numeric placeholder={t("np. 4,50")} onEndEditing={fit} />
+            <Field label={t("Długość boku ({0})", [unit])} value={length} onChangeText={setLength} numeric decimalPlaces={3} placeholder={t("np. 4,50")} onEndEditing={fit} />
             <Pressable accessibilityRole="button" accessibilityLabel={t("Zmień jednostkę długości, aktualnie {0}", [unit])} disabled={store.busy}
               onPress={() => Alert.alert(t("Jednostka tego pomiaru"), t("Wybierz jednostkę; wpisana długość zostanie przeliczona."), [
                 { text: t("Metry"), onPress: () => switchUnit('m') }, { text: t("Centymetry"), onPress: () => switchUnit('cm') }, { text: t("Anuluj"), style: 'cancel' },
@@ -464,18 +465,18 @@ export default function Survey() {
           </> : <><StepControls value={steps} onChange={setSteps} onEndEditing={fit} walking={pedometer.walking}
             busy={store.busy} canStart={!!store.capabilities?.stepDetector && !!frozenValid}
             onToggle={pedometer.walking ? () => store.run(async () => { await stopWalking(); }) : startWalking} />
-            <Text style={s.muted}>{t("1 krok =")}{' '}{stepLength}{' '}{t("cm · długość szacunkowa")}</Text>
+            <Text style={s.muted}>{t("1 krok =")}{' '}{fmt(Number(stepLength.replace(',', '.')), 3)}{' '}{t("cm · długość szacunkowa")}</Text>
             {pedometer.walking ? <Text accessibilityLiveRegion="polite" style={s.h2}>{pedometer.reading?.steps ?? 0}{' '}{t("kroków · pomiar w toku")}</Text>
               : !store.capabilities?.stepDetector && <Text style={s.muted}>{t("Ten telefon nie udostępnia detektora kroków. Wpisz ich liczbę ręcznie albo podaj długość.")}</Text>}
           </>}
-          <Text style={s.measureValue}>{lengthM === undefined ? '—' : `${fmt(lengthM * (unit === 'cm' ? 100 : 1), 2)} ${unit}`}</Text>
+          <Text style={s.measureValue}>{lengthM === undefined ? '—' : `${fmt(lengthM * (unit === 'cm' ? 100 : 1), 3)} ${unit}`}</Text>
           </View>
           <Text style={s.muted}>{pedometer.walking ? t("Idź do narożnika, na który celowałeś. Zatrzymaj się i naciśnij Stop.") : t("Kierunek jest zapisany. Teraz wpisz długość boku lub zmierz ją krokami.")}</Text>
           {lengthSource === 'steps' && <Text style={s.text}>{t("Stojąc w początku boku, naciśnij Start. Przejdź do wskazanego narożnika, zatrzymaj się i naciśnij Stop. Dopiero potem sprawdź bok.")}</Text>}
         </>}
         {step === 'review' && <>
           <Text style={s.text}>{t("Skręt:")}{' '}{first ? t("0° · pierwszy bok") : `${turn}° ${turnSide === 'left' ? t("w lewo") : t("w prawo")}`}</Text>
-          <Text style={s.measureValue}>{lengthM === undefined ? '—' : `${fmt(lengthM * (unit === 'cm' ? 100 : 1), 2)} ${unit}`}</Text>
+          <Text style={s.measureValue}>{lengthM === undefined ? '—' : `${fmt(lengthM * (unit === 'cm' ? 100 : 1), 3)} ${unit}`}</Text>
           <Text style={s.muted}>{lengthSource === 'manual' ? t("Długość wpisana ręcznie") : t("Długość oszacowana z wpisanych kroków")}</Text>
           <View style={s.row}><Button secondary icon={Pencil} label={t("Popraw kąt")} onPress={() => { setCorrectAngle(true); setStep('angle'); }} /><Button secondary icon={Ruler} label={t("Popraw długość")} onPress={() => setStep('length')} /></View>
         </>}
