@@ -8,6 +8,7 @@ app/modules/**/android/build/
 app/modules/**/android/.cxx/
 app/modules/**/android/.gradle/
 artifacts/
+_private/
 *.log
 *.tsbuildinfo
 .DS_Store
