@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import React, { useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -32,8 +33,8 @@ export default function EditSide() {
     const values = turnFromHeading(previous, original.theta); setTurn(values.turn); setSide(values.turnSide);
     sliderBase.current = Number(values.turn.replace(',', '.')); setDelta(0);
   }, [original?.id]);
-  if (!project || !original || project.closureObservationId) return <Page title="Korekta boku">
-    <Text style={s.text}>{project?.closureObservationId ? 'Najpierw cofnij niezależny pomiar zamknięcia w projekcie.' : 'Brak boku do poprawienia.'}</Text>
+  if (!project || !original || project.closureObservationId) return <Page title={t("Korekta boku")}>
+    <Text style={s.text}>{project?.closureObservationId ? t("Najpierw cofnij niezależny pomiar zamknięcia w projekcie.") : t("Brak boku do poprawienia.")}</Text>
   </Page>;
   let preview = project, valid = false, error = '';
   let measurement: LengthMeasurement | undefined, theta = 0;
@@ -51,7 +52,7 @@ export default function EditSide() {
     setFitKey(v => v + 1); return value;
   };
   const save = () => store.run(async () => {
-    if (!measurement || !valid) throw new Error('Uzupełnij poprawny kąt i długość.');
+    if (!measurement || !valid) throw new Error(t("Uzupełnij poprawny kąt i długość."));
     const selectedTurn = applySnap();
     const selectedTheta = project.points.length === 2 ? original.theta : headingFromTurn(previousHeading({ ...project, points: project.points.slice(0, -1) }), selectedTurn, side);
     const next = editLastSide(project, measurement, selectedTheta);
@@ -64,12 +65,12 @@ export default function EditSide() {
     } finally { if (opened) await store.stop(); }
     router.replace({ pathname: '/outline', params: { id } });
   });
-  return <Page title="Popraw ostatni bok" subtitle={`P${project.points.length - 1} → P${project.points.length}`} compactHeader
-    footer={<><Button label="Zapisz poprawki" icon={Check} onPress={save} disabled={store.busy || !valid} />
-      <Button label="Anuluj" quiet onPress={() => router.back()} disabled={store.busy} /></>}>
+  return <Page title={t("Popraw ostatni bok")} subtitle={`P${project.points.length - 1} → P${project.points.length}`} compactHeader
+    footer={<><Button label={t("Zapisz poprawki")} icon={Check} onPress={save} disabled={store.busy || !valid} />
+      <Button label={t("Anuluj")} quiet onPress={() => router.back()} disabled={store.busy} /></>}>
     <View style={s.card}>
-      {project.points.length === 2 ? <Text style={s.text}>Pierwszy bok zachowuje kierunek odniesienia.</Text> : <>
-        <AngleControls label="Kąt skrętu (°)" value={turn} side={side} disabled={store.busy}
+      {project.points.length === 2 ? <Text style={s.text}>{t("Pierwszy bok zachowuje kierunek odniesienia.")}</Text> : <>
+        <AngleControls label={t("Kąt skrętu (°)")} value={turn} side={side} disabled={store.busy}
           onChange={value => { angleEdited.current = true; turnDraft.current = value; setTurn(value); setDelta(0); sliderBase.current = Number(value.replace(',', '.')) || 0; }} onEndEditing={() => {
             const value = applySnap(); sliderBase.current = Number(value.replace(',', '.')) || 0; setDelta(0);
           }}
@@ -80,19 +81,19 @@ export default function EditSide() {
           turnDraft.current = next; setTurn(next);
         }} onComplete={() => setFitKey(v => v + 1)} />
       </>}
-      <Segments<'manual' | 'steps'> label="Źródło długości" value={source} options={[{ value: 'manual', label: 'Długość' }, { value: 'steps', label: 'Kroki' }]} onChange={next => {
+      <Segments<'manual' | 'steps'> label={t("Źródło długości")} value={source} options={[{ value: 'manual', label: t("Długość") }, { value: 'steps', label: t('Kroki') }]} onChange={next => {
         if (source === 'steps' && next === 'manual') { try { setLength(String(measurementLength({ source: 'steps', steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength) }).lengthM * (unit === 'cm' ? 100 : 1)).replace('.', ',')); } catch { } }
         setSource(next);
       }} />
-      {source === 'manual' ? <><Field label={`Długość boku (${unit})`} numeric value={length} onChangeText={setLength} onEndEditing={() => setFitKey(v => v + 1)} />
-        <Segments<'m' | 'cm'> label="Jednostka długości" value={unit} options={[{ value: 'm', label: 'm' }, { value: 'cm', label: 'cm' }]}
+      {source === 'manual' ? <><Field label={t("Długość boku ({0})", [unit])} numeric value={length} onChangeText={setLength} onEndEditing={() => setFitKey(v => v + 1)} />
+        <Segments<'m' | 'cm'> label={t("Jednostka długości")} value={unit} options={[{ value: 'm', label: 'm' }, { value: 'cm', label: 'cm' }]}
           onChange={next => { void store.run(async () => { setLength(convertLengthInput(length, unit, next)); setUnit(next); }); }} /></>
-        : <><Field label="Liczba kroków" numeric value={steps} onChangeText={setSteps} onEndEditing={() => setFitKey(v => v + 1)} />
-          <Field label="Długość kroku dla tego boku (cm)" numeric value={stepLength} onChangeText={setStepLength} onEndEditing={() => setFitKey(v => v + 1)} /></>}
+        : <><Field label={t("Liczba kroków")} numeric value={steps} onChangeText={setSteps} onEndEditing={() => setFitKey(v => v + 1)} />
+          <Field label={t("Długość kroku dla tego boku (cm)")} numeric value={stepLength} onChangeText={setStepLength} onEndEditing={() => setFitKey(v => v + 1)} /></>}
       {!!error && <Text style={s.warningText}>{error}</Text>}
       {valid && measurement && <Text style={s.measureValue}>{fmt(measurementLength(measurement).lengthM, 2)} m</Text>}
     </View>
     <OutlineCanvas project={preview} fitKey={fitKey} />
-    <Text style={s.muted}>Wcześniejsze punkty pozostają na miejscu. Zmieniasz końcowy punkt boku; pomiar źródłowy pozostaje w historii.</Text>
+    <Text style={s.muted}>{t("Wcześniejsze punkty pozostają na miejscu. Zmieniasz końcowy punkt boku; pomiar źródłowy pozostaje w historii.")}</Text>
   </Page>;
 }

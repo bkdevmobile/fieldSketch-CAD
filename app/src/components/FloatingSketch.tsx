@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 ﻿import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Keyboard, PanResponder, Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import type { Project } from '../domain/model';
@@ -60,8 +61,8 @@ export function FloatingSketch({ project, preview, fitKey, unit }: {
   return <>
     <View pointerEvents="box-none" style={StyleSheet.absoluteFill} onLayout={e => setArea(e.nativeEvent.layout)}>
       <Animated.View {...responder.panHandlers} style={{ position: 'absolute', top: 0, left: 0, transform: position.getTranslateTransform(), opacity: area.width ? 1 : 0 }}>
-        <Pressable accessibilityRole="button" accessibilityLabel="Powiększ szkic" accessibilityHint="Dotknij, aby powiększyć. Przeciągnij, aby przenieść do innego rogu."
-          accessibilityActions={[{ name: 'activate', label: 'Powiększ szkic' }, { name: 'move', label: 'Przenieś do następnego rogu' }]}
+        <Pressable accessibilityRole="button" accessibilityLabel={t("Powiększ szkic")} accessibilityHint={t("Dotknij, aby powiększyć. Przeciągnij, aby przenieść do innego rogu.")}
+          accessibilityActions={[{ name: 'activate', label: t("Powiększ szkic") }, { name: 'move', label: t("Przenieś do następnego rogu") }]}
           onAccessibilityAction={e => { if (e.nativeEvent.actionName === 'move') chooseCorner(sketchCorners[(sketchCorners.indexOf(corner.current) + 1) % 4]!); else open(); }}
           onLayout={e => setThumbnail(e.nativeEvent.layout)} onPress={open} style={({ pressed }) => ({
             width: Math.min(keyboardOpen ? 128 : 154, area.width || 154), backgroundColor: colors.white, padding: 10, gap: 6,
@@ -69,16 +70,16 @@ export function FloatingSketch({ project, preview, fitKey, unit }: {
             shadowOffset: { width: 0, height: 3 }, shadowOpacity: 0.12, shadowRadius: 8, opacity: pressed ? 0.8 : 1,
           })}>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 6 }}>
-            <Move size={12} color={colors.muted} accessible={false} /><Text style={[s.label, { fontSize: 12, flex: 1 }]}>Szkic</Text><Maximize2 size={14} color={colors.green} accessible={false} />
+            <Move size={12} color={colors.muted} accessible={false} /><Text style={[s.label, { fontSize: 12, flex: 1 }]}>{t("Szkic")}</Text><Maximize2 size={14} color={colors.green} accessible={false} />
           </View>
           <View pointerEvents="none"><OutlineCanvas project={project} preview={preview} fitKey={fitKey} thumbnail unit={unit} /></View>
         </Pressable>
       </Animated.View>
     </View>
-    <Dialog visible={expanded} title="Szkic" subtitle={project.name} fullWidth onClose={() => setExpanded(false)}
-      footer={<Button label="Wróć do pomiaru" icon={ArrowLeft} secondary onPress={() => setExpanded(false)} />}>
+    <Dialog visible={expanded} title={t("Szkic")} subtitle={project.name} fullWidth onClose={() => setExpanded(false)}
+      footer={<Button label={t("Wróć do pomiaru")} icon={ArrowLeft} secondary onPress={() => setExpanded(false)} />}>
       <OutlineCanvas project={project} preview={preview} fitKey={fitKey} unit={unit} canvasHeight={Math.min(330, height * 0.43)} />
-      <Text style={s.muted}>Punkty zapisane: {project.points.length}{preview ? ' · przerywana linia pokazuje bieżący pomiar' : ''}</Text>
+      <Text style={s.muted}>{t("Punkty zapisane:")}{' '}{project.points.length}{preview ? t(" · przerywana linia pokazuje bieżący pomiar") : ''}</Text>
     </Dialog>
   </>;
 }

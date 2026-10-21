@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import React, { useMemo, useRef, useState } from 'react';
 import { PanResponder, Text, View } from 'react-native';
 import { colors, fmt, s } from './ui';
@@ -24,9 +25,9 @@ export function AngleSlider({ value, onChange, onComplete, disabled = false }: {
     });
   }, []);
   return <View style={{ gap: 5, opacity: disabled ? 0.45 : 1 }}>
-    <Text style={s.label}>Korekta odczytu: {value > 0 ? '+' : ''}{fmt(value)}° · skok 5°</Text>
+    <Text style={s.label}>{t("Korekta odczytu:")}{' '}{value > 0 ? '+' : ''}{fmt(value)}{t("° · skok 5°")}</Text>
     <View {...responder.panHandlers} onLayout={event => setWidth(event.nativeEvent.layout.width)}
-      accessible accessibilityRole="adjustable" accessibilityLabel="Korekta kąta od minus 15 do plus 15 stopni, co 5 stopni"
+      accessible accessibilityRole="adjustable" accessibilityLabel={t("Korekta kąta od minus 15 do plus 15 stopni, co 5 stopni")}
       accessibilityState={{ disabled }} accessibilityValue={{ min: -15, max: 15, now: value }}
       accessibilityActions={[{ name: 'increment' }, { name: 'decrement' }]}
       onAccessibilityAction={event => {

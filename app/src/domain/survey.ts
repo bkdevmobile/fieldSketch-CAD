@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import { normalize, parsePositive } from './geometry';
 import type { AngleSnap, Project } from './model';
 
@@ -18,7 +19,7 @@ export interface SurveyDraft {
 export const defaultReferenceIndex = (project: Project) => Math.max(0, project.points.length - 2);
 export function referenceOffset(project: Project, index: number, sensorHeading: number) {
   const a = project.points[index], b = project.points[index + 1];
-  if (!a || !b) throw new Error('Wybierz zapisany bok odniesienia.');
+  if (!a || !b) throw new Error(t("Wybierz zapisany bok odniesienia."));
   return normalize(Math.atan2(b.y - a.y, b.x - a.x) - normalize(Math.PI / 2 - sensorHeading));
 }
 export function previousHeading(project: Project) {
@@ -27,9 +28,9 @@ export function previousHeading(project: Project) {
 }
 export function headingFromTurn(previous: number, input: string, side: 'left' | 'right') {
   const text = input.trim().replace(',', '.');
-  if (!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(text)) throw new Error('Wpisz kąt od 0 do 180°.');
+  if (!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(text)) throw new Error(t("Wpisz kąt od 0 do 180°."));
   const angle = Number(text);
-  if (!Number.isFinite(angle) || angle < 0 || angle > 180) throw new Error('Kąt skrętu musi mieścić się w zakresie 0–180°.');
+  if (!Number.isFinite(angle) || angle < 0 || angle > 180) throw new Error(t("Kąt skrętu musi mieścić się w zakresie 0–180°."));
   return normalize(previous + (side === 'left' ? 1 : -1) * angle * Math.PI / 180);
 }
 export function turnFromHeading(previous: number, heading: number, stepDegrees = 0) {

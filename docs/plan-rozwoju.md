@@ -10,7 +10,7 @@ Stan na 20 października 2026: użytkownik uznał testy zamknięte za zakończon
 4. **Dopracowanie modelu zarabiania** — wybór sposobu monetyzacji na podstawie opinii testerów i wartości, jaką daje aplikacja.
 5. **Wersja release i publikacja** — dopracowanie wizualizacji aplikacji, przygotowanie i opublikowanie wersji produkcyjnej po usunięciu błędów blokujących oraz spełnieniu ustalonych kryteriów jakości. Wersja release musi być wielojęzyczna (multilanguage).
 
-Decyzja użytkownika z 20 października 2026: wielojęzyczność jest wymaganiem wersji produkcyjnej. Obecne MVP ma interfejs po polsku; obsługa wielu języków pozostaje do wdrożenia przed release. Lista języków, język domyślny oraz sposób wyboru języka wymagają osobnego ustalenia.
+Wielojęzyczność wdrożono 20 października 2026: PL, EN, DE, ES i FR; domyślnie język systemowy z angielskim jako rezerwowym, wybór ręczny w ustawieniach. Obejmuje interfejs, pomoc, błędy i opisy eksportów. Przed release pozostają korekta językowa i przegląd wyglądu tłumaczeń. [Zakres i utrzymanie](technical/wielojezycznosc.md).
 
 Najważniejsza decyzja na etapie 1: czy pomiar kierunku telefonem i długości krokami daje dokładność wystarczającą do wybranego zastosowania. Wyniki tych testów wyznaczą dalszy zakres produktu.
 

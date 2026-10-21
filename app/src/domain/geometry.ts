@@ -1,20 +1,21 @@
+import { t } from '../i18n';
 import { Capture, id, Observation, Point, Project, STEP_LENGTH_CM, SurveyMode } from './model';
 export function parsePositive(input: string): number {
   const normalized = input.trim().replace(',', '.');
-  if (!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(normalized)) throw new Error('Wpisz dodatnią liczbę, np. 2,5.');
+  if (!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(normalized)) throw new Error(t("Wpisz dodatnią liczbę, np. 2,5."));
   const value = Number(normalized);
-  if (!Number.isFinite(value) || value <= 0) throw new Error('Wartość musi być dodatnia i skończona.');
+  if (!Number.isFinite(value) || value <= 0) throw new Error(t("Wartość musi być dodatnia i skończona."));
   return value;
 }
 export function stepsToLength(steps: number, stepLengthCm = STEP_LENGTH_CM) {
   if (![steps, stepLengthCm].every(v => Number.isFinite(v) && v > 0) || !Number.isFinite(steps * stepLengthCm))
-    throw new Error('Nieprawidłowa liczba lub długość kroków.');
+    throw new Error(t("Nieprawidłowa liczba lub długość kroków."));
   return { lengthCm: steps * stepLengthCm, lengthM: steps * stepLengthCm / 100 };
 }
 export const normalize = (angle: number) => Math.atan2(Math.sin(angle), Math.cos(angle));
 export const distance = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
 export function circularStats(angles: number[]) {
-  if (!angles.length || angles.some(a => !Number.isFinite(a))) throw new Error('Brak poprawnych próbek.');
+  if (!angles.length || angles.some(a => !Number.isFinite(a))) throw new Error(t("Brak poprawnych próbek."));
   const x = angles.reduce((s, a) => s + Math.cos(a), 0) / angles.length;
   const y = angles.reduce((s, a) => s + Math.sin(a), 0) / angles.length;
   const r = Math.min(1, Math.hypot(x, y));
@@ -22,7 +23,7 @@ export function circularStats(angles: number[]) {
 }
 export function nextPoint(origin: Point, lengthM: number, theta: number): Point {
   const p = { id: id(), x: origin.x + lengthM * Math.cos(theta), y: origin.y + lengthM * Math.sin(theta) };
-  if (![p.x, p.y].every(Number.isFinite)) throw new Error('Współrzędne poza zakresem obliczeń.');
+  if (![p.x, p.y].every(Number.isFinite)) throw new Error(t("Współrzędne poza zakresem obliczeń."));
   return p;
 }
 export function commitSide(project: Project, steps: number, theta: number, mode: SurveyMode,
@@ -33,17 +34,17 @@ export type LengthMeasurement = { source: 'manual'; value: number; unit: 'm' | '
   | { source: 'steps'; steps: number; stepLengthCm: number; measurementId?: string; detectedSteps?: number };
 export function measurementLength(measurement: LengthMeasurement) {
   if (measurement.source === 'steps') return stepsToLength(measurement.steps, measurement.stepLengthCm);
-  if (!Number.isFinite(measurement.value) || measurement.value <= 0) throw new Error('Nieprawidłowa długość.');
+  if (!Number.isFinite(measurement.value) || measurement.value <= 0) throw new Error(t("Nieprawidłowa długość."));
   const lengthM = measurement.unit === 'cm' ? measurement.value / 100 : measurement.value;
-  if (!Number.isFinite(lengthM * 100) || lengthM <= 0) throw new Error('Długość poza zakresem obliczeń.');
+  if (!Number.isFinite(lengthM * 100) || lengthM <= 0) throw new Error(t("Długość poza zakresem obliczeń."));
   return { lengthM, lengthCm: lengthM * 100 };
 }
 export function commitMeasurement(project: Project, measurement: LengthMeasurement, theta: number, mode: SurveyMode,
   referenceFrameId: string, capture: Capture | null, closure = false, capturedTheta?: number): Project {
-  if (project.closed) throw new Error('Najpierw cofnij zamknięcie obrysu.');
-  if (!Number.isFinite(theta)) throw new Error('Nieprawidłowy kierunek.');
-  if (capturedTheta !== undefined && !Number.isFinite(capturedTheta)) throw new Error('Nieprawidłowy kierunek źródłowy.');
-  if (closure && project.points.length < 3) throw new Error('Zamknięcie wymaga co najmniej trzech punktów.');
+  if (project.closed) throw new Error(t("Najpierw cofnij zamknięcie obrysu."));
+  if (!Number.isFinite(theta)) throw new Error(t("Nieprawidłowy kierunek."));
+  if (capturedTheta !== undefined && !Number.isFinite(capturedTheta)) throw new Error(t("Nieprawidłowy kierunek źródłowy."));
+  if (closure && project.points.length < 3) throw new Error(t("Zamknięcie wymaga co najmniej trzech punktów."));
   const from = project.points[project.points.length - 1]!;
   const length = measurementLength(measurement);
   const predictedEnd = nextPoint(from, length.lengthM, theta);
@@ -61,14 +62,14 @@ export function commitMeasurement(project: Project, measurement: LengthMeasureme
     closed: closure, closureObservationId: closure ? observation.id : null };
 }
 export function closeOutline(project: Project): Project {
-  if (project.points.length < 3 || project.closed) throw new Error('Potrzeba otwartego obrysu z minimum trzema punktami.');
+  if (project.points.length < 3 || project.closed) throw new Error(t("Potrzeba otwartego obrysu z minimum trzema punktami."));
   return { ...project, closed: true, updatedAt: new Date().toISOString(), geometryRevision: project.geometryRevision + 1 };
 }
 export function undoLast(project: Project): Project {
   if (project.closed) return { ...project, closed: false, closureObservationId: null,
     activeObservationIds: project.closureObservationId ? project.activeObservationIds.filter(x => x !== project.closureObservationId) : project.activeObservationIds,
     updatedAt: new Date().toISOString(), geometryRevision: project.geometryRevision + 1 };
-  if (project.points.length < 2) throw new Error('Brak boku do cofnięcia.');
+  if (project.points.length < 2) throw new Error(t("Brak boku do cofnięcia."));
   return { ...project, points: project.points.slice(0, -1), activeObservationIds: project.activeObservationIds.slice(0, -1),
     updatedAt: new Date().toISOString(), geometryRevision: project.geometryRevision + 1 };
 }
@@ -77,9 +78,9 @@ export function lastSide(project: Project): Observation | undefined {
 }
 export function editLastSide(project: Project, measurement: LengthMeasurement, theta: number): Project {
   const original = lastSide(project);
-  if (!original || project.points.length < 2) throw new Error('Brak ostatniego boku do poprawienia.');
-  if (project.closureObservationId) throw new Error('Najpierw cofnij niezależny pomiar zamknięcia.');
-  if (!Number.isFinite(theta)) throw new Error('Nieprawidłowy kierunek.');
+  if (!original || project.points.length < 2) throw new Error(t("Brak ostatniego boku do poprawienia."));
+  if (project.closureObservationId) throw new Error(t("Najpierw cofnij niezależny pomiar zamknięcia."));
+  if (!Number.isFinite(theta)) throw new Error(t("Nieprawidłowy kierunek."));
   const length = measurementLength(measurement);
   const from = project.points.at(-2)!, oldEnd = project.points.at(-1)!;
   const end = { ...nextPoint(from, length.lengthM, theta), id: oldEnd.id };

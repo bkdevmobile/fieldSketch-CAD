@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import type { Project } from './model';
 
 export type Plan = 'free' | 'plus';
@@ -12,9 +13,9 @@ export const canAddPoint = (project: Project, plan: Plan) => plan === 'plus' || 
 
 export class AccessLimitError extends Error {
   constructor(readonly reason: PlusReason) {
-    super(reason === 'projects' ? 'Masz już 3 szkice. Usuń jeden albo odblokuj Plus.'
-      : reason === 'points' ? 'Limit Free to 8 punktów. Możesz zamknąć obrys, zakończyć lub poprawić szkic.'
-      : 'Eksport DXF wymaga outlineGo Plus.');
+    super(reason === 'projects' ? t("Masz już 3 szkice. Usuń jeden albo odblokuj Plus.")
+      : reason === 'points' ? t("Limit Free to 8 punktów. Możesz zamknąć obrys, zakończyć lub poprawić szkic.")
+      : t("Eksport DXF wymaga outlineGo Plus."));
   }
 }
 

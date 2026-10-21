@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import React, { createContext, useContext, useRef, useState } from 'react';
 import { Keyboard, Modal, Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -11,11 +12,11 @@ export function Dialog({ visible, title, subtitle, children, footer, onClose, fu
   const { height } = useWindowDimensions(); const insets = useSafeAreaInsets();
   return <Modal visible={visible} transparent animationType="fade" statusBarTranslucent onRequestClose={onClose}>
     <View style={[o.backdrop, { paddingTop: insets.top + 12, paddingBottom: insets.bottom + 12, paddingHorizontal: fullWidth ? 0 : 20 }]}>
-      <Pressable style={StyleSheet.absoluteFill} onPress={onClose} accessibilityLabel="Zamknij okno" accessibilityRole="button" />
+      <Pressable style={StyleSheet.absoluteFill} onPress={onClose} accessibilityLabel={t("Zamknij okno")} accessibilityRole="button" />
       <View accessibilityViewIsModal style={[o.dialog, { maxHeight: height - insets.top - insets.bottom - 24 }, fullWidth && { maxWidth: undefined }]}>
         <View style={o.dialogHeader}><View style={{ flex: 1, gap: 4 }}><Text accessibilityRole="header" style={s.h2}>{title}</Text>
           {!!subtitle && <Text style={s.muted}>{subtitle}</Text>}</View>
-          <Pressable accessibilityRole="button" accessibilityLabel="Zamknij" onPress={onClose} hitSlop={4} style={o.close}><X size={22} color={colors.ink} /></Pressable>
+          <Pressable accessibilityRole="button" accessibilityLabel={t("Zamknij")} onPress={onClose} hitSlop={4} style={o.close}><X size={22} color={colors.ink} /></Pressable>
         </View>
         <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={o.dialogBody} bounces={false}>{children}</ScrollView>
         {!!footer && <View style={o.dialogFooter}>{footer}</View>}
@@ -30,7 +31,7 @@ const DialogContext = createContext<{ alert(title: string, message?: string, act
 export function DialogProvider({ children }: { children: React.ReactNode }) {
   const [requests, setRequests] = useState<Request[]>([]);
   const acting = useRef(false);
-  const api = useRef({ alert(title: string, message?: string, actions: DialogAction[] = [{ text: 'OK' }]) {
+  const api = useRef({ alert(title: string, message?: string, actions: DialogAction[] = [{ text: t("OK") }]) {
     Keyboard.dismiss(); setRequests(current => [...current, { title, message, actions }]);
   } }).current;
   const current = requests[0];
@@ -66,7 +67,7 @@ export function PopupMenu({ visible, onClose, anchor, items, title }: {
   const select = (item: MenuItem) => { onClose(); setTimeout(item.onPress, 180); };
   return <Modal visible={visible} transparent animationType="fade" statusBarTranslucent onRequestClose={onClose}>
     <View style={{ flex: 1 }}><Pressable style={[StyleSheet.absoluteFill, { backgroundColor: '#183A2C20' }]}
-      onPress={onClose} accessibilityRole="button" accessibilityLabel="Zamknij menu" />
+      onPress={onClose} accessibilityRole="button" accessibilityLabel={t("Zamknij menu")} />
       <View accessibilityViewIsModal onLayout={e => setMeasuredHeight(e.nativeEvent.layout.height)} style={[o.menu, { top, left, width: menuWidth, maxHeight }]}>
         <ScrollView keyboardShouldPersistTaps="handled" bounces={false}>
           {!!title && <Text style={[s.label, { padding: 12 }]}>{title}</Text>}

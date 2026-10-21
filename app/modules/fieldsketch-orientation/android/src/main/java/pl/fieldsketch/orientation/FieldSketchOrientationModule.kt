@@ -8,6 +8,9 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
+import android.os.LocaleList
+import android.content.res.Resources
+import expo.modules.kotlin.functions.Queues
 import android.Manifest
 import android.content.pm.PackageManager
 import expo.modules.kotlin.modules.Module
@@ -64,6 +67,20 @@ class FieldSketchOrientationModule : Module(), SensorEventListener {
     Events("orientationSample", "sensorStatusChanged", "stepSample")
     OnCreate { store.list() }
     AsyncFunction("getCapabilities") { capabilities() }
+    AsyncFunction("getLanguageState") {
+      val supports = Build.VERSION.SDK_INT >= 33
+      val localeManager = if (supports) context.getSystemService(android.app.LocaleManager::class.java) else null
+      val system = if (supports) localeManager!!.systemLocales else Resources.getSystem().configuration.locales
+      mapOf("systemLocales" to (0 until system.size()).map { system[it].toLanguageTag() },
+        "appLanguage" to (if (supports) localeManager!!.applicationLocales.toLanguageTags() else ""),
+        "supportsAppLanguage" to supports)
+    }
+    AsyncFunction("setApplicationLanguage") { language: String ->
+      require(language in listOf("", "pl", "en", "de", "es", "fr")) { "Unsupported language" }
+      if (Build.VERSION.SDK_INT >= 33) {
+        context.getSystemService(android.app.LocaleManager::class.java).applicationLocales = LocaleList.forLanguageTags(language)
+      }
+    }.runOnQueue(Queues.MAIN)
     AsyncFunction("startSession") { options: String -> start(JSONObject(options)) }
     AsyncFunction("stopSession") { stop("user") }
     AsyncFunction("captureDirection") { capture() }

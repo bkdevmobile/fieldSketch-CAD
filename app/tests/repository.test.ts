@@ -17,6 +17,22 @@ class SqlAdapter implements Database {
     try { await action(); this.raw.exec('COMMIT'); } catch (e) { this.raw.exec('ROLLBACK'); throw e; }
   }
 }
+test('język przetrwa restart SQLite i nie zmienia jednostek ani danych szkicu', async () => {
+  const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
+  const repo = new ProjectRepository(db); await repo.initialize();
+  expect((await repo.settings()).language).toBe('system');
+  const project = newProject('Casa été — Zapisz', 'manual'); await repo.save(project, 'create');
+  for (const language of ['pl', 'en', 'de', 'es', 'fr', 'system'] as const) {
+    await repo.saveSettings({ ...DEFAULT_SETTINGS, language, unit: 'cm', sketchCorner: 'top-left', lengthInput: 'manual' });
+    const copy = new SqlAdapter(new SQL.Database(db.raw.export())); const reopened = new ProjectRepository(copy);
+    await reopened.initialize();
+    expect(await reopened.settings()).toMatchObject({ language, unit: 'cm', sketchCorner: 'top-left', lengthInput: 'manual' });
+    expect(await reopened.load(project.id)).toEqual(project); copy.raw.close();
+  }
+  await expect(repo.saveSettings({ ...DEFAULT_SETTINGS, language: 'it' as any })).rejects.toThrow('język');
+  expect((await repo.settings()).language).toBe('system'); db.raw.close();
+});
+
 test('limity Free są transakcyjne, usunięcie zwalnia miejsce, istniejące dane ponad limit pozostają', async () => {
   const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
   const repo = new ProjectRepository(db); await repo.initialize();

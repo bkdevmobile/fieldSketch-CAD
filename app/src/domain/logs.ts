@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 export const COPY_BYTES = 128 * 1024;
 export function utf8Length(text: string): number {
   let count = 0;
@@ -7,7 +8,7 @@ export function utf8Length(text: string): number {
 export function splitLog(text: string, maxBytes = COPY_BYTES): string[] {
   const result: string[] = []; let current = '';
   for (const line of text.match(/[^\n]*\n|[^\n]+$/g) ?? []) {
-    if (utf8Length(line) > maxBytes) throw new Error('Rekord przekracza limit kopiowania. Użyj eksportu pliku.');
+    if (utf8Length(line) > maxBytes) throw new Error(t("Rekord przekracza limit kopiowania. Użyj eksportu pliku."));
     if (current && utf8Length(current) + utf8Length(line) > maxBytes) { result.push(current); current = ''; }
     current += line;
   }

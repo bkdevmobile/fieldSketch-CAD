@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import React, { useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import Svg from 'react-native-svg';
@@ -18,25 +19,25 @@ export default function Export() {
   const image = useRef<Svg>(null);
   const [snapshot, setSnapshot] = useState(() => store.projects.find(p => p.id === id));
   useEffect(() => { if (!snapshot || snapshot.id !== id) setSnapshot(store.projects.find(p => p.id === id)); }, [store.projects, id]);
-  if (!snapshot || snapshot.id !== id) return <Page title="Eksport PNG"><Text style={s.text}>Szkic niedostępny.</Text></Page>;
+  if (!snapshot || snapshot.id !== id) return <Page title={t("Eksport PNG")}><Text style={s.text}>{t("Szkic niedostępny.")}</Text></Page>;
   const drawing = sketchExport(snapshot, store.plan);
   const share = () => store.run(async () => {
-    if (!image.current) throw new Error('Poczekaj na przygotowanie podglądu.');
-    if (!await Sharing.isAvailableAsync()) throw new Error('Udostępnianie plików jest niedostępne.');
+    if (!image.current) throw new Error(t("Poczekaj na przygotowanie podglądu."));
+    if (!await Sharing.isAvailableAsync()) throw new Error(t("Udostępnianie plików jest niedostępne."));
     const svg = image.current;
     const data = await new Promise<string>((resolve, reject) => {
-      const timer = setTimeout(() => reject(new Error('Nie udało się przygotować PNG. Spróbuj ponownie.')), 15000);
-      svg.toDataURL(value => { clearTimeout(timer); value ? resolve(value) : reject(new Error('Pusty obraz PNG.')); }, { width: drawing.width, height: drawing.height });
+      const timer = setTimeout(() => reject(new Error(t("Nie udało się przygotować PNG. Spróbuj ponownie."))), 15000);
+      svg.toDataURL(value => { clearTimeout(timer); value ? resolve(value) : reject(new Error(t("Pusty obraz PNG."))); }, { width: drawing.width, height: drawing.height });
     });
     const file = new File(Paths.cache, `outlinego-${snapshot.id}-r${snapshot.geometryRevision}-${store.plan}.png`);
     file.write(data, { encoding: 'base64' });
-    if (!file.exists || file.size === 0) throw new Error('Nie udało się zapisać obrazu PNG.');
-    await Sharing.shareAsync(file.uri, { mimeType: 'image/png', dialogTitle: 'Udostępnij szkic PNG' });
+    if (!file.exists || file.size === 0) throw new Error(t("Nie udało się zapisać obrazu PNG."));
+    await Sharing.shareAsync(file.uri, { mimeType: 'image/png', dialogTitle: t("Udostępnij szkic PNG") });
   });
-  return <Page title="Podgląd PNG" subtitle={snapshot.name} footer={<Button label="Udostępnij PNG" icon={Share2} onPress={share} disabled={store.busy} />}>
+  return <Page title={t("Podgląd PNG")} subtitle={snapshot.name} footer={<Button label={t("Udostępnij PNG")} icon={Share2} onPress={share} disabled={store.busy} />}>
     {plus.offer}
     <View style={[s.card, { padding: 10, borderRadius: 8 }]}><View onLayout={event => setWidth(event.nativeEvent.layout.width)}><ExportSketch ref={image} project={snapshot} displayWidth={width} plan={store.plan} /></View></View>
-    <Text style={[s.muted, { textAlign: 'center' }]}>{drawing.width} × {drawing.height} px · szkic i wymiary</Text>
-    {store.plan === 'free' && <Button label="PNG bez znaku wodnego · Plus" secondary disabled={store.busy} onPress={() => plus.show('watermark')} />}
+    <Text style={[s.muted, { textAlign: 'center' }]}>{drawing.width} × {drawing.height}{' '}{t("px · szkic i wymiary")}</Text>
+    {store.plan === 'free' && <Button label={t("PNG bez znaku wodnego · Plus")} secondary disabled={store.busy} onPress={() => plus.show('watermark')} />}
   </Page>;
 }

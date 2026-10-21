@@ -6,6 +6,6 @@
     adaptiveIcon: { foregroundImage: './assets/brand/adaptive-foreground.png', monochromeImage: './assets/brand/adaptive-monochrome.png', backgroundColor: '#1B684B' },
     blockedPermissions: ['android.permission.RECORD_AUDIO', 'android.permission.READ_EXTERNAL_STORAGE',
       'android.permission.WRITE_EXTERNAL_STORAGE', 'android.permission.SYSTEM_ALERT_WINDOW'] },
-  plugins: ['expo-router', ['expo-camera', { cameraPermission: 'Kamera służy do celowania w kolejny punkt.', recordAudioAndroid: false }],
+  plugins: ['expo-router', './scripts/with-languages.cjs', ['expo-camera', { cameraPermission: 'Kamera służy do celowania w kolejny punkt.', recordAudioAndroid: false }],
     ['expo-splash-screen', { image: './assets/brand/splash-mark.png', backgroundColor: '#F5F4EE', imageWidth: 180, resizeMode: 'contain' }]],
 };

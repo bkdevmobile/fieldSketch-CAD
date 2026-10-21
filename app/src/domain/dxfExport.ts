@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import { distance, outlinePoints } from './geometry';
 import type { Project } from './model';
 
@@ -11,19 +12,19 @@ function textValue(value: string) {
 }
 
 export function dxfExport(project: Project, unit: DxfUnit = 'm'): string {
-  if (unit !== 'm' && unit !== 'cm') throw new Error('Nieobsługiwana jednostka DXF.');
-  if (project.points.length < 2) throw new Error('Eksport DXF wymaga co najmniej dwóch punktów.');
+  if (unit !== 'm' && unit !== 'cm') throw new Error(t("Nieobsługiwana jednostka DXF."));
+  if (project.points.length < 2) throw new Error(t("Eksport DXF wymaga co najmniej dwóch punktów."));
   const factor = unit === 'cm' ? 100 : 1;
   const vertices = outlinePoints(project.points, project.closed).map(p => ({ ...p, x: p.x * factor, y: p.y * factor }));
-  if (vertices.some(p => !Number.isFinite(p.x) || !Number.isFinite(p.y))) throw new Error('Nieprawidłowe współrzędne szkicu.');
+  if (vertices.some(p => !Number.isFinite(p.x) || !Number.isFinite(p.y))) throw new Error(t("Nieprawidłowe współrzędne szkicu."));
   const xs = vertices.map(p => p.x), ys = vertices.map(p => p.y);
   const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
   const span = Math.max(maxX - minX, maxY - minY);
-  if (!Number.isFinite(span) || span <= 0) throw new Error('Szkic nie ma poprawnego boku do eksportu.');
+  if (!Number.isFinite(span) || span <= 0) throw new Error(t("Szkic nie ma poprawnego boku do eksportu."));
   const height = Math.max(span / 55, 0.015 * factor), gap = height * 1.5;
   const tags: string[] = [];
   const pair = (code: number, value: string | number) => {
-    if (typeof value === 'number' && !Number.isFinite(value)) throw new Error('Wartość poza zakresem DXF.');
+    if (typeof value === 'number' && !Number.isFinite(value)) throw new Error(t("Wartość poza zakresem DXF."));
     tags.push(String(code), String(Object.is(value, -0) ? 0 : value));
   };
   let sequence = 0x10;
@@ -109,11 +110,11 @@ export function dxfExport(project: Project, unit: DxfUnit = 'm'): string {
     const y = (a.y + b.y) / 2 + (b.x - a.x) / length * gap;
     text(`${estimated ? '~ ' : ''}${length.toFixed(2)} ${unit}${automatic ? ' (auto)' : ''}`, x, y, 'LENGTHS', rotation, true);
   }
-  const notes = [`outlineGo - ${project.name}`, `Układ lokalny XY; jednostka: ${unit}.`];
+  const notes = [`outlineGo - ${project.name}`, t("Układ lokalny XY; jednostka: {0}.", [unit])];
   if (project.activeObservationIds.some(id => observations.get(id)?.lengthSource !== 'manual' && observations.has(id)))
-    notes.push('~ długość z kroków jest szacunkowa.');
-  if (project.closed && !measuredReturn) notes.push('(auto) bok zamykający jest wyliczony z punktów.');
-  if (project.closureObservationId) notes.push('Niezależny pomiar zamknięcia nie koryguje geometrii obrysu.');
+    notes.push(t("~ długość z kroków jest szacunkowa."));
+  if (project.closed && !measuredReturn) notes.push(t("(auto) bok zamykający jest wyliczony z punktów."));
+  if (project.closureObservationId) notes.push(t("Niezależny pomiar zamknięcia nie koryguje geometrii obrysu."));
   notes.forEach((note, i) => text(note, minX, minY - gap * (i + 2), 'NOTES'));
   end(); pair(0, 'EOF');
   return tags.join('\r\n') + '\r\n';

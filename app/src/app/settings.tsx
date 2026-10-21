@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { router } from 'expo-router';
@@ -7,6 +8,7 @@ import { useStore } from '../infrastructure/store';
 import type { AngleSnap, SurveyMode } from '../domain/model';
 import { Activity, Check, Compass, Magnet, Ruler } from 'lucide-react-native';
 import { SectionTitle, Segments } from '../components/presentation';
+import { LANGUAGES, LANGUAGE_NAMES, LanguagePreference } from '../i18n';
 
 export default function Settings() {
   const store = useStore();
@@ -14,30 +16,40 @@ export default function Settings() {
   const [stepLength, setStepLength] = useState(String(store.settings.stepLengthCm).replace('.', ','));
   const [angleSnap, setAngleSnap] = useState<AngleSnap>(store.settings.angleSnap);
   const [directionMode, setDirectionMode] = useState<SurveyMode>(store.settings.directionMode);
+  const [language, setLanguage] = useState<LanguagePreference>(store.settings.language ?? 'system');
+  useEffect(() => setLanguage(store.settings.language ?? 'system'), [store.settings.language]);
   useEffect(() => {
     if (store.repo) { setUnit(store.settings.unit); setStepLength(String(store.settings.stepLengthCm).replace('.', ',')); setAngleSnap(store.settings.angleSnap); setDirectionMode(store.settings.directionMode); }
   }, [store.repo]);
-  return <Page title="Ustawienia" subtitle="Dla wszystkich szkiców" footer={
-    <Button label="Zapisz ustawienia" icon={Check} disabled={store.busy || !store.repo} onPress={() => store.run(async () => {
-      await store.updateSettings({ unit, stepLengthCm: parsePositive(stepLength), angleSnap, directionMode }); router.back();
+  return <Page title={t("Ustawienia")} subtitle={t("Dla wszystkich szkiców")} footer={
+    <Button label={t("Zapisz ustawienia")} icon={Check} disabled={store.busy || !store.repo} onPress={() => store.run(async () => {
+      const languageChanged = language !== (store.settings.language ?? 'system');
+      await store.updateSettings({ unit, stepLengthCm: parsePositive(stepLength), angleSnap, directionMode, language });
+      // Keep this screen mounted while the native stack updates translated headers.
+      if (!languageChanged) router.back();
     })} />}>
-    <View style={s.card}><SectionTitle title="Długość" icon={Ruler} />
-      <Text style={s.label}>Domyślna jednostka</Text><Segments<'m' | 'cm'> label="Domyślna jednostka" value={unit} onChange={setUnit}
-        options={[{ value: 'm', label: 'Metry' }, { value: 'cm', label: 'Centymetry' }]} />
-      <Field label="Długość jednego kroku (cm)" numeric value={stepLength} onChangeText={setStepLength} />
-      <Text style={s.muted}>Zmiana ustawienia nie przelicza zapisanych boków ani przywróconego pomiaru roboczego.</Text>
+    <View style={s.card}><SectionTitle title={t("Język aplikacji")} icon={Compass} />
+      <Segments<LanguagePreference> label={t("Język aplikacji")} value={language} onChange={setLanguage} minOptionWidth={120}
+        options={[{ value: 'system', label: t("Systemowy") }, ...LANGUAGES.map(value => ({ value, label: LANGUAGE_NAMES[value] }))]} />
+      <Text style={s.muted}>{t("Przy wyborze Systemowy używamy języka telefonu. Jeśli nie jest obsługiwany, używamy angielskiego. Język nie zmienia jednostek pomiaru.")}</Text>
     </View>
-    <View style={s.card}><SectionTitle title="Przyciąganie kąta" icon={Magnet} />
-      <Segments<AngleSnap> label="Przyciąganie kąta" value={angleSnap} onChange={setAngleSnap}
-        options={([90, 10, 5, 0] as const).map(value => ({ value, label: value ? `${value}°` : 'Wył.' }))} />
-      <Text style={s.muted}>{angleSnap ? `Działa przy zatwierdzaniu ręcznej korekty. Przyciąga do najbliższej wielokrotności, gdy różnica wynosi do ${angleSnap === 5 ? '1' : '2'}°.` : 'Przyciąganie wyłączone. Ręczna korekta zachowuje wpisany kąt.'}</Text>
+    <View style={s.card}><SectionTitle title={t("Długość")} icon={Ruler} />
+      <Text style={s.label}>{t("Domyślna jednostka")}</Text><Segments<'m' | 'cm'> label={t("Domyślna jednostka")} value={unit} onChange={setUnit}
+        options={[{ value: 'm', label: t("Metry") }, { value: 'cm', label: t("Centymetry") }]} />
+      <Field label={t("Długość jednego kroku (cm)")} numeric value={stepLength} onChangeText={setStepLength} />
+      <Text style={s.muted}>{t("Zmiana ustawienia nie przelicza zapisanych boków ani przywróconego pomiaru roboczego.")}</Text>
     </View>
-    <View style={s.card}><SectionTitle title="Tryb kierunku" icon={Compass} />
-      <Segments<SurveyMode> label="Tryb kierunku" value={directionMode} onChange={setDirectionMode}
-        options={([['relative', 'Względny'], ['manual', 'Ręczny'], ['magnetic', 'Magnetyczny']] as const).map(([value, label]) => ({ value, label,
+    <View style={s.card}><SectionTitle title={t("Przyciąganie kąta")} icon={Magnet} />
+      <Segments<AngleSnap> label={t("Przyciąganie kąta")} value={angleSnap} onChange={setAngleSnap}
+        options={([90, 10, 5, 0] as const).map(value => ({ value, label: value ? `${value}°` : t("Wył.") }))} />
+      <Text style={s.muted}>{angleSnap ? t("Działa przy zatwierdzaniu ręcznej korekty. Przyciąga do najbliższej wielokrotności, gdy różnica wynosi do {0}°.", [angleSnap === 5 ? '1' : '2']) : t("Przyciąganie wyłączone. Ręczna korekta zachowuje wpisany kąt.")}</Text>
+    </View>
+    <View style={s.card}><SectionTitle title={t("Tryb kierunku")} icon={Compass} />
+      <Segments<SurveyMode> label={t("Tryb kierunku")} value={directionMode} onChange={setDirectionMode}
+        options={([['relative', t("Względny")], ['manual', t("Ręczny")], ['magnetic', t("Magnetyczny")]] as const).map(([value, label]) => ({ value, label,
           disabled: value !== 'manual' && !store.capabilities?.[value] }))} />
-      <Text style={s.muted}>Wspólny dla wszystkich szkiców. Zmiana zatrzyma bieżącą sesję i wymaga ponownego przechwycenia kierunku. Zapisane pomiary zachowują swój tryb i wynik. Przy niedostępnym czujniku użyjemy trybu ręcznego.</Text>
+      <Text style={s.muted}>{t("Wspólny dla wszystkich szkiców. Zmiana zatrzyma bieżącą sesję i wymaga ponownego przechwycenia kierunku. Zapisane pomiary zachowują swój tryb i wynik. Przy niedostępnym czujniku użyjemy trybu ręcznego.")}</Text>
     </View>
-    <Button label="Diagnostyka" icon={Activity} quiet onPress={() => router.push('/diagnostics')} />
+    <Button label={t("Diagnostyka")} icon={Activity} quiet onPress={() => router.push('/diagnostics')} />
   </Page>;
 }

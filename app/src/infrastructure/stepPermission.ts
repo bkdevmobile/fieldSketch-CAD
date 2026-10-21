@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import { AppState, PermissionsAndroid, Platform } from 'react-native';
 
 const needsRuntimePermission = () => Platform.OS === 'android' && Number(Platform.Version) >= 29;
@@ -16,7 +17,7 @@ export async function requestStepPermissionBeforeDirection() {
       if (state === 'active') { clearTimeout(timeout); listener.remove(); resolve(); }
     });
     const timeout = setTimeout(() => {
-      listener.remove(); reject(new Error('Wróć do aplikacji i ponów przygotowanie odczytu.'));
+      listener.remove(); reject(new Error(t("Wróć do aplikacji i ponów przygotowanie odczytu.")));
     }, 2000);
   });
   return result === PermissionsAndroid.RESULTS.GRANTED;

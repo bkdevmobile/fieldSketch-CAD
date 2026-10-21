@@ -1,4 +1,6 @@
-# FieldSketch CAD
+# outlineGo (wcześniej FieldSketch CAD)
+
+Interfejs obsługuje polski, angielski, niemiecki, hiszpański i francuski. Domyślnie korzysta z języka telefonu (rezerwowo angielski); język można zmienić w ustawieniach. [Dokumentacja lokalizacji](docs/technical/wielojezycznosc.md).
 
 Mobilne narzędzie do tworzenia pomocniczych, wymiarowanych szkiców 2D w terenie. Eksport DXF jest planowany w kolejnym etapie.
 

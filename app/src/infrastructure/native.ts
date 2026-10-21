@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import { NativeModule, requireOptionalNativeModule } from 'expo-modules-core';
 import { Capture, SurveyMode } from '../domain/model';
 export interface Capabilities { magnetic: boolean; relative: boolean; stepDetector: boolean; device: string; android: string }
@@ -8,6 +9,7 @@ export interface LiveSample {
 }
 export interface LogSession { id: string; projectId: string; createdAt: string; status: string; bytes: number }
 export interface Snapshot { token: string; sessionId: string; parts: number; uri: string; bytes: number }
+export interface LanguageState { systemLocales: string[]; appLanguage: string; supportsAppLanguage: boolean }
 type NativeEvents = {
   orientationSample: (sample: LiveSample) => void;
   sensorStatusChanged: (status: { status: string; message?: string; reason?: string }) => void;
@@ -15,6 +17,8 @@ type NativeEvents = {
 };
 declare class OrientationModule extends NativeModule<NativeEvents> {
   getCapabilities(): Promise<Capabilities>;
+  getLanguageState(): Promise<LanguageState>;
+  setApplicationLanguage(language: string): Promise<void>;
   startSession(options: string): Promise<{ sessionId: string; mode: SurveyMode }>;
   stopSession(): Promise<void>;
   captureDirection(): Promise<Capture>;
@@ -28,6 +32,6 @@ declare class OrientationModule extends NativeModule<NativeEvents> {
 }
 const module = requireOptionalNativeModule<OrientationModule>('FieldSketchOrientation');
 export const orientation = () => {
-  if (!module) throw new Error('Moduł pomiarowy wymaga APK outlineGo lub development build. Expo Go nie jest obsługiwane.');
+  if (!module) throw new Error(t("Moduł pomiarowy wymaga APK outlineGo lub development build. Expo Go nie jest obsługiwane."));
   return module;
 };

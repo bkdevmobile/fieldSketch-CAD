@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Easing, Keyboard, PanResponder, View, Text } from 'react-native';
 import Svg, { Circle, G, Line, Polyline, Text as SvgText } from 'react-native-svg';
@@ -86,18 +87,18 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
   const draft = endpoint && screen(endpoint), start = points.at(-1)!;
   const label = (length: number) => `${fmt(length * (unit === 'cm' ? 100 : 1), 2)} ${unit}`;
   return <View style={{ gap: 8 }}>
-    {!thumbnail && <View style={s.row}><Text style={[s.label, { flex: 1 }]}>Szkic na żywo</Text>
+    {!thumbnail && <View style={s.row}><Text style={[s.label, { flex: 1 }]}>{t("Szkic na żywo")}</Text>
       {!(compact && keyboardOpen) && <>
       <Button label="−" secondary disabled={zoom <= 0.5} onPress={() => { focal.current = { x: 0, y: 0 }; animateZoom(nextZoom(viewport.current.zoom, -1)); }} />
       <Button label="+" secondary disabled={zoom >= 8} onPress={() => { focal.current = { x: 0, y: 0 }; animateZoom(nextZoom(viewport.current.zoom, 1)); }} />
-      <Button label="Dopasuj" secondary onPress={() => setFit(v => v + 1)} /></>}
+      <Button label={t("Dopasuj")} secondary onPress={() => setFit(v => v + 1)} /></>}
     </View>}
     <View ref={canvas} {...(thumbnail ? {} : responder.panHandlers)} onLayout={event => {
       setWidth(event.nativeEvent.layout.width);
       canvas.current?.measureInWindow((x, y) => { canvasOrigin.current = { x, y }; });
     }} onTouchStart={() => canvas.current?.measureInWindow((x, y) => { canvasOrigin.current = { x, y }; })}
       style={{ backgroundColor: colors.bg, borderRadius: thumbnail ? 10 : 18, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' }}>
-      <Svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`} accessible={!thumbnail} accessibilityLabel="Szkic obrysu z numerami punktów i roboczym bokiem">
+      <Svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`} accessible={!thumbnail} accessibilityLabel={t("Szkic obrysu z numerami punktów i roboczym bokiem")}>
         {Array.from({ length: Math.ceil(Math.max(width, height) / 25) + 1 }, (_, i) => <G key={i}>
           <Line x1={i * 25} y1={0} x2={i * 25} y2={height} stroke={colors.line} />
           <Line x1={0} y1={i * 25} x2={width} y2={i * 25} stroke={colors.line} /></G>)}
@@ -116,10 +117,10 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
           </G> : <><Circle cx={draft.sx} cy={draft.sy} r={6} fill="white" stroke={colors.green} strokeWidth={2} />
             <SvgText x={draft.sx + 9} y={draft.sy - 9} fill={colors.ink} fontSize={13}>P{points.length + 1}</SvgText></>}
           {!thumbnail && <SvgText x={(start.sx + draft.sx) / 2} y={(start.sy + draft.sy) / 2 - 14} textAnchor="middle" fill={colors.green} fontSize={12}>
-            {preview?.lengthM === undefined ? 'kierunek' : label(preview.lengthM)}</SvgText>}
+            {preview?.lengthM === undefined ? t("kierunek") : label(preview.lengthM)}</SvgText>}
         </G>}
       </Svg>
     </View>
-    {!thumbnail && !(compact && keyboardOpen) && <Text style={s.muted}>{draft ? 'Linia przerywana: pomiar przed zapisem.' : 'Zapisane boki: linia ciągła.'} {!compact && 'Przesuwaj palcem; zbliżaj lub rozsuwaj dwa palce, aby zmienić skalę.'}</Text>}
+    {!thumbnail && !(compact && keyboardOpen) && <Text style={s.muted}>{draft ? t("Linia przerywana: pomiar przed zapisem.") : t("Zapisane boki: linia ciągła.")} {!compact && t("Przesuwaj palcem; zbliżaj lub rozsuwaj dwa palce, aby zmienić skalę.")}</Text>}
   </View>;
 }

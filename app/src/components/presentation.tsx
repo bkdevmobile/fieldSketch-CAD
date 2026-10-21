@@ -6,13 +6,13 @@ import { colors, s } from './ui';
 export function SectionTitle({ title, icon: Icon }: { title: string; icon: LucideIcon }) {
   return <View style={s.row}><Icon size={20} color={colors.green} accessible={false} /><Text style={s.h2}>{title}</Text></View>;
 }
-export function Segments<T extends string | number>({ label, value, options, onChange }: {
-  label: string; value: T; options: { value: T; label: string; disabled?: boolean }[]; onChange(value: T): void;
+export function Segments<T extends string | number>({ label, value, options, onChange, minOptionWidth = 60 }: {
+  label: string; value: T; options: { value: T; label: string; disabled?: boolean }[]; onChange(value: T): void; minOptionWidth?: number;
 }) {
   return <View accessibilityLabel={label} style={[s.segment, { flexWrap: 'wrap' }]}>{options.map(option => <Pressable key={option.value}
     accessibilityRole="button" accessibilityLabel={option.label} accessibilityState={{ selected: option.value === value, disabled: option.disabled }}
     disabled={option.disabled} onPress={() => onChange(option.value)} style={({ pressed }) => ({
-      flexGrow: 1, flexBasis: 60, minHeight: 44, justifyContent: 'center', alignItems: 'center', padding: 8, borderRadius: 12,
+      flexGrow: 1, flexBasis: minOptionWidth, minHeight: 44, justifyContent: 'center', alignItems: 'center', padding: 8, borderRadius: 12,
       backgroundColor: option.value === value ? colors.white : 'transparent', opacity: option.disabled ? 0.4 : pressed ? 0.7 : 1,
     })}><Text style={[s.label, { textAlign: 'center', color: option.value === value ? colors.ink : colors.muted }]}>{option.label}</Text></Pressable>)}</View>;
 }

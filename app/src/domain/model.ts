@@ -23,8 +23,8 @@ export interface Project {
 export const STEP_LENGTH_CM = 75;
 export type AngleSnap = 0 | 5 | 10 | 90;
 export interface UserSettings { unit: 'm' | 'cm'; stepLengthCm: number; angleSnap: AngleSnap; directionMode: SurveyMode;
-  sketchCorner?: import('./floatingSketch').SketchCorner; lengthInput?: 'manual' | 'steps' }
-export const DEFAULT_SETTINGS: UserSettings = { unit: 'm', stepLengthCm: STEP_LENGTH_CM, angleSnap: 90, directionMode: 'relative', sketchCorner: 'bottom-right', lengthInput: 'steps' };
+  sketchCorner?: import('./floatingSketch').SketchCorner; lengthInput?: 'manual' | 'steps'; language?: import('../i18n').LanguagePreference }
+export const DEFAULT_SETTINGS: UserSettings = { unit: 'm', stepLengthCm: STEP_LENGTH_CM, angleSnap: 90, directionMode: 'relative', sketchCorner: 'bottom-right', lengthInput: 'steps', language: 'system' };
 export const id = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
 export function newProject(name: string, mode: SurveyMode): Project {
   const now = new Date().toISOString();

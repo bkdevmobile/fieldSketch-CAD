@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import * as SQLite from 'expo-sqlite';
@@ -5,6 +6,8 @@ import { DEFAULT_SETTINGS, Project, SurveyMode, UserSettings } from '../domain/m
 import { ProjectRepository } from './repository';
 import { Capabilities, LiveSample, orientation } from './native';
 import type { Plan } from '../domain/access';
+import { getLanguage, setLanguage } from '../i18n';
+import { applyLanguagePreference, preferenceFromState, readLanguageState } from './language';
 
 interface Store {
   projects: Project[]; repo: ProjectRepository | null; error: string; busy: boolean; ready: boolean;
@@ -45,6 +48,9 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         await repository.initialize();
         const saved = await repository.list();
         const preferences = await repository.settings();
+        const languageState = await readLanguageState();
+        preferences.language = preferenceFromState(preferences.language ?? 'system', languageState);
+        setLanguage(preferences.language, languageState.systemLocales);
         if (mounted) { settingsRef.current = preferences; setSettings(preferences); setRepo(repository); setProjects(saved); }
         const cap = await orientation().getCapabilities();
         if (mounted) setCapabilities(cap);
@@ -61,6 +67,15 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     } catch (e) { setError(message(e)); }
     const sub = AppState.addEventListener('change', state => {
       if (state !== 'active') { setSessionId(null); setSessionProject(null); setLive(null); }
+      else void readLanguageState().then(native => {
+        if (!mounted) return;
+        const previous = getLanguage();
+        const language = preferenceFromState(settingsRef.current.language ?? 'system', native);
+        setLanguage(language, native.systemLocales);
+        if (previous !== getLanguage() || language !== settingsRef.current.language) {
+          const next = { ...settingsRef.current, language }; settingsRef.current = next; setSettings(next);
+        }
+      });
     });
     return () => { mounted = false; sample?.remove(); status?.remove(); sub.remove(); };
   }, []);
@@ -79,7 +94,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const log = async (type: string, data: object) => { await orientation().appendEvent(type, JSON.stringify(data)); };
   const saveSettingsPatch = (patch: Partial<UserSettings>) => {
     const write = settingsWrites.current.catch(() => {}).then(async () => {
-      if (!repo) throw new Error('Baza nie jest jeszcze gotowa.');
+      if (!repo) throw new Error(t("Baza nie jest jeszcze gotowa."));
       const next = { ...settingsRef.current, ...patch };
       await repo.saveSettings(next); settingsRef.current = next; setSettings(next);
     });
@@ -89,9 +104,12 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     try { await saveSettingsPatch(patch); } catch (e) { setError(message(e)); }
   };
   const updateSettings = async (next: UserSettings) => {
-    if (!repo) throw new Error('Baza nie jest jeszcze gotowa.');
+    if (!repo) throw new Error(t("Baza nie jest jeszcze gotowa."));
     if (next.directionMode !== settings.directionMode && sessionId) await stop();
     await saveSettingsPatch(next);
+    await applyLanguagePreference(next.language ?? settingsRef.current.language ?? 'system');
+    // Also re-render consumers when the effective system language changed.
+    setSettings(value => ({ ...value }));
   };
   return <Context.Provider value={{ projects, repo, error, busy, ready, capabilities, live, sessionId, sessionProject, settings, plan, updateSettings, rememberUi, refresh, run, start, stop, log }}>{children}</Context.Provider>;
 }

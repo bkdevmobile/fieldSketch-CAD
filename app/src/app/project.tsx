@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AppState, Keyboard, Pressable, Text, View } from 'react-native';
 import { Dialog, MenuAnchor, PopupMenu, useDialogs } from '../components/overlays';
@@ -145,13 +146,13 @@ export default function Survey() {
             setResumeNote('Brak zgody na krokomierz. Możesz wpisać długość ręcznie.');
           }
         }
-        if (!screenFocused.current || AppState.currentState !== 'active') throw new Error('Wróć do szkicu i ponów przygotowanie odczytu.');
+        if (!screenFocused.current || AppState.currentState !== 'active') throw new Error(t("Wróć do szkicu i ponów przygotowanie odczytu."));
         await store.start(project, mode);
       }
       catch (error) { setStartFailed(true); throw error; }
     });
   }, [focused, foreground, hydrated, draftError, step, help, active, pointLimit, store.busy, store.capabilities, permission?.granted, id, mode, project?.closed, startAttempt]);
-  if (!project) return <Page title="Szkic"><Text style={s.text}>Ładowanie szkicu lub szkic został usunięty.</Text></Page>;
+  if (!project) return <Page title={t("Szkic")}><Text style={s.text}>{t("Ładowanie szkicu lub szkic został usunięty.")}</Text></Page>;
   const fit = () => setFitKey(key => key + 1);
   const retryStart = () => { autoAttempt.current = null; setStartFailed(false); setStartAttempt(value => value + 1); };
   const setDirection = (value: Frozen) => {
@@ -171,7 +172,7 @@ export default function Survey() {
         frameOffset = referenceOffset(project, index, capture.headingRad);
         await store.log('reference_registered', { fromPointId: a.id, toPointId: b.id, frameOffset, capture });
         setOffset(frameOffset);
-        Alert.alert('Odniesienie ustawione', 'Wróć do aktualnego punktu i przechwyć kierunek następnego boku.');
+        Alert.alert(t("Odniesienie ustawione"), t("Wróć do aktualnego punktu i przechwyć kierunek następnego boku."));
         return;
       }
       frameOffset = -rawTheta;
@@ -182,29 +183,29 @@ export default function Survey() {
   };
   const capture = () => store.run(async () => {
     if (pointLimit) { plus.show('points'); return; }
-    if (!active) throw new Error('Najpierw rozpocznij sesję.');
+    if (!active) throw new Error(t("Najpierw rozpocznij sesję."));
     if (mode === 'manual') {
       const direction = first ? 0 : headingFromTurn(previous, applySnap(), turnSide);
       await store.log('manual_direction', { theta: direction, turn, turnSide });
       setDirection({ theta: direction, capture: null, sessionId: store.sessionId! });
       return;
     }
-    if (!directionReady(store.live, store.sessionId)) throw new Error('Skieruj telefon na narożnik i przytrzymaj go nieruchomo. Zapisz kierunek po pojawieniu się zielonego statusu.');
+    if (!directionReady(store.live, store.sessionId)) throw new Error(t("Skieruj telefon na narożnik i przytrzymaj go nieruchomo. Zapisz kierunek po pojawieniu się zielonego statusu."));
     let value: Capture;
     try { value = await orientation().captureDirection(); }
     catch (error) {
       try { await store.log('capture_failed', { message: message(error) }); } catch { }
       throw new Error(captureErrorText(error));
     }
-    if (value.sessionId !== store.sessionId) throw new Error('Sesja czujnika zmieniła się. Przechwyć kierunek ponownie.');
+    if (value.sessionId !== store.sessionId) throw new Error(t("Sesja czujnika zmieniła się. Przechwyć kierunek ponownie."));
     if (!value.stable || !directionReady({ ...value, ready: true }, store.sessionId)) {
       await store.log('capture_rejected', { capture: value });
-      throw new Error('Telefon poruszył się lub jakość odczytu spadła. Przytrzymaj go nieruchomo i ponów zapis kierunku po zielonym statusie.');
+      throw new Error(t("Telefon poruszył się lub jakość odczytu spadła. Przytrzymaj go nieruchomo i ponów zapis kierunku po zielonym statusie."));
     }
     await acceptCapture(value);
   });
   const persist = async (next: Project, kind: string, before = project, sessionStarted = false) => {
-    if (!active && !sessionStarted) throw new Error('Rozpocznij sesję, aby zmiana miała log diagnostyczny.');
+    if (!active && !sessionStarted) throw new Error(t("Rozpocznij sesję, aby zmiana miała log diagnostyczny."));
     await store.log(`${kind}_intent`, { revisionBefore: before.geometryRevision, revisionAfter: next.geometryRevision,
       lastPointBefore: before.points.at(-1), lastPointAfter: next.points.at(-1),
       observation: next.observations.length > before.observations.length ? next.observations.at(-1) : null,
@@ -215,19 +216,19 @@ export default function Survey() {
     setFrozen(null); setLength(''); setSteps(''); setStepLength(String(store.settings.stepLengthCm)); setStepMeasurementId(undefined); setDetectedSteps(undefined); setTurn('0'); setStep('direction'); fit();
     await store.refresh();
     try { await store.log(`${kind}_committed`, { geometryRevision: next.geometryRevision }); }
-    catch { throw new Error('Pomiar zapisano, ale nie udało się dopisać potwierdzenia do loga. Sprawdź pamięć telefonu.'); }
+    catch { throw new Error(t("Pomiar zapisano, ale nie udało się dopisać potwierdzenia do loga. Sprawdź pamięć telefonu.")); }
   };
   const saveCurrent = async (closure = false, selected = measurement) => {
     if (!canAddPoint(project, store.plan)) throw new AccessLimitError('points');
-    if (!frozenValid || theta === undefined || !selected) throw new Error('Uzupełnij kierunek oraz dodatnią długość.');
+    if (!frozenValid || theta === undefined || !selected) throw new Error(t("Uzupełnij kierunek oraz dodatnią długość."));
     const next = commitMeasurement(project, selected, theta, mode, frozen!.sessionId, frozen!.capture, closure, frozen!.theta);
     await persist(next, closure ? 'closure_measured' : 'side_added');
     return next;
   };
-  const chooseFinish = (base: Project) => Alert.alert('Zakończ pomiar', 'Zamknij obrys połączeniem do P1 albo zachowaj go otwartym.', [
-    { text: 'Wróć do pomiaru', style: 'cancel' },
-    { text: 'Zostaw otwarty', onPress: () => complete(base, false) },
-    ...(base.points.length >= 3 && !base.closed ? [{ text: 'Zamknij obrys', onPress: () => complete(base, true) }] : []),
+  const chooseFinish = (base: Project) => Alert.alert(t("Zakończ pomiar"), t("Zamknij obrys połączeniem do P1 albo zachowaj go otwartym."), [
+    { text: t("Wróć do pomiaru"), style: 'cancel' },
+    { text: t("Zostaw otwarty"), onPress: () => complete(base, false) },
+    ...(base.points.length >= 3 && !base.closed ? [{ text: t("Zamknij obrys"), onPress: () => complete(base, true) }] : []),
   ]);
   const complete = (base: Project, close: boolean) => store.run(async () => {
     finishing.current = true;
@@ -247,10 +248,10 @@ export default function Survey() {
     Keyboard.dismiss();
     let valid = false;
     try { if (selected) { measurementLength(selected); valid = true; } } catch { }
-    if (frozen || length.trim() || steps.trim()) Alert.alert('Niezapisany bok', 'Zapisz kompletny pomiar lub odrzuć go przed zakończeniem.', [
-      { text: 'Wróć do pomiaru', style: 'cancel' },
-      { text: 'Odrzuć', onPress: () => chooseFinish(project) },
-      ...(frozenValid && theta !== undefined && valid ? [{ text: 'Zapisz', onPress: () => store.run(async () => { chooseFinish(await saveCurrent(false, selected)); }) }] : []),
+    if (frozen || length.trim() || steps.trim()) Alert.alert(t("Niezapisany bok"), t("Zapisz kompletny pomiar lub odrzuć go przed zakończeniem."), [
+      { text: t("Wróć do pomiaru"), style: 'cancel' },
+      { text: t("Odrzuć"), onPress: () => chooseFinish(project) },
+      ...(frozenValid && theta !== undefined && valid ? [{ text: t("Zapisz"), onPress: () => store.run(async () => { chooseFinish(await saveCurrent(false, selected)); }) }] : []),
     ]);
     else chooseFinish(project);
   };
@@ -266,14 +267,14 @@ export default function Survey() {
   };
   const startWalking = () => store.run(async () => {
     if (pointLimit) { plus.show('points'); return; }
-    if (!frozenValid) throw new Error('Przechwyć kierunek przed pomiarem kroków.');
+    if (!frozenValid) throw new Error(t("Przechwyć kierunek przed pomiarem kroków."));
     parsePositive(stepLength);
     const savedDirection = frozen!;
     permissionFlow.current = true;
     try {
       Keyboard.dismiss();
       await pedometer.start(async () => {
-        if (!screenFocused.current || AppState.currentState !== 'active') throw new Error('Wróć do szkicu przed uruchomieniem krokomierza.');
+        if (!screenFocused.current || AppState.currentState !== 'active') throw new Error(t("Wróć do szkicu przed uruchomieniem krokomierza."));
         const session = await store.start(project, mode);
         permissionResumeSession.current = session;
         setFrozen({ ...savedDirection, authorizedSessionId: session });
@@ -321,70 +322,70 @@ export default function Survey() {
   const readoutReady = active && directionReady(currentLive, store.sessionId);
   const StatusIcon = readoutReady ? CircleCheck : active && currentLive?.ready ? CircleAlert : Compass;
   const statusColor = readoutReady ? colors.ready : active && currentLive?.ready ? colors.amber : colors.muted;
-  const statusLabel = !active ? startFailed ? 'Błąd odczytu — ponów poniżej.' : !permission?.granted ? 'Udostępnij kamerę do celowania.' : 'Przygotowywanie odczytu…' : !currentLive?.ready ? 'Przytrzymaj telefon nieruchomo przez 2 s.' : currentLive.horizontalProjection < 0.2 ? 'Skieruj kamerę przed siebie, nie w ziemię.' : readoutReady ? 'Telefon stabilny — możesz zapisać kierunek.' : 'Odczyt niestabilny — przytrzymaj telefon.';
+  const statusLabel = !active ? startFailed ? t("Błąd odczytu — ponów poniżej.") : !permission?.granted ? t("Udostępnij kamerę do celowania.") : t("Przygotowywanie odczytu…") : !currentLive?.ready ? t("Przytrzymaj telefon nieruchomo przez 2 s.") : currentLive.horizontalProjection < 0.2 ? t("Skieruj kamerę przed siebie, nie w ziemię.") : readoutReady ? t("Telefon stabilny — możesz zapisać kierunek.") : t("Odczyt niestabilny — przytrzymaj telefon.");
   const liveTheta = active && currentLive && !needsReference ? first ? 0 : normalize(Math.PI / 2 - currentLive.headingRad + (offset ?? 0)) : undefined;
   const previewTheta = pointLimit ? undefined : theta ?? (step === 'direction' ? liveTheta : undefined);
-  const title = { start: 'Zapisz pierwszy punkt', direction: needsReference ? 'Odtwórz odniesienie' : 'Wskaż kierunek',
-    angle: 'Kierunek zapisany', length: 'Podaj długość', review: 'Sprawdź bok przed zapisem' }[step];
+  const title = { start: t("Zapisz pierwszy punkt"), direction: needsReference ? t("Odtwórz odniesienie") : t("Wskaż kierunek"),
+    angle: t("Kierunek zapisany"), length: t("Podaj długość"), review: t("Sprawdź bok przed zapisem") }[step];
   const blocked = store.busy || !hydrated || !!draftError || pedometer.walking;
   const turnFields = <>
-    {first ? <Text style={s.text}>Pierwszy bok wyznacza kierunek 0° szkicu.</Text> : <>
+    {first ? <Text style={s.text}>{t("Pierwszy bok wyznacza kierunek 0° szkicu.")}</Text> : <>
       <AngleControls value={turn} side={turnSide} onChange={value => updateTurn(value)} onEndEditing={applySnap}
         disabled={blocked} onSideChange={side => { updateTurn(turn, side); fit(); }} />
       {!!angleError && <Text accessibilityRole="alert" style={s.warningText}>{angleError}</Text>}
     </>}
   </>;
-  const subtitle = pointLimit && !project.closed ? `${project.points.length} punktów · limit Free` : `Punkt P${project.points.length} → P${project.points.length + 1} · ${modeLabels[mode]}`;
+  const subtitle = pointLimit && !project.closed ? t("{0} punktów · limit Free", [project.points.length]) : t("Punkt P{0} → P{1} · {2}", [project.points.length, project.points.length + 1, t(modeLabels[mode])]);
   return <Page title={project.name} subtitle={subtitle}
     heading={<SurveyHeading name={project.name} subtitle={subtitle} step={step} closed={project.closed} showSteps={!pointLimit || project.closed} />}
     compactHeader resetKey={step} overlay={step !== 'start' && <FloatingSketch project={project} unit={unit} fitKey={fitKey}
       preview={previewTheta === undefined ? undefined : { theta: previewTheta, lengthM: ['length', 'review'].includes(step) ? lengthM : undefined }} />} footer={<>
-      {!project.closed && pointLimit && <Button label="Więcej punktów · Plus" onPress={() => plus.show('points')} disabled={store.busy} />}
+      {!project.closed && pointLimit && <Button label={t("Więcej punktów · Plus")} onPress={() => plus.show('points')} disabled={store.busy} />}
       {!project.closed && !pointLimit && <View style={{ flexDirection: 'row', gap: 10 }}>
-        {step !== 'start' && step !== 'direction' && <View style={{ flex: 1 }}><Button label="Wstecz" icon={ArrowLeft} secondary onPress={back} disabled={blocked} /></View>}
+        {step !== 'start' && step !== 'direction' && <View style={{ flex: 1 }}><Button label={t("Wstecz")} icon={ArrowLeft} secondary onPress={back} disabled={blocked} /></View>}
         <View style={{ flex: 2 }}>
-          {step === 'start' ? <Button label="Stoję w narożniku · zapisz P1" iconEnd={MapPin} onPress={() => setStep('direction')} disabled={blocked} />
-            : step === 'direction' ? <Button label={needsReference ? 'Zapisz odniesienie' : mode === 'manual' ? 'Ustaw kierunek' : 'Zapisz kierunek do narożnika'}
+          {step === 'start' ? <Button label={t("Stoję w narożniku · zapisz P1")} iconEnd={MapPin} onPress={() => setStep('direction')} disabled={blocked} />
+            : step === 'direction' ? <Button label={needsReference ? t("Zapisz odniesienie") : mode === 'manual' ? t("Ustaw kierunek") : t("Zapisz kierunek do narożnika")}
               iconEnd={Crosshair} onPress={capture} disabled={blocked || !active || help || !foreground || !focused || (mode !== 'manual' && (!permission?.granted || !readoutReady))} />
-            : step === 'review' ? <Button label="Zapisz punkt" iconEnd={Check} onPress={() => store.run(async () => { await saveCurrent(); })}
+            : step === 'review' ? <Button label={t("Zapisz punkt")} iconEnd={Check} onPress={() => store.run(async () => { await saveCurrent(); })}
               disabled={blocked || !frozenValid || theta === undefined || !measurement} />
-            : <Button label={step === 'angle' ? 'Kierunek gotowy · podaj długość' : 'Sprawdź bok'} iconEnd={ArrowRight} onPress={nextStep}
+            : <Button label={step === 'angle' ? t("Kierunek gotowy · podaj długość") : t("Sprawdź bok")} iconEnd={ArrowRight} onPress={nextStep}
               disabled={blocked || theta === undefined || (step === 'length' && !measurement)} />}
         </View>
       </View>}
-      <Button label={project.closed ? 'Zobacz podsumowanie' : 'Zakończ'} icon={Flag} quiet disabled={store.busy || !hydrated}
+      <Button label={project.closed ? t("Zobacz podsumowanie") : t("Zakończ")} icon={Flag} quiet disabled={store.busy || !hydrated}
         onPress={project.closed ? () => router.push({ pathname: '/outline', params: { id } }) : finish} />
     </>}>
-    <Stack.Screen options={{ headerRight: () => <Pressable accessibilityRole="button" accessibilityLabel="Menu szkicu"
+    <Stack.Screen options={{ headerRight: () => <Pressable accessibilityRole="button" accessibilityLabel={t("Menu szkicu")}
       onPress={event => { Keyboard.dismiss(); setMenuAnchor({ x: event.nativeEvent.pageX + 22, y: event.nativeEvent.pageY + 22 }); setMenu(true); }} style={{ minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' }}>
       <EllipsisVertical size={22} strokeWidth={1.8} color={colors.ink} accessible={false} /></Pressable> }} />
     <PopupMenu visible={menu} anchor={menuAnchor} title={project.name} onClose={() => setMenu(false)} items={[
-      { label: project.closed ? 'Cofnij zamknięcie' : 'Cofnij ostatni bok', icon: Undo2,
+      { label: project.closed ? t("Cofnij zamknięcie") : t("Cofnij ostatni bok"), icon: Undo2,
         disabled: blocked || (!project.closed && project.points.length < 2), onPress: () => {
-          Alert.alert('Cofnąć zapis?', 'Bieżący niezapisany pomiar zostanie odrzucony. Obserwacja źródłowa pozostanie w historii.', [
-            { text: 'Anuluj', style: 'cancel' }, { text: 'Cofnij', icon: Undo2, onPress: () => store.run(async () => {
+          Alert.alert(t("Cofnąć zapis?"), t("Bieżący niezapisany pomiar zostanie odrzucony. Obserwacja źródłowa pozostanie w historii."), [
+            { text: t("Anuluj"), style: 'cancel' }, { text: t("Cofnij"), icon: Undo2, onPress: () => store.run(async () => {
               if (!active) await store.start(project, mode);
               await persist(undoLast(project), 'undo', project, !active);
             }) },
           ]);
         } },
-      ...(step === 'review' && !pointLimit && project.points.length >= 3 && !project.closed ? [{ label: 'Zapisz jako pomiar powrotu do P1', icon: MapPin,
+      ...(step === 'review' && !pointLimit && project.points.length >= 3 && !project.closed ? [{ label: t("Zapisz jako pomiar powrotu do P1"), icon: MapPin,
         disabled: blocked || !frozenValid || !measurement || theta === undefined,
         onPress: () => { void store.run(async () => { await saveCurrent(true); }); } }] : []),
-      { label: 'Diagnostyka szkicu', icon: Activity, disabled: blocked, onPress: () => router.push({ pathname: '/diagnostics', params: { id } }) },
-      { label: 'Jak wykonać pomiar?', icon: Compass, disabled: pedometer.walking, onPress: () => setHelp(true) },
-      { label: 'Ustawienia', icon: Settings2, disabled: blocked, onPress: () => router.push('/settings') },
+      { label: t("Diagnostyka szkicu"), icon: Activity, disabled: blocked, onPress: () => router.push({ pathname: '/diagnostics', params: { id } }) },
+      { label: t("Jak wykonać pomiar?"), icon: Compass, disabled: pedometer.walking, onPress: () => setHelp(true) },
+      { label: t('Ustawienia'), icon: Settings2, disabled: blocked, onPress: () => router.push('/settings') },
     ]} />
     {plus.offer}
-    {!!draftError && <View style={s.warning}><Text accessibilityRole="alert" style={s.warningText}>Nie udało się zachować etapu roboczego: {draftError}</Text>
-      <Button label="Ponów zapis etapu" secondary onPress={enqueueDraft} /></View>}
-    {!!resumeNote && !pointLimit && <Text style={s.muted}>{resumeNote}</Text>}
-    {project.closed ? <View style={s.card}><Text style={s.h2}>Obrys zamknięty</Text><Text style={s.text}>Otwórz podsumowanie albo cofnij zamknięcie w menu szkicu ⋮.</Text></View> : pointLimit ?
-      <View style={s.card}><Text style={s.h2}>Limit 8 punktów w Free</Text>
-        <Text style={s.text}>Możesz poprawić pomiary albo wybrać Zakończ, aby zamknąć obrys do P1 lub zostawić go otwartym. Plus pozwoli kontynuować ten sam szkic.</Text>
-        <Button label="Popraw ostatni bok" icon={Pencil} secondary disabled={store.busy}
+    {!!draftError && <View style={s.warning}><Text accessibilityRole="alert" style={s.warningText}>{t("Nie udało się zachować etapu roboczego:")}{' '}{draftError}</Text>
+      <Button label={t("Ponów zapis etapu")} secondary onPress={enqueueDraft} /></View>}
+    {!!resumeNote && !pointLimit && <Text style={s.muted}>{t(resumeNote)}</Text>}
+    {project.closed ? <View style={s.card}><Text style={s.h2}>{t("Obrys zamknięty")}</Text><Text style={s.text}>{t("Otwórz podsumowanie albo cofnij zamknięcie w menu szkicu ⋮.")}</Text></View> : pointLimit ?
+      <View style={s.card}><Text style={s.h2}>{t("Limit 8 punktów w Free")}</Text>
+        <Text style={s.text}>{t("Możesz poprawić pomiary albo wybrać Zakończ, aby zamknąć obrys do P1 lub zostawić go otwartym. Plus pozwoli kontynuować ten sam szkic.")}</Text>
+        <Button label={t("Popraw ostatni bok")} icon={Pencil} secondary disabled={store.busy}
           onPress={() => router.push({ pathname: '/edit-side', params: { id } })} />
-        <Button label="Podsumowanie i eksport" icon={Ruler} secondary disabled={store.busy}
+        <Button label={t("Podsumowanie i eksport")} icon={Ruler} secondary disabled={store.busy}
           onPress={() => router.push({ pathname: '/outline', params: { id } })} />
       </View> :
       <View style={s.measurement}>
@@ -393,13 +394,13 @@ export default function Survey() {
         {step === 'direction' && <>
           {showCamera && <View style={{ height: 212, backgroundColor: colors.ink, borderRadius: 20, overflow: 'hidden' }}>
             {permission?.granted ? <CameraView style={{ flex: 1 }} facing="back" active={active && focused && foreground} /> :
-              <View style={{ padding: 20, gap: 12 }}><Text style={{ color: 'white' }}>Udostępnij kamerę do celowania albo wybierz tryb ręczny w ustawieniach.</Text>
-                <Button label="Udostępnij kamerę" icon={Camera} disabled={permission?.canAskAgain === false} onPress={() => store.run(async () => { await requestPermission(); })} /></View>}
+              <View style={{ padding: 20, gap: 12 }}><Text style={{ color: 'white' }}>{t("Udostępnij kamerę do celowania albo wybierz tryb ręczny w ustawieniach.")}</Text>
+                <Button label={t("Udostępnij kamerę")} icon={Camera} disabled={permission?.canAskAgain === false} onPress={() => store.run(async () => { await requestPermission(); })} /></View>}
             {permission?.granted && <View pointerEvents="none" style={{ position: 'absolute', left: '50%', top: '50%' }}>
               <View style={{ width: 48, height: 2, left: -24, backgroundColor: '#BAF2CD', position: 'absolute' }} />
               <View style={{ width: 2, height: 48, top: -24, backgroundColor: '#BAF2CD', position: 'absolute' }} />
             </View>}
-            {permission?.granted && <Pressable accessibilityRole="button" accessibilityLabel="Jak ustawić celownik?" onTouchStart={() => setAimHint(true)} onPress={() => setAimHint(true)} style={{ position: 'absolute', inset: 0 }} />}
+            {permission?.granted && <Pressable accessibilityRole="button" accessibilityLabel={t("Jak ustawić celownik?")} onTouchStart={() => setAimHint(true)} onPress={() => setAimHint(true)} style={{ position: 'absolute', inset: 0 }} />}
           </View>}
           {mode === 'manual' && <View style={s.workPanel}>{turnFields}</View>}
           {mode !== 'manual' && <View accessible accessibilityRole="text" accessibilityLabel={statusLabel} accessibilityLiveRegion="polite"
@@ -407,57 +408,57 @@ export default function Survey() {
             <StatusIcon size={19} strokeWidth={1.8} color={statusColor} accessible={false} />
             <Text style={[s.muted, { flex: 1, color: statusColor, fontWeight: '600' }]}>{statusLabel}</Text>
           </View>}
-          {!active && !store.busy && autoAttempt.current !== null && <Button label="Ponów przygotowanie odczytu" secondary onPress={retryStart} />}
-          {needsReference && <Button secondary label={`Bok odniesienia: P${anchorIndex + 1} → P${anchorIndex + 2} (zmień)`}
+          {!active && !store.busy && autoAttempt.current !== null && <Button label={t("Ponów przygotowanie odczytu")} secondary onPress={retryStart} />}
+          {needsReference && <Button secondary label={t("Bok odniesienia: P{0} → P{1} (zmień)", [anchorIndex + 1, anchorIndex + 2])}
             onPress={() => setAnchorIndex((anchorIndex + 1) % (project.points.length - 1))} />}
-          <Text style={s.text}>{needsReference ? `Stań przy P${anchorIndex + 1} i skieruj kamerę na P${anchorIndex + 2}. Zapisz odniesienie, a następnie wróć do P${project.points.length}, aby mierzyć kolejny bok.` : mode === 'manual' ? 'Ustaw skręt względem poprzedniego boku.' : `Stań przy P${project.points.length}. Obróć telefon, aż następny narożnik znajdzie się w celowniku.`}</Text>
-          {mode !== 'manual' && <Text style={s.muted}>Celownik jest nieruchomy. Celujesz, obracając telefon — nie przesuwając palcem po ekranie.</Text>}
-          {aimHint && showCamera && <Text accessibilityRole="alert" style={s.warningText}>Celuj telefonem — celownik się nie przesuwa. Obróć telefon tak, aby narożnik znalazł się na środku obrazu.</Text>}
-          <Button label="Jak wykonać pomiar?" icon={Compass} quiet align="start" onPress={() => setHelp(true)} />
+          <Text style={s.text}>{needsReference ? t("Stań przy P{0} i skieruj kamerę na P{1}. Zapisz odniesienie, a następnie wróć do P{2}, aby mierzyć kolejny bok.", [anchorIndex + 1, anchorIndex + 2, project.points.length]) : mode === 'manual' ? t("Ustaw skręt względem poprzedniego boku.") : t("Stań przy P{0}. Obróć telefon, aż następny narożnik znajdzie się w celowniku.", [project.points.length])}</Text>
+          {mode !== 'manual' && <Text style={s.muted}>{t("Celownik jest nieruchomy. Celujesz, obracając telefon — nie przesuwając palcem po ekranie.")}</Text>}
+          {aimHint && showCamera && <Text accessibilityRole="alert" style={s.warningText}>{t("Celuj telefonem — celownik się nie przesuwa. Obróć telefon tak, aby narożnik znalazł się na środku obrazu.")}</Text>}
+          <Button label={t("Jak wykonać pomiar?")} icon={Compass} quiet align="start" onPress={() => setHelp(true)} />
         </>}
         {step === 'angle' && <>
-          <Text style={s.muted}>Odczyt zatrzymany. Popraw kąt lub przejdź do długości.</Text>
-          {(first || (mode !== 'manual' && !correctAngle && !angleError)) && <Text style={s.measureValue}>{first ? '0° · pierwszy bok' : `${turn}° ${turnSide === 'left' ? 'w lewo' : 'w prawo'}`}</Text>}
-          {!first && mode !== 'manual' && <Button quiet align="start" icon={SlidersHorizontal} label={correctAngle ? 'Ukryj korektę kąta' : 'Popraw kąt'} onPress={() => { if (correctAngle) applySnap(); setCorrectAngle(value => !value); }} />}
+          <Text style={s.muted}>{t("Odczyt zatrzymany. Popraw kąt lub przejdź do długości.")}</Text>
+          {(first || (mode !== 'manual' && !correctAngle && !angleError)) && <Text style={s.measureValue}>{first ? t("0° · pierwszy bok") : `${turn}° ${turnSide === 'left' ? t("w lewo") : t("w prawo")}`}</Text>}
+          {!first && mode !== 'manual' && <Button quiet align="start" icon={SlidersHorizontal} label={correctAngle ? t("Ukryj korektę kąta") : t("Popraw kąt")} onPress={() => { if (correctAngle) applySnap(); setCorrectAngle(value => !value); }} />}
           {(mode === 'manual' || correctAngle || !!angleError) && <View style={s.workPanel}>{turnFields}
           {!first && mode !== 'manual' && correctAngle && <AngleSlider value={fineDelta} disabled={blocked} onChange={value => {
             setFineDelta(value); const corrected = turnFromHeading(previous, sliderBase + value * Math.PI / 180, 5);
             angleEdited.current = false; angleDraft.current = corrected;
             setTurn(corrected.turn); setTurnSide(corrected.turnSide);
           }} onComplete={applySnap} />}</View>}
-          <Button label="Zmierz ponownie" icon={RotateCcw} quiet align="start" onPress={() => setStep('direction')} disabled={store.busy} />
+          <Button label={t("Zmierz ponownie")} icon={RotateCcw} quiet align="start" onPress={() => setStep('direction')} disabled={store.busy} />
         </>}
         {step === 'length' && <>
-          <View style={s.segment}><View style={{ flex: 1 }}><Button label="Wpisz długość" icon={Ruler} compact disabled={pedometer.walking || store.busy} secondary={lengthSource !== 'manual'} onPress={() => chooseLengthSource('manual')} /></View>
-            <View style={{ flex: 1 }}><Button label="Krokomierz" icon={Footprints} compact disabled={pedometer.walking || store.busy} secondary={lengthSource !== 'steps'} onPress={() => chooseLengthSource('steps')} /></View></View>
+          <View style={s.segment}><View style={{ flex: 1 }}><Button label={t("Wpisz długość")} icon={Ruler} compact disabled={pedometer.walking || store.busy} secondary={lengthSource !== 'manual'} onPress={() => chooseLengthSource('manual')} /></View>
+            <View style={{ flex: 1 }}><Button label={t("Krokomierz")} icon={Footprints} compact disabled={pedometer.walking || store.busy} secondary={lengthSource !== 'steps'} onPress={() => chooseLengthSource('steps')} /></View></View>
           <View style={s.workPanel}>
           {lengthSource === 'manual' ? <>
-            <Field label={`Długość boku (${unit})`} value={length} onChangeText={setLength} numeric placeholder="np. 4,50" onEndEditing={fit} />
-            <Pressable accessibilityRole="button" accessibilityLabel={`Zmień jednostkę długości, aktualnie ${unit}`} disabled={store.busy}
-              onPress={() => Alert.alert('Jednostka tego pomiaru', 'Wybierz jednostkę; wpisana długość zostanie przeliczona.', [
-                { text: 'Metry', onPress: () => switchUnit('m') }, { text: 'Centymetry', onPress: () => switchUnit('cm') }, { text: 'Anuluj', style: 'cancel' },
-              ])} style={{ minHeight: 44, flexDirection: 'row', alignItems: 'center', gap: 6 }}><Text style={s.label}>Jednostka: {unit}</Text><ChevronDown size={16} color={colors.muted} accessible={false} /></Pressable>
+            <Field label={t("Długość boku ({0})", [unit])} value={length} onChangeText={setLength} numeric placeholder={t("np. 4,50")} onEndEditing={fit} />
+            <Pressable accessibilityRole="button" accessibilityLabel={t("Zmień jednostkę długości, aktualnie {0}", [unit])} disabled={store.busy}
+              onPress={() => Alert.alert(t("Jednostka tego pomiaru"), t("Wybierz jednostkę; wpisana długość zostanie przeliczona."), [
+                { text: t("Metry"), onPress: () => switchUnit('m') }, { text: t("Centymetry"), onPress: () => switchUnit('cm') }, { text: t("Anuluj"), style: 'cancel' },
+              ])} style={{ minHeight: 44, flexDirection: 'row', alignItems: 'center', gap: 6 }}><Text style={s.label}>{t("Jednostka:")}{' '}{unit}</Text><ChevronDown size={16} color={colors.muted} accessible={false} /></Pressable>
           </> : <><StepControls value={steps} onChange={setSteps} onEndEditing={fit} walking={pedometer.walking}
             busy={store.busy} canStart={!!store.capabilities?.stepDetector && !!frozenValid}
             onToggle={pedometer.walking ? () => store.run(async () => { await stopWalking(); }) : startWalking} />
-            <Text style={s.muted}>1 krok = {stepLength} cm · długość szacunkowa</Text>
-            {pedometer.walking ? <Text accessibilityLiveRegion="polite" style={s.h2}>{pedometer.reading?.steps ?? 0} kroków · pomiar w toku</Text>
-              : !store.capabilities?.stepDetector && <Text style={s.muted}>Ten telefon nie udostępnia detektora kroków. Wpisz ich liczbę ręcznie albo podaj długość.</Text>}
+            <Text style={s.muted}>{t("1 krok =")}{' '}{stepLength}{' '}{t("cm · długość szacunkowa")}</Text>
+            {pedometer.walking ? <Text accessibilityLiveRegion="polite" style={s.h2}>{pedometer.reading?.steps ?? 0}{' '}{t("kroków · pomiar w toku")}</Text>
+              : !store.capabilities?.stepDetector && <Text style={s.muted}>{t("Ten telefon nie udostępnia detektora kroków. Wpisz ich liczbę ręcznie albo podaj długość.")}</Text>}
           </>}
           <Text style={s.measureValue}>{lengthM === undefined ? '—' : `${fmt(lengthM * (unit === 'cm' ? 100 : 1), 2)} ${unit}`}</Text>
           </View>
-          <Text style={s.muted}>{pedometer.walking ? 'Idź do narożnika, na który celowałeś. Zatrzymaj się i naciśnij Stop.' : 'Kierunek jest zapisany. Teraz wpisz długość boku lub zmierz ją krokami.'}</Text>
-          {lengthSource === 'steps' && <Text style={s.text}>Stojąc w początku boku, naciśnij Start. Przejdź do wskazanego narożnika, zatrzymaj się i naciśnij Stop. Dopiero potem sprawdź bok.</Text>}
+          <Text style={s.muted}>{pedometer.walking ? t("Idź do narożnika, na który celowałeś. Zatrzymaj się i naciśnij Stop.") : t("Kierunek jest zapisany. Teraz wpisz długość boku lub zmierz ją krokami.")}</Text>
+          {lengthSource === 'steps' && <Text style={s.text}>{t("Stojąc w początku boku, naciśnij Start. Przejdź do wskazanego narożnika, zatrzymaj się i naciśnij Stop. Dopiero potem sprawdź bok.")}</Text>}
         </>}
         {step === 'review' && <>
-          <Text style={s.text}>Skręt: {first ? '0° · pierwszy bok' : `${turn}° ${turnSide === 'left' ? 'w lewo' : 'w prawo'}`}</Text>
+          <Text style={s.text}>{t("Skręt:")}{' '}{first ? t("0° · pierwszy bok") : `${turn}° ${turnSide === 'left' ? t("w lewo") : t("w prawo")}`}</Text>
           <Text style={s.measureValue}>{lengthM === undefined ? '—' : `${fmt(lengthM * (unit === 'cm' ? 100 : 1), 2)} ${unit}`}</Text>
-          <Text style={s.muted}>{lengthSource === 'manual' ? 'Długość wpisana ręcznie' : 'Długość oszacowana z wpisanych kroków'}</Text>
-          <View style={s.row}><Button secondary icon={Pencil} label="Popraw kąt" onPress={() => { setCorrectAngle(true); setStep('angle'); }} /><Button secondary icon={Ruler} label="Popraw długość" onPress={() => setStep('length')} /></View>
+          <Text style={s.muted}>{lengthSource === 'manual' ? t("Długość wpisana ręcznie") : t("Długość oszacowana z wpisanych kroków")}</Text>
+          <View style={s.row}><Button secondary icon={Pencil} label={t("Popraw kąt")} onPress={() => { setCorrectAngle(true); setStep('angle'); }} /><Button secondary icon={Ruler} label={t("Popraw długość")} onPress={() => setStep('length')} /></View>
         </>}
       </View>}
 
-    <Dialog visible={help} title="Jak wykonać pomiar?" onClose={() => setHelp(false)} footer={<Button label="Rozumiem · wróć do pomiaru" onPress={() => setHelp(false)} />}>
+    <Dialog visible={help} title={t("Jak wykonać pomiar?")} onClose={() => setHelp(false)} footer={<Button label={t("Rozumiem · wróć do pomiaru")} onPress={() => setHelp(false)} />}>
       <MeasurementHelp manual={mode === 'manual'} />
     </Dialog>
   </Page>;

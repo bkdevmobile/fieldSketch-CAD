@@ -3,6 +3,7 @@ import { ActivityIndicator, Keyboard, KeyboardAvoidingView, Platform, Pressable,
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStore } from '../infrastructure/store';
 import type { LucideIcon } from 'lucide-react-native';
+import { formatNumber, translateError } from '../i18n';
 export const colors = { ink: '#183A2C', muted: '#607267', green: '#1B684B', mint: '#E7EEE2', bg: '#F5F4EE', line: '#DBE4D9', amber: '#8D4D14', white: '#FFFEFA', onGreen: '#FFFFFF', ready: '#177043' };
 export function Page({ title, subtitle, children, footer, overlay, heading, resetKey, compactHeader = false }: {
   title: string; subtitle?: string; children: React.ReactNode; footer?: React.ReactNode; overlay?: React.ReactNode; heading?: React.ReactNode; resetKey?: string; compactHeader?: boolean;
@@ -46,7 +47,7 @@ export function Page({ title, subtitle, children, footer, overlay, heading, rese
     {heading ?? <>
     <Text style={compactHeader ? s.h2 : s.title}>{title}</Text>
     {subtitle && <Text style={s.subtitle}>{subtitle}</Text>}</>}
-    {!!error && <View accessibilityRole="alert" style={s.warning}><Text style={s.warningText}>{error}</Text></View>}
+    {!!error && <View accessibilityRole="alert" style={s.warning}><Text style={s.warningText}>{translateError(error)}</Text></View>}
     {busy && <ActivityIndicator color={colors.green} />}{children}
   </ScrollView>
   {overlay}
@@ -73,7 +74,7 @@ export function Field({ label, value, onChangeText, numeric = false, placeholder
     onChangeText={onChangeText} onEndEditing={onEndEditing} editable={!disabled} accessibilityState={{ disabled }} placeholder={placeholder} placeholderTextColor={colors.muted}
     keyboardType={numeric ? 'decimal-pad' : 'default'} style={s.input} /></View>;
 }
-export const fmt = (n: number, digits = 1) => n.toLocaleString('pl-PL', { maximumFractionDigits: digits });
+export const fmt = formatNumber;
 export const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg }, page: { padding: 20, gap: 16, paddingBottom: 36 },
   footer: { paddingHorizontal: 16, paddingTop: 12, paddingBottom: 8, gap: 4, borderTopWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
