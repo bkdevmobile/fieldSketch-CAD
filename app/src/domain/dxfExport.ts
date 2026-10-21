@@ -8,8 +8,11 @@ export type DxfUnit = 'm' | 'cm';
 
 // AutoCAD 2000 ASCII DXF. Unicode escapes keep names portable without
 // depending on the recipient's legacy code page. Coordinates remain in XY.
+function plainText(value: string) {
+  return value.replace(/[\r\n\t\x00-\x1f\x7f]/g, ' ').slice(0, 120);
+}
 function textValue(value: string) {
-  return value.replace(/[\r\n\t\x00-\x1f\x7f]/g, ' ').slice(0, 120)
+  return plainText(value)
     .replace(/[^\x20-\x7e]|[\\%]/g, char => `\\U+${char.charCodeAt(0).toString(16).toUpperCase().padStart(4, '0')}`);
 }
 
@@ -24,6 +27,44 @@ export function dxfExport(project: Project, unit: DxfUnit = 'm'): string {
   const span = Math.max(maxX - minX, maxY - minY);
   if (!Number.isFinite(span) || span <= 0) throw new Error(t("Szkic nie ma poprawnego boku do eksportu."));
   const height = Math.max(span / 55, 0.015 * factor), gap = height * 1.5;
+  const labelScale = 14 / height;
+  const screenVertices = vertices.map(p => ({ x: p.x * labelScale, y: -p.y * labelScale }));
+  const segments: [typeof screenVertices[number], typeof screenVertices[number]][] = [];
+  const labels: DrawingLabel[] = screenVertices.map((p, i) => ({ text: 'P' + (i + 1), anchor: p, fontSize: 14, kind: 'point' }));
+  const measuredReturn = vertices.length < project.points.length;
+  const observations = new Map(project.observations.map(o => [o.id, o]));
+  for (let i = 0; i < vertices.length - (project.closed ? 0 : 1); i++) {
+    const a = vertices[i]!, b = vertices[(i + 1) % vertices.length]!;
+    const length = distance(a, b);
+    if (length === 0) continue;
+    const automatic = project.closed && i === vertices.length - 1 && !measuredReturn;
+    const observation = observations.get(project.activeObservationIds[i] ?? '');
+    const estimated = !automatic && !!observation && observation.lengthSource !== 'manual';
+    segments.push([screenVertices[i]!, screenVertices[(i + 1) % vertices.length]!]);
+    labels.push({ text: `${estimated ? '~ ' : ''}${decimalText(length, 3)} ${unit}${automatic ? ' (auto)' : ''}`, anchor: { x: (a.x + b.x) / 2 * labelScale, y: -(a.y + b.y) / 2 * labelScale }, fontSize: 14, kind: 'length' });
+  }
+  const placed = placeLabels(labels, segments, screenVertices);
+  const texts = placed.map(l => ({ value: l.text, x: (l.box.x + 5) / labelScale, y: -(l.box.y + 4 + l.fontSize) / labelScale, layer: l.kind === 'point' ? 'POINT_LABELS' : 'LENGTHS' }));
+  const notesTop = Math.min(minY, ...placed.map(l => -(l.box.y + l.box.height) / labelScale));
+  const notes = [`outlineGo - ${project.name}`, t("Układ lokalny XY; jednostka: {0}.", [unit])];
+  if (project.activeObservationIds.some(id => observations.get(id)?.lengthSource !== 'manual' && observations.has(id)))
+    notes.push(t("~ długość z kroków jest szacunkowa."));
+  if (project.closed && !measuredReturn) notes.push(t("(auto) bok zamykający jest wyliczony z punktów."));
+  if (project.closureObservationId) notes.push(t("Niezależny pomiar zamknięcia nie koryguje geometrii obrysu."));
+  if (project.note) notes.push(...project.note.split(/\r?\n/).flatMap(line => line.match(/.{1,100}/gu) ?? ['']));
+  notes.forEach((value, i) => texts.push({ value, x: minX, y: notesTop - gap * (i + 2), layer: 'NOTES' }));
+  // Include text bearings and a conservative width estimate for CAD font substitutions.
+  // View metadata changes the initial zoom only; model coordinates remain untouched.
+  const bounds = texts.reduce((b, label) => ({
+    minX: Math.min(b.minX, label.x - height * 0.25),
+    minY: Math.min(b.minY, label.y - height * 0.3),
+    maxX: Math.max(b.maxX, label.x + Array.from(plainText(label.value)).length * height),
+    maxY: Math.max(b.maxY, label.y + height * 1.3),
+  }), { minX, minY, maxX, maxY });
+  const viewRatio = 1.6;
+  const viewHeight = Math.max(bounds.maxY - bounds.minY, (bounds.maxX - bounds.minX) / viewRatio) * 1.2;
+  const centerX = bounds.minX + (bounds.maxX - bounds.minX) / 2;
+  const centerY = bounds.minY + (bounds.maxY - bounds.minY) / 2;
   const tags: string[] = [];
   const pair = (code: number, value: string | number) => {
     if (typeof value === 'number' && !Number.isFinite(value)) throw new Error(t("Wartość poza zakresem DXF."));
@@ -53,6 +94,9 @@ export function dxfExport(project: Project, unit: DxfUnit = 'm'): string {
   pair(9, '$INSBASE'); point(0, 0);
   pair(9, '$LUNITS'); pair(70, 2);
   pair(9, '$LUPREC'); pair(70, 4);
+  pair(9, '$TILEMODE'); pair(70, 1);
+  pair(9, '$EXTMIN'); point(bounds.minX, bounds.minY);
+  pair(9, '$EXTMAX'); point(bounds.maxX, bounds.maxY);
   end();
 
   section('TABLES');
@@ -64,6 +108,17 @@ export function dxfExport(project: Project, unit: DxfUnit = 'm'): string {
     pair(0, type); pair(5, handle()); pair(330, owner);
     pair(100, 'AcDbSymbolTableRecord'); pair(100, subclass);
   };
+  const vports = table('VPORT', 1);
+  record('VPORT', vports, 'AcDbViewportTableRecord'); pair(2, '*ACTIVE'); pair(70, 0);
+  pair(10, 0); pair(20, 0); pair(11, 1); pair(21, 1);
+  pair(12, centerX); pair(22, centerY);
+  pair(16, 0); pair(26, 0); pair(36, 1);
+  pair(17, 0); pair(27, 0); pair(37, 0);
+  pair(40, viewHeight); pair(41, viewRatio); pair(42, 50);
+  pair(43, 0); pair(44, 0); pair(50, 0); pair(51, 0);
+  pair(71, 0); pair(72, 1000); pair(73, 1); pair(74, 0);
+  pair(75, 0); pair(76, 0); pair(77, 0); pair(78, 0);
+  pair(0, 'ENDTAB');
   const ltypes = table('LTYPE', 3);
   for (const name of ['ByBlock', 'ByLayer', 'CONTINUOUS']) {
     record('LTYPE', ltypes, 'AcDbLinetypeTableRecord'); pair(2, name); pair(70, 0);
@@ -95,32 +150,7 @@ export function dxfExport(project: Project, unit: DxfUnit = 'm'): string {
   entity('LWPOLYLINE', 'OUTLINE'); pair(100, 'AcDbPolyline');
   pair(90, vertices.length); pair(70, project.closed ? 1 : 0);
   for (const p of vertices) { pair(10, p.x); pair(20, p.y); }
-  const labelScale = 14 / height;
-  const screenVertices = vertices.map(p => ({ x: p.x * labelScale, y: -p.y * labelScale }));
-  const segments: [typeof screenVertices[number], typeof screenVertices[number]][] = [];
-  const labels: DrawingLabel[] = screenVertices.map((p, i) => ({ text: 'P' + (i + 1), anchor: p, fontSize: 14, kind: 'point' }));
-  const measuredReturn = vertices.length < project.points.length;
-  const observations = new Map(project.observations.map(o => [o.id, o]));
-  for (let i = 0; i < vertices.length - (project.closed ? 0 : 1); i++) {
-    const a = vertices[i]!, b = vertices[(i + 1) % vertices.length]!;
-    const length = distance(a, b);
-    if (length === 0) continue;
-    const automatic = project.closed && i === vertices.length - 1 && !measuredReturn;
-    const observation = observations.get(project.activeObservationIds[i] ?? '');
-    const estimated = !automatic && !!observation && observation.lengthSource !== 'manual';
-    segments.push([screenVertices[i]!, screenVertices[(i + 1) % vertices.length]!]);
-    labels.push({ text: `${estimated ? '~ ' : ''}${decimalText(length, 3)} ${unit}${automatic ? ' (auto)' : ''}`, anchor: { x: (a.x + b.x) / 2 * labelScale, y: -(a.y + b.y) / 2 * labelScale }, fontSize: 14, kind: 'length' });
-  }
-  const placed = placeLabels(labels, segments, screenVertices);
-  placed.forEach(l => text(l.text, (l.box.x + 5) / labelScale, -(l.box.y + 4 + l.fontSize) / labelScale, l.kind === 'point' ? 'POINT_LABELS' : 'LENGTHS'));
-  const notesTop = Math.min(minY, ...placed.map(l => -(l.box.y + l.box.height) / labelScale));
-  const notes = [`outlineGo - ${project.name}`, t("Układ lokalny XY; jednostka: {0}.", [unit])];
-  if (project.activeObservationIds.some(id => observations.get(id)?.lengthSource !== 'manual' && observations.has(id)))
-    notes.push(t("~ długość z kroków jest szacunkowa."));
-  if (project.closed && !measuredReturn) notes.push(t("(auto) bok zamykający jest wyliczony z punktów."));
-  if (project.closureObservationId) notes.push(t("Niezależny pomiar zamknięcia nie koryguje geometrii obrysu."));
-  if (project.note) notes.push(...project.note.split(/\r?\n/).flatMap(line => line.match(/.{1,100}/gu) ?? ['']));
-  notes.forEach((note, i) => text(note, minX, notesTop - gap * (i + 2), 'NOTES'));
+  texts.forEach(label => text(label.value, label.x, label.y, label.layer));
   end(); pair(0, 'EOF');
   return tags.join('\r\n') + '\r\n';
 }

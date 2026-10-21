@@ -1,13 +1,13 @@
 # Ogólny plan rozwoju outlineGo
 
-Stan na **21 października 2026**, kod aplikacji **acf99a0**, wersja 0.1.0. Kierunek prac ustalono z użytkownikiem 19 października. Testy zamknięte wcześniejszego MVP zakończono decyzją użytkownika 20 października dla kodu 9a54555 i APK 30CB381F…; nie oznacza to publikacji produkcyjnej ani zaliczenia każdej późniejszej funkcji. Szczegóły: [MEMO](../MEMO.md).
+Stan na **21 października 2026**: aplikacja 0.1.0, versionCode 2. Pierwsze wydanie w testach wewnętrznych Google Play potwierdził użytkownik. Źródła obejmują dodatkowo poprawkę początkowego widoku DXF, jeszcze bez nowego APK/AAB. Testy zamknięte wcześniejszego MVP zakończono 20 października; produkcji nie opublikowano. [Historia](../MEMO.md).
 
 ## Etapy
 
 1. **Testy technologii** — wykonane próby trybu względnego mają zaakceptowaną przez użytkownika dokładność. Krokomierz zaakceptowano; dodatkowe kroki użytkownik wiąże z ruchem telefonu. Nie określono liczbowego progu dokładności i nie rozszerzono odbioru automatycznie na tryb magnetyczny.
 2. **Działanie i UI** — wdrożone: wizard Kierunek → Długość → Zapis, ręczne m/cm, krokomierz Start/Stop, pływający szkic, korekty, zapis i wznowienie, pomoc pierwszego pomiaru, branding i styl Teren. Ostatni przyrost dodaje notatki, przypinanie, zbiorczą edycję wymiarów, nawigację po punktach i ponowny pomiar oraz unikanie kolizji opisów.
 3. **Wersja pre-release i testy zamknięte** — wcześniejszy etap MVP zamknięty decyzją użytkownika. Nowe funkcje mają własne wyniki i pozostałe próby, opisane poniżej.
-4. **Model zarabiania** — zasady Free/Plus i cena w PLN zaakceptowane. Limity i oferta są wdrożone; integracja zakupów pozostaje do wykonania.
+4. **Model zarabiania** — zasady Free/Plus i cena w PLN zaakceptowane. Limity, oferta i kod zakupów są wdrożone; konfiguracja i testy Google Play pozostają do wykonania.
 5. **Release i publikacja** — w przygotowaniu. Wielojęzyczność jest wdrożona; produkcji nie opublikowano.
 
 ## Wdrożone po zakończeniu testów zamkniętych
@@ -29,11 +29,11 @@ Stan na **21 października 2026**, kod aplikacji **acf99a0**, wersja 0.1.0. Kier
 | DXF | Niedostępny | Dostępny |
 | Notatka, przypinanie, korekty i ponowny pomiar istniejącego boku | Dostępne | Dostępne |
 
-Zakup i przywracanie nie są podłączone. Obecny plan jest Free; nie można jeszcze kupić Plus ani odblokować DXF. Istniejące szkice ponad limity można przeglądać i poprawiać. Przy P8 można automatycznie zamknąć obrys lub zostawić go otwartym; nie ma wyjątku dla dodatkowego pomiaru powrotu. Zakup ma umożliwiać kontynuację tego samego szkicu, a potwierdzone Plus działać offline. Pełne reguły: [specyfikacja](technical/free-plus.md).
+Zakup i przywracanie Plus za 29,99 zł jednorazowo są podłączone przez Google Play Billing 9.1.0, z weryfikacją podpisu i trwałym uprawnieniem offline. Pakiet: `com.bk.dev.mobile.outlinego`, produkt: `outlinego_plus`, opcja: `buy`, dostępność: Polska. Użytkownik potwierdził pierwsze wydanie w testach wewnętrznych i zapis produktu; publiczny klucz licencyjny jest osadzony. Do potwierdzenia pozostają aktywacja opcji, testerzy licencji i testy płatności/przywracania. Produkcji nie opublikowano. Istniejące szkice pozostają dostępne po utracie Plus; przy P8 dostępne są korekty i zakończenie obrysu. [Specyfikacja](technical/free-plus.md), [konfiguracja zakupów](technical/zakupy-google-play.md).
 
 ## Prace przed release
 
-- Podłączyć Google Play Billing, zakup i przywracanie Plus, trwałe uprawnienie offline oraz obsługę zakupów oczekujących, anulowania i przerwania aplikacji.
+- Potwierdzić aktywność opcji buy i konta testerów licencji; wykonać transakcje i przywracanie w Google Play. Produkt, klucz licencyjny i podpisywanie są skonfigurowane.
 - Doprecyzować użytkownika docelowego, ofertę i ceny dla pozostałych rynków.
 - Wykonać fizyczną próbę ponownego pomiaru wcześniejszego boku: odniesienie sensorowe, długość z krokomierza, przeliczenie dalszych punktów i kontynuacja rysowania. Sprawdzić także zamknięte szkice oraz limit Free.
 - Sprawdzić nowy DXF z notatkami i odsuniętymi opisami w CAD oraz udostępnianie na telefonie; drugi program CAD pozostaje otwartą próbą.
@@ -45,6 +45,6 @@ Solver sieci, przekątne kontrolne, edytor ograniczeń i migracja SDK pozostają
 
 ## Potwierdzony stan i instalacje
 
-TypeScript i 127 testów TS przeszły. Pełny build APK zakończył się sukcesem w 10m 38s; testy Kotlin UP-TO-DATE. Na emulatorze zachowano 10 szkiców, sprawdzono notatkę i przypięcie po restarcie, korektę 200 → 250 cm oraz ręczny ponowny pomiar P1 → P2 do 300 cm. Obejrzano edytor i trzy rendery PNG. Te wyniki nie potwierdzają dokładności fizycznych sensorów.
+Aktualna weryfikacja źródeł: TypeScript i 163 testy TS (20 zestawów) przeszły. Moduł płatności ma 11 zaliczonych testów Kotlin; 7 testów orientacji przy ostatnim budowaniu było UP-TO-DATE. Podpisany APK 0.1.0 (versionCode 2) z zakupami i kluczem licencyjnym zainstalowano i uruchomiono na Redmi bez błędów ReactNativeJS/AndroidRuntime. Ten APK i AAB powstały przed ostatnią poprawką początkowego widoku DXF; poprawka jest w źródłach i wymaga nowego budowania. Testy transakcji Google Play, początkowego widoku w GUI CAD i fizycznego ponownego pomiaru sensorami pozostają otwarte. Historię, hashe i logi zawiera MEMO.md.
 
-Najnowszy APK D16ED88C… jest zainstalowany wyłącznie na emulatorze. Redmi nadal ma build DXF 9E8708ED… z 20 października, bez późniejszych limitów i wielojęzyczności. Pełny hash i historia: [MEMO](../MEMO.md).
+Podpisany APK `artifacts/outlineGo-0.1.0.apk`, wersja 0.1.0 / versionCode 2, zainstalowano na Redmi. Pierwszy bundle jest w testach wewnętrznych według potwierdzenia użytkownika; gotowy AAB v2: `artifacts/outlineGo-0.1.0.aab`. Oba artefakty nie zawierają jeszcze ostatniej poprawki początkowego widoku DXF. Nie opublikowano produkcji. Szczegóły i pełne hashe: MEMO.md.

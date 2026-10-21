@@ -1,6 +1,14 @@
 # Eksport DXF 2D
 
-Pierwszą wersję wdrożono 20 października 2026. Stan aktualny: `acf99a0` z 21 października — dodano notatkę szkicu i rozmieszczanie etykiet z kontrolą kolizji. Generator zapisuje plik w cache i otwiera systemowe udostępnianie. Wybór celu należy do użytkownika. Wymagany co najmniej jeden bok i uprawnienie Plus; operacja jest blokowana podczas innego zapisu. Anulowanie udostępniania nie zmienia szkicu. Obecny build ma plan Free bez podłączonego zakupu, dlatego nie można w nim jeszcze odblokować DXF.
+## Widok po otwarciu
+
+Eksport zapisuje widok modelu `VPORT/*ACTIVE`: środek, wysokość, proporcje i kierunek patrzenia w XY, a także `$EXTMIN`, `$EXTMAX` i `$TILEMODE=1`. Ramka obejmuje obrys, etykiety i notatkę z 20% zapasem rozmiaru. Szerokość tekstu jest szacowana zachowawczo, ponieważ odbiorca może zastąpić font CAD. Współrzędne i jednostki geometrii pozostają bez zmian.
+
+Powodem poprawki było puste okno po otwarciu DXF w LibreCAD: użytkownik potwierdził, że `Auto Zoom` (`za`) ujawnia poprawną geometrię. Starsze eksporty nie miały zapisanej skali i środka widoku; można nadal otwierać je przez Auto Zoom. Nowe pliki zawierają te ustawienia.
+
+TypeScript i 163 testy TS przeszły. Testy obejmują opisy i długie notatki, przesunięte/ujemne współrzędne, m/cm i mały pojedynczy bok w obu osiach. Kopia pliku użytkownika ze zmienionymi wyłącznie metadanymi widoku: `artifacts/dxf/outlinego-mviihokw-6hzr1gh7ue-r4-m-widok.dxf`; sekcja ENTITIES jest identyczna z oryginałem. Początkowy widok w GUI LibreCAD pozostaje do sprawdzenia; konwersja z Auto Zoom nie weryfikuje początkowego widoku.
+
+Pierwszą wersję wdrożono 20 października 2026. Aktualne źródła obejmują notatki, rozmieszczanie etykiet i początkowy widok opisany powyżej. Generator zapisuje plik w cache i otwiera systemowe udostępnianie. Wybór celu należy do użytkownika. Wymagany co najmniej jeden bok i uprawnienie Plus; operacja jest blokowana podczas innego zapisu. Anulowanie udostępniania nie zmienia szkicu. Kod zakupów i przywracania Plus jest podłączony; sprzedaż wymaga konfiguracji Google Play Console i testów transakcji.
 
 ## Format i zawartość
 
@@ -16,7 +24,7 @@ Generator: `app/src/domain/dxfExport.ts`; wspólne rozmieszczanie etykiet: `app/
 
 ## Free / Plus
 
-DXF wymaga Plus zgodnie z [zasadami](free-plus.md). W iteracji limitów Free dodano oznaczenie „DXF · Plus”, ofertę oraz blokadę w funkcji udostępniania. Centralny plan obecnie ma wartość Free, a zakup i trwałe uprawnienie pozostają do podłączenia; w tej wersji nie można jeszcze kupić ani odblokować DXF. Poprzedni APK `9E8708ED…` zainstalowany na Redmi nadal ma eksport bez blokady. DXF nie jest kopią zapasową obserwacji ani plikiem DWG.
+DXF wymaga Plus zgodnie z [zasadami](free-plus.md). W iteracji limitów Free dodano oznaczenie „DXF · Plus”, ofertę oraz blokadę w funkcji udostępniania. Centralny plan pochodzi z potwierdzonego zakupu i działa offline. Konfiguracja sklepu i testy transakcji pozostają otwarte: [zakupy Google Play](zakupy-google-play.md). DXF nie jest kopią zapasową obserwacji ani plikiem DWG.
 
 ## Weryfikacja
 

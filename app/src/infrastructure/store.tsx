@@ -6,13 +6,14 @@ import { DEFAULT_SETTINGS, Project, SurveyMode, UserSettings } from '../domain/m
 import { ProjectRepository } from './repository';
 import { Capabilities, LiveSample, orientation } from './native';
 import type { Plan } from '../domain/access';
+import { useBilling } from './billing';
 import { getLanguage, setLanguage } from '../i18n';
 import { applyLanguagePreference, preferenceFromState, readLanguageState } from './language';
 
 interface Store {
   projects: Project[]; repo: ProjectRepository | null; error: string; busy: boolean; ready: boolean;
   capabilities: Capabilities | null; live: LiveSample | null; sessionId: string | null; sessionProject: string | null;
-  settings: UserSettings; plan: Plan;
+  settings: UserSettings; plan: Plan; billing: ReturnType<typeof useBilling>;
   updateSettings(settings: UserSettings): Promise<void>;
   rememberUi(patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput'>): Promise<void>;
   refresh(): Promise<void>;
@@ -23,8 +24,8 @@ interface Store {
 }
 const Context = createContext<Store | null>(null);
 export function StoreProvider({ children }: { children: React.ReactNode }) {
-  // Billing will supply this read-only entitlement. No local purchase toggle.
-  const plan: Plan = 'free';
+  const billing = useBilling();
+  const plan = billing.state.plan;
   const [repo, setRepo] = useState<ProjectRepository | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [settings, setSettings] = useState<UserSettings>({ ...DEFAULT_SETTINGS });
@@ -111,7 +112,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     // Also re-render consumers when the effective system language changed.
     setSettings(value => ({ ...value }));
   };
-  return <Context.Provider value={{ projects, repo, error, busy, ready, capabilities, live, sessionId, sessionProject, settings, plan, updateSettings, rememberUi, refresh, run, start, stop, log }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ projects, repo, error, busy, ready: ready && billing.state.ready, capabilities, live, sessionId, sessionProject, settings, plan, billing, updateSettings, rememberUi, refresh, run, start, stop, log }}>{children}</Context.Provider>;
 }
 export const message = (e: unknown) => e instanceof Error ? e.message : String(e);
 export function useStore() { const store = useContext(Context); if (!store) throw new Error('Missing provider'); return store; }

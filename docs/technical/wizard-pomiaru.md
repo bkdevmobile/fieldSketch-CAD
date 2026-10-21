@@ -2,9 +2,9 @@
 
 Aktualne preferencje: instrukcja P1 bez miniatury; zapamiętywany róg miniatury, domyślnie prawy dolny. Domyślna metoda długości to krokomierz, potem ostatni jawny wybór; formularz zachowuje swój przelicznik. Zgoda na krokomierz jest uzyskiwana przed sesją kierunku; odmowa wybiera ręczną długość. [Prowadzenie pierwszego pomiaru](pierwszy-pomiar.md).
 
-Data: 21 października 2026. Status: kod `acf99a0`, wizard z korektą zapisanych boków i ponownym pomiarem wybranego odcinka.
+Data: 21 października 2026. Aplikacja 0.1.0 (versionCode 2), wizard z korektą zapisanych boków, ponownym pomiarem i kontynuacją tego samego szkicu po zakupie Plus.
 
-Dokument opisuje aktualną implementację. Testy zamknięte wcześniejszego MVP zakończono 20 października decyzją użytkownika. Najnowszy APK przeszedł TypeScript, 127 testów TS, build i próbę emulatora; na telefonie pozostaje wcześniejszy build DXF. Ręczny ponowny pomiar sprawdzono na emulatorze, sensorowy i krokomierz wymagają próby fizycznej. [Artefakty i historia](../../MEMO.md).
+Aktualna weryfikacja źródeł: TypeScript i 163 testy TS (20 zestawów) przeszły. Moduł płatności ma 11 zaliczonych testów Kotlin; 7 testów orientacji przy ostatnim budowaniu było UP-TO-DATE. Podpisany APK 0.1.0 (versionCode 2) z zakupami i kluczem licencyjnym zainstalowano i uruchomiono na Redmi bez błędów ReactNativeJS/AndroidRuntime. Ten APK i AAB powstały przed ostatnią poprawką początkowego widoku DXF; poprawka jest w źródłach i wymaga nowego budowania. Testy transakcji Google Play, początkowego widoku w GUI CAD i fizycznego ponownego pomiaru sensorami pozostają otwarte. Historię, hashe i logi zawiera MEMO.md. [Artefakty i historia](../../MEMO.md).
 
 Prowadzenie pierwszego pomiaru obejmuje instrukcję z ilustracją, automatyczny start sesji, blokadę niegotowego odczytu i podpowiedź po dotknięciu celownika. Szczegóły: [pierwszy pomiar](pierwszy-pomiar.md).
 
@@ -85,7 +85,7 @@ Sprawdzić cykl kilku boków, korekty kąta i długości, oba źródła długoś
 
 ## Udostępnienie wyniku w MVP
 
-PNG zawiera obrys, numery punktów, tabelę wymiarów i źródeł długości, notatkę oraz oznaczenia wartości szacunkowych i wyliczonego zamknięcia. Free dodaje znak wodny poza treścią. DXF jest wdrożony i objęty bramką Plus, lecz zakupy nie są jeszcze podłączone, więc obecny build Free go nie odblokowuje. Opisy punktów i wymiarów omijają linie obrysu oraz inne etykiety w podglądzie i DXF; w PNG wymiary pozostają w tabeli. [DXF](eksport-dxf.md), [Free/Plus](free-plus.md). Eksporty JSONL/CSV służą diagnostyce.
+PNG zawiera obrys, numery punktów, tabelę wymiarów i źródeł długości, notatkę oraz oznaczenia wartości szacunkowych i wyliczonego zamknięcia. Free dodaje znak wodny poza treścią. DXF jest objęty bramką Plus. Kod zakupów i przywracania jest podłączony; uruchomienie sprzedaży wymaga konfiguracji Console i testów: [zakupy Google Play](zakupy-google-play.md). Opisy punktów i wymiarów omijają linie obrysu oraz inne etykiety w podglądzie i DXF; w PNG wymiary pozostają w tabeli. [DXF](eksport-dxf.md), [Free/Plus](free-plus.md). Eksporty JSONL/CSV służą diagnostyce.
 
 ## Wybrany wariant makiety i uwagi do układu
 
@@ -107,7 +107,7 @@ Ikony konturowe Lucide towarzyszą akcjom, statusowi i etapom. Ikony dekoracyjne
 
 Aktualny kod: `b00dd74`, aplikacja 0.1.0. Wdrożono opisany wizard, ręczne m/cm, natywny krokomierz `TYPE_STEP_DETECTOR`, SQLite v3 z formularzem i ustawieniami, edycję ostatniego boku z historią `supersedesId`, PNG oraz osobną diagnostykę. Stop, tło i zakończenie sesji wyłączają liczenie; zdarzenia kroków mają identyfikatory sesji i pomiaru. Android 10+ wymaga zgody ACTIVITY_RECOGNITION pobieranej przy Start.
 
-Aktualna kontrola kodu `acf99a0`: TypeScript i 127 testów TS przeszły; pełny build APK zakończył się sukcesem w 10m 38s, testy Kotlin UP-TO-DATE. Emulator zachował 10 szkiców; potwierdzono notatkę i przypięcie po restarcie, korektę 200 → 250 cm oraz ręczny ponowny pomiar do 300 cm. Obejrzano nowy edytor i trzy rendery PNG. Emulator nie ma detektora kroków i nie potwierdza dokładności fizycznych sensorów. Nowego APK nie instalowano na telefonie. Hash, wcześniejsze wyniki i pozostałe próby: [MEMO](../../MEMO.md).
+Aktualna weryfikacja źródeł: TypeScript i 163 testy TS (20 zestawów) przeszły. Moduł płatności ma 11 zaliczonych testów Kotlin; 7 testów orientacji przy ostatnim budowaniu było UP-TO-DATE. Podpisany APK 0.1.0 (versionCode 2) z zakupami i kluczem licencyjnym zainstalowano i uruchomiono na Redmi bez błędów ReactNativeJS/AndroidRuntime. Ten APK i AAB powstały przed ostatnią poprawką początkowego widoku DXF; poprawka jest w źródłach i wymaga nowego budowania. Testy transakcji Google Play, początkowego widoku w GUI CAD i fizycznego ponownego pomiaru sensorami pozostają otwarte. Historię, hashe i logi zawiera MEMO.md.
 
 Po próbie użytkownik zaakceptował działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Korekta ręczna pozostaje dostępna. Nie wprowadzono automatycznego odejmowania kroków ani zmiany algorytmu.
 
@@ -136,4 +136,4 @@ Poprawki po próbie na telefonie: przyciąganie kąta konfigurowane wyłącznie 
 
 ## Decyzje otwarte
 
-Testy zamknięte wcześniejszego MVP zakończono. Zasady Free/Plus zaakceptowano; limity, oferta i znak wodny są wdrożone. Pozostają zakup i przywracanie Plus, trwałe uprawnienie offline, doprecyzowanie użytkownika docelowego, przegląd tłumaczeń i wyglądu, fizyczna próba nowych korekt oraz kontrola DXF w CAD i przygotowanie publikacji. Solver sieci i migracja SDK pozostają poza bieżącym zakresem. [Aktualny plan](../plan-rozwoju.md).
+Testy zamknięte wcześniejszego MVP zakończono. Zasady Free/Plus zaakceptowano; limity, oferta i znak wodny są wdrożone. Pozostają konfiguracja i testy zakupów w Google Play, doprecyzowanie użytkownika docelowego, przegląd tłumaczeń i wyglądu, fizyczna próba nowych korekt oraz kontrola DXF w CAD i przygotowanie publikacji. Solver sieci i migracja SDK pozostają poza bieżącym zakresem. [Aktualny plan](../plan-rozwoju.md).

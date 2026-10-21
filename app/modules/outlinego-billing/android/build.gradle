@@ -1,0 +1,13 @@
+apply plugin: 'com.android.library'
+apply plugin: 'expo-module-gradle-plugin'
+group = 'com.bk.dev.mobile.billing'
+version = '0.1.0'
+android {
+  namespace 'com.bk.dev.mobile.billing'
+  defaultConfig { versionCode 1; versionName '0.1.0' }
+}
+dependencies {
+  implementation 'com.android.billingclient:billing:9.1.0'
+  testImplementation 'junit:junit:4.13.2'
+  testImplementation 'org.json:json:20240303'
+}

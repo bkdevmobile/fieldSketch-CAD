@@ -1,10 +1,10 @@
 # Aplikacja outlineGo
 
-Stan na 21 października 2026: kod aplikacji `acf99a0`, wersja 0.1.0. TypeScript i 127 testów TS przeszły; APK zbudowano i sprawdzono na emulatorze, zachowując 10 szkiców. Najnowszy APK nie został zainstalowany na telefonie. Redmi ma wcześniejszy build DXF `9E8708ED…` z 20 października. Aktualny plik, pełny hash i historię wdrożeń opisuje [MEMO](../MEMO.md).
+Stan na 21 października 2026: aplikacja 0.1.0, versionCode 2. Aktualna weryfikacja źródeł: TypeScript i 163 testy TS (20 zestawów) przeszły. Moduł płatności ma 11 zaliczonych testów Kotlin; 7 testów orientacji przy ostatnim budowaniu było UP-TO-DATE. Podpisany APK 0.1.0 (versionCode 2) z zakupami i kluczem licencyjnym zainstalowano i uruchomiono na Redmi bez błędów ReactNativeJS/AndroidRuntime. Ten APK i AAB powstały przed ostatnią poprawką początkowego widoku DXF; poprawka jest w źródłach i wymaga nowego budowania. Testy transakcji Google Play, początkowego widoku w GUI CAD i fizycznego ponownego pomiaru sensorami pozostają otwarte. Historię, hashe i logi zawiera MEMO.md. [Artefakty i instalacje](../MEMO.md).
 
 Wdrożono notatki (również w PNG/DXF), przypinanie, zbiorczą korektę długości i kątów, wybór boku do ponownego pomiaru oraz unikanie kolizji opisów. Edytor „Wymiary i punkty” jest dostępny w pomiarze i podsumowaniu. [Zasady korekt](../docs/technical/edycja-szkicu.md).
 
-Interfejs PL/EN/DE/ES/FR, domyślnie język telefonu z angielskim jako rezerwowym. Free: 8 punktów / 3 szkice, PNG ze znakiem wodnym, DXF zablokowany. Zakup i przywracanie Plus (29,99 zł jednorazowo) pozostają do wdrożenia; obecny plan to Free. [Specyfikacja Free/Plus](../docs/technical/free-plus.md).
+Interfejs PL/EN/DE/ES/FR, domyślnie język telefonu z angielskim jako rezerwowym. Free: 8 punktów / 3 szkice, PNG ze znakiem wodnym, DXF wymaga Plus. Zakup i przywracanie Plus za 29,99 zł jednorazowo są podłączone przez Google Play Billing 9.1.0, z weryfikacją podpisu i trwałym uprawnieniem offline. Pakiet: `com.bk.dev.mobile.outlinego`, produkt: `outlinego_plus`, opcja: `buy`, dostępność: Polska. Użytkownik potwierdził pierwsze wydanie w testach wewnętrznych i zapis produktu; publiczny klucz licencyjny jest osadzony. Do potwierdzenia pozostają aktywacja opcji, testerzy licencji i testy płatności/przywracania. Produkcji nie opublikowano. [Specyfikacja](../docs/technical/free-plus.md).
 
 Prototyp Android w **React Native 0.85.3 + Expo SDK 56 + TypeScript**, z lokalnym modułem Kotlin. Wersje są przypięte w `package-lock.json`.
 
@@ -19,7 +19,7 @@ npm test
 npm run build:apk
 ```
 
-Wynik: `../artifacts/outlineGo-0.1.0.apk`, z osadzonym JavaScript i podpisem deweloperskim do testów. APK obsługuje arm64-v8a i x86_64, Android 7 lub nowszy. Do pomiaru nie wymaga Metro ani internetu. Do pracy deweloperskiej: `npm run android`, potem `npm start`.
+Wynik: `../artifacts/outlineGo-0.1.0.apk`, z osadzonym JavaScript i podpisem release. Skrypty wymagają klucza `_private/outlinego-release.p12` i danych `_private/release-signing.json`; hasła są przekazywane przez środowisko. `npm run build:aab` tworzy podpisany AAB i wymaga publicznego klucza `_private/google-play-public-key.txt`. `_private` oraz artefakty są ignorowane przez Git. APK obsługuje arm64-v8a i x86_64, Android 7+. Pomiary działają bez Metro i internetu; zakup/przywracanie wymagają Google Play. [Instrukcja podpisu i Console](../docs/technical/zakupy-google-play.md).
 
 ## Marka i zasoby
 
@@ -66,6 +66,6 @@ Dostępne są podgląd i udostępnienie PNG oraz eksport DXF wymagający Plus. K
 
 ## Weryfikacja — 21 października 2026
 
-TypeScript i 127 testów TS przeszły. Pełny build: BUILD SUCCESSFUL in 10m 38s; zadanie testów Kotlin UP-TO-DATE. APK z kodu acf99a0 zainstalowano na emulatorze przez install -r z zachowaniem 10 szkiców. Potwierdzono przypięcie i notatkę po restarcie, korektę 200 → 250 cm oraz ręczny ponowny pomiar P1 → P2 do 300 cm z powrotem do edytora. Końcowy proces aplikacji bez wpisów logcat AndroidRuntime:E / ReactNativeJS:E. Obejrzano ekran edytora i trzy rendery PNG komponentu eksportu.
+Aktualna weryfikacja źródeł: TypeScript i 163 testy TS (20 zestawów) przeszły. Moduł płatności ma 11 zaliczonych testów Kotlin; 7 testów orientacji przy ostatnim budowaniu było UP-TO-DATE. Podpisany APK 0.1.0 (versionCode 2) z zakupami i kluczem licencyjnym zainstalowano i uruchomiono na Redmi bez błędów ReactNativeJS/AndroidRuntime. Ten APK i AAB powstały przed ostatnią poprawką początkowego widoku DXF; poprawka jest w źródłach i wymaga nowego budowania. Testy transakcji Google Play, początkowego widoku w GUI CAD i fizycznego ponownego pomiaru sensorami pozostają otwarte. Historię, hashe i logi zawiera MEMO.md.
 
-Najnowszego APK nie instalowano na telefonie. Ponowny pomiar z kierunkiem sensorowym i krokomierzem oraz nowy układ DXF wymagają odpowiednio próby fizycznej i kontroli w CAD. Wyniki wcześniejszych wdrożeń, hash i rozmiar APK są w [MEMO](../MEMO.md).
+Podpisany APK v2 zainstalowano na Redmi. Poprawka początkowego widoku DXF jest nowsza od tej paczki i wymaga kolejnego budowania. Testy płatności, ponownego pomiaru sensorami oraz początkowego widoku DXF w CAD pozostają otwarte. [Wyniki, hashe i rozmiary artefaktów](../MEMO.md).

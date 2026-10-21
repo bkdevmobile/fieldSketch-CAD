@@ -109,3 +109,62 @@ test('brak boku, NaN i przepełnienie współrzędnych są odrzucane', () => {
   project.points[1]!.x = Number.MAX_VALUE;
   expect(() => dxfExport(project, 'cm')).toThrow('współrzędne');
 });
+
+function viewport(result: ReturnType<typeof read>) {
+  const start = result.groups.findIndex(g => g.code === 0 && g.value === 'VPORT');
+  const end = result.groups.findIndex((g, i) => i > start && g.code === 0);
+  const record = result.groups.slice(start, end);
+  const number = (code: number) => Number(result.all(record, code)[0]);
+  const headerPoint = (name: string) => {
+    const index = result.groups.findIndex(g => g.code === 9 && g.value === name);
+    expect(index).toBeGreaterThan(-1);
+    return [Number(result.groups[index + 1]!.value), Number(result.groups[index + 2]!.value)];
+  };
+  expect(result.all(record, 2)).toEqual(['*ACTIVE']);
+  expect(result.all(record, 100)).toContain('AcDbViewportTableRecord');
+  return { x: number(12), y: number(22), height: number(40), ratio: number(41),
+    min: headerPoint('$EXTMIN'), max: headerPoint('$EXTMAX') };
+}
+
+test.each(['m', 'cm'] as const)('początkowy widok %s obejmuje geometrię i wszystkie opisy z marginesem', unit => {
+  const project = closeOutline(triangle());
+  project.note = 'W'.repeat(100) + '\nNotatka poniżej szkicu';
+  project.points = project.points.map(p => ({ ...p, x: p.x - 75, y: p.y + 120 }));
+  const before = JSON.stringify(project);
+  const result = read(dxfExport(project, unit)), view = viewport(result);
+  const left = view.x - view.height * view.ratio / 2, right = view.x + view.height * view.ratio / 2;
+  const bottom = view.y - view.height / 2, top = view.y + view.height / 2;
+  expect(view.height).toBeGreaterThan(0);
+  expect(left).toBeLessThan(view.min[0]!); expect(right).toBeGreaterThan(view.max[0]!);
+  expect(bottom).toBeLessThan(view.min[1]!); expect(top).toBeGreaterThan(view.max[1]!);
+  for (const [x, y] of result.xy) {
+    expect(x).toBeGreaterThan(left); expect(x).toBeLessThan(right);
+    expect(y).toBeGreaterThan(bottom); expect(y).toBeLessThan(top);
+  }
+  for (const text of result.texts) {
+    const x = Number(result.all(text, 10)[0]), y = Number(result.all(text, 20)[0]);
+    const height = Number(result.all(text, 40)[0]);
+    const value = result.all(text, 1)[0]!.replace(/\\U\+[0-9A-F]{4}/g, 'x');
+    expect(x).toBeGreaterThan(left); expect(x + value.length * height).toBeLessThan(right);
+    expect(y - height * 0.3).toBeGreaterThan(bottom); expect(y + height * 1.3).toBeLessThan(top);
+  }
+  expect(JSON.stringify(project)).toBe(before);
+});
+
+test('zmiana jednostek skaluje środek i wysokość widoku bez zmiany proporcji', () => {
+  const project = closeOutline(triangle());
+  // Keep the longest text identical: numeric labels naturally grow in cm.
+  project.note = 'W'.repeat(100);
+  const meters = viewport(read(dxfExport(project, 'm'))), cm = viewport(read(dxfExport(project, 'cm')));
+  expect(cm.x).toBeCloseTo(meters.x * 100);
+  expect(cm.y).toBeCloseTo(meters.y * 100);
+  expect(cm.height).toBeCloseTo(meters.height * 100);
+  expect(cm.ratio).toBe(meters.ratio);
+});
+
+test.each([0, Math.PI / 2])('widok jednobokowego szkicu ma skończoną skalę dla kierunku %s', heading => {
+  const project = commitMeasurement(newProject('Bok', 'manual'), { source: 'manual', value: 0.001, unit: 'm' }, heading, 'manual', 's', null);
+  const view = viewport(read(dxfExport(project)));
+  expect(Number.isFinite(view.x) && Number.isFinite(view.y) && Number.isFinite(view.height)).toBe(true);
+  expect(view.height).toBeGreaterThan(0);
+});

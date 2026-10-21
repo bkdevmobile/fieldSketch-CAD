@@ -10,7 +10,8 @@
     "test": "jest --runInBand",
     "prebuild": "expo prebuild --platform android --template expo-template-bare-minimum@56.0.37",
     "assets:brand": "node scripts/generate-brand-assets.cjs",
-    "build:apk": "powershell -ExecutionPolicy Bypass -File scripts/build-apk.ps1"
+    "build:apk": "powershell -ExecutionPolicy Bypass -File scripts/build-apk.ps1",
+    "build:aab": "powershell -ExecutionPolicy Bypass -File scripts/build-aab.ps1"
   },
   "dependencies": {
     "expo": "56.0.23",

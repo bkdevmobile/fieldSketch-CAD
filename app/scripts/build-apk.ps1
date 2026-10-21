@@ -4,6 +4,8 @@ $appDirectory = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $repoDirectory = [IO.Path]::GetFullPath((Join-Path $appDirectory '..'))
 Push-Location $appDirectory
 try {
+  . (Join-Path $PSScriptRoot 'release-environment.ps1')
+  Initialize-OutlineGoSigning
   if (-not $env:ANDROID_HOME) { $env:ANDROID_HOME = Join-Path $env:LOCALAPPDATA 'Android/Sdk' }
   if (-not (Test-Path -LiteralPath $env:ANDROID_HOME)) { throw 'Ustaw ANDROID_HOME na katalog Android SDK.' }
   $nodePath = (Get-Command node -ErrorAction Stop).Source
@@ -19,7 +21,7 @@ try {
   Push-Location android
   try {
     $ErrorActionPreference = 'Continue'
-    & ./gradlew.bat :fieldsketch-orientation:testReleaseUnitTest :app:assembleRelease "-PreactNativeArchitectures=$Architectures" '-Dorg.gradle.jvmargs=-Xmx3072m -XX:MaxMetaspaceSize=1024m' --console=plain --max-workers=2
+    & ./gradlew.bat :fieldsketch-orientation:testReleaseUnitTest :outlinego-billing:testReleaseUnitTest :app:assembleRelease "-PreactNativeArchitectures=$Architectures" '-Dorg.gradle.jvmargs=-Xmx3072m -XX:MaxMetaspaceSize=1024m' --console=plain --max-workers=2 --no-daemon
     $nativeExitCode = $LASTEXITCODE
     $ErrorActionPreference = 'Stop'
     if ($nativeExitCode -ne 0) { throw 'Kompilacja APK nie powiodła się.' }
@@ -30,4 +32,4 @@ try {
   Copy-Item -LiteralPath 'android/app/build/outputs/apk/release/app-release.apk' -Destination $outputPath -Force
   Get-FileHash -Algorithm SHA256 -LiteralPath $outputPath
   Write-Output "APK: $outputPath"
-} finally { Pop-Location }
+} finally { Clear-OutlineGoSigning; Pop-Location }

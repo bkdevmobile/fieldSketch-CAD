@@ -1,10 +1,10 @@
 # Dokumentacja techniczna outlineGo
 
-Wersja 0.9. Data: 21 października 2026. Stan implementacji: `acf99a0`, aplikacja 0.1.0. Najnowszy APK sprawdzono na emulatorze; telefon nadal ma wcześniejszy build DXF. Sekcje o ograniczeniach i solverze opisują architekturę docelową. Artefakty i instalacje: [MEMO](../../MEMO.md).
+Data: 21 października 2026. Aplikacja 0.1.0, versionCode 2, pakiet `com.bk.dev.mobile.outlinego`. Podpisany APK release działa na Redmi; kod zawiera dodatkowo nowszą poprawkę widoku DXF, jeszcze bez nowego APK. Sekcje o ograniczeniach i solverze opisują architekturę docelową. [Artefakty i instalacje](../../MEMO.md).
 
 ## Aktualny zakres implementacji
 
-Kod w `app/` realizuje wizard pomiaru, kamerę, trzy globalne tryby kierunku, ręczne m/cm i natywny krokomierz Start/Stop, projekty i formularze SQLite v3, cofanie, korekty zapisanych boków z historią, zamknięcie, pole i obwód, PNG, DXF, notatki, przypinanie oraz trwałe logi JSONL/CSV. Interfejs działa w PL/EN/DE/ES/FR. Wdrożono limity Free i bramkę DXF; zakup, przywracanie i trwałe uprawnienie Plus pozostają do podłączenia. Przekątne kontrolne, edytor ograniczeń i solver sieci pozostają zakresem docelowym. [Instrukcja](prototyp.md), [Free/Plus](free-plus.md), [edycja szkicu](edycja-szkicu.md).
+Kod w `app/` realizuje wizard pomiaru, kamerę, trzy globalne tryby kierunku, ręczne m/cm i natywny krokomierz Start/Stop, projekty i formularze SQLite v3, cofanie, korekty zapisanych boków z historią, zamknięcie, pole i obwód, PNG, DXF, notatki, przypinanie oraz trwałe logi JSONL/CSV. Interfejs działa w PL/EN/DE/ES/FR. Wdrożono limity Free, bramkę DXF, zakup/przywracanie przez Google Play Billing oraz trwałe uprawnienie Plus offline. Testy transakcji pozostają otwarte. Przekątne kontrolne, edytor ograniczeń i solver sieci pozostają zakresem docelowym. [Instrukcja](prototyp.md), [Free/Plus](free-plus.md), [edycja szkicu](edycja-szkicu.md).
 
 Pierwsza implementacja przechowuje migawki projektów, niezmienne obserwacje i operacje w SQLite, a próbki JSONL zapisuje natywnie. Dane surowe i skorygowane nie są jeszcze osobnymi edytowalnymi obrysami; prototyp nie wykonuje dopasowania. Metadane logów są w plikach towarzyszących. Sumy kontrolne i import kopii projektu opisane w architekturze docelowej nie należą do tego przyrostu.
 
@@ -16,7 +16,7 @@ Wielojęzyczność wdrożono 20 października 2026: PL, EN, DE, ES i FR. Domyśl
 
 Zmiana globalnego trybu zatrzymuje sesję i unieważnia roboczy kierunek/odniesienie; nie przepisuje historycznych obserwacji. Formularz zachowuje wpisy, ale wznowienie zaczyna się od kierunku. Tryb sensorowy przy istniejących bokach wymaga odtworzenia odniesienia. Długość ręczna ma jawne źródło, surowe i poprawione kroki są zachowane osobno; edycja tworzy nową obserwację z `supersedesId`.
 
-Weryfikacja kodu `acf99a0`: TypeScript i 127 testów TS przeszły, pełny build APK zakończył się sukcesem w 10m 38s; zadanie testów Kotlin było UP-TO-DATE. Na emulatorze zachowano 10 szkiców i potwierdzono przypięcie oraz notatkę po restarcie, korektę 200 → 250 cm i ręczny ponowny pomiar P1 → P2 do 300 cm. Obejrzano ekran edytora i trzy rendery PNG. Końcowy proces aplikacji bez wpisów logcat AndroidRuntime:E / ReactNativeJS:E. Najnowszy APK nie został zainstalowany na telefonie; Redmi nadal ma wcześniejszy build DXF `9E8708ED…`. Fizyczny ponowny pomiar sensorami/krokomierzem i kontrola nowego DXF w CAD pozostają do wykonania. Szczegóły artefaktu: [MEMO](../../MEMO.md).
+Aktualna weryfikacja źródeł: TypeScript i 163 testy TS (20 zestawów) przeszły. Moduł płatności ma 11 zaliczonych testów Kotlin; 7 testów orientacji przy ostatnim budowaniu było UP-TO-DATE. Podpisany APK 0.1.0 (versionCode 2) z zakupami i kluczem licencyjnym zainstalowano i uruchomiono na Redmi bez błędów ReactNativeJS/AndroidRuntime. Ten APK i AAB powstały przed ostatnią poprawką początkowego widoku DXF; poprawka jest w źródłach i wymaga nowego budowania. Testy transakcji Google Play, początkowego widoku w GUI CAD i fizycznego ponownego pomiaru sensorami pozostają otwarte. Historię, hashe i logi zawiera MEMO.md.
 
 ### Implementacja podglądu szkicu
 
