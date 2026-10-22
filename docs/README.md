@@ -18,6 +18,7 @@ Stan dokumentacji: **21 października 2026**, wersja 0.1.0. Kod integruje zakup 
 ## Stan prac i materiały techniczne
 
 - [Plan rozwoju i prace przed release](plan-rozwoju.md)
+- [Pomysły na rozwój](pomysly-na-rozwoj.md)
 - [Stan prac, artefakty i historia wdrożeń](../MEMO.md)
 - [Dokument techniczny: implementacja i architektura docelowa](technical/dokumentacja-techniczna.md)
 - [Budowanie i testowanie aplikacji](../app/README.md)

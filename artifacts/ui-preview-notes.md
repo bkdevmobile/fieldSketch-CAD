@@ -1,0 +1,18 @@
+# Uwagi UI — do przeniesienia po dopracowaniu preview
+
+Zmiany wdrażamy obecnie tylko w generatorze preview i pliku HTML. Kod aplikacji pozostaje bez zmian. Przeniesienie do aplikacji nastąpi na osobne polecenie użytkownika.
+
+## 2026-10-22
+
+1. **Twoje szkice:** przycisk „Nowy szkic” na dole ekranu, w stałej stopce poza przewijaną treścią. Dotyczy listy ze szkicami i pustej listy. **Naniesione w preview.**
+2. **Wszystkie przyciski:** znaki plus i minus przedstawiane jako ikony SVG w kolorze tekstu przycisku, zamiast znaków tekstowych. Dotyczy także przycisków z ikoną obok etykiety. **Naniesione w preview; wspólna funkcja obsługuje oba znaki.**
+3. **Pomiary:** notatka na końcu przewijanej treści, wewnątrz scrolla, poza stałą stopką. Dotyczy etapów pomiaru, zamkniętego szkicu i limitu Free. Ponowny pomiar boku nadal bez notatki. **Naniesione w preview.**
+4. **Pomiary:** „Wymiary i punkty” dostępne z menu ⋮; usunięty osobny przycisk z treści ekranów pomiaru. **Naniesione w preview.**
+5. **Pomiary — eksperyment wizualny:** domyślnie podgląd szkicu wewnątrz scrolla, w prawej kolumnie zajmującej 40% szerokości wiersza. Lewa kolumna zawiera główną kontrolkę bieżącego etapu: kamerę, kąt ręczny/korektę kąta, długość, krokomierz lub parametry boku przed zapisem. Notatka pozostaje na końcu scrolla. Przyciski przy szkicu pozwalają oddokować go jako overlay, ponownie zadokować i powiększyć na cały ekran telefonu; zamknięcie pełnego ekranu przywraca wcześniejszy tryb. **Naniesione w preview; eksperyment do oceny, nie decyzja o wdrożeniu do aplikacji.**
+6. **Funkcjonalność — kolejność uprawnień:** pytanie o uprawnienie do kamery ma pojawiać się po rozpoczęciu pomiarów, przed pytaniem o uprawnienia krokomierza. **Zapisane do późniejszego wdrożenia; bez zmian w aplikacji i preview.**
+7. **Podgląd szkicu:** mniejsze przyciski sterujące (32 × 32 px, ikony 16 px), wyrównane do prawej w jednym wierszu z tytułem. Dotyczy widoku zadokowanego, overlayu i pełnego ekranu. **Naniesione w preview.**
+8. **Krokomierz:** ikona kroków obok pola liczby kroków. Miga łagodnie podczas aktywnego pomiaru; po zatrzymaniu pozostaje nieruchoma. W preview pulsowanie co 1,2 s, z uwzględnieniem preferencji ograniczenia animacji. **Naniesione w preview.**
+9. **Ustawienia — jednostki imperialne:** do wyboru domyślnej jednostki długości dodane stopy (ft) i cale (in), obok metrów (m) i centymetrów (cm). **Naniesione w preview jako wybór w ustawieniach; przeliczanie pomiarów i obsługa jednostek w aplikacji pozostają do późniejszego wdrożenia.**
+10. **Ustawienia — motyw:** wybór „Ciemny”, „Jasny”, „Wg systemu” (domyślnie). W preview wybór zmienia wygląd wszystkich ekranów telefonu; tryb systemowy reaguje na preferencję kolorów przeglądarki/systemu. Podgląd eksportowanego PNG zachowuje jasne tło. **Naniesione w preview; aplikacja bez zmian.**
+11. **Usunięcie diagnostyki i logów:** usunąć ekrany, menu, przyciski, powiązane dialogi oraz wszystkie wzmianki w UI, w tym w potwierdzeniu usuwania szkicu. **Usunięte z preview; aplikacja bez zmian.**
+12. **Nowy szkic — domyślna nazwa:** pole nazwy wypełnione „Mój pomiar”, z możliwością edycji. Gdy nazwa jest zajęta, proponować „Mój pomiar 2”, „Mój pomiar 3” itd., wybierając kolejny wolny numer. Porównywać nazwy bez różnicy wielkości liter i bez skrajnych spacji. Preview pamięta nazwy utworzone podczas bieżącej sesji tylko do odświeżenia strony, aby można było sprawdzić numerację. **Naniesione w preview; aplikacja bez zmian.**
