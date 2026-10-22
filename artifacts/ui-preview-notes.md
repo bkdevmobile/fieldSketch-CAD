@@ -1,6 +1,6 @@
 # Uwagi UI — do przeniesienia po dopracowaniu preview
 
-Na polecenie użytkownika z 22 października 2026 poniższe ustalenia przeniesiono do źródeł aplikacji. Zapisy przy poszczególnych punktach dokumentują etap pracy nad preview. Aktualny zakres i weryfikację opisuje `docs/technical/ui-2026-10.md`. Nie zbudowano jeszcze nowego APK/AAB.
+Na polecenie użytkownika z 22 października 2026 poniższe ustalenia przeniesiono do źródeł aplikacji. Zapisy przy poszczególnych punktach dokumentują etap pracy nad preview. Aktualny zakres i weryfikację opisuje `docs/technical/ui-2026-10.md`. Podpisany APK z tymi zmianami jest w `artifacts/outlineGo-0.1.0.apk`; AAB nie przebudowano.
 
 ## 2026-10-22
 

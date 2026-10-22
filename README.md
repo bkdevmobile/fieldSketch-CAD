@@ -12,7 +12,7 @@ Free: do 8 punktów (z P1), do 3 szkiców i PNG ze znakiem wodnym. Plus usuwa li
 
 ## Stan projektu
 
-Aktualizacja UI z 22 października 2026 jest w źródłach: zadokowany szkic 40% z overlayem i pełnym ekranem, motywy jasny/ciemny/systemowy, jednostki ft/in, domyślne nazwy „Mój pomiar” i zmiany układu listy oraz pomiaru. Ekrany diagnostyki i logów usunięto z interfejsu. TypeScript, 168 testów w 21 zestawach i eksport bundla Android przeszły. Nowego APK/AAB nie zbudowano; dotychczasowe artefakty nie obejmują tych zmian. [Zakres i weryfikacja UI](docs/technical/ui-2026-10.md).
+Aktualizacja UI z 22 października 2026 jest w źródłach: zadokowany szkic 40% z overlayem i pełnym ekranem, motywy jasny/ciemny/systemowy, jednostki ft/in, domyślne nazwy „Mój pomiar” i zmiany układu listy oraz pomiaru. Ekrany diagnostyki i logów usunięto z interfejsu. TypeScript, 168 testów w 21 zestawach i eksport bundla Android przeszły. Podpisany APK z tymi zmianami jest w `artifacts/outlineGo-0.1.0.apk`; AAB nie przebudowano. [Zakres i weryfikacja UI](docs/technical/ui-2026-10.md).
 
 Aktualna weryfikacja źródeł: TypeScript i 163 testy TS (20 zestawów) przeszły. Moduł płatności ma 11 zaliczonych testów Kotlin; 7 testów orientacji przy ostatnim budowaniu było UP-TO-DATE. Podpisany APK 0.1.0 (versionCode 2) z zakupami i kluczem licencyjnym zainstalowano i uruchomiono na Redmi bez błędów ReactNativeJS/AndroidRuntime. Ten APK i AAB powstały przed ostatnią poprawką początkowego widoku DXF; poprawka jest w źródłach i wymaga nowego budowania. Testy transakcji Google Play, początkowego widoku w GUI CAD i fizycznego ponownego pomiaru sensorami pozostają otwarte. Historię, hashe i logi zawiera MEMO.md.
 

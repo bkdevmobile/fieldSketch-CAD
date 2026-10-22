@@ -33,6 +33,10 @@ Zakup i przywracanie Plus za 29,99 zł jednorazowo są podłączone przez Google
 
 ## Prace przed release
 
+- Przygotować materiały do prezentacji aplikacji w Google Play: nazwę, krótki i pełny opis, zrzuty ekranów, grafikę promocyjną oraz wersje językowe. Sprawdzić spójność materiałów z aktualnymi funkcjami i zasadami Free/Plus.
+- Wykonać stronę WWW z informacjami o aplikacji oraz dokumentami prawnymi.
+- Podlinkować dokumenty prawne w aplikacji, w stale dostępnym miejscu, np. w ustawieniach.
+- Przy pierwszym uruchomieniu wyświetlić do akceptacji informacje o ograniczonej dokładności pomiarów, szacunkowym charakterze pomiaru krokami i pomocniczym przeznaczeniu szkiców. Doprecyzować treść oraz zasady zapisu i ponawiania akceptacji. [Zakres pomysłu](pomysly-na-rozwoj.md#2-strona-www-dokumenty-prawne-i-informacja-startowa).
 - Potwierdzić aktywność opcji buy i konta testerów licencji; wykonać transakcje i przywracanie w Google Play. Produkt, klucz licencyjny i podpisywanie są skonfigurowane.
 - Doprecyzować użytkownika docelowego, ofertę i ceny dla pozostałych rynków.
 - Wykonać fizyczną próbę ponownego pomiaru wcześniejszego boku: odniesienie sensorowe, długość z krokomierza, przeliczenie dalszych punktów i kontynuacja rysowania. Sprawdzić także zamknięte szkice oraz limit Free.
