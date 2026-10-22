@@ -9,7 +9,7 @@ import { router, Stack, useFocusEffect, useLocalSearchParams } from 'expo-router
 import { AngleSlider } from '../components/AngleSlider';
 import { AngleControls } from '../components/AngleControls';
 import { FloatingSketch } from '../components/FloatingSketch';
-import { MeasurementRow, SketchPanel } from '../components/SketchPanel';
+import { MeasurementRow, SketchFullscreen, SketchPanel } from '../components/SketchPanel';
 import { StepControls } from '../components/StepControls';
 import { SurveyHeading } from '../components/SurveyHeading';
 import { ArrowLeft, ArrowRight, Camera, Check, ChevronDown, CircleAlert, CircleCheck, Compass, Crosshair, EllipsisVertical, Flag, Footprints, MapPin, Pencil, RotateCcw, Ruler, Settings2, SlidersHorizontal, Undo2 } from 'lucide-react-native';
@@ -57,6 +57,7 @@ export default function Survey() {
   const [offset, setOffset] = useState<number | null>(null), [anchorIndex, setAnchorIndex] = useState(0);
   const [fineDelta, setFineDelta] = useState(0), [sliderBase, setSliderBase] = useState(0);
   const [fitKey, setFitKey] = useState(0);
+  const [sketchExpanded, setSketchExpanded] = useState(false);
   const [correctAngle, setCorrectAngle] = useState(false);
   const [menu, setMenu] = useState(false);
   const [help, setHelp] = useState(false), [aimHint, setAimHint] = useState(false);
@@ -359,7 +360,7 @@ export default function Survey() {
   const docked = store.settings.sketchDocked !== false;
   const sketchPreview = previewTheta === undefined ? undefined : { theta: previewTheta, lengthM: ['length', 'review'].includes(step) ? lengthM : undefined };
   const toggleDock = () => { Keyboard.dismiss(); void store.rememberUi({ sketchDocked: !docked }); };
-  const sketch = step !== 'start' && docked ? <SketchPanel project={project} unit={unit} fitKey={fitKey} preview={sketchPreview} onToggleDock={toggleDock} /> : undefined;
+  const sketch = step !== 'start' && docked ? <SketchPanel project={project} unit={unit} fitKey={fitKey} preview={sketchPreview} onToggleDock={toggleDock} onExpand={() => setSketchExpanded(true)} /> : undefined;
   const panelStyle = [s.workPanel, docked && { padding: 12, gap: 10 }];
   const turnFields = <>
     {first ? <Text style={s.text}>{t("Pierwszy bok wyznacza kierunek 0° szkicu.")}</Text> : <>
@@ -372,7 +373,7 @@ export default function Survey() {
   return <Page title={project.name} subtitle={subtitle}
     heading={<SurveyHeading name={project.name} subtitle={subtitle} step={step} closed={project.closed} showSteps={!pointLimit || project.closed} />}
     compactHeader resetKey={step} overlay={step !== 'start' && !docked && <FloatingSketch project={project} unit={unit} fitKey={fitKey}
-      preview={sketchPreview} onDock={toggleDock} />} footer={<>
+      preview={sketchPreview} onDock={toggleDock} onExpand={() => setSketchExpanded(true)} />} footer={<>
       {!project.closed && pointLimit && <Button label={t("Więcej punktów · Plus")} onPress={() => plus.show('points')} disabled={store.busy} />}
       {!project.closed && !pointLimit && <View style={{ flexDirection: 'row', gap: 10 }}>
         {step !== 'start' && step !== 'direction' && <View style={{ flex: 1 }}><Button label={t("Wstecz")} icon={ArrowLeft} secondary onPress={back} disabled={blocked} /></View>}
@@ -501,6 +502,8 @@ export default function Survey() {
         </>}
       </View>}
     {!remeasure && <SketchNote project={project} />}
+    <SketchFullscreen project={project} unit={unit} fitKey={fitKey} preview={sketchPreview} floating={!docked}
+      visible={sketchExpanded} onClose={() => setSketchExpanded(false)} onToggleDock={toggleDock} />
 
     <Dialog visible={help} title={t("Jak wykonać pomiar?")} onClose={() => setHelp(false)} footer={<Button label={t("Rozumiem · wróć do pomiaru")} onPress={() => setHelp(false)} />}>
       <MeasurementHelp manual={mode === 'manual'} />

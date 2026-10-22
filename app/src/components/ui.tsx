@@ -61,8 +61,8 @@ export function Page({ title, subtitle, children, footer, overlay, heading, rese
   {footer && <View style={s.footer}>{footer}</View>}
   </KeyboardAvoidingView></View></SafeAreaView>;
 }
-export function Button({ label, onPress, secondary = false, disabled = false, danger = false, quiet = false, compact = false, align = 'center', icon: Icon, iconEnd: IconEnd }: {
-  label: string; onPress(): void; secondary?: boolean; disabled?: boolean; danger?: boolean; quiet?: boolean; compact?: boolean; align?: 'center' | 'start'; icon?: LucideIcon; iconEnd?: LucideIcon;
+export function Button({ label, onPress, secondary = false, disabled = false, danger = false, quiet = false, compact = false, iconOnly = false, align = 'center', icon: Icon, iconEnd: IconEnd }: {
+  label: string; onPress(): void; secondary?: boolean; disabled?: boolean; danger?: boolean; quiet?: boolean; compact?: boolean; iconOnly?: boolean; align?: 'center' | 'start'; icon?: LucideIcon; iconEnd?: LucideIcon;
 }) {
   const { colors, s } = useTheme();
   const foreground = danger ? colors.danger : secondary || quiet ? colors.green : colors.onGreen;
@@ -73,7 +73,7 @@ export function Button({ label, onPress, secondary = false, disabled = false, da
     style={({ pressed }) => [s.button, secondary && s.secondary, quiet && s.quiet, compact && s.compactButton, align === 'start' && { justifyContent: 'flex-start', alignSelf: 'flex-start', paddingHorizontal: 0 },
       danger && { backgroundColor: colors.dangerBg }, (pressed || disabled) && { opacity: disabled ? 0.45 : 0.75 }]}>
     {Glyph && <Glyph size={18} strokeWidth={1.8} color={foreground} accessible={false} />}
-    {!sign && <Text style={[s.buttonText, { color: foreground }, compact && { fontSize: 14 }]}>{label}</Text>}
+    {!sign && !iconOnly && <Text style={[s.buttonText, { color: foreground }, compact && { fontSize: 14 }]}>{label}</Text>}
     {IconEnd && <IconEnd size={18} strokeWidth={1.8} color={foreground} accessible={false} />}
   </Pressable>;
 }

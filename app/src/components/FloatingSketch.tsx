@@ -7,8 +7,8 @@ import { clampSketch, cornerPosition, nearestCorner, sketchCorners, SketchCorner
 import type { OutlinePreview } from './OutlineCanvas';
 import { useStore } from '../infrastructure/store';
 
-export function FloatingSketch({ project, preview, fitKey, unit, onDock }: {
-  project: Project; preview?: OutlinePreview; fitKey: number; unit: LengthUnit; onDock(): void;
+export function FloatingSketch({ project, preview, fitKey, unit, onDock, onExpand }: {
+  project: Project; preview?: OutlinePreview; fitKey: number; unit: LengthUnit; onDock(): void; onExpand(): void;
 }) {
   const { settings, rememberUi } = useStore();
   const [keyboardOpen, setKeyboardOpen] = useState(Keyboard.isVisible());
@@ -56,7 +56,7 @@ export function FloatingSketch({ project, preview, fitKey, unit, onDock }: {
     <View pointerEvents="box-none" style={StyleSheet.absoluteFill} onLayout={e => setArea(e.nativeEvent.layout)}>
       <Animated.View {...responder.panHandlers} style={{ position: 'absolute', top: 0, left: 0, transform: position.getTranslateTransform(), opacity: area.width ? 1 : 0 }}>
         <View onLayout={e => setThumbnail(e.nativeEvent.layout)} style={{ width: Math.min(keyboardOpen ? 148 : 164, area.width || 164) }}>
-          <SketchPanel project={project} preview={preview} fitKey={fitKey} unit={unit} floating onToggleDock={onDock} />
+          <SketchPanel project={project} preview={preview} fitKey={fitKey} unit={unit} floating onToggleDock={onDock} onExpand={onExpand} />
         </View>
       </Animated.View>
     </View>

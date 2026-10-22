@@ -456,4 +456,7 @@ export const messages: readonly (readonly [string, string, string, string, strin
   ['punktów · jednostka: {0}', 'points · unit: {0}', 'Punkte · Einheit: {0}', 'puntos · unidad: {0}', 'points · unité : {0}'],
   ['Rozpocznij pomiar przed zapisaniem zmiany.', 'Start measuring before saving a change.', 'Starten Sie die Messung, bevor Sie eine Änderung speichern.', 'Inicia la medición antes de guardar un cambio.', 'Commencez la mesure avant d’enregistrer une modification.'],
   ['Pomiar zapisano, ale nie udało się potwierdzić zapisu sesji. Sprawdź pamięć telefonu.', 'Measurement saved, but the session save could not be confirmed. Check phone storage.', 'Messung gespeichert, aber die Speicherung der Sitzung konnte nicht bestätigt werden. Prüfen Sie den Telefonspeicher.', 'Medición guardada, pero no se pudo confirmar el guardado de la sesión. Comprueba el almacenamiento del teléfono.', 'Mesure enregistrée, mais l’enregistrement de la session n’a pas pu être confirmé. Vérifiez le stockage du téléphone.'],
+  ['Eksport gotowy', 'Export ready', 'Export bereit', 'Exportación lista', 'Export prêt'],
+  ['Plik {0} został przygotowany do udostępnienia.', 'The {0} file is ready to share.', 'Die {0}-Datei ist zum Teilen bereit.', 'El archivo {0} está listo para compartir.', 'Le fichier {0} est prêt à être partagé.'],
+  ['Błąd eksportu', 'Export failed', 'Export fehlgeschlagen', 'Error de exportación', 'Échec de l’export'],
 ];

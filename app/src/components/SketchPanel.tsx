@@ -8,11 +8,13 @@ import type { LengthUnit } from '../domain/units';
 import { OutlineCanvas, OutlinePreview } from './OutlineCanvas';
 import { useTheme } from './ui';
 
-export function SketchPanel({ project, preview, fitKey, unit, floating = false, onToggleDock }: {
+interface SketchProps {
   project: Project; preview?: OutlinePreview; fitKey: number; unit: LengthUnit; floating?: boolean; onToggleDock(): void;
+}
+export function SketchPanel({ project, preview, fitKey, unit, floating = false, onToggleDock, onExpand }: SketchProps & {
+  onExpand(): void;
 }) {
   const { colors, s } = useTheme();
-  const [expanded, setExpanded] = useState(false), [height, setHeight] = useState(400);
   const DockIcon = floating ? PanelRightClose : PanelRightOpen;
   const actionStyle = { width: 32, height: 32, borderRadius: 8, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.mint } as const;
   return <>
@@ -22,24 +24,36 @@ export function SketchPanel({ project, preview, fitKey, unit, floating = false, 
         <Pressable accessibilityRole="button" accessibilityLabel={floating ? t('Zadokuj w treści') : t('Oddokuj jako overlay')} onPress={onToggleDock} style={actionStyle}>
           <DockIcon size={16} color={colors.green} />
         </Pressable>
-        <Pressable accessibilityRole="button" accessibilityLabel={t('Powiększ szkic')} onPress={() => { Keyboard.dismiss(); setExpanded(true); }} style={actionStyle}>
+        <Pressable accessibilityRole="button" accessibilityLabel={t('Powiększ szkic')} onPress={() => { Keyboard.dismiss(); onExpand(); }} style={actionStyle}>
           <Maximize2 size={16} color={colors.green} />
         </Pressable>
       </View>
       <View pointerEvents="none"><OutlineCanvas project={project} preview={preview} fitKey={fitKey} thumbnail unit={unit} canvasHeight={154} /></View>
     </View>
-    <Modal visible={expanded} animationType="fade" statusBarTranslucent onRequestClose={() => setExpanded(false)}>
+  </>;
+}
+
+export function SketchFullscreen({ project, preview, fitKey, unit, floating = false, onToggleDock, visible, onClose }: SketchProps & {
+  visible: boolean; onClose(): void;
+}) {
+  const { colors, s } = useTheme();
+  const [height, setHeight] = useState(400);
+  const DockIcon = floating ? PanelRightClose : PanelRightOpen;
+  const actionStyle = { width: 32, height: 32, borderRadius: 8, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.mint } as const;
+  return <Modal visible={visible} animationType="fade" statusBarTranslucent onRequestClose={onClose}>
       <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }}>
         <View style={{ padding: 16, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <View style={{ flex: 1, gap: 4 }}><Text style={s.h2}>{t('Szkic')}</Text><Text style={s.muted}>{project.name}</Text></View>
-          <Pressable accessibilityRole="button" accessibilityLabel={t('Wróć do pomiaru')} onPress={() => setExpanded(false)} style={actionStyle}><X size={16} color={colors.green} /></Pressable>
+          <Pressable accessibilityRole="button" accessibilityLabel={floating ? t('Zadokuj w treści') : t('Oddokuj jako overlay')} onPress={onToggleDock} style={actionStyle}>
+            <DockIcon size={16} color={colors.green} />
+          </Pressable>
+          <Pressable accessibilityRole="button" accessibilityLabel={t('Wróć do pomiaru')} onPress={onClose} style={actionStyle}><X size={16} color={colors.green} /></Pressable>
         </View>
         <View style={{ flex: 1, paddingHorizontal: 16 }} onLayout={event => setHeight(event.nativeEvent.layout.height)}>
           <OutlineCanvas project={project} preview={preview} fitKey={fitKey} unit={unit} canvasHeight={Math.max(120, height - 140)} />
         </View>
       </SafeAreaView>
-    </Modal>
-  </>;
+    </Modal>;
 }
 
 export function MeasurementRow({ children, sketch }: { children: React.ReactNode; sketch?: React.ReactNode }) {

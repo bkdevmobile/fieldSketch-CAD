@@ -4,6 +4,7 @@ import { t } from '../i18n';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Easing, Keyboard, PanResponder, View, Text } from 'react-native';
 import Svg, { Circle, G, Line, Polyline, Rect, Text as SvgText } from 'react-native-svg';
+import { Scan, ZoomIn, ZoomOut } from 'lucide-react-native';
 import type { Project } from '../domain/model';
 import { placeLabels, DrawingLabel } from '../domain/labelLayout';
 import { distance, outlinePoints } from '../domain/geometry';
@@ -103,9 +104,9 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
   return <View style={{ gap: 8 }}>
     {!thumbnail && <View style={s.row}><Text style={[s.label, { flex: 1 }]}>{t("Szkic na żywo")}</Text>
       {!(compact && keyboardOpen) && <>
-      <Button label="−" secondary disabled={zoom <= 0.5} onPress={() => { focal.current = { x: 0, y: 0 }; animateZoom(nextZoom(viewport.current.zoom, -1)); }} />
-      <Button label="+" secondary disabled={zoom >= 8} onPress={() => { focal.current = { x: 0, y: 0 }; animateZoom(nextZoom(viewport.current.zoom, 1)); }} />
-      <Button label={t("Dopasuj")} secondary onPress={() => setFit(v => v + 1)} /></>}
+      <Button label={t('Pomniejsz szkic')} icon={ZoomOut} iconOnly compact secondary disabled={zoom <= 0.5} onPress={() => { focal.current = { x: 0, y: 0 }; animateZoom(nextZoom(viewport.current.zoom, -1)); }} />
+      <Button label={t('Powiększ szkic')} icon={ZoomIn} iconOnly compact secondary disabled={zoom >= 8} onPress={() => { focal.current = { x: 0, y: 0 }; animateZoom(nextZoom(viewport.current.zoom, 1)); }} />
+      <Button label={t("Dopasuj")} icon={Scan} iconOnly compact secondary onPress={() => setFit(v => v + 1)} /></>}
     </View>}
     <View ref={canvas} {...(thumbnail ? {} : responder.panHandlers)} onLayout={event => {
       setWidth(event.nativeEvent.layout.width);

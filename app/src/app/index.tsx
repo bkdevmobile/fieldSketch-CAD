@@ -19,7 +19,7 @@ export default function Projects() {
   const [visibleCount, setVisibleCount] = useState(3);
   const visibleProjects = store.projects.slice(0, visibleCount);
   const selectedProject = store.projects.find(p => p.id === projectMenu);
-  const openProject = (id: string) => router.push({ pathname: '/project', params: { id } });
+  const openProject = (id: string) => router.push({ pathname: '/outline', params: { id } });
   const remove = (id: string) => dialogs.alert(t("Usunąć szkic?"), t('Usunięte zostaną pomiary szkicu.'), [
     { text: t("Anuluj"), style: 'cancel' }, { text: t("Usuń szkic"), icon: Trash2, style: 'destructive', onPress: () => store.run(async () => {
       if (store.sessionProject === id) await store.stop();

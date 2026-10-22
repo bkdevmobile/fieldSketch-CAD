@@ -27,10 +27,12 @@ export default function Settings() {
   }, [store.repo]);
   return <Page title={t("Ustawienia")} subtitle={t("Dla wszystkich szkiców")} footer={
     <Button label={t("Zapisz ustawienia")} icon={Check} disabled={store.busy || !store.repo} onPress={() => store.run(async () => {
-      const languageChanged = language !== (store.settings.language ?? 'system');
       await store.updateSettings({ unit, stepLengthCm: parsePositive(stepLength, 3), angleSnap, directionMode, language, theme });
-      // Keep this screen mounted while the native stack updates translated headers.
-      if (!languageChanged) router.back();
+      // Let translated headers update before leaving the settings screen.
+      requestAnimationFrame(() => {
+        if (router.canGoBack()) router.back();
+        else router.replace('/');
+      });
     })} />}>
     <View style={s.card}><SectionTitle title={t('Motyw')} icon={Palette} />
       <Segments<ThemePreference> label={t('Motyw')} value={theme} onChange={setTheme}

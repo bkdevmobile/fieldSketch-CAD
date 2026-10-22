@@ -46,19 +46,19 @@ export function StepControls({ value, onChange, onEndEditing, walking, busy, can
   return <View style={{ gap: 7 }}>
     <Text style={s.label}>{t("Liczba kroków")}</Text>
     <View style={{ flexDirection: 'row', gap: 6, alignItems: 'stretch' }}>
+      {control('−', t("Odejmij jeden krok"), walking || busy || !valid || count === 0, () => adjust(-1), Minus)}
       <TextInput accessibilityLabel={t("Liczba kroków")} value={value} onChangeText={onChange}
         editable={!walking && !busy} accessibilityState={{ disabled: walking || busy }}
         keyboardType="decimal-pad" placeholder="0" placeholderTextColor={colors.muted} onEndEditing={onEndEditing}
         style={[s.input, { flex: 1, minWidth: 0, paddingHorizontal: 6, paddingVertical: 8, textAlign: 'center', fontSize: 22, fontWeight: '600', fontVariant: ['tabular-nums'] }]} />
+      {control('+', t("Dodaj jeden krok"), walking || busy || !valid, () => adjust(1), Plus)}
+    </View>
+    <View style={{ flexDirection: 'row', gap: 6, alignItems: 'stretch' }}>
+      {control(walking ? t("Stop") : t("Start"), walking ? t("Zatrzymaj krokomierz") : t("Uruchom krokomierz"), busy || (!walking && !canStart), onToggle, walking ? Square : Play, true)}
       <Animated.View accessibilityRole="image" accessibilityLabel={walking ? t('Krokomierz aktywny') : t('Krokomierz zatrzymany')}
         style={{ opacity, width: 30, alignItems: 'center', justifyContent: 'center' }}>
         <Footprints size={24} color={walking ? colors.green : colors.muted} />
       </Animated.View>
-    </View>
-    <View style={{ flexDirection: 'row', gap: 6, alignItems: 'stretch' }}>
-      {control('−', t("Odejmij jeden krok"), walking || busy || !valid || count === 0, () => adjust(-1), Minus)}
-      {control('+', t("Dodaj jeden krok"), walking || busy || !valid, () => adjust(1), Plus)}
-      {control(walking ? t("Stop") : t("Start"), walking ? t("Zatrzymaj krokomierz") : t("Uruchom krokomierz"), busy || (!walking && !canStart), onToggle, walking ? Square : Play, true)}
     </View>
   </View>;
 }
