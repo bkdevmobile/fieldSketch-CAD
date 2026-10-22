@@ -34,8 +34,10 @@ Zakup i przywracanie Plus za 29,99 zł jednorazowo są podłączone przez Google
 ## Prace przed release
 
 - Przygotować materiały do prezentacji aplikacji w Google Play: nazwę, krótki i pełny opis, zrzuty ekranów, grafikę promocyjną oraz wersje językowe. Sprawdzić spójność materiałów z aktualnymi funkcjami i zasadami Free/Plus.
-- Wykonać stronę WWW z informacjami o aplikacji oraz dokumentami prawnymi.
+- Strona WWW EN i robocze dokumenty prawne przygotowane lokalnie w `public/` (22.10.2026); przejrzeć dane wydawcy i treści, następnie opublikować w istniejącym projekcie Firebase. [Status i kwestie do sprawdzenia](legal/README.md).
+- Dodać opcjonalne raportowanie błędów Sentry: EU, osobna zgoda, minimalny zakres bez danych szkiców, docelowo retencja do 30 dni. Integracja jeszcze nie istnieje. [Decyzje i warunki wdrożenia](legal/sentry-plan.md).
 - Podlinkować dokumenty prawne w aplikacji, w stale dostępnym miejscu, np. w ustawieniach.
+- Po każdej zmianie aplikacji przeglądać i odpowiednio aktualizować dokumenty prawne, informacje na stronie oraz Data safety Google Play przed wydaniem. [Zasada aktualizacji](legal/README.md#aktualizacja-po-zmianach-aplikacji).
 - Przy pierwszym uruchomieniu wyświetlić do akceptacji informacje o ograniczonej dokładności pomiarów, szacunkowym charakterze pomiaru krokami i pomocniczym przeznaczeniu szkiców. Doprecyzować treść oraz zasady zapisu i ponawiania akceptacji. [Zakres pomysłu](pomysly-na-rozwoj.md#2-strona-www-dokumenty-prawne-i-informacja-startowa).
 - Potwierdzić aktywność opcji buy i konta testerów licencji; wykonać transakcje i przywracanie w Google Play. Produkt, klucz licencyjny i podpisywanie są skonfigurowane.
 - Doprecyzować użytkownika docelowego, ofertę i ceny dla pozostałych rynków.
