@@ -1,12 +1,13 @@
+import { useTheme } from './ui';
 import { t } from '../i18n';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { Check, Compass, MapPin, Ruler } from 'lucide-react-native';
 import { BrandMark } from './Brand';
 import type { WizardStep } from '../domain/survey';
-import { colors, s } from './ui';
 
 export function SurveyHeading({ name, subtitle, step, closed, showSteps = true }: { name: string; subtitle: string; step: WizardStep; closed: boolean; showSteps?: boolean }) {
+  const { colors, s } = useTheme();
   const current = closed ? 3 : step === 'length' ? 1 : step === 'review' ? 2 : 0;
   return <View style={{ gap: 18 }}>
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>

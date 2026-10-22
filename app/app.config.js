@@ -1,7 +1,7 @@
 ﻿module.exports = {
   name: 'outlineGo', slug: 'fieldsketch-cad', version: '0.1.0', scheme: 'fieldsketch',
   icon: './assets/brand/icon.png',
-  orientation: 'portrait', userInterfaceStyle: 'light', platforms: ['android'],
+  orientation: 'portrait', userInterfaceStyle: 'automatic', platforms: ['android'],
   android: { package: 'com.bk.dev.mobile.outlinego', versionCode: 2, allowBackup: false, softwareKeyboardLayoutMode: 'resize',
     adaptiveIcon: { foregroundImage: './assets/brand/adaptive-foreground.png', monochromeImage: './assets/brand/adaptive-monochrome.png', backgroundColor: '#1B684B' },
     blockedPermissions: ['android.permission.RECORD_AUDIO', 'android.permission.READ_EXTERNAL_STORAGE',

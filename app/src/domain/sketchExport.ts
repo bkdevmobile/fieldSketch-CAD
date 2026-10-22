@@ -3,6 +3,7 @@ import { formatNumber, t } from '../i18n';
 import { distance, metrics, outlinePoints } from './geometry';
 import type { Project } from './model';
 import { FREE_WATERMARK, Plan } from './access';
+import { LengthUnit, fromMetres } from './units';
 
 export function wrapExportText(input: string, maxCharacters = 72): string[] {
   return input.split(/\r?\n/).flatMap(paragraph => {
@@ -22,7 +23,7 @@ export function wrapExportText(input: string, maxCharacters = 72): string[] {
   });
 }
 
-export function sketchExport(project: Project, plan: Plan = 'free') {
+export function sketchExport(project: Project, plan: Plan = 'free', unit: LengthUnit = 'm') {
   const width = 1080, rowHeight = 54, margin = 64, contentWidth = width - 2 * margin;
   const vertices = outlinePoints(project.points, project.closed);
   const measuredReturn = vertices.length < project.points.length;
@@ -66,7 +67,7 @@ export function sketchExport(project: Project, plan: Plan = 'free') {
     estimated ? t("Długości pochodzące z kroków są szacunkowe.") : t("Długości boków wpisane ręcznie."),
     values.intersects ? t("Samoprzecięcie obrysu — pole niedostępne.") : project.closed && !project.closureObservationId && !measuredReturn
       ? t("Przerywany bok zamykający jest wyliczony.") : t("Szkic pomocniczy."),
-    values.closure ? t("Błąd zamknięcia: {0} m", [formatNumber(values.closure.norm, 3)]) : t("Brak niezależnego pomiaru zamknięcia."),
+    values.closure ? t('Błąd zamknięcia: {0} {1}', [formatNumber(fromMetres(values.closure.norm, unit), 3), unit]) : t("Brak niezależnego pomiaru zamknięcia."),
   ].flatMap(line => wrapExportText(line));
   const contentHeight = footerY + (footerLines.length - 1) * 32 + 48;
   const height = contentHeight + (watermark ? 64 : 0);

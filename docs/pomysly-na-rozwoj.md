@@ -22,3 +22,23 @@ Do ustalenia przed wdrożeniem:
 - Zasady importu przy limitach Free oraz dostępność funkcji w Free/Plus.
 
 Stan: zapisane w dokumentacji; bez zmian w aplikacji i preview.
+
+## 2. Strona WWW, dokumenty prawne i informacja startowa
+
+Data dodania: 22 października 2026. Status: zaplanowane przed wydaniem, do dopracowania.
+
+Zakres:
+
+- Wykonać stronę WWW z informacjami o aplikacji, jej funkcjach i przeznaczeniu.
+- Opublikować na stronie dokumenty prawne; ich dokładny zestaw i treść ustalić przed wdrożeniem, np. politykę prywatności i warunki korzystania.
+- Dodać w aplikacji stale dostępne linki do dokumentów prawnych, np. w ustawieniach.
+- Przy pierwszym uruchomieniu pokazać informację wymagającą świadomej akceptacji: ograniczona dokładność pomiarów, szacunkowa długość wyznaczana krokami, wpływ warunków i czujników oraz pomocniczy charakter szkiców.
+
+Do ustalenia przed wdrożeniem:
+
+- Domena, hosting, języki strony i dokumentów oraz miejsce odnośników w aplikacji.
+- Dokładne brzmienie informacji startowej i sposób potwierdzenia jej przeczytania.
+- Zachowanie bez akceptacji oraz zapis daty i wersji zaakceptowanej informacji.
+- Kiedy po zmianie treści wymagać ponownej akceptacji i jak udostępniać informację ponownie po zakończeniu pierwszego uruchomienia.
+
+Stan: zapisane w planie; bez wdrażania strony, dokumentów prawnych i zmian w aplikacji.

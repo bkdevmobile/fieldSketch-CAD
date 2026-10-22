@@ -1,14 +1,16 @@
+import { useTheme } from './ui';
 import React, { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { ChevronDown, ChevronUp, type LucideIcon } from 'lucide-react-native';
-import { colors, s } from './ui';
 
 export function SectionTitle({ title, icon: Icon }: { title: string; icon: LucideIcon }) {
+  const { colors, s } = useTheme();
   return <View style={s.row}><Icon size={20} color={colors.green} accessible={false} /><Text style={s.h2}>{title}</Text></View>;
 }
 export function Segments<T extends string | number>({ label, value, options, onChange, minOptionWidth = 60 }: {
   label: string; value: T; options: { value: T; label: string; disabled?: boolean }[]; onChange(value: T): void; minOptionWidth?: number;
 }) {
+  const { colors, s } = useTheme();
   return <View accessibilityLabel={label} style={[s.segment, { flexWrap: 'wrap' }]}>{options.map(option => <Pressable key={option.value}
     accessibilityRole="button" accessibilityLabel={option.label} accessibilityState={{ selected: option.value === value, disabled: option.disabled }}
     disabled={option.disabled} onPress={() => onChange(option.value)} style={({ pressed }) => ({
@@ -17,10 +19,12 @@ export function Segments<T extends string | number>({ label, value, options, onC
     })}><Text style={[s.label, { textAlign: 'center', color: option.value === value ? colors.ink : colors.muted }]}>{option.label}</Text></Pressable>)}</View>;
 }
 export function Badge({ label, icon: Icon }: { label: string; icon?: LucideIcon }) {
+  const { colors, s } = useTheme();
   return <View style={{ alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center', gap: 6, borderRadius: 20, backgroundColor: colors.mint, paddingHorizontal: 12, paddingVertical: 6 }}>
     {Icon && <Icon size={15} color={colors.green} accessible={false} />}<Text style={[s.label, { color: colors.green }]}>{label}</Text></View>;
 }
 export function Disclosure({ title, children }: { title: string; children: React.ReactNode }) {
+  const { colors, s } = useTheme();
   const [open, setOpen] = useState(false); const Icon = open ? ChevronUp : ChevronDown;
   return <View style={s.card}><Pressable accessibilityRole="button" accessibilityLabel={title} accessibilityState={{ expanded: open }} onPress={() => setOpen(!open)}
     style={{ minHeight: 40, flexDirection: 'row', alignItems: 'center', gap: 8 }}><Text style={[s.text, { flex: 1, fontWeight: '600' }]}>{title}</Text><Icon size={20} color={colors.green} /></Pressable>

@@ -6,6 +6,7 @@ Stan dokumentacji: **21 października 2026**, wersja 0.1.0. Kod integruje zakup 
 
 - [Instrukcja użytkowania, instalacji i testów](technical/prototyp.md)
 - [Wizard pomiaru i decyzje UI](technical/wizard-pomiaru.md)
+- [Aktualne zmiany UI: zadokowany szkic, motywy i jednostki imperialne](technical/ui-2026-10.md)
 - [Prowadzenie pierwszego pomiaru](technical/pierwszy-pomiar.md)
 - [Notatki, przypinanie, edycja wymiarów i ponowny pomiar](technical/edycja-szkicu.md)
 - [Precyzja kątów i długości](technical/precyzja-wymiarow.md)

@@ -17,6 +17,22 @@ class SqlAdapter implements Database {
     try { await action(); this.raw.exec('COMMIT'); } catch (e) { this.raw.exec('ROLLBACK'); throw e; }
   }
 }
+
+test('theme, docking and imperial units survive database reopening with validation', async () => {
+  const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
+  const repo = new ProjectRepository(db); await repo.initialize();
+  for (const unit of ['ft', 'in'] as const) {
+    await repo.saveSettings({ ...DEFAULT_SETTINGS, unit, theme: 'dark', sketchDocked: false });
+    const copy = new SqlAdapter(new SQL.Database(db.raw.export())); const reopened = new ProjectRepository(copy);
+    await reopened.initialize();
+    expect(await reopened.settings()).toMatchObject({ unit, theme: 'dark', sketchDocked: false });
+    copy.raw.close();
+  }
+  await expect(repo.saveSettings({ ...DEFAULT_SETTINGS, theme: 'sepia' as any })).rejects.toThrow();
+  await expect(repo.saveSettings({ ...DEFAULT_SETTINGS, sketchDocked: 'no' as any })).rejects.toThrow();
+  await expect(repo.saveSettings({ ...DEFAULT_SETTINGS, unit: 'yd' as any })).rejects.toThrow();
+  db.raw.close();
+});
 test('język przetrwa restart SQLite i nie zmienia jednostek ani danych szkicu', async () => {
   const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
   const repo = new ProjectRepository(db); await repo.initialize();

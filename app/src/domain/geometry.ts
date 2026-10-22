@@ -1,6 +1,7 @@
 import { t } from '../i18n';
 import { Capture, id, Observation, Point, Project, STEP_LENGTH_CM, SurveyMode } from './model';
 import { LENGTH_DECIMALS, roundDecimal } from './precision';
+import { LengthUnit, fromMetres, toMetres } from './units';
 export function parsePositive(input: string, maxDecimals?: number): number {
   const normalized = input.trim().replace(',', '.');
   if (!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(normalized)) throw new Error(t("Wpisz dodatnią liczbę, np. 2,5."));
@@ -33,19 +34,19 @@ export function commitSide(project: Project, steps: number, theta: number, mode:
   referenceFrameId: string, capture: Capture | null, closure = false): Project {
   return commitMeasurement(project, { source: 'steps', steps, stepLengthCm: STEP_LENGTH_CM }, theta, mode, referenceFrameId, capture, closure);
 }
-export type LengthMeasurement = { source: 'manual'; value: number; unit: 'm' | 'cm' }
-  | { source: 'steps'; steps: number; stepLengthCm: number; unit?: 'm' | 'cm'; measurementId?: string; detectedSteps?: number };
+export type LengthMeasurement = { source: 'manual'; value: number; unit: LengthUnit }
+  | { source: 'steps'; steps: number; stepLengthCm: number; unit?: LengthUnit; measurementId?: string; detectedSteps?: number };
 export function measurementLength(measurement: LengthMeasurement) {
   if (measurement.source === 'steps') {
     const raw = stepsToLength(measurement.steps, measurement.stepLengthCm);
     if (measurement.unit === undefined) return raw;
-    const factor = measurement.unit === 'cm' ? 100 : 1;
+    const factor = fromMetres(1, measurement.unit);
     const lengthM = roundDecimal(raw.lengthM * factor, LENGTH_DECIMALS) / factor;
     if (lengthM <= 0) throw new Error(t("Nieprawidłowa długość."));
     return { lengthM, lengthCm: lengthM * 100 };
   }
   if (!Number.isFinite(measurement.value) || measurement.value <= 0) throw new Error(t("Nieprawidłowa długość."));
-  const lengthM = measurement.unit === 'cm' ? measurement.value / 100 : measurement.value;
+  const lengthM = toMetres(measurement.value, measurement.unit);
   if (!Number.isFinite(lengthM * 100) || lengthM <= 0) throw new Error(t("Długość poza zakresem obliczeń."));
   return { lengthM, lengthCm: lengthM * 100 };
 }

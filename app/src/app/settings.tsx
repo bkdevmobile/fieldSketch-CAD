@@ -1,19 +1,22 @@
+import { useTheme, Button, Field, Page } from '../components/ui';
 import { t } from '../i18n';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { router } from 'expo-router';
-import { Button, Field, Page, s } from '../components/ui';
 import { roundedInput } from '../domain/precision';
 import { parsePositive } from '../domain/geometry';
 import { useStore } from '../infrastructure/store';
-import type { AngleSnap, SurveyMode } from '../domain/model';
-import { Activity, Check, Compass, Magnet, Ruler } from 'lucide-react-native';
+import type { AngleSnap, SurveyMode, ThemePreference } from '../domain/model';
+import { Check, Compass, Magnet, Palette, Ruler } from 'lucide-react-native';
+import { LENGTH_UNITS, LengthUnit } from '../domain/units';
 import { SectionTitle, Segments } from '../components/presentation';
 import { LANGUAGES, LANGUAGE_NAMES, LanguagePreference } from '../i18n';
 
 export default function Settings() {
+  const { s } = useTheme();
   const store = useStore();
   const [unit, setUnit] = useState(store.settings.unit);
+  const [theme, setTheme] = useState<ThemePreference>(store.settings.theme ?? 'system');
   const [stepLength, setStepLength] = useState(roundedInput(String(store.settings.stepLengthCm), 3));
   const [angleSnap, setAngleSnap] = useState<AngleSnap>(store.settings.angleSnap);
   const [directionMode, setDirectionMode] = useState<SurveyMode>(store.settings.directionMode);
@@ -24,19 +27,25 @@ export default function Settings() {
   }, [store.repo]);
   return <Page title={t("Ustawienia")} subtitle={t("Dla wszystkich szkiców")} footer={
     <Button label={t("Zapisz ustawienia")} icon={Check} disabled={store.busy || !store.repo} onPress={() => store.run(async () => {
-      const languageChanged = language !== (store.settings.language ?? 'system');
-      await store.updateSettings({ unit, stepLengthCm: parsePositive(stepLength, 3), angleSnap, directionMode, language });
-      // Keep this screen mounted while the native stack updates translated headers.
-      if (!languageChanged) router.back();
+      await store.updateSettings({ unit, stepLengthCm: parsePositive(stepLength, 3), angleSnap, directionMode, language, theme });
+      // Let translated headers update before leaving the settings screen.
+      requestAnimationFrame(() => {
+        if (router.canGoBack()) router.back();
+        else router.replace('/');
+      });
     })} />}>
+    <View style={s.card}><SectionTitle title={t('Motyw')} icon={Palette} />
+      <Segments<ThemePreference> label={t('Motyw')} value={theme} onChange={setTheme}
+        options={[{ value: 'dark', label: t('Ciemny') }, { value: 'light', label: t('Jasny') }, { value: 'system', label: t('Wg systemu') }]} />
+    </View>
     <View style={s.card}><SectionTitle title={t("Język aplikacji")} icon={Compass} />
       <Segments<LanguagePreference> label={t("Język aplikacji")} value={language} onChange={setLanguage} minOptionWidth={120}
         options={[{ value: 'system', label: t("Systemowy") }, ...LANGUAGES.map(value => ({ value, label: LANGUAGE_NAMES[value] }))]} />
       <Text style={s.muted}>{t("Przy wyborze Systemowy używamy języka telefonu. Jeśli nie jest obsługiwany, używamy angielskiego. Język nie zmienia jednostek pomiaru.")}</Text>
     </View>
     <View style={s.card}><SectionTitle title={t("Długość")} icon={Ruler} />
-      <Text style={s.label}>{t("Domyślna jednostka")}</Text><Segments<'m' | 'cm'> label={t("Domyślna jednostka")} value={unit} onChange={setUnit}
-        options={[{ value: 'm', label: t("Metry") }, { value: 'cm', label: t("Centymetry") }]} />
+      <Text style={s.label}>{t("Domyślna jednostka")}</Text><Segments<LengthUnit> label={t("Domyślna jednostka")} value={unit} onChange={setUnit} minOptionWidth={120}
+        options={LENGTH_UNITS.map(value => ({ value, label: { m: t('Metry'), cm: t('Centymetry'), ft: t('Stopy'), in: t('Cale') }[value] + ` (${value})` }))} />
       <Field label={t("Długość jednego kroku (cm)")} numeric decimalPlaces={3} value={stepLength} onChangeText={setStepLength} />
       <Text style={s.muted}>{t("Zmiana ustawienia nie przelicza zapisanych boków ani przywróconego pomiaru roboczego.")}</Text>
     </View>
@@ -51,6 +60,5 @@ export default function Settings() {
           disabled: value !== 'manual' && !store.capabilities?.[value] }))} />
       <Text style={s.muted}>{t("Wspólny dla wszystkich szkiców. Zmiana zatrzyma bieżącą sesję i wymaga ponownego przechwycenia kierunku. Zapisane pomiary zachowują swój tryb i wynik. Przy niedostępnym czujniku użyjemy trybu ręcznego.")}</Text>
     </View>
-    <Button label={t("Diagnostyka")} icon={Activity} quiet onPress={() => router.push('/diagnostics')} />
   </Page>;
 }

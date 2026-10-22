@@ -1,17 +1,19 @@
+import { useTheme, Button, Field, Page } from '../components/ui';
 import { t } from '../i18n';
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { ArrowRight, HardDrive, Settings2 } from 'lucide-react-native';
-import { Button, Field, Page, s, colors } from '../components/ui';
 import { newProject } from '../domain/model';
 import { useStore } from '../infrastructure/store';
 import { BrandMark } from '../components/Brand';
 import { canCreateProject } from '../domain/access';
 import { usePlusOffer } from '../components/PlusOffer';
+import { defaultProjectName } from '../domain/projectName';
 
 export default function NewProject() {
-  const store = useStore(); const [name, setName] = useState('');
+  const { colors, s } = useTheme();
+  const store = useStore(); const [name, setName] = useState(() => defaultProjectName(store.projects.map(project => project.name)));
   const plus = usePlusOffer();
   const preferred = store.settings.directionMode;
   const effectiveMode = preferred === 'manual' || store.capabilities?.[preferred] ? preferred : 'manual';

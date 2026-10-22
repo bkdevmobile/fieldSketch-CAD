@@ -1,10 +1,11 @@
+import { LengthUnit, fromMetres, isImperial, isLengthUnit } from './units';
 import { placeLabels, DrawingLabel } from './labelLayout';
 import { decimalText } from './precision';
 import { t } from '../i18n';
 import { distance, outlinePoints } from './geometry';
 import type { Project } from './model';
 
-export type DxfUnit = 'm' | 'cm';
+export type DxfUnit = LengthUnit;
 
 // AutoCAD 2000 ASCII DXF. Unicode escapes keep names portable without
 // depending on the recipient's legacy code page. Coordinates remain in XY.
@@ -17,9 +18,9 @@ function textValue(value: string) {
 }
 
 export function dxfExport(project: Project, unit: DxfUnit = 'm'): string {
-  if (unit !== 'm' && unit !== 'cm') throw new Error(t("Nieobsługiwana jednostka DXF."));
+  if (!isLengthUnit(unit)) throw new Error(t("Nieobsługiwana jednostka DXF."));
   if (project.points.length < 2) throw new Error(t("Eksport DXF wymaga co najmniej dwóch punktów."));
-  const factor = unit === 'cm' ? 100 : 1;
+  const factor = fromMetres(1, unit);
   const vertices = outlinePoints(project.points, project.closed).map(p => ({ ...p, x: p.x * factor, y: p.y * factor }));
   if (vertices.some(p => !Number.isFinite(p.x) || !Number.isFinite(p.y))) throw new Error(t("Nieprawidłowe współrzędne szkicu."));
   const xs = vertices.map(p => p.x), ys = vertices.map(p => p.y);
@@ -89,8 +90,8 @@ export function dxfExport(project: Project, unit: DxfUnit = 'm'): string {
   section('HEADER');
   pair(9, '$ACADVER'); pair(1, 'AC1015');
   pair(9, '$DWGCODEPAGE'); pair(3, 'ANSI_1252');
-  pair(9, '$INSUNITS'); pair(70, unit === 'cm' ? 5 : 6);
-  pair(9, '$MEASUREMENT'); pair(70, 1);
+  pair(9, '$INSUNITS'); pair(70, { m: 6, cm: 5, ft: 2, in: 1 }[unit]);
+  pair(9, '$MEASUREMENT'); pair(70, isImperial(unit) ? 0 : 1);
   pair(9, '$INSBASE'); point(0, 0);
   pair(9, '$LUNITS'); pair(70, 2);
   pair(9, '$LUPREC'); pair(70, 4);

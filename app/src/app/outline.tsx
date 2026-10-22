@@ -1,30 +1,36 @@
-import { t } from '../i18n';
+import { LengthUnit, fromMetres, displayArea, areaUnit } from '../domain/units';
+import { useTheme, Button, Page, fmt } from '../components/ui';
+import { t, translateError } from '../i18n';
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { ArrowLeft, Check, FileDown, Image, Maximize2, Pencil, Route } from 'lucide-react-native';
 import { SketchNote } from '../components/SketchNote';
 import { OutlineCanvas } from '../components/OutlineCanvas';
-import { Button, Page, s, fmt, colors } from '../components/ui';
 import { Badge, Disclosure } from '../components/presentation';
-import { Dialog } from '../components/overlays';
-import { useStore } from '../infrastructure/store';
+import { Dialog, useDialogs } from '../components/overlays';
+import { message, useStore } from '../infrastructure/store';
 import { lastSide, metrics, outlinePoints } from '../domain/geometry';
 import { shareDxf } from '../infrastructure/shareDxf';
 import { usePlusOffer } from '../components/PlusOffer';
 export default function Outline() {
+  const { colors, s } = useTheme();
+  const dialogs = useDialogs();
   const { id } = useLocalSearchParams<{ id: string }>(); const store = useStore(), { projects, settings } = store;
   const [expanded, setExpanded] = useState(false);
   const plus = usePlusOffer();
   const project = projects.find(p => p.id === id);
   if (!project) return <Page title={t("Obrys")}><Text>{t("Szkic niedostępny.")}</Text></Page>;
-  const m = metrics(project), unit = settings.unit, factor = unit === 'cm' ? 100 : 1;
+  const m = metrics(project), unit = settings.unit, factor = fromMetres(1, unit);
   const estimated = project.observations.some(o => project.activeObservationIds.includes(o.id) && o.lengthSource !== 'manual');
   return <Page title={t("Podsumowanie")} subtitle={project.name} footer={
     <><View style={s.row}><View style={{ flex: 1 }}><Button label={t("Eksportuj PNG")} icon={Image} disabled={store.busy || project.points.length < 2}
       onPress={() => router.push({ pathname: '/export', params: { id } })} />
     </View><View style={{ flex: 1 }}><Button label={store.plan === 'plus' ? t("Eksportuj DXF") : 'DXF · Plus'} icon={FileDown} secondary disabled={store.busy || project.points.length < 2}
-      onPress={() => { if (store.plan !== 'plus') { plus.show('dxf'); return; } void store.run(async () => { await shareDxf(project, unit, store.plan); }); }} /></View></View>
+      onPress={() => { if (store.plan !== 'plus') { plus.show('dxf'); return; } void store.run(async () => {
+        await shareDxf(project, unit, store.plan);
+        dialogs.alert(t('Eksport gotowy'), t('Plik {0} został przygotowany do udostępnienia.', ['DXF']));
+      }, error => dialogs.alert(t('Błąd eksportu'), translateError(message(error)))); }} /></View></View>
     <Button label={project.closed ? t("Wróć do szkicu") : t("Kontynuuj pomiar")} icon={ArrowLeft} secondary
       onPress={() => router.replace({ pathname: '/project', params: { id } })} /></>
   }>
@@ -34,7 +40,7 @@ export default function Outline() {
     <View style={s.card}><Badge label={project.closed ? t("Obrys zamknięty") : t("Otwarta trasa")} icon={project.closed ? Check : Route} />
       <View style={[s.row, { alignItems: 'flex-start' }]}><View style={{ flex: 1, minWidth: 120, gap: 4 }}>
         <Text style={s.label}>{project.closed ? t("Obwód") : t("Długość trasy")}</Text><Text style={s.measureValue}>{fmt(m.perimeter * factor, 3)} <Text style={s.muted}>{unit}</Text></Text></View>
-        <View style={{ flex: 1, minWidth: 100, gap: 4 }}><Text style={s.label}>{t("Pole")}</Text><Text style={s.measureValue}>{m.area === null ? '—' : fmt(m.area, 2)} <Text style={s.muted}>{m.area === null ? '' : 'm²'}</Text></Text></View></View>
+        <View style={{ flex: 1, minWidth: 100, gap: 4 }}><Text style={s.label}>{t("Pole")}</Text><Text style={s.measureValue}>{m.area === null ? '—' : fmt(displayArea(m.area, unit), 2)} <Text style={s.muted}>{m.area === null ? '' : areaUnit(unit)}</Text></Text></View></View>
       {m.intersects && <Text style={s.warningText}>{t("Samoprzecięcie obrysu. Pole nie jest prezentowane.")}</Text>}
       <View style={{ borderTopWidth: 1, borderColor: colors.line, paddingTop: 12, gap: 6 }}>
         <Text style={s.muted}>{m.closure ? t("Błąd zamknięcia: {0} {1}\nΔX {2} {3} · ΔY {4} {5}", [fmt(m.closure.norm * factor, 3), unit, fmt(m.closure.dx * factor, 3), unit, fmt(m.closure.dy * factor, 3), unit]) : t("Brak niezależnego pomiaru zamknięcia.")}</Text>

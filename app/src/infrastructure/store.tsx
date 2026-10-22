@@ -15,9 +15,9 @@ interface Store {
   capabilities: Capabilities | null; live: LiveSample | null; sessionId: string | null; sessionProject: string | null;
   settings: UserSettings; plan: Plan; billing: ReturnType<typeof useBilling>;
   updateSettings(settings: UserSettings): Promise<void>;
-  rememberUi(patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput'>): Promise<void>;
+  rememberUi(patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput' | 'sketchDocked'>): Promise<void>;
   refresh(): Promise<void>;
-  run(task: () => Promise<void>): Promise<void>;
+  run(task: () => Promise<void>, onError?: (error: unknown) => void): Promise<void>;
   start(project: Project, mode: SurveyMode): Promise<string>;
   stop(): Promise<void>;
   log(type: string, data: object): Promise<void>;
@@ -81,10 +81,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     return () => { mounted = false; sample?.remove(); status?.remove(); sub.remove(); };
   }, []);
   const refresh = async () => { if (repo) setProjects(await repo.list()); };
-  const run = async (task: () => Promise<void>) => {
+  const run = async (task: () => Promise<void>, onError?: (error: unknown) => void) => {
     if (lock.current) return;
     lock.current = true; setBusy(true); setError('');
-    try { await task(); } catch (e) { setError(message(e)); }
+    try { await task(); } catch (e) { setError(message(e)); onError?.(e); }
     finally { lock.current = false; setBusy(false); }
   };
   const start = async (project: Project, mode: SurveyMode) => {
@@ -101,7 +101,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     });
     settingsWrites.current = write; return write;
   };
-  const rememberUi = async (patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput'>) => {
+  const rememberUi = async (patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput' | 'sketchDocked'>) => {
     try { await saveSettingsPatch(patch); } catch (e) { setError(message(e)); }
   };
   const updateSettings = async (next: UserSettings) => {

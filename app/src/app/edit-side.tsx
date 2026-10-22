@@ -1,8 +1,9 @@
+import { LENGTH_UNITS, LengthUnit, fromMetres } from '../domain/units';
+import { useTheme, Button, Field, fmt, Page } from '../components/ui';
 import { t } from '../i18n';
 import React, { useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
-import { Button, Field, fmt, Page, s } from '../components/ui';
 import { OutlineCanvas } from '../components/OutlineCanvas';
 import { AngleControls } from '../components/AngleControls';
 import { AngleSlider } from '../components/AngleSlider';
@@ -14,10 +15,11 @@ import { decimalText } from '../domain/precision';
 import { useStore } from '../infrastructure/store';
 
 export default function EditSide() {
+  const { s } = useTheme();
   const { id } = useLocalSearchParams<{ id: string }>();
   const store = useStore(), project = store.projects.find(p => p.id === id);
   const original = project && lastSide(project);
-  const [length, setLength] = useState(''), [unit, setUnit] = useState<'m' | 'cm'>('m');
+  const [length, setLength] = useState(''), [unit, setUnit] = useState<LengthUnit>('m');
   const [source, setSource] = useState<'manual' | 'steps'>('manual'), [steps, setSteps] = useState('');
   const [stepLength, setStepLength] = useState('75');
   const [turn, setTurn] = useState('0'), [side, setSide] = useState<'left' | 'right'>('left');
@@ -29,7 +31,8 @@ export default function EditSide() {
   useEffect(() => {
     if (!project || !original) return;
     lengthTouched.current = false; angleTouched.current = false;
-    setLength(decimalText(original.lengthM, 3).replace('.', ','));
+    setUnit(store.settings.unit);
+    setLength(decimalText(fromMetres(original.lengthM, store.settings.unit), 3).replace('.', ','));
     setSource(original.lengthSource === 'manual' ? 'manual' : 'steps');
     setSteps(String(original.stepCount ?? '')); setStepLength(decimalText(original.stepLengthCm ?? store.settings.stepLengthCm, 3));
     const previous = previousHeading({ ...project, points: project.points.slice(0, -1) });
@@ -88,18 +91,18 @@ export default function EditSide() {
       </>}
       <Segments<'manual' | 'steps'> label={t("Źródło długości")} value={source} options={[{ value: 'manual', label: t("Długość") }, { value: 'steps', label: t('Kroki') }]} onChange={next => {
         lengthTouched.current = true;
-        if (source === 'steps' && next === 'manual') { try { setLength(decimalText(measurementLength({ source: 'steps', steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength) }).lengthM * (unit === 'cm' ? 100 : 1), 3).replace('.', ',')); } catch { } }
+        if (source === 'steps' && next === 'manual') { try { setLength(decimalText(measurementLength({ source: 'steps', steps: parsePositive(steps), stepLengthCm: parsePositive(stepLength) }).lengthM * (fromMetres(1, unit)), 3).replace('.', ',')); } catch { } }
         setSource(next);
       }} />
       {source === 'manual' ? <><Field label={t("Długość boku ({0})", [unit])} numeric decimalPlaces={3} value={length} onChangeText={value => { lengthTouched.current = true; setLength(value); }} onEndEditing={() => setFitKey(v => v + 1)} />
-        <Segments<'m' | 'cm'> label={t("Jednostka długości")} value={unit} options={[{ value: 'm', label: 'm' }, { value: 'cm', label: 'cm' }]}
+        <Segments<LengthUnit> label={t("Jednostka długości")} value={unit} options={LENGTH_UNITS.map(value => ({ value, label: value }))}
           onChange={next => { void store.run(async () => { lengthTouched.current = true; setLength(convertLengthInput(length, unit, next)); setUnit(next); }); }} /></>
         : <><Field label={t("Liczba kroków")} numeric value={steps} onChangeText={value => { lengthTouched.current = true; setSteps(value); }} onEndEditing={() => setFitKey(v => v + 1)} />
           <Field label={t("Długość kroku dla tego boku (cm)")} numeric decimalPlaces={3} value={stepLength} onChangeText={value => { lengthTouched.current = true; setStepLength(value); }} onEndEditing={() => setFitKey(v => v + 1)} /></>}
       {!!error && <Text style={s.warningText}>{error}</Text>}
-      {valid && measurement && <Text style={s.measureValue}>{fmt(lengthTouched.current ? measurementLength(measurement).lengthM : original.lengthM, 3)} m</Text>}
+      {valid && measurement && <Text style={s.measureValue}>{fmt(fromMetres(lengthTouched.current ? measurementLength(measurement).lengthM : original.lengthM, unit), 3)} {unit}</Text>}
     </View>
-    <OutlineCanvas project={preview} fitKey={fitKey} />
+    <OutlineCanvas project={preview} fitKey={fitKey} unit={unit} />
     <Text style={s.muted}>{t("Wcześniejsze punkty pozostają na miejscu. Zmieniasz końcowy punkt boku; pomiar źródłowy pozostaje w historii.")}</Text>
   </Page>;
 }
