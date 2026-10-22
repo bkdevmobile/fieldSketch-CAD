@@ -1,16 +1,17 @@
+import { useTheme, Button, Page } from '../components/ui';
 import { t, formatDate } from '../i18n';
 import React, { useState } from 'react';
 import { Keyboard, Pressable, Text, View } from 'react-native';
 import { router, Stack } from 'expo-router';
-import { Button, colors, Page, s } from '../components/ui';
 import { MenuAnchor, PopupMenu, useDialogs } from '../components/overlays';
 import { useStore } from '../infrastructure/store';
 import { orientation } from '../infrastructure/native';
-import { ChevronDown, EllipsisVertical, FileText, FolderOpen, Pin, PinOff, Plus, Settings2, Trash2 } from 'lucide-react-native';
+import { ChevronDown, EllipsisVertical, FolderOpen, Pin, PinOff, Plus, Settings2, Trash2 } from 'lucide-react-native';
 import { BrandLogo, BrandMark } from '../components/Brand';
 import { canCreateProject } from '../domain/access';
 import { usePlusOffer } from '../components/PlusOffer';
 export default function Projects() {
+  const { colors, s } = useTheme();
   const store = useStore(), dialogs = useDialogs();
   const plus = usePlusOffer();
   const [menu, setMenu] = useState(false), [anchor, setAnchor] = useState<MenuAnchor>();
@@ -19,21 +20,24 @@ export default function Projects() {
   const visibleProjects = store.projects.slice(0, visibleCount);
   const selectedProject = store.projects.find(p => p.id === projectMenu);
   const openProject = (id: string) => router.push({ pathname: '/project', params: { id } });
-  const remove = (id: string) => dialogs.alert(t("Usunąć szkic?"), t("Usunięte zostaną pomiary i powiązane logi."), [
+  const remove = (id: string) => dialogs.alert(t("Usunąć szkic?"), t('Usunięte zostaną pomiary szkicu.'), [
     { text: t("Anuluj"), style: 'cancel' }, { text: t("Usuń szkic"), icon: Trash2, style: 'destructive', onPress: () => store.run(async () => {
       if (store.sessionProject === id) await store.stop();
       for (const log of await orientation().listLogs()) if (log.projectId === id) await orientation().deleteLog(log.id);
       await store.repo!.remove(id); await store.refresh();
     }) },
   ]);
-  return <Page title={t("Pomiary w terenie")} subtitle={t("Twoje szkice, zapisane na telefonie.")}>
+  return <Page title={t("Pomiary w terenie")} subtitle={t("Twoje szkice, zapisane na telefonie.")} footer={
+    <Button label={t("Nowy szkic")} icon={Plus} onPress={() => {
+      if (!canCreateProject(store.projects.length, store.plan)) { plus.projectLimit(() => setVisibleCount(Math.max(3, store.projects.length))); return; }
+      router.push('/new-project');
+    }} disabled={store.busy || !store.repo} />}>
     <Stack.Screen options={{ headerTitle: () => <BrandLogo />, headerRight: () => <Pressable accessibilityRole="button" accessibilityLabel={t("Menu główne")}
       onPress={event => { Keyboard.dismiss(); setAnchor({ x: event.nativeEvent.pageX + 22, y: event.nativeEvent.pageY + 22 }); setMenu(true); }}
       style={{ minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' }}>
       <EllipsisVertical size={22} strokeWidth={1.8} color={colors.ink} accessible={false} /></Pressable> }} />
     <PopupMenu visible={menu} anchor={anchor} onClose={() => setMenu(false)} items={[
       { label: t('Ustawienia'), icon: Settings2, onPress: () => router.push('/settings') },
-      { label: t("Logi pomiarowe"), icon: FileText, onPress: () => router.push('/logs') },
       { label: 'outlineGo Plus', icon: Plus, onPress: () => router.push('/plus') },
     ]} />
     <PopupMenu visible={!!selectedProject} anchor={anchor} title={selectedProject?.name} onClose={() => setProjectMenu(null)} items={[
@@ -42,10 +46,6 @@ export default function Projects() {
         onPress: () => store.run(async () => { if (selectedProject) { await store.repo!.updateMetadata(selectedProject.id, { pinned: !selectedProject.pinned }); await store.refresh(); } }) },
       { label: t("Usuń"), icon: Trash2, danger: true, disabled: store.busy, onPress: () => { if (selectedProject) remove(selectedProject.id); } },
     ]} />
-    <Button label={t("Nowy szkic")} icon={Plus} onPress={() => {
-      if (!canCreateProject(store.projects.length, store.plan)) { plus.projectLimit(() => setVisibleCount(Math.max(3, store.projects.length))); return; }
-      router.push('/new-project');
-    }} disabled={store.busy || !store.repo} />
     {plus.offer}
     <View style={[s.row, { justifyContent: 'space-between', marginTop: 8 }]}><Text style={s.h2}>{t("Twoje szkice")}</Text><Text style={s.muted}>{store.projects.length}</Text></View>
     {!store.projects.length && <View style={{ alignItems: 'center', gap: 14, paddingVertical: 48 }}><BrandMark size={48} />

@@ -1,6 +1,6 @@
 # Uwagi UI — do przeniesienia po dopracowaniu preview
 
-Zmiany wdrażamy obecnie tylko w generatorze preview i pliku HTML. Kod aplikacji pozostaje bez zmian. Przeniesienie do aplikacji nastąpi na osobne polecenie użytkownika.
+Na polecenie użytkownika z 22 października 2026 poniższe ustalenia przeniesiono do źródeł aplikacji. Zapisy przy poszczególnych punktach dokumentują etap pracy nad preview. Aktualny zakres i weryfikację opisuje `docs/technical/ui-2026-10.md`. Nie zbudowano jeszcze nowego APK/AAB.
 
 ## 2026-10-22
 

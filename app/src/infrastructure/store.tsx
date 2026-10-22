@@ -15,7 +15,7 @@ interface Store {
   capabilities: Capabilities | null; live: LiveSample | null; sessionId: string | null; sessionProject: string | null;
   settings: UserSettings; plan: Plan; billing: ReturnType<typeof useBilling>;
   updateSettings(settings: UserSettings): Promise<void>;
-  rememberUi(patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput'>): Promise<void>;
+  rememberUi(patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput' | 'sketchDocked'>): Promise<void>;
   refresh(): Promise<void>;
   run(task: () => Promise<void>): Promise<void>;
   start(project: Project, mode: SurveyMode): Promise<string>;
@@ -101,7 +101,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     });
     settingsWrites.current = write; return write;
   };
-  const rememberUi = async (patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput'>) => {
+  const rememberUi = async (patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput' | 'sketchDocked'>) => {
     try { await saveSettingsPatch(patch); } catch (e) { setError(message(e)); }
   };
   const updateSettings = async (next: UserSettings) => {

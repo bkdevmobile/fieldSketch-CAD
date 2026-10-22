@@ -1,19 +1,21 @@
+import { LengthUnit, fromMetres } from '../domain/units';
+import { useTheme, Button, Field, Page } from '../components/ui';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { t } from '../i18n';
 import { activeSides, correctSides, correctClosingLength, distance, outlinePoints, normalize, parsePositive, SideCorrection } from '../domain/geometry';
 import { useStore } from '../infrastructure/store';
-import { Button, Field, Page, s } from '../components/ui';
 import { OutlineCanvas } from '../components/OutlineCanvas';
 import { AngleControls } from '../components/AngleControls';
 import { decimalText } from '../domain/precision';
 import { headingFromTurn, turnFromHeading } from '../domain/survey';
 export default function Dimensions() {
+  const { s } = useTheme();
   const { id } = useLocalSearchParams<{ id: string }>(), store = useStore();
   const project = store.projects.find(p => p.id === id);
   const sides = project ? activeSides(project) : [];
-  const unit = store.settings.unit, factor = unit === 'cm' ? 100 : 1;
+  const unit = store.settings.unit, factor = fromMetres(1, unit);
   const [rows, setRows] = useState<{ length: string; turn: string; side: 'left' | 'right'; lengthEdited: boolean; angleEdited: boolean }[]>([]);
   const [selected, setSelected] = useState(0);
   const [closing, setClosing] = useState(''), [closingEdited, setClosingEdited] = useState(false);

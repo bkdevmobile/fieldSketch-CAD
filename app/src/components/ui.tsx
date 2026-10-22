@@ -1,14 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { ActivityIndicator, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStore } from '../infrastructure/store';
 import type { LucideIcon } from 'lucide-react-native';
-import { formatNumber, translateError } from '../i18n';
+import { Minus, Plus } from 'lucide-react-native';
+import { formatNumber, translateError, t } from '../i18n';
 import { decimalInput } from '../domain/precision';
-export const colors = { ink: '#183A2C', muted: '#607267', green: '#1B684B', mint: '#E7EEE2', bg: '#F5F4EE', line: '#DBE4D9', amber: '#8D4D14', white: '#FFFEFA', onGreen: '#FFFFFF', ready: '#177043' };
+import { lightColors, usePalette } from './theme';
 export function Page({ title, subtitle, children, footer, overlay, heading, resetKey, compactHeader = false }: {
   title: string; subtitle?: string; children: React.ReactNode; footer?: React.ReactNode; overlay?: React.ReactNode; heading?: React.ReactNode; resetKey?: string; compactHeader?: boolean;
 }) {
+  const { colors, s } = useTheme();
   const { error, busy } = useStore();
   const scroll = useRef<ScrollView>(null);
   const scrollY = useRef(0);
@@ -62,12 +64,16 @@ export function Page({ title, subtitle, children, footer, overlay, heading, rese
 export function Button({ label, onPress, secondary = false, disabled = false, danger = false, quiet = false, compact = false, align = 'center', icon: Icon, iconEnd: IconEnd }: {
   label: string; onPress(): void; secondary?: boolean; disabled?: boolean; danger?: boolean; quiet?: boolean; compact?: boolean; align?: 'center' | 'start'; icon?: LucideIcon; iconEnd?: LucideIcon;
 }) {
-  const foreground = danger ? '#963A25' : secondary || quiet ? colors.green : colors.onGreen;
-  return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled }} disabled={disabled} onPress={onPress}
+  const { colors, s } = useTheme();
+  const foreground = danger ? colors.danger : secondary || quiet ? colors.green : colors.onGreen;
+  const sign = label === '+' || label === '−' || label === '-';
+  const Glyph = Icon ?? (sign ? label === '+' ? Plus : Minus : undefined);
+  const accessibleLabel = sign ? label === '+' ? t('Powiększ szkic') : t('Pomniejsz szkic') : label;
+  return <Pressable accessibilityRole="button" accessibilityLabel={accessibleLabel} accessibilityState={{ disabled }} disabled={disabled} onPress={onPress}
     style={({ pressed }) => [s.button, secondary && s.secondary, quiet && s.quiet, compact && s.compactButton, align === 'start' && { justifyContent: 'flex-start', alignSelf: 'flex-start', paddingHorizontal: 0 },
-      danger && { backgroundColor: '#F9E6DE' }, (pressed || disabled) && { opacity: disabled ? 0.45 : 0.75 }]}>
-    {Icon && <Icon size={18} strokeWidth={1.8} color={foreground} accessible={false} />}
-    <Text style={[s.buttonText, { color: foreground }, compact && { fontSize: 14 }]}>{label}</Text>
+      danger && { backgroundColor: colors.dangerBg }, (pressed || disabled) && { opacity: disabled ? 0.45 : 0.75 }]}>
+    {Glyph && <Glyph size={18} strokeWidth={1.8} color={foreground} accessible={false} />}
+    {!sign && <Text style={[s.buttonText, { color: foreground }, compact && { fontSize: 14 }]}>{label}</Text>}
     {IconEnd && <IconEnd size={18} strokeWidth={1.8} color={foreground} accessible={false} />}
   </Pressable>;
 }
@@ -75,6 +81,7 @@ export function Field({ label, value, onChangeText, numeric = false, placeholder
   label: string; value: string; onChangeText(value: string): void; numeric?: boolean; placeholder?: string; onEndEditing?(): void; disabled?: boolean;
   decimalPlaces?: number;
 }) {
+  const { colors, s } = useTheme();
   return <View style={{ gap: 7 }}><Text style={s.label}>{label}</Text><TextInput accessibilityLabel={label} value={value}
     onChangeText={text => {
       const next = decimalPlaces === undefined ? text : decimalInput(text, decimalPlaces);
@@ -83,7 +90,7 @@ export function Field({ label, value, onChangeText, numeric = false, placeholder
     keyboardType={numeric ? 'decimal-pad' : 'default'} style={s.input} /></View>;
 }
 export const fmt = formatNumber;
-export const s = StyleSheet.create({
+const makeStyles = (colors: typeof lightColors) => StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg }, page: { padding: 20, gap: 16, paddingBottom: 36 },
   footer: { paddingHorizontal: 16, paddingTop: 12, paddingBottom: 8, gap: 4, borderTopWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   eyebrow: { fontSize: 11, letterSpacing: 2, color: colors.green, fontWeight: '800' },
@@ -96,10 +103,16 @@ export const s = StyleSheet.create({
   segment: { flexDirection: 'row', padding: 4, gap: 4, backgroundColor: colors.mint, borderRadius: 16 },
   h2: { fontSize: 18, fontWeight: '600', color: colors.ink }, text: { fontSize: 15, lineHeight: 22, color: colors.ink },
   muted: { fontSize: 13, lineHeight: 19, color: colors.muted }, row: { flexDirection: 'row', gap: 10, flexWrap: 'wrap', alignItems: 'center' },
-  button: { minHeight: 52, minWidth: 52, backgroundColor: colors.green, borderRadius: 14, flexDirection: 'row', gap: 8, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 14, paddingVertical: 13 },
+  button: { minHeight: 52, minWidth: 52, backgroundColor: colors.primary, borderRadius: 14, flexDirection: 'row', gap: 8, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 14, paddingVertical: 13 },
   secondary: { backgroundColor: colors.mint }, quiet: { backgroundColor: 'transparent', minHeight: 44, paddingVertical: 8 }, compactButton: { minHeight: 44, paddingHorizontal: 10, paddingVertical: 10 },
   buttonText: { color: colors.onGreen, fontSize: 15, fontWeight: '600', textAlign: 'center', flexShrink: 1 },
   label: { color: colors.muted, fontSize: 13, fontWeight: '600' },
   input: { minHeight: 52, padding: 14, borderColor: colors.line, borderWidth: 1, borderRadius: 12, backgroundColor: colors.white, color: colors.ink, fontSize: 18 },
-  warning: { backgroundColor: '#FFF0D9', padding: 14, borderRadius: 12 }, warningText: { color: colors.amber, lineHeight: 21 },
+  warning: { backgroundColor: colors.warningBg, padding: 14, borderRadius: 12 }, warningText: { color: colors.amber, lineHeight: 21 },
 });
+
+export function useTheme() {
+  const palette = usePalette();
+  const styles = useMemo(() => makeStyles(palette.colors), [palette.colors]);
+  return { ...palette, s: styles };
+}

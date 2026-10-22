@@ -3,6 +3,7 @@ import { DEFAULT_SETTINGS, Project, UserSettings } from '../domain/model';
 import type { SurveyDraft } from '../domain/survey';
 import { assertProjectSave, Plan } from '../domain/access';
 import { isLanguagePreference } from '../i18n';
+import { isLengthUnit } from '../domain/units';
 
 export interface Database {
   execAsync(sql: string): Promise<void>;
@@ -36,10 +37,12 @@ export class ProjectRepository {
     return rows[0] ? { ...DEFAULT_SETTINGS, ...JSON.parse(rows[0].body) } : { ...DEFAULT_SETTINGS };
   }
   async saveSettings(settings: UserSettings) {
+    if (settings.theme !== undefined && !['light', 'dark', 'system'].includes(settings.theme)) throw new Error(t('Nieprawidłowy motyw.'));
+    if (settings.sketchDocked !== undefined && typeof settings.sketchDocked !== 'boolean') throw new Error(t('Nieprawidłowy tryb podglądu szkicu.'));
     if (settings.language !== undefined && !isLanguagePreference(settings.language)) throw new Error(t("Nieobsługiwany język."));
     if (settings.sketchCorner !== undefined && !['top-left', 'top-right', 'bottom-left', 'bottom-right'].includes(settings.sketchCorner)) throw new Error(t("Nieprawidłowe położenie miniatury."));
     if (settings.lengthInput !== undefined && !['manual', 'steps'].includes(settings.lengthInput)) throw new Error(t("Nieprawidłowa metoda podawania długości."));
-    if (!Number.isFinite(settings.stepLengthCm) || settings.stepLengthCm <= 0 || !['m', 'cm'].includes(settings.unit) || ![0, 5, 10, 90].includes(settings.angleSnap) || !['relative', 'manual', 'magnetic'].includes(settings.directionMode))
+    if (!Number.isFinite(settings.stepLengthCm) || settings.stepLengthCm <= 0 || !isLengthUnit(settings.unit) || ![0, 5, 10, 90].includes(settings.angleSnap) || !['relative', 'manual', 'magnetic'].includes(settings.directionMode))
       throw new Error(t("Podaj dodatnią długość kroku i poprawną jednostkę."));
     await this.db.runAsync('INSERT INTO user_settings (id,body) VALUES (1,?) ON CONFLICT(id) DO UPDATE SET body=excluded.body', JSON.stringify(settings));
   }

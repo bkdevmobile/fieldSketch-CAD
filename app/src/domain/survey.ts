@@ -2,6 +2,7 @@ import { t } from '../i18n';
 import { normalize, parsePositive } from './geometry';
 import type { AngleSnap, Project } from './model';
 import { ANGLE_DECIMALS, LENGTH_DECIMALS, decimalText, roundDecimal } from './precision';
+import { LengthUnit, fromMetres, toMetres } from './units';
 
 export type WizardStep = 'start' | 'direction' | 'angle' | 'length' | 'review';
 export interface SurveyDraft {
@@ -10,7 +11,7 @@ export interface SurveyDraft {
   length: string;
   steps: string;
   lengthSource: 'manual' | 'steps';
-  unit: 'm' | 'cm';
+  unit: LengthUnit;
   turn: string;
   turnSide: 'left' | 'right';
   stepLengthCm?: string;
@@ -39,9 +40,9 @@ export function turnFromHeading(previous: number, heading: number, stepDegrees =
   const degrees = Math.abs(delta) * 180 / Math.PI;
   return { turn: String(stepDegrees ? Math.round(degrees / stepDegrees) * stepDegrees : roundDecimal(degrees, ANGLE_DECIMALS)), turnSide: delta < 0 ? 'right' as const : 'left' as const };
 }
-export function convertLengthInput(input: string, from: 'm' | 'cm', to: 'm' | 'cm') {
+export function convertLengthInput(input: string, from: LengthUnit, to: LengthUnit) {
   if (from === to || !input.trim()) return input;
-  const value = parsePositive(input) * (to === 'cm' ? 100 : 0.01);
+  const value = fromMetres(toMetres(parsePositive(input), from), to);
   const rounded = roundDecimal(value, LENGTH_DECIMALS);
   if (rounded <= 0) throw new Error(t("Nieprawidłowa długość."));
   return decimalText(rounded, LENGTH_DECIMALS).replace('.', ',');

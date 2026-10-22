@@ -1,3 +1,5 @@
+import { LengthUnit, fromMetres } from '../domain/units';
+import { useTheme, Button, fmt } from './ui';
 import { t } from '../i18n';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Easing, Keyboard, PanResponder, View, Text } from 'react-native';
@@ -6,12 +8,12 @@ import type { Project } from '../domain/model';
 import { placeLabels, DrawingLabel } from '../domain/labelLayout';
 import { distance, outlinePoints } from '../domain/geometry';
 import { beginCanvasGesture, CanvasGesture, CanvasTouch, constrainCanvas, fitCanvas, moveCanvasGesture, nextZoom, scaleCanvas, snapZoom } from '../domain/sketchViewport';
-import { Button, colors, fmt, s } from './ui';
 
 export interface OutlinePreview { theta: number; lengthM?: number }
 export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, thumbnail = false, unit = 'm', canvasHeight }: {
-  project: Project; preview?: OutlinePreview; fitKey?: number; compact?: boolean; thumbnail?: boolean; unit?: 'm' | 'cm'; canvasHeight?: number;
+  project: Project; preview?: OutlinePreview; fitKey?: number; compact?: boolean; thumbnail?: boolean; unit?: LengthUnit; canvasHeight?: number;
 }) {
+  const { colors, s } = useTheme();
   const [zoom, setZoom] = useState(1), [pan, setPan] = useState({ x: 0, y: 0 });
   const [width, setWidth] = useState(320), [fit, setFit] = useState(0);
   const [keyboardOpen, setKeyboardOpen] = useState(false);
@@ -86,7 +88,7 @@ export function OutlineCanvas({ project, preview, fitKey = 0, compact = false, t
   const points = outlinePoints(project.points, project.closed).map(p => ({ ...p, ...screen(p) }));
   const path = project.closed ? [...points, points[0]!] : points;
   const draft = endpoint && screen(endpoint), start = points.at(-1)!;
-  const label = (length: number) => `${fmt(length * (unit === 'cm' ? 100 : 1), 3)} ${unit}`;
+  const label = (length: number) => `${fmt(length * (fromMetres(1, unit)), 3)} ${unit}`;
   const segments: [{ x: number; y: number }, { x: number; y: number }][] = path.slice(1).map((p, i) => [{ x: path[i]!.sx, y: path[i]!.sy }, { x: p.sx, y: p.sy }]);
   if (draft) segments.push([{ x: start.sx, y: start.sy }, { x: draft.sx, y: draft.sy }]);
   const labels: DrawingLabel[] = points.map((p, i) => ({ text: 'P' + (i + 1), anchor: { x: p.sx, y: p.sy }, fontSize: 13, kind: 'point' }));

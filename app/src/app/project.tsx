@@ -1,16 +1,18 @@
+import { LengthUnit, fromMetres } from '../domain/units';
+import { useTheme, Button, Field, fmt, Page } from '../components/ui';
 import { t } from '../i18n';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, Keyboard, Pressable, Text, View } from 'react-native';
 import { Dialog, MenuAnchor, PopupMenu, useDialogs } from '../components/overlays';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { router, Stack, useFocusEffect, useLocalSearchParams } from 'expo-router';
-import { Button, colors, Field, fmt, Page, s } from '../components/ui';
 import { AngleSlider } from '../components/AngleSlider';
 import { AngleControls } from '../components/AngleControls';
 import { FloatingSketch } from '../components/FloatingSketch';
+import { MeasurementRow, SketchPanel } from '../components/SketchPanel';
 import { StepControls } from '../components/StepControls';
 import { SurveyHeading } from '../components/SurveyHeading';
-import { Activity, ArrowLeft, ArrowRight, Camera, Check, ChevronDown, CircleAlert, CircleCheck, Compass, Crosshair, EllipsisVertical, Flag, Footprints, MapPin, Pencil, RotateCcw, Ruler, Settings2, SlidersHorizontal, Undo2 } from 'lucide-react-native';
+import { ArrowLeft, ArrowRight, Camera, Check, ChevronDown, CircleAlert, CircleCheck, Compass, Crosshair, EllipsisVertical, Flag, Footprints, MapPin, Pencil, RotateCcw, Ruler, Settings2, SlidersHorizontal, Undo2 } from 'lucide-react-native';
 import { Capture, Project, SurveyMode } from '../domain/model';
 import { activeSides, correctSides, measurementPrefix, closeOutline, commitMeasurement, LengthMeasurement, measurementLength, metrics, normalize, parsePositive, undoLast } from '../domain/geometry';
 import { convertLengthInput, defaultReferenceIndex, headingFromTurn, previousHeading, referenceOffset, snapTurn, SurveyDraft, turnFromHeading, WizardStep } from '../domain/survey';
@@ -29,6 +31,7 @@ import { usePlusOffer } from '../components/PlusOffer';
 const modeLabels: Record<SurveyMode, string> = { magnetic: 'Magnetyczny', relative: 'Względny', manual: 'Ręczny' };
 interface Frozen { theta: number; capture: Capture | null; sessionId: string; authorizedSessionId?: string }
 export default function Survey() {
+  const { colors, s } = useTheme();
   const Alert = useDialogs();
   const plus = usePlusOffer();
   const { id, remeasure } = useLocalSearchParams<{ id: string; remeasure?: string }>();
@@ -41,7 +44,7 @@ export default function Survey() {
   const [permission, requestPermission] = useCameraPermissions();
   const [step, setStep] = useState<WizardStep>('direction');
   const [length, setLength] = useState(''), [steps, setSteps] = useState('');
-  const [unit, setUnit] = useState<'m' | 'cm'>('m');
+  const [unit, setUnit] = useState<LengthUnit>('m');
   const [lengthSource, setLengthSource] = useState<'manual' | 'steps'>(store.settings.lengthInput ?? 'steps');
   const [stepLength, setStepLength] = useState(String(store.settings.stepLengthCm));
   const [stepMeasurementId, setStepMeasurementId] = useState<string | undefined>();
@@ -62,6 +65,7 @@ export default function Survey() {
   const [startAttempt, setStartAttempt] = useState(0);
   const autoAttempt = useRef<string | null>(null);
   const stepPermissionPrepared = useRef(false);
+  const cameraPermissionAsked = useRef(false);
   useFocusEffect(useCallback(() => { setFocused(true); return () => setFocused(false); }, []));
   const [menuAnchor, setMenuAnchor] = useState<MenuAnchor>();
   const [hydrated, setHydrated] = useState(false), [draftError, setDraftError] = useState(''), [resumeNote, setResumeNote] = useState('');
@@ -143,6 +147,12 @@ export default function Survey() {
   }, [store.sessionId, mode]);
   useEffect(() => { setFitKey(key => key + 1); Keyboard.dismiss(); }, [step]);
   useEffect(() => {
+    if (!focused || !foreground || !hydrated || !project || project.closed || pointLimit || step !== 'direction' || help || store.busy || mode === 'manual'
+      || !permission || permission.granted || !permission.canAskAgain || cameraPermissionAsked.current) return;
+    cameraPermissionAsked.current = true;
+    void store.run(async () => { await requestPermission(); });
+  }, [focused, foreground, hydrated, project?.closed, pointLimit, step, help, store.busy, mode, permission]);
+  useEffect(() => {
     if (!focused || !foreground) { autoAttempt.current = null; return; }
     if (!project || pointLimit || !store.capabilities || project.closed || !hydrated || draftError || step !== 'direction' || help || active || store.busy
       || (mode !== 'manual' && !permission?.granted)) return;
@@ -218,7 +228,7 @@ export default function Survey() {
     await acceptCapture(value);
   });
   const persist = async (next: Project, kind: string, before = project, sessionStarted = false) => {
-    if (!active && !sessionStarted) throw new Error(t("Rozpocznij sesję, aby zmiana miała log diagnostyczny."));
+    if (!active && !sessionStarted) throw new Error(t('Rozpocznij pomiar przed zapisaniem zmiany.'));
     await store.log(`${kind}_intent`, { revisionBefore: before.geometryRevision, revisionAfter: next.geometryRevision,
       lastPointBefore: before.points.at(-1), lastPointAfter: next.points.at(-1),
       observation: next.observations.length > before.observations.length ? next.observations.at(-1) : null,
@@ -230,7 +240,7 @@ export default function Survey() {
     setFrozen(null); setLength(''); setSteps(''); setStepLength(String(store.settings.stepLengthCm)); setStepMeasurementId(undefined); setDetectedSteps(undefined); setTurn('0'); setStep('direction'); fit();
     await store.refresh();
     try { await store.log(`${kind}_committed`, { geometryRevision: next.geometryRevision }); }
-    catch { throw new Error(t("Pomiar zapisano, ale nie udało się dopisać potwierdzenia do loga. Sprawdź pamięć telefonu.")); }
+    catch { throw new Error(t('Pomiar zapisano, ale nie udało się potwierdzić zapisu sesji. Sprawdź pamięć telefonu.')); }
   };
   const saveCurrent = async (closure = false, selected = measurement) => {
     if (!target && !canAddPoint(project, store.plan)) throw new AccessLimitError('points');
@@ -329,7 +339,7 @@ export default function Survey() {
     }
     fit(); return value;
   };
-  const switchUnit = (next: 'm' | 'cm') => store.run(async () => { setLength(convertLengthInput(length, unit, next)); setUnit(next); fit(); });
+  const switchUnit = (next: LengthUnit) => store.run(async () => { setLength(convertLengthInput(length, unit, next)); setUnit(next); fit(); });
   const nextStep = () => {
     if (pedometer.walking || !frozenValid || theta === undefined || (step === 'length' && !measurement)) return;
     if (step === 'angle') applySnap(); Keyboard.dismiss(); setStep(step === 'angle' ? 'length' : 'review'); fit();
@@ -346,9 +356,14 @@ export default function Survey() {
   const title = { start: t("Zapisz pierwszy punkt"), direction: needsReference ? t("Odtwórz odniesienie") : t("Wskaż kierunek"),
     angle: t("Kierunek zapisany"), length: t("Podaj długość"), review: t("Sprawdź bok przed zapisem") }[step];
   const blocked = (!!remeasure && !target) || store.busy || !hydrated || !!draftError || pedometer.walking;
+  const docked = store.settings.sketchDocked !== false;
+  const sketchPreview = previewTheta === undefined ? undefined : { theta: previewTheta, lengthM: ['length', 'review'].includes(step) ? lengthM : undefined };
+  const toggleDock = () => { Keyboard.dismiss(); void store.rememberUi({ sketchDocked: !docked }); };
+  const sketch = step !== 'start' && docked ? <SketchPanel project={project} unit={unit} fitKey={fitKey} preview={sketchPreview} onToggleDock={toggleDock} /> : undefined;
+  const panelStyle = [s.workPanel, docked && { padding: 12, gap: 10 }];
   const turnFields = <>
     {first ? <Text style={s.text}>{t("Pierwszy bok wyznacza kierunek 0° szkicu.")}</Text> : <>
-      <AngleControls value={turn} side={turnSide} onChange={value => updateTurn(value)} onEndEditing={applySnap}
+      <AngleControls compact={docked} value={turn} side={turnSide} onChange={value => updateTurn(value)} onEndEditing={applySnap}
         disabled={blocked} onSideChange={side => { updateTurn(turn, side); fit(); }} />
       {!!angleError && <Text accessibilityRole="alert" style={s.warningText}>{angleError}</Text>}
     </>}
@@ -356,8 +371,8 @@ export default function Survey() {
   const subtitle = target ? t("Ponowny pomiar: P{0} → P{1}", [targetIndex + 1, targetIndex + 2]) : pointLimit && !project.closed ? t("{0} punktów · limit Free", [project.points.length]) : t("Punkt P{0} → P{1} · {2}", [project.points.length, project.points.length + 1, t(modeLabels[mode])]);
   return <Page title={project.name} subtitle={subtitle}
     heading={<SurveyHeading name={project.name} subtitle={subtitle} step={step} closed={project.closed} showSteps={!pointLimit || project.closed} />}
-    compactHeader resetKey={step} overlay={step !== 'start' && <FloatingSketch project={project} unit={unit} fitKey={fitKey}
-      preview={previewTheta === undefined ? undefined : { theta: previewTheta, lengthM: ['length', 'review'].includes(step) ? lengthM : undefined }} />} footer={<>
+    compactHeader resetKey={step} overlay={step !== 'start' && !docked && <FloatingSketch project={project} unit={unit} fitKey={fitKey}
+      preview={sketchPreview} onDock={toggleDock} />} footer={<>
       {!project.closed && pointLimit && <Button label={t("Więcej punktów · Plus")} onPress={() => plus.show('points')} disabled={store.busy} />}
       {!project.closed && !pointLimit && <View style={{ flexDirection: 'row', gap: 10 }}>
         {step !== 'start' && step !== 'direction' && <View style={{ flex: 1 }}><Button label={t("Wstecz")} icon={ArrowLeft} secondary onPress={back} disabled={blocked} /></View>}
@@ -392,33 +407,31 @@ export default function Survey() {
         onPress: () => { void store.run(async () => { await saveCurrent(true); }); } }] : []),
       { label: t("Wymiary i punkty"), icon: Pencil, disabled: blocked || !!remeasure || project.points.length < 2,
         onPress: () => router.push({ pathname: '/dimensions', params: { id } }) },
-      { label: t("Diagnostyka szkicu"), icon: Activity, disabled: blocked, onPress: () => router.push({ pathname: '/diagnostics', params: { id } }) },
       { label: t("Jak wykonać pomiar?"), icon: Compass, disabled: pedometer.walking, onPress: () => setHelp(true) },
       { label: t('Ustawienia'), icon: Settings2, disabled: blocked, onPress: () => router.push('/settings') },
     ]} />
     {plus.offer}
-    {!remeasure && <SketchNote project={project} />}
-    {!remeasure && project.points.length > 1 && <Button label={t("Wymiary i punkty")} secondary disabled={blocked}
-      onPress={() => router.push({ pathname: '/dimensions', params: { id } })} />}
     {!!remeasure && !target && <Text style={s.warningText}>{t("Brak boku do poprawienia.")}</Text>}
     {!!draftError && <View style={s.warning}><Text accessibilityRole="alert" style={s.warningText}>{t("Nie udało się zachować etapu roboczego:")}{' '}{draftError}</Text>
       <Button label={t("Ponów zapis etapu")} secondary onPress={enqueueDraft} /></View>}
     {!!resumeNote && !pointLimit && <Text style={s.muted}>{t(resumeNote)}</Text>}
-    {project.closed ? <View style={s.card}><Text style={s.h2}>{t("Obrys zamknięty")}</Text><Text style={s.text}>{t("Otwórz podsumowanie albo cofnij zamknięcie w menu szkicu ⋮.")}</Text></View> : pointLimit ?
+    {project.closed ? <MeasurementRow sketch={sketch}><View style={panelStyle}><Text style={s.h2}>{t("Obrys zamknięty")}</Text><Text style={s.text}>{t("Otwórz podsumowanie albo cofnij zamknięcie w menu szkicu ⋮.")}</Text></View></MeasurementRow> : pointLimit ?
+      <MeasurementRow sketch={sketch}>
       <View style={s.card}><Text style={s.h2}>{t("Limit 8 punktów w Free")}</Text>
         <Text style={s.text}>{t("Możesz poprawić pomiary albo wybrać Zakończ, aby zamknąć obrys do P1 lub zostawić go otwartym. Plus pozwoli kontynuować ten sam szkic.")}</Text>
         <Button label={t("Popraw ostatni bok")} icon={Pencil} secondary disabled={store.busy}
           onPress={() => router.push({ pathname: '/edit-side', params: { id } })} />
         <Button label={t("Podsumowanie i eksport")} icon={Ruler} secondary disabled={store.busy}
           onPress={() => router.push({ pathname: '/outline', params: { id } })} />
-      </View> :
+      </View></MeasurementRow> :
       <View style={s.measurement}>
         <Text style={s.stepTitle}>{title}</Text>
         {step === 'start' && <MeasurementHelp manual={mode === 'manual'} />}
         {step === 'direction' && <>
-          {showCamera && <View style={{ height: 212, backgroundColor: colors.ink, borderRadius: 20, overflow: 'hidden' }}>
+          <MeasurementRow sketch={sketch}>
+          {showCamera && <View style={{ height: 212, backgroundColor: '#183A2C', borderRadius: 20, overflow: 'hidden' }}>
             {permission?.granted ? <CameraView style={{ flex: 1 }} facing="back" active={active && focused && foreground} /> :
-              <View style={{ padding: 20, gap: 12 }}><Text style={{ color: 'white' }}>{t("Udostępnij kamerę do celowania albo wybierz tryb ręczny w ustawieniach.")}</Text>
+              <View style={{ padding: 12, gap: 12 }}><Text style={{ color: 'white', fontSize: 13 }}>{t("Udostępnij kamerę do celowania albo wybierz tryb ręczny w ustawieniach.")}</Text>
                 <Button label={t("Udostępnij kamerę")} icon={Camera} disabled={permission?.canAskAgain === false} onPress={() => store.run(async () => { await requestPermission(); })} /></View>}
             {permission?.granted && <View pointerEvents="none" style={{ position: 'absolute', left: '50%', top: '50%' }}>
               <View style={{ width: 48, height: 2, left: -24, backgroundColor: '#BAF2CD', position: 'absolute' }} />
@@ -426,7 +439,8 @@ export default function Survey() {
             </View>}
             {permission?.granted && <Pressable accessibilityRole="button" accessibilityLabel={t("Jak ustawić celownik?")} onTouchStart={() => setAimHint(true)} onPress={() => setAimHint(true)} style={{ position: 'absolute', inset: 0 }} />}
           </View>}
-          {mode === 'manual' && <View style={s.workPanel}>{turnFields}</View>}
+          {mode === 'manual' && <View style={panelStyle}>{turnFields}</View>}
+          </MeasurementRow>
           {mode !== 'manual' && <View accessible accessibilityRole="text" accessibilityLabel={statusLabel} accessibilityLiveRegion="polite"
             style={{ minHeight: 64, flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 6 }}>
             <StatusIcon size={19} strokeWidth={1.8} color={statusColor} accessible={false} />
@@ -442,25 +456,28 @@ export default function Survey() {
         </>}
         {step === 'angle' && <>
           <Text style={s.muted}>{t("Odczyt zatrzymany. Popraw kąt lub przejdź do długości.")}</Text>
+          <MeasurementRow sketch={sketch}>
           {(first || (mode !== 'manual' && !correctAngle && !angleError)) && <Text style={s.measureValue}>{first ? t("0° · pierwszy bok") : `${turn}° ${turnSide === 'left' ? t("w lewo") : t("w prawo")}`}</Text>}
           {!first && mode !== 'manual' && <Button quiet align="start" icon={SlidersHorizontal} label={correctAngle ? t("Ukryj korektę kąta") : t("Popraw kąt")} onPress={() => { if (correctAngle) applySnap(); setCorrectAngle(value => !value); }} />}
-          {(mode === 'manual' || correctAngle || !!angleError) && <View style={s.workPanel}>{turnFields}
+          {(mode === 'manual' || correctAngle || !!angleError) && <View style={panelStyle}>{turnFields}
           {!first && mode !== 'manual' && correctAngle && <AngleSlider value={fineDelta} disabled={blocked} onChange={value => {
             setFineDelta(value); const corrected = turnFromHeading(previous, sliderBase + value * Math.PI / 180, 5);
             angleEdited.current = false; angleDraft.current = corrected;
             setTurn(corrected.turn); setTurnSide(corrected.turnSide);
           }} onComplete={applySnap} />}</View>}
+          </MeasurementRow>
           <Button label={t("Zmierz ponownie")} icon={RotateCcw} quiet align="start" onPress={() => setStep('direction')} disabled={store.busy} />
         </>}
         {step === 'length' && <>
           <View style={s.segment}><View style={{ flex: 1 }}><Button label={t("Wpisz długość")} icon={Ruler} compact disabled={pedometer.walking || store.busy} secondary={lengthSource !== 'manual'} onPress={() => chooseLengthSource('manual')} /></View>
             <View style={{ flex: 1 }}><Button label={t("Krokomierz")} icon={Footprints} compact disabled={pedometer.walking || store.busy} secondary={lengthSource !== 'steps'} onPress={() => chooseLengthSource('steps')} /></View></View>
-          <View style={s.workPanel}>
+          <MeasurementRow sketch={sketch}><View style={panelStyle}>
           {lengthSource === 'manual' ? <>
             <Field label={t("Długość boku ({0})", [unit])} value={length} onChangeText={setLength} numeric decimalPlaces={3} placeholder={t("np. 4,50")} onEndEditing={fit} />
             <Pressable accessibilityRole="button" accessibilityLabel={t("Zmień jednostkę długości, aktualnie {0}", [unit])} disabled={store.busy}
               onPress={() => Alert.alert(t("Jednostka tego pomiaru"), t("Wybierz jednostkę; wpisana długość zostanie przeliczona."), [
-                { text: t("Metry"), onPress: () => switchUnit('m') }, { text: t("Centymetry"), onPress: () => switchUnit('cm') }, { text: t("Anuluj"), style: 'cancel' },
+                { text: t("Metry"), onPress: () => switchUnit('m') }, { text: t("Centymetry"), onPress: () => switchUnit('cm') },
+                { text: t('Stopy'), onPress: () => switchUnit('ft') }, { text: t('Cale'), onPress: () => switchUnit('in') }, { text: t("Anuluj"), style: 'cancel' },
               ])} style={{ minHeight: 44, flexDirection: 'row', alignItems: 'center', gap: 6 }}><Text style={s.label}>{t("Jednostka:")}{' '}{unit}</Text><ChevronDown size={16} color={colors.muted} accessible={false} /></Pressable>
           </> : <><StepControls value={steps} onChange={setSteps} onEndEditing={fit} walking={pedometer.walking}
             busy={store.busy} canStart={!!store.capabilities?.stepDetector && !!frozenValid}
@@ -469,18 +486,21 @@ export default function Survey() {
             {pedometer.walking ? <Text accessibilityLiveRegion="polite" style={s.h2}>{pedometer.reading?.steps ?? 0}{' '}{t("kroków · pomiar w toku")}</Text>
               : !store.capabilities?.stepDetector && <Text style={s.muted}>{t("Ten telefon nie udostępnia detektora kroków. Wpisz ich liczbę ręcznie albo podaj długość.")}</Text>}
           </>}
-          <Text style={s.measureValue}>{lengthM === undefined ? '—' : `${fmt(lengthM * (unit === 'cm' ? 100 : 1), 3)} ${unit}`}</Text>
-          </View>
+          <Text style={s.measureValue}>{lengthM === undefined ? '—' : `${fmt(lengthM * (fromMetres(1, unit)), 3)} ${unit}`}</Text>
+          </View></MeasurementRow>
           <Text style={s.muted}>{pedometer.walking ? t("Idź do narożnika, na który celowałeś. Zatrzymaj się i naciśnij Stop.") : t("Kierunek jest zapisany. Teraz wpisz długość boku lub zmierz ją krokami.")}</Text>
           {lengthSource === 'steps' && <Text style={s.text}>{t("Stojąc w początku boku, naciśnij Start. Przejdź do wskazanego narożnika, zatrzymaj się i naciśnij Stop. Dopiero potem sprawdź bok.")}</Text>}
         </>}
         {step === 'review' && <>
+          <MeasurementRow sketch={sketch}>
           <Text style={s.text}>{t("Skręt:")}{' '}{first ? t("0° · pierwszy bok") : `${turn}° ${turnSide === 'left' ? t("w lewo") : t("w prawo")}`}</Text>
-          <Text style={s.measureValue}>{lengthM === undefined ? '—' : `${fmt(lengthM * (unit === 'cm' ? 100 : 1), 3)} ${unit}`}</Text>
+          <Text style={s.measureValue}>{lengthM === undefined ? '—' : `${fmt(lengthM * (fromMetres(1, unit)), 3)} ${unit}`}</Text>
           <Text style={s.muted}>{lengthSource === 'manual' ? t("Długość wpisana ręcznie") : t("Długość oszacowana z wpisanych kroków")}</Text>
-          <View style={s.row}><Button secondary icon={Pencil} label={t("Popraw kąt")} onPress={() => { setCorrectAngle(true); setStep('angle'); }} /><Button secondary icon={Ruler} label={t("Popraw długość")} onPress={() => setStep('length')} /></View>
+          <View style={{ gap: 8 }}><Button compact secondary icon={Pencil} label={t("Popraw kąt")} onPress={() => { setCorrectAngle(true); setStep('angle'); }} /><Button compact secondary icon={Ruler} label={t("Popraw długość")} onPress={() => setStep('length')} /></View>
+          </MeasurementRow>
         </>}
       </View>}
+    {!remeasure && <SketchNote project={project} />}
 
     <Dialog visible={help} title={t("Jak wykonać pomiar?")} onClose={() => setHelp(false)} footer={<Button label={t("Rozumiem · wróć do pomiaru")} onPress={() => setHelp(false)} />}>
       <MeasurementHelp manual={mode === 'manual'} />

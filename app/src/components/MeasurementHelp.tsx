@@ -1,10 +1,11 @@
+import { useTheme } from './ui';
 import { t } from '../i18n';
 import React from 'react';
 import { Text, View } from 'react-native';
 import Svg, { Circle, Line, Path, Rect } from 'react-native-svg';
-import { colors, s } from './ui';
 
 export function MeasurementHelp({ manual = false }: { manual?: boolean }) {
+  const { colors, s } = useTheme();
   return <View style={{ gap: 14 }}>
     {!manual && <Svg width="100%" height={145} viewBox="0 0 300 145" accessible accessibilityLabel={t("Obróć telefon, aby skierować tylną kamerę na następny narożnik. Celownik pozostaje pośrodku ekranu.")}>
       <Path d="M45 40L244 15L244 124Z" fill={colors.mint} />

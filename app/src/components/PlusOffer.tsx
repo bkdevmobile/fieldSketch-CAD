@@ -1,14 +1,15 @@
+import { useTheme, Button } from './ui';
 import { t } from '../i18n';
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { Crown } from 'lucide-react-native';
 import { Dialog, useDialogs } from './overlays';
-import { Button, colors, s } from './ui';
 import { PlusReason } from '../domain/access';
 import { canPurchase } from '../domain/billing';
 import { useStore } from '../infrastructure/store';
 
 export function PlusDetails() {
+  const { colors, s } = useTheme();
   const store = useStore();
   const { state, purchase, refresh } = store.billing;
   const messages: Record<string, string> = {
@@ -43,6 +44,7 @@ export function PlusDetails() {
 }
 
 export function usePlusOffer() {
+  const { s } = useTheme();
   const [reason, setReason] = useState<PlusReason | null>(null);
   const dialogs = useDialogs();
   const show = (value: PlusReason = 'general') => setReason(value);

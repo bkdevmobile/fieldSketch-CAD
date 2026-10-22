@@ -1,11 +1,12 @@
+import { useTheme, fmt } from './ui';
 import { t } from '../i18n';
 import React, { useMemo, useRef, useState } from 'react';
 import { PanResponder, Text, View } from 'react-native';
-import { colors, fmt, s } from './ui';
 
 export function AngleSlider({ value, onChange, onComplete, disabled = false }: {
   value: number; onChange(value: number): void; onComplete(): void; disabled?: boolean;
 }) {
+  const { colors, s } = useTheme();
   const [width, setWidth] = useState(1);
   const current = useRef({ value, width, onChange, onComplete, disabled });
   current.current = { value, width, onChange, onComplete, disabled };

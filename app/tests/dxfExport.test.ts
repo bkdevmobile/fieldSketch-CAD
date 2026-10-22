@@ -58,6 +58,21 @@ test('centymetry przeliczają geometrię, opisy i deklarację jednostki razem', 
   }
 });
 
+test('imperial DXF coordinates, labels and insertion units agree', () => {
+  const project = commitMeasurement(newProject('Imperial', 'manual'), { source: 'manual', value: 10, unit: 'ft' }, 0, 'manual', 's', null);
+  const before = JSON.stringify(project);
+  for (const [unit, code, length] of [['ft', '2', 10], ['in', '1', 120]] as const) {
+    const result = read(dxfExport(project, unit));
+    const index = result.groups.findIndex(g => g.code === 9 && g.value === '$INSUNITS');
+    expect(result.groups[index + 1]).toEqual({ code: 70, value: code });
+    expect(result.xy[1]![0]).toBeCloseTo(length, 10);
+    expect(result.lengths[0]).toBe(`${length} ${unit}`);
+    const measurement = result.groups.findIndex(g => g.code === 9 && g.value === '$MEASUREMENT');
+    expect(result.groups[measurement + 1]!.value).toBe('0');
+  }
+  expect(JSON.stringify(project)).toBe(before);
+});
+
 test('eksport nie odwraca osi Y ani nie przenosi początku do ramki obrazu', () => {
   const project = triangle();
   project.points = project.points.map(p => ({ ...p, x: p.x + 12, y: -p.y - 7 }));
