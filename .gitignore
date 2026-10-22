@@ -1,6 +1,11 @@
 node_modules/
 .expo/
 .firebase/
+.env
+.env.local
+.env.*.local
+.env.sentry-build-plugin
+.sentryclirc
 app/android/
 app/ios/
 app/dist/

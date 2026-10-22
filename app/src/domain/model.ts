@@ -25,9 +25,10 @@ export const STEP_LENGTH_CM = 75;
 export type AngleSnap = 0 | 5 | 10 | 90;
 export type ThemePreference = 'light' | 'dark' | 'system';
 export interface UserSettings { unit: import('./units').LengthUnit; stepLengthCm: number; angleSnap: AngleSnap; directionMode: SurveyMode;
-  theme?: ThemePreference; sketchDocked?: boolean;
+  theme?: ThemePreference; sketchDocked?: boolean; errorReporting?: boolean; errorReportingAsked?: boolean;
+  legalAcceptance?: import('./legal').LegalAcceptance;
   sketchCorner?: import('./floatingSketch').SketchCorner; lengthInput?: 'manual' | 'steps'; language?: import('../i18n').LanguagePreference }
-export const DEFAULT_SETTINGS: UserSettings = { unit: 'm', stepLengthCm: STEP_LENGTH_CM, angleSnap: 90, directionMode: 'relative', sketchCorner: 'bottom-right', sketchDocked: true, lengthInput: 'steps', language: 'system', theme: 'system' };
+export const DEFAULT_SETTINGS: UserSettings = { unit: 'm', stepLengthCm: STEP_LENGTH_CM, angleSnap: 90, directionMode: 'relative', sketchCorner: 'bottom-right', sketchDocked: true, lengthInput: 'steps', language: 'system', theme: 'system', errorReporting: false, errorReportingAsked: false };
 export const id = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
 export function newProject(name: string, mode: SurveyMode): Project {
   const now = new Date().toISOString();

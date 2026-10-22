@@ -35,10 +35,10 @@ Zakup i przywracanie Plus za 29,99 zł jednorazowo są podłączone przez Google
 
 - Przygotować materiały do prezentacji aplikacji w Google Play: nazwę, krótki i pełny opis, zrzuty ekranów, grafikę promocyjną oraz wersje językowe. Sprawdzić spójność materiałów z aktualnymi funkcjami i zasadami Free/Plus.
 - Strona WWW EN i robocze dokumenty prawne przygotowane lokalnie w `public/` (22.10.2026); przejrzeć dane wydawcy i treści, następnie opublikować w istniejącym projekcie Firebase. [Status i kwestie do sprawdzenia](legal/README.md).
-- Dodać opcjonalne raportowanie błędów Sentry: EU, osobna zgoda, minimalny zakres bez danych szkiców, docelowo retencja do 30 dni. Integracja jeszcze nie istnieje. [Decyzje i warunki wdrożenia](legal/sentry-plan.md).
-- Podlinkować dokumenty prawne w aplikacji, w stale dostępnym miejscu, np. w ustawieniach.
+- Dokończyć weryfikację opcjonalnego raportowania błędów Sentry: DSN EU podłączony, serwer przyjął zdarzenie testowe z komputera (HTTP 200); pozostały test nowego buildu na telefonie, symbolikacja i potwierdzenie ustawień IP/retencji do 30 dni. Natywne awarie wyłączone. [Stan wdrożenia](technical/sentry.md), [decyzje](legal/sentry-plan.md).
+- Dokumenty prawne podlinkowane w źródłach: ekran pierwszego uruchomienia i Ustawienia → Dokumenty prawne. Sprawdzić linki na telefonie w nowym buildzie.
 - Po każdej zmianie aplikacji przeglądać i odpowiednio aktualizować dokumenty prawne, informacje na stronie oraz Data safety Google Play przed wydaniem. [Zasada aktualizacji](legal/README.md#aktualizacja-po-zmianach-aplikacji).
-- Przy pierwszym uruchomieniu wyświetlić do akceptacji informacje o ograniczonej dokładności pomiarów, szacunkowym charakterze pomiaru krokami i pomocniczym przeznaczeniu szkiców. Doprecyzować treść oraz zasady zapisu i ponawiania akceptacji. [Zakres pomysłu](pomysly-na-rozwoj.md#2-strona-www-dokumenty-prawne-i-informacja-startowa).
+- Ekran pierwszego uruchomienia z akceptacją regulaminu i ograniczeń pomiarów wdrożony w źródłach: niezaznaczone pole, lokalny zapis wersji i daty, ponowna akceptacja po istotnej zmianie wersji treści. Diagnostyka pozostaje osobna. Przed wydaniem zatwierdzić robocze dokumenty i wykonać kontrolę na telefonie. [Opis wdrożenia](technical/pierwsze-uruchomienie.md).
 - Potwierdzić aktywność opcji buy i konta testerów licencji; wykonać transakcje i przywracanie w Google Play. Produkt, klucz licencyjny i podpisywanie są skonfigurowane.
 - Doprecyzować użytkownika docelowego, ofertę i ceny dla pozostałych rynków.
 - Wykonać fizyczną próbę ponownego pomiaru wcześniejszego boku: odniesienie sensorowe, długość z krokomierza, przeliczenie dalszych punktów i kontynuacja rysowania. Sprawdzić także zamknięte szkice oraz limit Free.

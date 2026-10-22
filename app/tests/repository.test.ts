@@ -3,6 +3,7 @@ import { Database, ProjectRepository } from '../src/infrastructure/repository';
 import { DEFAULT_SETTINGS, newProject } from '../src/domain/model';
 import { closeOutline, commitSide, editLastSide, undoLast } from '../src/domain/geometry';
 import type { SurveyDraft } from '../src/domain/survey';
+import { createLegalAcceptance, hasCurrentLegalAcceptance } from '../src/domain/legal';
 class SqlAdapter implements Database {
   constructor(readonly raw: SqlDb) {}
   async execAsync(sql: string) { this.raw.exec(sql); }
@@ -17,6 +18,38 @@ class SqlAdapter implements Database {
     try { await action(); this.raw.exec('COMMIT'); } catch (e) { this.raw.exec('ROLLBACK'); throw e; }
   }
 }
+
+test('legal acknowledgement survives restart without changing sketches, preferences or diagnostics', async () => {
+  const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
+  const repo = new ProjectRepository(db); await repo.initialize();
+  expect(hasCurrentLegalAcceptance((await repo.settings()).legalAcceptance)).toBe(false);
+  const project = newProject('Existing sketch', 'manual'); await repo.save(project, 'create');
+  const before = { ...DEFAULT_SETTINGS, unit: 'ft' as const, theme: 'dark' as const };
+  const legalAcceptance = createLegalAcceptance(true, new Date('2026-10-22T18:00:00Z'));
+  await repo.saveSettings({ ...before, legalAcceptance });
+  const copy = new SqlAdapter(new SQL.Database(db.raw.export()));
+  const reopened = new ProjectRepository(copy); await reopened.initialize();
+  expect(await reopened.settings()).toEqual({ ...before, legalAcceptance });
+  expect(hasCurrentLegalAcceptance((await reopened.settings()).legalAcceptance)).toBe(true);
+  expect(await reopened.load(project.id)).toEqual(project);
+  await expect(repo.saveSettings({ ...before, legalAcceptance: { version: 'current', acceptedAt: 'invalid' } })).rejects.toThrow();
+  copy.raw.close(); db.raw.close();
+});
+
+test('error reporting requires explicit boolean consent and persists withdrawal', async () => {
+  const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());
+  const repo = new ProjectRepository(db); await repo.initialize();
+  expect(await repo.settings()).toMatchObject({ errorReporting: false, errorReportingAsked: false });
+  for (const enabled of [true, false]) {
+    await repo.saveSettings({ ...DEFAULT_SETTINGS, errorReporting: enabled, errorReportingAsked: true });
+    const copy = new SqlAdapter(new SQL.Database(db.raw.export()));
+    expect(await new ProjectRepository(copy).settings()).toMatchObject({ errorReporting: enabled, errorReportingAsked: true });
+    copy.raw.close();
+  }
+  await expect(repo.saveSettings({ ...DEFAULT_SETTINGS, errorReporting: 'true' as any })).rejects.toThrow();
+  await expect(repo.saveSettings({ ...DEFAULT_SETTINGS, errorReportingAsked: 'yes' as any })).rejects.toThrow();
+  db.raw.close();
+});
 
 test('theme, docking and imperial units survive database reopening with validation', async () => {
   const SQL = await initSqlJs(); const db = new SqlAdapter(new SQL.Database());

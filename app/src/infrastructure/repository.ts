@@ -4,6 +4,7 @@ import type { SurveyDraft } from '../domain/survey';
 import { assertProjectSave, Plan } from '../domain/access';
 import { isLanguagePreference } from '../i18n';
 import { isLengthUnit } from '../domain/units';
+import { isLegalAcceptance } from '../domain/legal';
 
 export interface Database {
   execAsync(sql: string): Promise<void>;
@@ -37,6 +38,9 @@ export class ProjectRepository {
     return rows[0] ? { ...DEFAULT_SETTINGS, ...JSON.parse(rows[0].body) } : { ...DEFAULT_SETTINGS };
   }
   async saveSettings(settings: UserSettings) {
+    if (settings.legalAcceptance !== undefined && !isLegalAcceptance(settings.legalAcceptance)) throw new Error(t('Nieprawidłowe potwierdzenie warunków korzystania.'));
+    if (settings.errorReporting !== undefined && typeof settings.errorReporting !== 'boolean') throw new Error(t('Nieprawidłowa zgoda na raportowanie błędów.'));
+    if (settings.errorReportingAsked !== undefined && typeof settings.errorReportingAsked !== 'boolean') throw new Error(t('Nieprawidłowa zgoda na raportowanie błędów.'));
     if (settings.theme !== undefined && !['light', 'dark', 'system'].includes(settings.theme)) throw new Error(t('Nieprawidłowy motyw.'));
     if (settings.sketchDocked !== undefined && typeof settings.sketchDocked !== 'boolean') throw new Error(t('Nieprawidłowy tryb podglądu szkicu.'));
     if (settings.language !== undefined && !isLanguagePreference(settings.language)) throw new Error(t("Nieobsługiwany język."));

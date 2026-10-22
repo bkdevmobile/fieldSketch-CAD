@@ -1,14 +1,15 @@
 # Strona i dokumenty prawne outlineGo
 
-Stan: 22 października 2026. Przygotowane lokalnie, bez publikacji i bez zmian w aplikacji.
+Stan: 22 października 2026. Stronę opublikowano w istniejącym projekcie Firebase. Dokumenty są robocze. W źródłach aplikacji podłączono opcjonalne raportowanie błędów JS do DSN EU; serwer przyjął syntetyczne zdarzenie z testu na komputerze. Nowy build na telefonie i retencja nadal wymagają sprawdzenia. Publiczna polityka opisuje dotychczasowy build bez Sentry; tekst do jej aktualizacji przed wydaniem znajduje się poniżej.
 
 - [Strona About](../../public/index.html) — EN, aktualne Free/Plus, Google Play oznaczony jako coming soon.
 - [Polityka prywatności](../../public/privacy.html) — robocza, dla obecnego kodu bez Sentry.
 - [Regulamin](../../public/terms.html) — roboczy.
 - [Ograniczenia pomiarów](../../public/measurement-notice.html) — także propozycja potwierdzenia na start aplikacji.
-- [Plan Sentry](sentry-plan.md) — przyszła integracja.
+- [Plan Sentry](sentry-plan.md) i [stan integracji](../technical/sentry.md).
+- [Treść polityki dla wydania z Sentry](sentry-privacy-addendum.en.md) — do scalenia po potwierdzeniu konfiguracji, przed wydaniem aplikacji z raportowaniem.
 
-Źródłem treści dokumentów są pliki HTML. Hosting zachowuje istniejące `firebase.json`, katalog `public` i projekt `outlinego-27ab5`. Bez deploya. Usunięto skrypty Firebase z domyślnej strony; statyczna strona nie wymaga SDK ani analityki. Logo pochodzi z aplikacji. Dane wydawcy występują w dokumentach prawnych, nie w treści marketingowej strony głównej.
+Źródłem treści opublikowanych dokumentów są pliki HTML. Hosting zachowuje istniejące `firebase.json`, katalog `public` i projekt `outlinego-27ab5`. Usunięto skrypty Firebase z domyślnej strony; statyczna strona nie wymaga SDK ani analityki. Logo pochodzi z aplikacji. Dane wydawcy występują w dokumentach prawnych, nie w treści marketingowej strony głównej. W polityce dane administratora przeniesiono na koniec, z odnośnikiem na początku.
 
 ## Aktualizacja po zmianach aplikacji
 
@@ -20,7 +21,7 @@ Po każdej zmianie w aplikacji sprawdzić jej wpływ na dokumenty prawne i zaktu
 2. Przejrzeć dokumenty dla dystrybucji światowej: obowiązki konsumenckie, reklamacje, transfery danych i wymagania poszczególnych rynków. To szkice, nie potwierdzenie zgodności we wszystkich krajach.
 3. Potwierdzić ustawienia Firebase, skrzynki wsparcia i retencję. Opis IP Hosting opiera się na dokumentacji Google; dodatkowych eksportów Cloud Logging nie zadeklarowano jako włączonych.
 4. Ustalić datę wejścia w życie, usunąć Draft i `noindex` z zatwierdzonych dokumentów. Następnie opublikować istniejący projekt Firebase.
-5. Podlinkować dokumenty w aplikacji; wdrożyć wersjonowane potwierdzenie ograniczeń przy pierwszym uruchomieniu. Odmowa nie powinna blokować dostępu do dokumentów. Potwierdzenie nie jest zgodą na diagnostykę ani zrzeczeniem się praw.
+5. W źródłach wdrożono [ekran pierwszego uruchomienia](../technical/pierwsze-uruchomienie.md) i stałe linki do dokumentów w ustawieniach. Sprawdzić w nowym APK zapis wersji i daty, ponawianie potwierdzenia po istotnej zmianie oraz dostęp do dokumentów przed akceptacją. Potwierdzenie nie jest zgodą na diagnostykę ani zrzeczeniem się praw. Przed publicznym wydaniem zatwierdzić dokumenty robocze, które ten ekran udostępnia.
 6. Uzgodnić Data safety Google Play z konkretnym wydaniem i SDK. Przed włączeniem Sentry zaktualizować politykę i formularz zgodnie z faktycznymi danymi.
 7. Potwierdzić dostępność aplikacji, Plus i kraje sprzedaży. Cena na stronie odsyła do Google Play; nie obiecano dostępności światowej ani jednej ceny we wszystkich walutach.
 

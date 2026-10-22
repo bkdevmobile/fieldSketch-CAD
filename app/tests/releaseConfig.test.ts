@@ -5,6 +5,16 @@ jest.mock('expo/config-plugins', () => ({
 let xmlAction: (mod: any) => any;
 let gradleAction: (mod: any) => any;
 const plugin = require('../scripts/with-release.cjs');
+const fs = require('node:fs');
+const crypto = require('node:crypto');
+const publicKeyFixture = crypto.generateKeyPairSync('rsa', { modulusLength: 1024 }).publicKey.export({ format: 'der', type: 'spki' }).toString('base64');
+beforeEach(() => {
+  // Configuration tests must not depend on a developer's private-directory files.
+  const exists = fs.existsSync, read = fs.readFileSync;
+  jest.spyOn(fs, 'existsSync').mockImplementation((...args: any[]) => String(args[0]).endsWith('google-play-public-key.txt') ? true : exists(...args));
+  jest.spyOn(fs, 'readFileSync').mockImplementation((...args: any[]) => String(args[0]).endsWith('google-play-public-key.txt') ? publicKeyFixture : read(...args));
+});
+afterEach(() => jest.restoreAllMocks());
 
 test('prebuild removes debug release signing and recreates signing using environment only', () => {
   plugin({});

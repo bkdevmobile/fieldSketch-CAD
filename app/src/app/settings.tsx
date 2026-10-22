@@ -1,13 +1,15 @@
 import { useTheme, Button, Field, Page } from '../components/ui';
 import { t } from '../i18n';
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Linking, Switch, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { roundedInput } from '../domain/precision';
 import { parsePositive } from '../domain/geometry';
 import { useStore } from '../infrastructure/store';
 import type { AngleSnap, SurveyMode, ThemePreference } from '../domain/model';
-import { Check, Compass, Magnet, Palette, Ruler } from 'lucide-react-native';
+import { Check, Compass, FileText, Magnet, Palette, Ruler, ShieldCheck } from 'lucide-react-native';
+import { LEGAL_URLS } from '../domain/legal';
+import { errorReportingAvailable } from '../infrastructure/errorReporting';
 import { LENGTH_UNITS, LengthUnit } from '../domain/units';
 import { SectionTitle, Segments } from '../components/presentation';
 import { LANGUAGES, LANGUAGE_NAMES, LanguagePreference } from '../i18n';
@@ -21,13 +23,15 @@ export default function Settings() {
   const [angleSnap, setAngleSnap] = useState<AngleSnap>(store.settings.angleSnap);
   const [directionMode, setDirectionMode] = useState<SurveyMode>(store.settings.directionMode);
   const [language, setLanguage] = useState<LanguagePreference>(store.settings.language ?? 'system');
+  const [errorReporting, setErrorReporting] = useState(store.settings.errorReporting === true);
+  useEffect(() => setErrorReporting(store.settings.errorReporting === true), [store.settings.errorReporting]);
   useEffect(() => setLanguage(store.settings.language ?? 'system'), [store.settings.language]);
   useEffect(() => {
     if (store.repo) { setUnit(store.settings.unit); setStepLength(String(store.settings.stepLengthCm).replace('.', ',')); setAngleSnap(store.settings.angleSnap); setDirectionMode(store.settings.directionMode); }
   }, [store.repo]);
   return <Page title={t("Ustawienia")} subtitle={t("Dla wszystkich szkiców")} footer={
     <Button label={t("Zapisz ustawienia")} icon={Check} disabled={store.busy || !store.repo} onPress={() => store.run(async () => {
-      await store.updateSettings({ unit, stepLengthCm: parsePositive(stepLength, 3), angleSnap, directionMode, language, theme });
+      await store.updateSettings({ unit, stepLengthCm: parsePositive(stepLength, 3), angleSnap, directionMode, language, theme, errorReporting });
       // Let translated headers update before leaving the settings screen.
       requestAnimationFrame(() => {
         if (router.canGoBack()) router.back();
@@ -59,6 +63,20 @@ export default function Settings() {
         options={([['relative', t("Względny")], ['manual', t("Ręczny")], ['magnetic', t("Magnetyczny")]] as const).map(([value, label]) => ({ value, label,
           disabled: value !== 'manual' && !store.capabilities?.[value] }))} />
       <Text style={s.muted}>{t("Wspólny dla wszystkich szkiców. Zmiana zatrzyma bieżącą sesję i wymaga ponownego przechwycenia kierunku. Zapisane pomiary zachowują swój tryb i wynik. Przy niedostępnym czujniku użyjemy trybu ręcznego.")}</Text>
+    </View>
+    <View style={s.card}><SectionTitle title={t('Raportowanie błędów')} icon={ShieldCheck} />
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+        <Text style={[s.label, { flex: 1 }]}>{t('Pomóż ulepszać aplikację')}</Text>
+        <Switch accessibilityLabel={t('Raportowanie błędów')} value={errorReporting} onValueChange={setErrorReporting} disabled={!errorReportingAvailable} />
+      </View>
+      <Text style={s.muted}>{t('Opcjonalnie wysyłaj do Sentry raporty błędów aplikacji: typ błędu, pozycję w kodzie, wersję aplikacji i Androida. Bez treści szkiców, zdjęć, historii działań i nagrań sesji. Zgodę możesz wycofać w każdej chwili. Zmiana działa po zapisaniu ustawień.')}</Text>
+      {!errorReportingAvailable && <Text style={s.muted}>{t('Raportowanie błędów jest niedostępne w tej wersji.')}</Text>}
+      <Button label={t('Polityka prywatności')} secondary onPress={() => store.run(async () => { await Linking.openURL(LEGAL_URLS.privacy); })} />
+    </View>
+    <View style={s.card}><SectionTitle title={t('Dokumenty prawne')} icon={FileText} />
+      <Button secondary label={t('Regulamin')} onPress={() => store.run(async () => { await Linking.openURL(LEGAL_URLS.terms); })} />
+      <Button secondary label={t('Polityka prywatności')} onPress={() => store.run(async () => { await Linking.openURL(LEGAL_URLS.privacy); })} />
+      <Button quiet label={t('Ograniczenia pomiarów')} onPress={() => store.run(async () => { await Linking.openURL(LEGAL_URLS.measurement); })} />
     </View>
   </Page>;
 }

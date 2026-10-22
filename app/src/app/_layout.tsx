@@ -10,6 +10,8 @@ import { DialogProvider } from '../components/overlays';
 import { BrandMark } from '../components/Brand';
 import { Startup } from '../components/Startup';
 import { ThemeProvider } from '../components/theme';
+import { ErrorReportingConsentPrompt } from '../components/ErrorReportingPrompt';
+import { LegalNoticeGate } from '../components/LegalNotice';
 export default function Layout() {
   return <GestureHandlerRootView style={{ flex: 1 }}><StoreProvider><ThemedApplication /></StoreProvider></GestureHandlerRootView>;
 }
@@ -19,7 +21,7 @@ function ThemedApplication() {
 }
 function Application() {
   const { dark } = useTheme();
-  return <><StatusBar style={dark ? 'light' : 'dark'} /><Startup><Navigation /></Startup></>;
+  return <><StatusBar style={dark ? 'light' : 'dark'} /><Startup><LegalNoticeGate><Navigation /><ErrorReportingConsentPrompt /></LegalNoticeGate></Startup></>;
 }
 function Navigation() {
   const { colors } = useTheme();

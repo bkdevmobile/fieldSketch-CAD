@@ -1,6 +1,6 @@
 # Plan raportowania błędów Sentry
 
-Decyzje: 22 października 2026. Użytkownik potwierdził, że Sentry dopiero będzie dodane, i powierzył dobór ustawień. **Integracja nie została wykonana.**
+Decyzje: 22 października 2026. Użytkownik powierzył dobór ustawień i zlecił integrację. **Opcjonalne raportowanie błędów JS ma podłączony DSN EU; serwer przyjął syntetyczne zdarzenie z testu na komputerze (HTTP 200).** Pozostają test nowego buildu na telefonie, symbolikacja i konfiguracja retencji. Natywne awarie pozostają wyłączone. [Stan wdrożenia i konfiguracja](../technical/sentry.md).
 
 ## Wybrane ustawienia
 

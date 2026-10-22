@@ -9,12 +9,18 @@ import type { Plan } from '../domain/access';
 import { useBilling } from './billing';
 import { getLanguage, setLanguage } from '../i18n';
 import { applyLanguagePreference, preferenceFromState, readLanguageState } from './language';
+import { errorReportingAvailable, reportUnexpectedError, setErrorReportingConsent } from './errorReporting';
+import { ErrorReportingPrompt, type ErrorReportRequest } from './errorReportingPrompt';
+import { createLegalAcceptance } from '../domain/legal';
 
 interface Store {
   projects: Project[]; repo: ProjectRepository | null; error: string; busy: boolean; ready: boolean;
   capabilities: Capabilities | null; live: LiveSample | null; sessionId: string | null; sessionProject: string | null;
   settings: UserSettings; plan: Plan; billing: ReturnType<typeof useBilling>;
   updateSettings(settings: UserSettings): Promise<void>;
+  acceptLegalNotice(confirmed: boolean): Promise<void>;
+  errorReportRequest: ErrorReportRequest | null;
+  answerErrorReportRequest(id: number, allow: boolean): Promise<void>;
   rememberUi(patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput' | 'sketchDocked'>): Promise<void>;
   refresh(): Promise<void>;
   run(task: () => Promise<void>, onError?: (error: unknown) => void): Promise<void>;
@@ -27,9 +33,17 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const billing = useBilling();
   const plan = billing.state.plan;
   const [repo, setRepo] = useState<ProjectRepository | null>(null);
+  const repositoryRef = useRef<ProjectRepository | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [settings, setSettings] = useState<UserSettings>({ ...DEFAULT_SETTINGS });
   const settingsRef = useRef(settings), settingsWrites = useRef<Promise<void>>(Promise.resolve());
+  const [errorReportRequest, setErrorReportRequest] = useState<ErrorReportRequest | null>(null);
+  const reportingPrompt = useRef<ErrorReportingPrompt | null>(null);
+  if (!reportingPrompt.current) reportingPrompt.current = new ErrorReportingPrompt({
+    state: () => ({ available: errorReportingAvailable, ready: !!repositoryRef.current,
+      enabled: settingsRef.current.errorReporting === true, asked: settingsRef.current.errorReportingAsked === true }),
+    save: decision => saveSettingsPatch(decision), send: reportUnexpectedError, publish: setErrorReportRequest,
+  });
   const [error, setError] = useState(''); const [busy, setBusy] = useState(false);
   const [ready, setReady] = useState(false);
   const lock = useRef(false);
@@ -52,7 +66,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         const languageState = await readLanguageState();
         preferences.language = preferenceFromState(preferences.language ?? 'system', languageState);
         setLanguage(preferences.language, languageState.systemLocales);
-        if (mounted) { settingsRef.current = preferences; setSettings(preferences); setRepo(repository); setProjects(saved); }
+        if (mounted) { repositoryRef.current = repository; settingsRef.current = preferences; setSettings(preferences); setRepo(repository); setProjects(saved); setErrorReportingConsent(preferences.errorReporting === true); }
         const cap = await orientation().getCapabilities();
         if (mounted) setCapabilities(cap);
       } catch (e) { if (mounted) setError(message(e)); }
@@ -84,7 +98,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const run = async (task: () => Promise<void>, onError?: (error: unknown) => void) => {
     if (lock.current) return;
     lock.current = true; setBusy(true); setError('');
-    try { await task(); } catch (e) { setError(message(e)); onError?.(e); }
+    try { await task(); } catch (e) { setError(message(e)); onError?.(e); reportingPrompt.current!.handle(e); }
     finally { lock.current = false; setBusy(false); }
   };
   const start = async (project: Project, mode: SurveyMode) => {
@@ -95,9 +109,12 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const log = async (type: string, data: object) => { await orientation().appendEvent(type, JSON.stringify(data)); };
   const saveSettingsPatch = (patch: Partial<UserSettings>) => {
     const write = settingsWrites.current.catch(() => {}).then(async () => {
-      if (!repo) throw new Error(t("Baza nie jest jeszcze gotowa."));
+      const repository = repositoryRef.current;
+      if (!repository) throw new Error(t("Baza nie jest jeszcze gotowa."));
       const next = { ...settingsRef.current, ...patch };
-      await repo.saveSettings(next); settingsRef.current = next; setSettings(next);
+      if (patch.errorReporting === true || (patch.errorReporting === false && settingsRef.current.errorReporting === true)) next.errorReportingAsked = true;
+      await repository.saveSettings(next); settingsRef.current = next; setSettings(next);
+      setErrorReportingConsent(next.errorReporting === true);
     });
     settingsWrites.current = write; return write;
   };
@@ -112,7 +129,12 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     // Also re-render consumers when the effective system language changed.
     setSettings(value => ({ ...value }));
   };
-  return <Context.Provider value={{ projects, repo, error, busy, ready: ready && billing.state.ready, capabilities, live, sessionId, sessionProject, settings, plan, billing, updateSettings, rememberUi, refresh, run, start, stop, log }}>{children}</Context.Provider>;
+  const answerErrorReportRequest = async (requestId: number, allow: boolean) => {
+    try { await reportingPrompt.current!.answer(requestId, allow); }
+    catch (e) { setError(message(e)); }
+  };
+  const acceptLegalNotice = async (confirmed: boolean) => { await saveSettingsPatch({ legalAcceptance: createLegalAcceptance(confirmed) }); };
+  return <Context.Provider value={{ projects, repo, error, busy, ready: ready && billing.state.ready, capabilities, live, sessionId, sessionProject, settings, plan, billing, updateSettings, acceptLegalNotice, errorReportRequest, answerErrorReportRequest, rememberUi, refresh, run, start, stop, log }}>{children}</Context.Provider>;
 }
 export const message = (e: unknown) => e instanceof Error ? e.message : String(e);
 export function useStore() { const store = useContext(Context); if (!store) throw new Error('Missing provider'); return store; }
