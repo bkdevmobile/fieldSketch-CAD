@@ -1,10 +1,13 @@
 # Strona i dokumenty prawne outlineGo
 
+**Pełny deploy 24.10.2026:** po wdrożeniu grafiki użytkownik zlecił publikację całego aktualnego `public`. Firebase potwierdził powodzenie. Polityka z opisem Sentry, regulamin i ograniczenia pomiarów są już opublikowane, nadal jako dokumenty robocze bez daty obowiązywania. Poniższe wcześniejsze zapisy o oczekiwaniu na deploy opisują stan sprzed tej publikacji. Retencja/IP Sentry i zatwierdzenie treści pozostają otwarte.
+
 [Aktualny stan kodu, paczek i publikacji](../stan-projektu.md). Potwierdzenie regulaminu w kodzie nie zmienia roboczego statusu dokumentów WWW.
 
 Stan: 23 października 2026. Stronę opublikowano w istniejącym projekcie Firebase. Dokumenty są robocze. W źródłach aplikacji podłączono opcjonalne raportowanie błędów JS do DSN EU; serwer przyjął syntetyczne zdarzenie z testu na komputerze. APK z Sentry zainstalowano i uruchomiono na Redmi 23.10.2026; działanie zgód i raportowania oraz retencja nadal wymagają sprawdzenia. Publiczna polityka opisuje wcześniejszy build bez Sentry; tekst do jej aktualizacji przed wydaniem znajduje się poniżej.
 
 - [Strona About](../../public/index.html) — EN, aktualne Free/Plus, Google Play oznaczony jako coming soon.
+- Grafiki WWW z 24.10.2026: zdjęcie w nagłówku i sekcja „In the field”, lokalne responsywne WebP bez zewnętrznych skryptów, fontów ani trackerów. Zmianę wizualną opublikowano w Firebase, zachowując dotychczasowe dokumenty prawne live; lokalne projekty prawne nadal czekają na zatwierdzenie i osobny deploy. Zweryfikowano odpowiedzi HTTP i zasoby; nie wykonano kontroli wizualnej w przeglądarce.
 - [Polityka prywatności](../../public/privacy.html) — lokalny projekt z 23.10.2026 uwzględnia Sentry za zgodą, odbiorców, transfery, retencję i prawa użytkownika. Retencja do 30 dni oraz serwerowa obsługa IP wymagają potwierdzenia; projekt nie deklaruje ich jako sprawdzonych ustawień.
 - [Regulamin](../../public/terms.html) — roboczy.
 - [Ograniczenia pomiarów](../../public/measurement-notice.html) — także propozycja potwierdzenia na start aplikacji.

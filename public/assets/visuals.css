@@ -1,0 +1,22 @@
+/* Website imagery; local assets, no external scripts or fonts. */
+.hero{grid-template-columns:1fr 1.05fr;gap:44px;padding-top:46px;padding-bottom:60px}
+.hero h1{font-size:clamp(46px,5.8vw,70px)}
+.hero-visual{position:relative;margin:0;border-radius:26px;background:#dfe6d5;box-shadow:0 20px 52px #19372c18;isolation:isolate;overflow:hidden}
+.hero-visual picture,.hero-visual img{display:block;width:100%}
+.hero-visual img{height:550px;object-fit:cover;object-position:34% center}
+.hero-visual:after{content:"";position:absolute;inset:55% 0 0;background:linear-gradient(transparent,#103628a6);pointer-events:none}
+.hero-visual figcaption{position:absolute;z-index:1;bottom:24px;left:24px;right:24px;display:flex;align-items:center;gap:10px;color:#fffdf6;font-size:15px;font-weight:600;letter-spacing:.01em}
+.visual-dot{height:8px;width:8px;border-radius:50%;background:#e5d49e;box-shadow:0 0 0 5px #fffdf61a;flex:none}
+.section-intro{display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:end;margin-bottom:30px}
+.section-intro h2{margin:14px 0 0;font-size:clamp(29px,3.3vw,39px)}
+.section-intro p{margin:0;color:var(--muted)}
+.visual-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.feature-visual{margin:0;overflow:hidden;border:1px solid var(--line);border-radius:18px;background:#fffdf6}
+.feature-visual picture,.feature-visual img{display:block;width:100%;height:auto}
+.feature-visual figcaption{padding:25px 26px 22px}
+.feature-visual h3{margin:10px 0 12px;font-size:24px}
+.feature-visual p{margin:0;color:var(--muted);font-size:16px}
+.illustration-note{max-width:850px;margin-top:20px}
+@media(max-width:900px){.visual-grid{grid-template-columns:1fr}.section-intro{gap:24px}.hero{gap:26px}.hero-visual img{height:490px}}
+@media(max-width:720px){header nav{gap:10px 15px;max-width:200px;justify-content:flex-end}.hero{grid-template-columns:1fr;padding-top:32px;padding-bottom:38px}.hero h1{font-size:50px}.hero-visual img{height:410px;object-position:32% center}.hero-visual{border-radius:20px}.section-intro{grid-template-columns:1fr;gap:18px}.section-intro h2 br{display:none}.feature-visual figcaption{padding:22px}.feature-visual h3{font-size:23px}.hero-visual figcaption{bottom:20px;left:20px}.illustration-note{font-size:13px}}
+@media(max-width:380px){header{gap:12px}.brand{font-size:22px}header nav{max-width:155px;font-size:13px}.hero h1{font-size:44px}.hero-visual img{height:360px}}

@@ -33,6 +33,7 @@ Zakup i przywracanie Plus za 29,99 zł jednorazowo są podłączone przez Google
 
 ## Prace przed release
 
+- Dodać do karty aplikacji Google Play rzeczywiste screenshoty z aplikacji, przygotowane przez użytkownika. Mają uzupełnić dwie wybrane grafiki marketingowe z `googlePlay/`. Przypomnienie zapisane 24.10.2026; zadanie pozostaje otwarte.
 - Zweryfikować w Play Console dostęp do produkcji i ewentualny wymóg testu zamkniętego dla konta osobistego utworzonego po 13.11.2023: minimum 12 testerów zapisanych nieprzerwanie przez 14 dni oraz wniosek o dostęp do produkcji. Sam test wewnętrzny nie spełnia tego wymogu. Status konta nie został potwierdzony. [Wymagania Google](https://support.google.com/googleplay/android-developer/answer/14151465).
 - Domknąć formularze Play Console: Data safety zgodne z wydaniem i Sentry, klasyfikacja wiekowa, grupa docelowa, deklaracja reklam, dostęp dla recenzentów, kraje dystrybucji i dostępność/ceny Plus. Przygotować aktualny podpisany AAB z numerem wersji akceptowanym przez Console i przejrzeć raport testów przedpremierowych.
 - Przygotować materiały do prezentacji aplikacji w Google Play: nazwę, krótki i pełny opis, zrzuty ekranów, grafikę promocyjną oraz wersje językowe. Sprawdzić spójność materiałów z aktualnymi funkcjami i zasadami Free/Plus.
