@@ -4,7 +4,7 @@ Aktualne preferencje: instrukcja P1 bez miniatury; zapamiętywany róg miniatury
 
 Data: 21 października 2026. Aplikacja 0.1.0 (versionCode 2), wizard z korektą zapisanych boków, ponownym pomiarem i kontynuacją tego samego szkicu po zakupie Plus.
 
-Bieżący stan: **22 października 2026**, źródła 6f9a305, TypeScript i 183 testy / 24 zestawy. Ostatni APK UI nie zawiera Sentry i ekranu akceptacji. [Kod, paczki i pozostałe próby](../stan-projektu.md).
+Bieżący stan: **23 października 2026**, źródła 8365dca, TypeScript i 183 testy / 24 zestawy przeszły przed commitem. Podpisany APK z Sentry, ekranem akceptacji i automatycznym zapisem notatek zbudowano, zainstalowano na Redmi przez aktualizację i uruchomiono. Testy funkcjonalne na telefonie pozostają otwarte; AAB nie przebudowano. [Kod, paczki i pozostałe próby](../stan-projektu.md).
 
 Prowadzenie pierwszego pomiaru obejmuje instrukcję z ilustracją, automatyczny start sesji, blokadę niegotowego odczytu i podpowiedź po dotknięciu celownika. Szczegóły: [pierwszy pomiar](pierwszy-pomiar.md).
 
@@ -105,9 +105,9 @@ Ikony konturowe Lucide towarzyszą akcjom, statusowi i etapom. Ikony dekoracyjne
 
 ## Stan implementacji i weryfikacji
 
-Aktualny kod funkcjonalny: 6f9a305. Wizard, SQLite, pomiary, korekty i eksporty opisano powyżej; dodatkowo wdrożono [Sentry](sentry.md) oraz [ekran akceptacji](pierwsze-uruchomienie.md). Historia wcześniejszych implementacji pozostaje w MEMO.
+Aktualny kod APK: 8365dca. Wizard, SQLite, pomiary, korekty i eksporty opisano powyżej; dodatkowo wdrożono [Sentry](sentry.md) oraz [ekran akceptacji](pierwsze-uruchomienie.md). Historia wcześniejszych implementacji pozostaje w MEMO.
 
-Bieżący stan: **22 października 2026**, źródła 6f9a305, TypeScript i 183 testy / 24 zestawy. Ostatni APK UI nie zawiera Sentry i ekranu akceptacji. [Kod, paczki i pozostałe próby](../stan-projektu.md).
+Bieżący stan: **23 października 2026**, źródła 8365dca, TypeScript i 183 testy / 24 zestawy przeszły przed commitem. Podpisany APK z Sentry, ekranem akceptacji i automatycznym zapisem notatek zbudowano, zainstalowano na Redmi przez aktualizację i uruchomiono. Testy funkcjonalne na telefonie pozostają otwarte; AAB nie przebudowano. [Kod, paczki i pozostałe próby](../stan-projektu.md).
 
 Po próbie użytkownik zaakceptował działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Korekta ręczna pozostaje dostępna. Nie wprowadzono automatycznego odejmowania kroków ani zmiany algorytmu.
 

@@ -1,6 +1,6 @@
 # Dokumentacja techniczna outlineGo
 
-Data: **22 października 2026**. Aplikacja 0.1.0 / versionCode 2, kod funkcjonalny 6f9a305. Bieżąca weryfikacja: TypeScript i 183 testy w 24 zestawach. [Stan źródeł i paczek](../stan-projektu.md); [historia instalacji](../../MEMO.md). Sekcje architektury docelowej poniżej nie oznaczają realizacji całego P0/P1.
+Data: **23 października 2026**. Aplikacja 0.1.0 / versionCode 2, kod APK 8365dca. APK zainstalowano i uruchomiono na Redmi; testy funkcjonalne pozostają otwarte. Bieżąca weryfikacja: TypeScript i 183 testy w 24 zestawach. [Stan źródeł i paczek](../stan-projektu.md); [historia instalacji](../../MEMO.md). Sekcje architektury docelowej poniżej nie oznaczają realizacji całego P0/P1.
 
 ## Aktualny zakres implementacji
 
@@ -16,7 +16,7 @@ Wielojęzyczność wdrożono 20 października 2026: PL, EN, DE, ES i FR. Domyśl
 
 Zmiana globalnego trybu zatrzymuje sesję i unieważnia roboczy kierunek/odniesienie; nie przepisuje historycznych obserwacji. Formularz zachowuje wpisy, ale wznowienie zaczyna się od kierunku. Tryb sensorowy przy istniejących bokach wymaga odtworzenia odniesienia. Długość ręczna ma jawne źródło, surowe i poprawione kroki są zachowane osobno; edycja tworzy nową obserwację z `supersedesId`.
 
-Aktualna weryfikacja: TypeScript i 183 testy / 24 zestawy. Po integracji Sentry i akceptacji nie wykonano nowego prebuilda ani testów Kotlin; wcześniejszy APK nie weryfikuje tych zmian. [Aktualne ograniczenia](../stan-projektu.md).
+Aktualna weryfikacja: TypeScript i 183 testy / 24 zestawy przeszły przed commitem 8365dca. 23.10.2026 prebuild i release APK zakończyły się powodzeniem; zadania testów Kotlin były UP-TO-DATE (raporty: 7 orientacji i 11 billing bez błędów). APK zainstalowano i uruchomiono na Redmi. Odbiór funkcjonalny Sentry, akceptacji i automatycznego zapisu notatek pozostaje otwarty. [Aktualne ograniczenia](../stan-projektu.md).
 
 ### Implementacja podglądu szkicu
 

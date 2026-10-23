@@ -19,6 +19,10 @@ Stała `LEGAL_NOTICE_VERSION` w `app/src/domain/legal.ts` identyfikuje wspólną
 
 Starszy wpis jest zachowywany do czasu potwierdzenia nowej wersji; nowa akceptacja zastępuje poprzednią. Nie wprowadzono kont, synchronizacji ani wysyłania akceptacji na serwer.
 
+## Instalacja testowa — 23 października 2026
+
+Podpisany APK z 8365dca zainstalowano na Redmi 23124RA7EO przez `install -r` i uruchomiono (Success / Status: ok). Nie czyszczono danych ani nie potwierdzano zgód za użytkownika. Sam start nie stanowi weryfikacji scenariuszy poniżej.
+
 ## Przed wydaniem
 
 Dokumenty opublikowane na stronie są nadal robocze. Przed publicznym wydaniem aplikacji trzeba zatwierdzić regulamin i pozostałe dokumenty, nadać datę obowiązywania i usunąć oznaczenia Draft. Ekran przygotowany w kodzie nie zmienia samodzielnie statusu tych dokumentów.

@@ -4,9 +4,9 @@ Free pozwala zapisać do 3 szkiców i zmierzyć do 8 punktów (z P1). Usunięcie
 
 Aktualny układ pomiaru: instrukcja P1 bez miniatury; jej róg jest zapamiętywany globalnie (domyślnie prawy dolny). Celownik i formularz długości są przed pomocą; status pod kamerą nie przesuwa celownika. Domyślna metoda długości to krokomierz, potem ostatni jawny wybór użytkownika; istniejący formularz zachowuje swoje dane. W trybie sensorowym pytanie o kamer? poprzedza przygotowanie zgody krokomierza i sesji kierunku. Szczegóły: [opis](pierwszy-pomiar.md).
 
-Bieżący stan: **22 października 2026**, źródła 6f9a305, TypeScript i 183 testy / 24 zestawy. Ostatni APK UI nie zawiera Sentry i ekranu akceptacji. [Kod, paczki i pozostałe próby](../stan-projektu.md).
+Bieżący stan: **23 października 2026**, źródła 8365dca, TypeScript i 183 testy / 24 zestawy przeszły przed commitem. Podpisany APK z Sentry, ekranem akceptacji i automatycznym zapisem notatek zbudowano, zainstalowano na Redmi przez aktualizację i uruchomiono. Testy funkcjonalne na telefonie pozostają otwarte; AAB nie przebudowano. [Kod, paczki i pozostałe próby](../stan-projektu.md).
 
-Bieżący stan: **22 października 2026**, źródła 6f9a305, TypeScript i 183 testy / 24 zestawy. Ostatni APK UI nie zawiera Sentry i ekranu akceptacji. [Kod, paczki i pozostałe próby](../stan-projektu.md).
+Bieżący stan: **23 października 2026**, źródła 8365dca, TypeScript i 183 testy / 24 zestawy przeszły przed commitem. Podpisany APK z Sentry, ekranem akceptacji i automatycznym zapisem notatek zbudowano, zainstalowano na Redmi przez aktualizację i uruchomiono. Testy funkcjonalne na telefonie pozostają otwarte; AAB nie przebudowano. [Kod, paczki i pozostałe próby](../stan-projektu.md).
 
 ## Instalacja i aktualizacja
 
@@ -112,6 +112,6 @@ Jeśli ostatni zmierzony bok już wrócił do P1, „Zamknij obrys” rozpoznaje
 
 W `app/`: `npm ci`, `npm run typecheck`, `npm test`, `npm run build:apk`. Wymagane Windows, Node zgodny z Expo SDK 56 (ostatnio 22.23.4), JDK i Android SDK/NDK zgodne z projektem generowanym przez Expo; sieć przy pierwszym pobieraniu zależności. `ANDROID_HOME` można wskazać jawnie. Projekt Android jest generowany; źródła modułu Kotlin są w `app/modules/fieldsketch-orientation`.
 
-Bieżący stan: **22 października 2026**, źródła 6f9a305, TypeScript i 183 testy / 24 zestawy. Ostatni APK UI nie zawiera Sentry i ekranu akceptacji. [Kod, paczki i pozostałe próby](../stan-projektu.md).
+Bieżący stan: **23 października 2026**, źródła 8365dca, TypeScript i 183 testy / 24 zestawy przeszły przed commitem. Podpisany APK z Sentry, ekranem akceptacji i automatycznym zapisem notatek zbudowano, zainstalowano na Redmi przez aktualizację i uruchomiono. Testy funkcjonalne na telefonie pozostają otwarte; AAB nie przebudowano. [Kod, paczki i pozostałe próby](../stan-projektu.md).
 
 Ostatni wcześniejszy wynik Expo Doctor: 21/22, ostrzeżenie dotyczące pamięci Hermes w SDK 56. Nie wykonano migracji SDK ani nowej kontroli Doctor przy tej aktualizacji dokumentacji. Kontekst wcześniejszego sprawdzenia: [informacje Expo SDK 56](https://expo.dev/changelog/sdk-56). Szczegóły artefaktu, historii i ograniczeń: [MEMO](../../MEMO.md).

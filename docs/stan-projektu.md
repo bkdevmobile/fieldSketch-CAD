@@ -1,20 +1,20 @@
 # Aktualny stan outlineGo
 
-Aktualizacja: **22 października 2026**, kod funkcjonalny: `6f9a305`. Wersja w konfiguracji: **0.1.0 / versionCode 2**, pakiet `com.bk.dev.mobile.outlinego`. Ten dokument opisuje bieżący stan; starsze wpisy w [MEMO](../MEMO.md) i opisach prób zachowują wyniki dla sprawdzonych wtedy wersji.
+Aktualizacja: **23 października 2026**, kod APK: `8365dca`. Wersja w konfiguracji: **0.1.0 / versionCode 2**, pakiet `com.bk.dev.mobile.outlinego`. Ten dokument opisuje bieżący stan; starsze wpisy w [MEMO](../MEMO.md) i opisach prób zachowują wyniki dla sprawdzonych wtedy wersji.
 
 ## Kod, paczki i publikacja
 
 | Obszar | Potwierdzony stan |
 | --- | --- |
-| Bieżące źródła | UI z jednostkami imperialnymi i motywami, poprawki sterowania, Sentry za zgodą, pytanie po błędzie, ekran akceptacji regulaminu i ograniczeń |
-| Weryfikacja źródeł | TypeScript i **183 testy w 24 zestawach** przeszły; po ostatnich zmianach nie wykonywano nowego prebuilda ani testów natywnych |
-| Ostatni podpisany i zainstalowany APK | `artifacts/outlineGo-0.1.0.apk`, źródła `0b39f9f`, zainstalowany na Redmi; zawiera poprawki UI, nie zawiera Sentry ani ekranu akceptacji |
-| SHA256 tego APK | `65c1532bb2063ab0bbc0d3cc31c077ec618b12dca3e8f0bbdbdd7902624ba55f` |
+| Bieżące źródła | UI z jednostkami imperialnymi i motywami, poprawki sterowania, Sentry za zgodą, pytanie po błędzie, ekran akceptacji regulaminu i ograniczeń oraz automatyczny zapis notatek |
+| Weryfikacja źródeł | TypeScript i **183 testy w 24 zestawach** przeszły przed commitem 8365dca. 23.10 prebuild i release APK: BUILD SUCCESSFUL in 2m 35s. Zadania Kotlin UP-TO-DATE; raporty: 7 testów orientacji i 11 billing, bez błędów |
+| Ostatni podpisany i zainstalowany APK | `artifacts/outlineGo-0.1.0.apk`, źródła `8365dca`, zainstalowany 23.10 na Redmi 23124RA7EO (`a20fa219`) przez `install -r`: Success; uruchomienie Status: ok. Zawiera Sentry, ekran akceptacji i automatyczny zapis notatek |
+| SHA256 tego APK | `7efea90cf234609bab21801a570da260da33b233441e1b7356919741586b5170` |
 | AAB | Nie przebudowano po zmianach UI, Sentry i pierwszego uruchomienia; wcześniejszy AAB v2 nie reprezentuje obecnych źródeł |
 | Google Play | Według potwierdzenia użytkownika pierwsze wydanie jest w testach wewnętrznych. Brak potwierdzenia publikacji produkcyjnej i wykonanych transakcji testowych |
 | WWW | [Strona EN w Firebase](https://outlinego-27ab5.web.app/) opublikowana; dokumenty prawne nadal oznaczone jako robocze |
 
-Nazwa pliku i niezmieniony versionCode nie identyfikują konkretnego przyrostu. Do porównania paczek używać hasha i commita źródeł. Lokalny raport ostatniego APK: `artifacts/outlineGo-0.1.0-apk-verification.json`.
+Nazwa pliku i niezmieniony versionCode nie identyfikują konkretnego przyrostu. Do porównania paczek używać hasha i commita źródeł. Lokalny raport ostatniego APK: `artifacts/outlineGo-0.1.0-apk-verification.json`. Podpis v2 release potwierdzony przez apksigner; certyfikat SHA256 `8b7dd20f60c62a205c5b66c4c155016b7b9e1b455afc5a6048a1806c622de076`. Log: `artifacts/build-apk-2026-10-23.log`. Instalacja i start nie potwierdzają działania zgód, wysyłania Sentry, zakupów ani sensorów.
 
 ## Zgody i prywatność
 
@@ -27,8 +27,8 @@ Nazwa pliku i niezmieniony versionCode nie identyfikują konkretnego przyrostu. 
 
 ## Najbliższe kroki
 
-1. Przywrócić prawidłowy publiczny klucz licencyjny Google Play w `_private/google-play-public-key.txt`. Podczas ostatniego sprawdzenia nie przechodził walidacji RSA DER/base64, co blokuje ewaluację konfiguracji/prebuild. Nie omijano tego sprawdzenia.
-2. Zbudować i zainstalować nowe APK z Sentry oraz ekranem akceptacji. Zweryfikować nową instalację, aktualizację z zachowaniem szkiców, linki, zapis/odtworzenie akceptacji, ponowienie po zmianie wersji i błąd zapisu.
+1. Publiczny klucz Google Play w `_private/google-play-public-key.txt` jest poprawnym kluczem RSA; 23.10.2026 użytkownik potwierdził, że pochodzi z właściwej aplikacji. Wcześniejsza blokada walidacji jest rozwiązana. Nie zmieniano klucza ani nie omijano sprawdzenia.
+2. APK z Sentry, ekranem akceptacji i automatycznym zapisem notatek zbudowano i zainstalowano. Aktualizacja nie odinstalowuje ani nie czyści danych; nie sprawdzano zawartości szkiców w UI. Wykonać test funkcjonalny: dostępność wcześniejszych szkiców, zapis notatek, linki, zapis/odtworzenie akceptacji, ponowienie po zmianie wersji, błąd zapisu i osobno nowa instalacja bez czyszczenia telefonu użytkownika.
 3. Sprawdzić Sentry na urządzeniu: brak wysyłek przed zgodą, raport po zgodzie, odwołanie zgody i brak zaległych wysyłek. Potwierdzić retencję/IP oraz upload sourcemap i czytelność stosów. Do uploadu potrzebny jest prywatny token w środowisku procesu/CI i slug projektu; DSN jest publiczną konfiguracją klienta.
 4. Zatwierdzić dokumenty prawne i ich daty obowiązywania. Przed wydaniem z raportowaniem scalić [przygotowany opis Sentry](legal/sentry-privacy-addendum.en.md) oraz zaktualizować Google Play Data safety. Opublikowana polityka opisuje dotychczasowy build bez Sentry; lokalne źródła strony mogą wyprzedzać ostatni deploy.
 5. Wykonać transakcje i przywracanie Plus w Google Play, pozostałe próby pomiarów/eksportów oraz przygotować materiały sklepowe. Światowa dystrybucja jest zamiarem; potwierdzona wcześniej konfiguracja produktu dotyczyła Polski.

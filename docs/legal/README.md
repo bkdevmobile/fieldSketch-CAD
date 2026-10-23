@@ -2,7 +2,7 @@
 
 [Aktualny stan kodu, paczek i publikacji](../stan-projektu.md). Potwierdzenie regulaminu w kodzie nie zmienia roboczego statusu dokumentów WWW.
 
-Stan: 22 października 2026. Stronę opublikowano w istniejącym projekcie Firebase. Dokumenty są robocze. W źródłach aplikacji podłączono opcjonalne raportowanie błędów JS do DSN EU; serwer przyjął syntetyczne zdarzenie z testu na komputerze. Nowy build na telefonie i retencja nadal wymagają sprawdzenia. Publiczna polityka opisuje dotychczasowy build bez Sentry; tekst do jej aktualizacji przed wydaniem znajduje się poniżej.
+Stan: 23 października 2026. Stronę opublikowano w istniejącym projekcie Firebase. Dokumenty są robocze. W źródłach aplikacji podłączono opcjonalne raportowanie błędów JS do DSN EU; serwer przyjął syntetyczne zdarzenie z testu na komputerze. APK z Sentry zainstalowano i uruchomiono na Redmi 23.10.2026; działanie zgód i raportowania oraz retencja nadal wymagają sprawdzenia. Publiczna polityka opisuje wcześniejszy build bez Sentry; tekst do jej aktualizacji przed wydaniem znajduje się poniżej.
 
 - [Strona About](../../public/index.html) — EN, aktualne Free/Plus, Google Play oznaczony jako coming soon.
 - [Polityka prywatności](../../public/privacy.html) — robocza, dla obecnego kodu bez Sentry.

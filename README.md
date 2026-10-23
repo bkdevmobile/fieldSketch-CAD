@@ -6,11 +6,11 @@ Długości można wpisać w m/cm/ft/in albo oszacować krokami. Kierunek jest wz
 
 Free: do 3 szkiców i 8 punktów z P1, PNG ze znakiem wodnym. Jednorazowy Plus przez Google Play usuwa te limity i znak wodny oraz odblokowuje DXF. Cena i dostępność zależą od konfiguracji sklepu; testy transakcji pozostają otwarte.
 
-## Stan na 22 października 2026
+## Stan na 23 października 2026
 
-Kod funkcjonalny: **6f9a305**. TypeScript i **183 testy w 24 zestawach** przeszły. W źródłach są opcjonalne Sentry, pytanie o zgodę po błędzie i ekran pierwszego uruchomienia z akceptacją regulaminu oraz ograniczeń pomiarów. Te funkcje wymagają nowego buildu i próby na telefonie.
+Kod ostatniego APK: **8365dca**. TypeScript i **183 testy w 24 zestawach** przeszły. W źródłach są opcjonalne Sentry, pytanie o zgodę po błędzie i ekran pierwszego uruchomienia z akceptacją regulaminu oraz ograniczeń pomiarów. Nowy APK zawiera te funkcje oraz automatyczny zapis notatek; został zainstalowany i uruchomiony na Redmi. Odbiór funkcjonalny na telefonie pozostaje otwarty.
 
-Ostatni podpisany APK z UI, zainstalowany na Redmi, pochodzi z **0b39f9f** i nie zawiera Sentry ani ekranu akceptacji. Nowy prebuild blokuje obecnie nieprawidłowy lokalny publiczny klucz licencyjny Google Play. AAB jest starszy od obecnych źródeł. [Aktualny stan, hash APK i pozostałe prace](docs/stan-projektu.md).
+Podpisany APK z 23.10.2026 pochodzi z **8365dca**. Publiczny klucz Google Play przechodzi walidację RSA, a użytkownik potwierdził zgodność z aplikacją. AAB jest starszy od obecnych źródeł. [Aktualny stan, hash APK i pozostałe prace](docs/stan-projektu.md).
 
 Pomiar działa offline. Zakupy i przywracanie korzystają z Google Play, a dobrowolne raportowanie błędów JS z Sentry. Raportowanie jest domyślnie wyłączone, wymaga osobnej zgody i nie obejmuje treści szkiców ani lokalnych logów pomiarowych. Potwierdzenie regulaminu nie udziela zgody na diagnostykę. Ekrany przeglądania i eksportu logów usunięto.
 

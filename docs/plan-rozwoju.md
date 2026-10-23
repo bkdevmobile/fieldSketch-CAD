@@ -1,6 +1,6 @@
 # Ogólny plan rozwoju outlineGo
 
-Stan na **22 października 2026**: aplikacja 0.1.0 / versionCode 2, kod funkcjonalny 6f9a305. TypeScript i 183 testy w 24 zestawach przeszły. UI jest w ostatnim zainstalowanym APK; Sentry i ekran akceptacji wymagają nowego buildu. WWW opublikowane, dokumenty robocze; brak potwierdzenia produkcji w Google Play. [Aktualny stan](stan-projektu.md), [historia](../MEMO.md).
+Stan na **23 października 2026**: aplikacja 0.1.0 / versionCode 2, kod APK 8365dca. TypeScript i 183 testy w 24 zestawach przeszły. APK z Sentry, ekranem akceptacji i automatycznym zapisem notatek zbudowano, zainstalowano i uruchomiono na Redmi; pozostał odbiór funkcjonalny. AAB jest starszy. WWW opublikowane, dokumenty robocze; brak potwierdzenia produkcji w Google Play. [Aktualny stan](stan-projektu.md), [historia](../MEMO.md).
 
 ## Etapy
 
@@ -33,6 +33,8 @@ Zakup i przywracanie Plus za 29,99 zł jednorazowo są podłączone przez Google
 
 ## Prace przed release
 
+- Zweryfikować w Play Console dostęp do produkcji i ewentualny wymóg testu zamkniętego dla konta osobistego utworzonego po 13.11.2023: minimum 12 testerów zapisanych nieprzerwanie przez 14 dni oraz wniosek o dostęp do produkcji. Sam test wewnętrzny nie spełnia tego wymogu. Status konta nie został potwierdzony. [Wymagania Google](https://support.google.com/googleplay/android-developer/answer/14151465).
+- Domknąć formularze Play Console: Data safety zgodne z wydaniem i Sentry, klasyfikacja wiekowa, grupa docelowa, deklaracja reklam, dostęp dla recenzentów, kraje dystrybucji i dostępność/ceny Plus. Przygotować aktualny podpisany AAB z numerem wersji akceptowanym przez Console i przejrzeć raport testów przedpremierowych.
 - Przygotować materiały do prezentacji aplikacji w Google Play: nazwę, krótki i pełny opis, zrzuty ekranów, grafikę promocyjną oraz wersje językowe. Sprawdzić spójność materiałów z aktualnymi funkcjami i zasadami Free/Plus.
 - Strona WWW EN i robocze dokumenty prawne opublikowane w istniejącym projekcie Firebase. Przejrzeć dane wydawcy, zatwierdzić treści i daty oraz przed wydaniem z Sentry opublikować odpowiednią aktualizację. [Status i kwestie do sprawdzenia](legal/README.md).
 - Dokończyć weryfikację opcjonalnego raportowania błędów Sentry: DSN EU podłączony, serwer przyjął zdarzenie testowe z komputera (HTTP 200); pozostały test nowego buildu na telefonie, symbolikacja i potwierdzenie ustawień IP/retencji do 30 dni. Natywne awarie wyłączone. [Stan wdrożenia](technical/sentry.md), [decyzje](legal/sentry-plan.md).
@@ -51,4 +53,4 @@ Solver sieci, przekątne kontrolne, edytor ograniczeń i migracja SDK pozostają
 
 ## Potwierdzony stan i instalacje
 
-[Stan projektu](stan-projektu.md) rozdziela bieżące źródła od ostatniego APK/AAB i publikacji WWW. Sentry i akceptacja warunków wymagają nowego APK oraz prób na urządzeniu. Wcześniejsze wyniki testów natywnych i instalacji opisuje [MEMO](../MEMO.md).
+[Stan projektu](stan-projektu.md) rozdziela bieżące źródła od ostatniego APK/AAB i publikacji WWW. APK z Sentry i akceptacją warunków zainstalowano i uruchomiono 23.10; próby funkcjonalne na urządzeniu pozostają otwarte. Wcześniejsze wyniki testów natywnych i instalacji opisuje [MEMO](../MEMO.md).

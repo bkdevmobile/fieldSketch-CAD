@@ -1,6 +1,6 @@
 # Aplikacja outlineGo
 
-Stan źródeł: **22 października 2026**, commit funkcjonalny **6f9a305**, wersja 0.1.0 / versionCode 2, pakiet com.bk.dev.mobile.outlinego. TypeScript i **183 testy w 24 zestawach** przechodzą. [Stan kodu, APK/AAB i publikacji](../docs/stan-projektu.md).
+Stan źródeł: **23 października 2026**, kod APK **8365dca**, wersja 0.1.0 / versionCode 2, pakiet com.bk.dev.mobile.outlinego. TypeScript i **183 testy w 24 zestawach** przechodzą. [Stan kodu, APK/AAB i publikacji](../docs/stan-projektu.md).
 
 React Native 0.85.3, Expo SDK 56, TypeScript i lokalne moduły Expo/Kotlin do sensorów oraz Google Play Billing. Zależności i ich wersje rozwiązuje package-lock.json. Expo Go nie obsługuje pełnej aplikacji z tymi modułami.
 
@@ -15,11 +15,11 @@ npm test
 npm run build:apk
 ```
 
-Build wymaga plików _private/outlinego-release.p12, _private/release-signing.json i prawidłowego publicznego klucza licencyjnego _private/google-play-public-key.txt. Dane podpisu są przekazywane przez środowisko procesu, nie w argumentach. **Ostatnio plik publicznego klucza nie przechodził walidacji RSA DER/base64; przed prebuildem trzeba go przywrócić.** Nie zastępować podpisu release kluczem debug ani nie pomijać walidacji.
+Build wymaga plików _private/outlinego-release.p12, _private/release-signing.json i prawidłowego publicznego klucza licencyjnego _private/google-play-public-key.txt. Dane podpisu są przekazywane przez środowisko procesu, nie w argumentach. **23.10.2026 klucz przeszedł walidację RSA DER/base64, a użytkownik potwierdził jego zgodność z aplikacją w Play Console.** Nie zastępować podpisu release kluczem debug ani nie pomijać walidacji.
 
 APK jest kopiowany do artifacts/outlineGo-0.1.0.apk w katalogu repozytorium; zawiera JavaScript i działa bez Metro. Domyślne architektury: arm64-v8a i x86_64. npm run build:aab tworzy paczkę do Google Play. Pliki _private, wygenerowany Android i artefakty są ignorowane przez Git. [Zakupy, Console i podpisywanie](../docs/technical/zakupy-google-play.md).
 
-Ostatni zainstalowany APK pochodzi z 0b39f9f i zawiera poprawki UI. Sentry i pierwszy ekran akceptacji są nowsze; nie przetestowano ich w nowym APK ani na telefonie. Nie przebudowano AAB po tych zmianach. Historyczne wyniki natywne nie są weryfikacją obecnego buildu.
+APK z 8365dca zbudowano 23.10.2026 (BUILD SUCCESSFUL in 2m 35s), zweryfikowano podpis release, zainstalowano na Redmi przez `install -r` i uruchomiono (Success / Status: ok). Zawiera Sentry, ekran akceptacji i automatyczny zapis notatek. Zadania testów Kotlin były UP-TO-DATE; raporty obejmują 7 testów orientacji i 11 billing bez błędów. Instalacja nie zastępuje testu funkcjonalnego. AAB nie przebudowano. Log: `artifacts/build-apk-2026-10-23.log`.
 
 ## Aktualne funkcje
 

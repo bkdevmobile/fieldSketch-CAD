@@ -1,6 +1,6 @@
 # Sentry — raportowanie błędów
 
-Stan: 22.10.2026. **DSN EU podłączony; serwer przyjął syntetyczne zdarzenie testowe (HTTP 200).** Organizacja: `bartosz-kaminski`, projekt ID: `4512301597851728`. Kod onboardingowy nie jest DSN ani tokenem API i nie jest zapisywany w repozytorium. Nie potwierdzono jeszcze działania w nowym buildzie na telefonie ani widoczności zdarzenia w panelu.
+Stan: 23.10.2026. **DSN EU podłączony; serwer przyjął syntetyczne zdarzenie testowe (HTTP 200).** Organizacja: `bartosz-kaminski`, projekt ID: `4512301597851728`. Kod onboardingowy nie jest DSN ani tokenem API i nie jest zapisywany w repozytorium. Nie potwierdzono jeszcze działania w nowym buildzie na telefonie ani widoczności zdarzenia w panelu.
 
 ## Działanie
 
@@ -19,10 +19,10 @@ Stan: 22.10.2026. **DSN EU podłączony; serwer przyjął syntetyczne zdarzenie 
 ## Dokończenie konfiguracji
 
 1. DSN przekazany przez użytkownika jest już ustawiony w `app/sentry.config.cjs`. Prywatny Auth/Security token nie jest potrzebny do samego wysyłania zdarzeń i nie należy przekazywać go w czacie.
-2. Zbudować nową aplikację. DSN jest osadzany w buildzie; zmiana konfiguracji nie zmienia zainstalowanego APK. Obsługiwany format: `https://<public-key>@o<org-id>.ingest.de.sentry.io/<project-id>`.
+2. APK z 8365dca zbudowano, zainstalowano i uruchomiono na Redmi 23.10.2026; odbiór raportowania na telefonie pozostaje otwarty. DSN jest osadzany w buildzie; zmiana konfiguracji nie zmienia zainstalowanego APK. Obsługiwany format: `https://<public-key>@o<org-id>.ingest.de.sentry.io/<project-id>`.
 3. Potwierdzić w Sentry faktyczny region, ustawienia IP i retencję **do 30 dni**. Nie skonfigurowano ich z tego środowiska. Przyjęta retencja jest wymaganiem do spełnienia przed wydaniem, nie stanem konta potwierdzonym przez kod.
 4. Zmapować build: Metro dodaje debug ID. Jeśli przy prebuildzie są ustawione `SENTRY_AUTH_TOKEN` i `SENTRY_PROJECT` (slug rzeczywistego projektu), oficjalny plugin Expo przygotowuje upload sourcemap w Gradle dla organizacji `bartosz-kaminski`. Token wyłącznie w środowisku procesu/CI, nigdy w `extra`, DSN, `EXPO_PUBLIC_*` ani repozytorium. Bez tych zmiennych upload nie jest włączany; samo wysyłanie błędów może działać, lecz czytelność stosów wymaga weryfikacji.
-5. Zainstalować build testowy. Przed zgodą potwierdzić brak ruchu Sentry. Po zgodzie wywołać kontrolowany wyjątek bez danych użytkownika i potwierdzić zdarzenie oraz czytelny stos w panelu. Sprawdzić cofnięcie zgody przy trwającej wysyłce i restart aplikacji. Nie zostawiać przycisku generowania błędów w produkcyjnym UI.
+5. Build testowy jest zainstalowany na Redmi. Przed zgodą potwierdzić brak ruchu Sentry. Po zgodzie wywołać kontrolowany wyjątek bez danych użytkownika i potwierdzić zdarzenie oraz czytelny stos w panelu. Sprawdzić cofnięcie zgody przy trwającej wysyłce i restart aplikacji. Nie zostawiać przycisku generowania błędów w produkcyjnym UI.
 6. Przed publikacją zaktualizować politykę z [przygotowanym tekstem](../legal/sentry-privacy-addendum.en.md), deklarację Data safety i dane procesora/DPA. Na stronie publicznej nadal obowiązuje opis obecnego builda bez Sentry.
 
 ## Weryfikacja i ograniczenia
@@ -31,8 +31,8 @@ Testy obejmują brak inicjalizacji przed zgodą, odrzucanie DSN poza EU, filtrow
 
 Test sieciowy: 22.10.2026 o 21:54 czasu polskiego. Serwer przyjął zdarzenie `d9b4915fa9e24bc180e49047ce3e4a20`, środowisko `development`, HTTP 200 z potwierdzeniem tego samego ID. Raport lokalny: `artifacts/sentry-connection-check.json`. Test wykonał faktyczny moduł filtrowania i transportu aplikacji z klientem Sentry JavaScript w Node, z zastępczym kontekstem urządzenia oznaczonym jako testowy. To weryfikacja połączenia i przyjęcia danych przez serwer, **nie test środowiska React Native/telefonu, symbolikacji stosu ani widoczności w panelu Sentry**. Nie wysyłano danych użytkownika.
 
-Przy instalacji pakietu `expo install` zainstalował zależności, lecz etap ewaluacji configu przerwał istniejący plugin `with-release.cjs`: lokalny `_private/google-play-public-key.txt` nie zawiera poprawnego klucza RSA DER/base64. Nie zmieniano tego pliku ani nie omijano walidacji w aplikacji. Trzeba przywrócić prawidłowy publiczny klucz licencyjny przed prebuildem/budowaniem. Testy pluginu mają teraz własny klucz testowy w pamięci i nie zależą od lokalnego `_private`.
+Historycznie ewaluację konfiguracji blokował lokalny klucz Google Play. 23.10.2026 klucz przeszedł walidację RSA, użytkownik potwierdził zgodność z aplikacją, a prebuild i build APK zakończyły się poprawnie. Nie zmieniano klucza ani nie omijano walidacji. Testy pluginu używają własnego klucza testowego w pamięci.
 
-Nie wykonano nowego APK, instalacji ani natywnego prebuilda. Nie zmieniano konfiguracji konta Sentry ani formularza Google Play. Test serwera nie potwierdza retencji ani ustawień przetwarzania IP.
+23.10.2026 wykonano prebuild i podpisany APK z 8365dca oraz aktualizację i start na Redmi. To nie potwierdza wysyłania raportów, poprawności zgód ani symbolikacji. Nie zmieniano konfiguracji konta Sentry ani formularza Google Play. Test serwera nie potwierdza retencji ani ustawień przetwarzania IP.
 
 Źródła: [Expo](https://docs.expo.dev/guides/using-sentry/), [Sentry Expo](https://docs.sentry.io/platforms/react-native/guides/expo/), [zakres danych](https://docs.sentry.io/platforms/react-native/data-management/data-collected/), [filtrowanie raportów natywnych](https://sentry.zendesk.com/hc/en-us/articles/26323481356443-How-to-filter-native-events-in-React-Native-SDK).

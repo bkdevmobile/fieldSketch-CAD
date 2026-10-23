@@ -1,6 +1,6 @@
 # Dokumentacja outlineGo
 
-Stan dokumentacji: **22 października 2026**, aplikacja 0.1.0 / versionCode 2, kod funkcjonalny **6f9a305**. Weryfikacja: TypeScript i 183 testy w 24 zestawach. Ostatni zainstalowany APK jest starszy od Sentry i ekranu akceptacji; strona WWW została opublikowana, dokumenty prawne są robocze. Bieżące fakty, hashe i pozostałe prace: [aktualny stan projektu](stan-projektu.md).
+Stan dokumentacji: **23 października 2026**, aplikacja 0.1.0 / versionCode 2, kod APK **8365dca**. TypeScript i 183 testy w 24 zestawach przeszły. Nowy podpisany APK z Sentry, ekranem akceptacji i automatycznym zapisem notatek zainstalowano i uruchomiono na Redmi; testy funkcjonalne pozostają otwarte. AAB jest starszy. WWW opublikowane, dokumenty prawne robocze. [Aktualny stan projektu](stan-projektu.md).
 
 ## Obsługa i funkcje
 

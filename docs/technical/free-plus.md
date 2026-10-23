@@ -1,6 +1,6 @@
 # outlineGo — zasady Free / Plus
 
-Aktualizacja 22.10.2026: bieżące źródła i 183 testy nie oznaczają nowego APK/AAB ani wykonanych transakcji. Ostatni lokalny publiczny klucz Google Play nie przechodzi walidacji, co blokuje nowy prebuild; wcześniejsze potwierdzenia klucza i paczek są historyczne. [Aktualny stan i pozostałe prace](../stan-projektu.md).
+Aktualizacja 23.10.2026: publiczny klucz Google Play przechodzi walidację RSA, a użytkownik potwierdził jego zgodność z aplikacją. Wcześniejsza blokada prebuilda jest rozwiązana. Zakup i przywracanie wymagają testów sklepowych. [Aktualny stan paczek i pozostałe prace](../stan-projektu.md).
 
 Status: zasady zaakceptowane przez użytkownika 20 października 2026. W kodzie są limity Free, znak wodny PNG, bramka DXF oraz integracja zakupu, przywracania i trwałego uprawnienia Plus. Uruchomienie sprzedaży wymaga konfiguracji Play Console i testów sklepowych. [Konfiguracja i odbiór zakupów](zakupy-google-play.md).
 
