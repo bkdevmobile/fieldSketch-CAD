@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-23",
+  "maxBytes": 8000000,
+  "devices": [
+    {
+      "device": "Telefon",
+      "minSide": 320,
+      "maxSide": 3840,
+      "count": 2,
+      "files": [
+        {
+          "file": "screenshots/phone/01-z-terenu-do-cad-1080x1920.png",
+          "width": 1080,
+          "height": 1920,
+          "aspectRatio": "9:16",
+          "format": "PNG RGB 24-bit",
+          "bytes": 3253538,
+          "under8MB": true
+        },
+        {
+          "file": "screenshots/phone/02-zaplanuj-przestrzen-1080x1920.png",
+          "width": 1080,
+          "height": 1920,
+          "aspectRatio": "9:16",
+          "format": "PNG RGB 24-bit",
+          "bytes": 2945795,
+          "under8MB": true
+        }
+      ]
+    },
+    {
+      "device": "Tablet 7 cali",
+      "minSide": 320,
+      "maxSide": 3840,
+      "count": 2,
+      "files": [
+        {
+          "file": "screenshots/tablet-7/01-z-terenu-do-cad-1080x1920.png",
+          "width": 1080,
+          "height": 1920,
+          "aspectRatio": "9:16",
+          "format": "PNG RGB 24-bit",
+          "bytes": 3253538,
+          "under8MB": true
+        },
+        {
+          "file": "screenshots/tablet-7/02-zaplanuj-przestrzen-1080x1920.png",
+          "width": 1080,
+          "height": 1920,
+          "aspectRatio": "9:16",
+          "format": "PNG RGB 24-bit",
+          "bytes": 2945795,
+          "under8MB": true
+        }
+      ]
+    },
+    {
+      "device": "Tablet 10 cali",
+      "minSide": 1080,
+      "maxSide": 7680,
+      "count": 2,
+      "files": [
+        {
+          "file": "screenshots/tablet-10/01-z-terenu-do-cad-1080x1920.png",
+          "width": 1080,
+          "height": 1920,
+          "aspectRatio": "9:16",
+          "format": "PNG RGB 24-bit",
+          "bytes": 3253538,
+          "under8MB": true
+        },
+        {
+          "file": "screenshots/tablet-10/02-zaplanuj-przestrzen-1080x1920.png",
+          "width": 1080,
+          "height": 1920,
+          "aspectRatio": "9:16",
+          "format": "PNG RGB 24-bit",
+          "bytes": 2945795,
+          "under8MB": true
+        }
+      ]
+    }
+  ]
+}

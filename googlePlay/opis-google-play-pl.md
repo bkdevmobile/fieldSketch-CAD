@@ -1,0 +1,34 @@
+# Opisy outlineGo do Google Play
+
+## Krótki opis
+
+Orientacyjne pomiary i szkice 2D ogrodu lub wnętrza, z wymiarami i notatkami.
+
+## Pełny opis
+
+outlineGo pomaga zamienić orientacyjne pomiary ogrodu, tarasu lub pomieszczenia w szkic 2D z wymiarami. Przygotuj zarys przestrzeni przed zmianą aranżacji, zapisz potrzebne długości i dodaj notatkę. Szkice przechowujesz lokalnie na telefonie, a pomiary wykonujesz także bez internetu.
+
+OD POMIARU DO SZKICU
+Wyznacz kierunek kolejnego boku, podaj jego długość i zapisz punkt. Kierunek możesz określić za pomocą czujników telefonu lub wpisać ręcznie. Długość wpiszesz samodzielnie albo oszacujesz krokami, korzystając z krokomierza i ustawionej długości kroku. Kamera pomaga celować w kolejny punkt.
+
+WYMIARY I NOTATKI
+Oglądaj szkic podczas pomiaru, powiększaj go i dopasowuj widok. Zmieniaj zapisane długości i kąty, ponawiaj pomiar wybranego boku oraz uzupełniaj notatki. Możesz pozostawić obrys otwarty lub go zamknąć. Aplikacja pokazuje długość trasy lub obwód, a dla poprawnego zamkniętego obrysu także pole.
+
+PNG I DXF
+Udostępnij szkic z wymiarami jako obraz PNG. W outlineGo Plus możesz również wyeksportować plik DXF do dalszej pracy w programie CAD. Szkic, opisy i notatka pomagają zachować kontekst pomiaru.
+
+LOKALNIE I W WYBRANYCH JEDNOSTKACH
+• Pomiar i zapis szkiców działają offline, bez konta outlineGo.
+• Możesz wrócić do zapisanego szkicu i kontynuować pracę.
+• Dostępne jednostki to metry, centymetry, stopy i cale.
+• Ważne szkice przypniesz na liście, aby łatwiej do nich wrócić.
+• Interfejs jest dostępny po polsku, angielsku, niemiecku, hiszpańsku i francusku.
+• Wybierzesz motyw jasny, ciemny lub zgodny z ustawieniami telefonu.
+
+FREE I PLUS
+Wersja Free pozwala przechowywać do 3 szkiców, każdy do 8 punktów łącznie z punktem początkowym. Eksport PNG zawiera znak wodny. Notatki i korekty wymiarów są dostępne także w Free.
+
+outlineGo Plus to jednorazowy zakup w aplikacji, bez abonamentu. Usuwa limity liczby szkiców i punktów, usuwa znak wodny z PNG oraz odblokowuje eksport DXF. Cena jest widoczna w Google Play. Zakup i przywracanie wymagają połączenia z internetem.
+
+CHARAKTER POMIARÓW
+outlineGo służy do orientacyjnych, nieprofesjonalnych pomiarów i szkiców pomocniczych. Wyniki zależą od czujników telefonu, otoczenia, sposobu celowania i wprowadzonych danych. Długości wyznaczone krokami są szacunkowe. Aplikacja nie zastępuje pomiarów geodezyjnych ani profesjonalnej dokumentacji. Ważne wymiary sprawdź odpowiednim narzędziem przed zakupem materiałów lub rozpoczęciem prac.

@@ -1,0 +1,13 @@
+{
+  "language": "pl-PL",
+  "short": {
+    "characters": 77,
+    "limit": 80
+  },
+  "full": {
+    "characters": 2401,
+    "limit": 4000
+  },
+  "countIncludes": "spaces and line breaks",
+  "requirementsSource": "https://support.google.com/googleplay/android-developer/answer/9859152?hl=pl"
+}

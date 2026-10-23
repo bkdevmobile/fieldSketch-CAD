@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-23",
+  "files": [
+    {
+      "file": "screenshots/portrait/01-z-terenu-do-cad-1080x1920.png",
+      "width": 1080,
+      "height": 1920,
+      "format": "png",
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 3253538
+    },
+    {
+      "file": "screenshots/landscape/01-z-terenu-do-cad-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "format": "png",
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 3323361
+    },
+    {
+      "file": "feature-graphic/01-z-terenu-do-cad-1024x500.png",
+      "width": 1024,
+      "height": 500,
+      "format": "png",
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 1021194
+    },
+    {
+      "file": "screenshots/portrait/02-zaplanuj-przestrzen-1080x1920.png",
+      "width": 1080,
+      "height": 1920,
+      "format": "png",
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 2945795
+    },
+    {
+      "file": "screenshots/landscape/02-zaplanuj-przestrzen-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "format": "png",
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 2744235
+    },
+    {
+      "file": "feature-graphic/02-zaplanuj-przestrzen-1024x500.png",
+      "width": 1024,
+      "height": 500,
+      "format": "png",
+      "channels": 3,
+      "hasAlpha": false,
+      "bytes": 852581
+    },
+    {
+      "file": "icon/outlineGo-512x512.png",
+      "width": 512,
+      "height": 512,
+      "format": "png",
+      "channels": 4,
+      "hasAlpha": true,
+      "bytes": 23185
+    }
+  ]
+}

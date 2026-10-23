@@ -1,0 +1,86 @@
+{
+  "language": "en",
+  "maxBytes": 8000000,
+  "files": [
+    {
+      "file": "screenshots/phone/01-from-field-to-cad-1080x1920.png",
+      "width": 1080,
+      "height": 1920,
+      "format": "PNG RGB 24-bit",
+      "hasAlpha": false,
+      "bytes": 3292202
+    },
+    {
+      "file": "screenshots/tablet-7/01-from-field-to-cad-1080x1920.png",
+      "width": 1080,
+      "height": 1920,
+      "format": "PNG RGB 24-bit",
+      "hasAlpha": false,
+      "bytes": 3292202
+    },
+    {
+      "file": "screenshots/tablet-10/01-from-field-to-cad-1080x1920.png",
+      "width": 1080,
+      "height": 1920,
+      "format": "PNG RGB 24-bit",
+      "hasAlpha": false,
+      "bytes": 3292202
+    },
+    {
+      "file": "screenshots/landscape/01-from-field-to-cad-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "format": "PNG RGB 24-bit",
+      "hasAlpha": false,
+      "bytes": 3282499
+    },
+    {
+      "file": "feature-graphic/01-from-field-to-cad-1024x500.png",
+      "width": 1024,
+      "height": 500,
+      "format": "PNG RGB 24-bit",
+      "hasAlpha": false,
+      "bytes": 1015166
+    },
+    {
+      "file": "screenshots/phone/02-plan-your-space-1080x1920.png",
+      "width": 1080,
+      "height": 1920,
+      "format": "PNG RGB 24-bit",
+      "hasAlpha": false,
+      "bytes": 2954782
+    },
+    {
+      "file": "screenshots/tablet-7/02-plan-your-space-1080x1920.png",
+      "width": 1080,
+      "height": 1920,
+      "format": "PNG RGB 24-bit",
+      "hasAlpha": false,
+      "bytes": 2954782
+    },
+    {
+      "file": "screenshots/tablet-10/02-plan-your-space-1080x1920.png",
+      "width": 1080,
+      "height": 1920,
+      "format": "PNG RGB 24-bit",
+      "hasAlpha": false,
+      "bytes": 2954782
+    },
+    {
+      "file": "screenshots/landscape/02-plan-your-space-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "format": "PNG RGB 24-bit",
+      "hasAlpha": false,
+      "bytes": 2758898
+    },
+    {
+      "file": "feature-graphic/02-plan-your-space-1024x500.png",
+      "width": 1024,
+      "height": 500,
+      "format": "PNG RGB 24-bit",
+      "hasAlpha": false,
+      "bytes": 856658
+    }
+  ]
+}

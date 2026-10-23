@@ -5,11 +5,13 @@
 Stan: 23 października 2026. Stronę opublikowano w istniejącym projekcie Firebase. Dokumenty są robocze. W źródłach aplikacji podłączono opcjonalne raportowanie błędów JS do DSN EU; serwer przyjął syntetyczne zdarzenie z testu na komputerze. APK z Sentry zainstalowano i uruchomiono na Redmi 23.10.2026; działanie zgód i raportowania oraz retencja nadal wymagają sprawdzenia. Publiczna polityka opisuje wcześniejszy build bez Sentry; tekst do jej aktualizacji przed wydaniem znajduje się poniżej.
 
 - [Strona About](../../public/index.html) — EN, aktualne Free/Plus, Google Play oznaczony jako coming soon.
-- [Polityka prywatności](../../public/privacy.html) — robocza, dla obecnego kodu bez Sentry.
+- [Polityka prywatności](../../public/privacy.html) — lokalny projekt z 23.10.2026 uwzględnia Sentry za zgodą, odbiorców, transfery, retencję i prawa użytkownika. Retencja do 30 dni oraz serwerowa obsługa IP wymagają potwierdzenia; projekt nie deklaruje ich jako sprawdzonych ustawień.
 - [Regulamin](../../public/terms.html) — roboczy.
 - [Ograniczenia pomiarów](../../public/measurement-notice.html) — także propozycja potwierdzenia na start aplikacji.
 - [Plan Sentry](sentry-plan.md) i [stan integracji](../technical/sentry.md).
-- [Treść polityki dla wydania z Sentry](sentry-privacy-addendum.en.md) — do scalenia po potwierdzeniu konfiguracji, przed wydaniem aplikacji z raportowaniem.
+- [Wcześniejszy projekt sekcji Sentry](sentry-privacy-addendum.en.md) — wykorzystany przy aktualizacji lokalnego `public/privacy.html`; nie zastępuje pełnej polityki ani potwierdzenia konfiguracji usługi.
+
+Aktualizacja lokalnych dokumentów 23.10.2026: w `public/privacy.html` opisano zgodę, jednorazowe pytanie po błędzie, zakres i filtrowanie raportów, odwołanie zgody, brak kolejki dyskowej, obsługę IP oraz odbiorców i transfery. `public/terms.html` rozdziela regionalną dostępność aplikacji i Plus, lokalne szkice i przywracanie zakupu oraz akceptację ograniczeń i prawa konsumenta. `public/measurement-notice.html` doprecyzowuje kroki, wyliczony bok zamknięcia, CAD i bezpieczeństwo. Zachowano Draft i noindex; daty obowiązywania, niepotwierdzonych danych wydawcy i konfiguracji usług nie wymyślano. Nie wykonano deployu Firebase. Status strony opublikowanej i lokalnych źródeł trzeba odróżniać.
 
 Źródłem treści opublikowanych dokumentów są pliki HTML. Hosting zachowuje istniejące `firebase.json`, katalog `public` i projekt `outlinego-27ab5`. Usunięto skrypty Firebase z domyślnej strony; statyczna strona nie wymaga SDK ani analityki. Logo pochodzi z aplikacji. Dane wydawcy występują w dokumentach prawnych, nie w treści marketingowej strony głównej. W polityce dane administratora przeniesiono na koniec, z odnośnikiem na początku.
 
