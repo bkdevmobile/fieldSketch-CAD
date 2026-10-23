@@ -1,5 +1,7 @@
 # Zakup outlineGo Plus i wydanie Android
 
+Aktualizacja 22.10.2026: bieżące źródła i 183 testy nie oznaczają nowego APK/AAB ani wykonanych transakcji. Ostatni lokalny publiczny klucz Google Play nie przechodzi walidacji, co blokuje nowy prebuild; wcześniejsze potwierdzenia klucza i paczek są historyczne. [Aktualny stan i pozostałe prace](../stan-projektu.md).
+
 ## Konfiguracja produktu
 
 - Pakiet sklepu: `com.bk.dev.mobile.outlinego`, nazwa outlineGo.

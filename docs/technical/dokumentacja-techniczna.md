@@ -1,10 +1,10 @@
 # Dokumentacja techniczna outlineGo
 
-Data: 21 października 2026. Aplikacja 0.1.0, versionCode 2, pakiet `com.bk.dev.mobile.outlinego`. Podpisany APK release działa na Redmi; kod zawiera dodatkowo nowszą poprawkę widoku DXF, jeszcze bez nowego APK. Sekcje o ograniczeniach i solverze opisują architekturę docelową. [Artefakty i instalacje](../../MEMO.md).
+Data: **22 października 2026**. Aplikacja 0.1.0 / versionCode 2, kod funkcjonalny 6f9a305. Bieżąca weryfikacja: TypeScript i 183 testy w 24 zestawach. [Stan źródeł i paczek](../stan-projektu.md); [historia instalacji](../../MEMO.md). Sekcje architektury docelowej poniżej nie oznaczają realizacji całego P0/P1.
 
 ## Aktualny zakres implementacji
 
-Kod w `app/` realizuje wizard pomiaru, kamerę, trzy globalne tryby kierunku, ręczne m/cm i natywny krokomierz Start/Stop, projekty i formularze SQLite v3, cofanie, korekty zapisanych boków z historią, zamknięcie, pole i obwód, PNG, DXF, notatki, przypinanie oraz trwałe logi JSONL/CSV. Interfejs działa w PL/EN/DE/ES/FR. Wdrożono limity Free, bramkę DXF, zakup/przywracanie przez Google Play Billing oraz trwałe uprawnienie Plus offline. Testy transakcji pozostają otwarte. Przekątne kontrolne, edytor ograniczeń i solver sieci pozostają zakresem docelowym. [Instrukcja](prototyp.md), [Free/Plus](free-plus.md), [edycja szkicu](edycja-szkicu.md).
+Kod w `app/` realizuje wizard pomiaru, kamerę, trzy globalne tryby kierunku, ręczne m/cm/ft/in i natywny krokomierz Start/Stop, projekty i formularze SQLite v3, cofanie, korekty zapisanych boków z historią, zamknięcie, pole i obwód, PNG, DXF, notatki, przypinanie oraz wewnętrzny lokalny zapis sesji. Ekrany przeglądania i eksportu logów usunięto. Interfejs działa w PL/EN/DE/ES/FR. Wdrożono limity Free, bramkę DXF, zakup/przywracanie przez Google Play Billing oraz trwałe uprawnienie Plus offline. Testy transakcji pozostają otwarte. Przekątne kontrolne, edytor ograniczeń i solver sieci pozostają zakresem docelowym. [Instrukcja](prototyp.md), [Free/Plus](free-plus.md), [edycja szkicu](edycja-szkicu.md).
 
 Pierwsza implementacja przechowuje migawki projektów, niezmienne obserwacje i operacje w SQLite, a próbki JSONL zapisuje natywnie. Dane surowe i skorygowane nie są jeszcze osobnymi edytowalnymi obrysami; prototyp nie wykonuje dopasowania. Metadane logów są w plikach towarzyszących. Sumy kontrolne i import kopii projektu opisane w architekturze docelowej nie należą do tego przyrostu.
 
@@ -12,11 +12,11 @@ Pierwsza implementacja przechowuje migawki projektów, niezmienne obserwacje i o
 
 Wielojęzyczność wdrożono 20 października 2026: PL, EN, DE, ES i FR. Domyślnie język systemowy z angielskim jako rezerwowym; ręczny wybór w ustawieniach jest zapamiętywany. Lokalizacja obejmuje interfejs, dialogi, pomoc, błędy, dostępność i opisy eksportów oraz formatowanie liczb i dat. Jednostki, nazwy szkiców, notatki i geometria pozostają niezależne od języka. Android 13+ synchronizuje wybór z systemowym językiem aplikacji. Szczegóły i zakres weryfikacji: [wielojęzyczność](wielojezycznosc.md).
 
-[Wizard pomiaru](wizard-pomiaru.md) opisuje obowiązujący UI: stałe dolne akcje, pływający szkic, kierunek z ogólnym zielonym statusem gotowości, korektę `[L] [kąt] [P]` z suwakiem co pełne 5° i długość z kontrolkami `[−] [kroki] [+] [Start/Stop]`. Ustawienia globalne obejmują m/cm, długość kroku, tryb kierunku i przyciąganie pola kąta. Nie ma dodatkowych opcji ani szczegółów odczytu na ekranie pomiaru. Diagnostyka jest osobnym ekranem. Lista pokazuje początkowo 3 szkice, najpierw przypięte, następnie pozostałe; w obu grupach według ostatniej zmiany. „Więcej” dodaje po 10.
+[Aktualny UI](ui-2026-10.md): stałe dolne akcje, szkic domyślnie w prawej kolumnie 40%, tryb pływający i pełny ekran, korekta kąta oraz krokomierz w dwóch rzędach. Jednostki m/cm/ft/in, długość kroku w cm, motywy light/dark/system i język są zapisane w ustawieniach. Lista początkowo pokazuje 3 szkice, przypięte najpierw, a następnie dodaje po 10; dotknięcie otwiera podsumowanie. Nie ma ekranów logów/diagnostyki.
 
 Zmiana globalnego trybu zatrzymuje sesję i unieważnia roboczy kierunek/odniesienie; nie przepisuje historycznych obserwacji. Formularz zachowuje wpisy, ale wznowienie zaczyna się od kierunku. Tryb sensorowy przy istniejących bokach wymaga odtworzenia odniesienia. Długość ręczna ma jawne źródło, surowe i poprawione kroki są zachowane osobno; edycja tworzy nową obserwację z `supersedesId`.
 
-Aktualna weryfikacja źródeł: TypeScript i 163 testy TS (20 zestawów) przeszły. Moduł płatności ma 11 zaliczonych testów Kotlin; 7 testów orientacji przy ostatnim budowaniu było UP-TO-DATE. Podpisany APK 0.1.0 (versionCode 2) z zakupami i kluczem licencyjnym zainstalowano i uruchomiono na Redmi bez błędów ReactNativeJS/AndroidRuntime. Ten APK i AAB powstały przed ostatnią poprawką początkowego widoku DXF; poprawka jest w źródłach i wymaga nowego budowania. Testy transakcji Google Play, początkowego widoku w GUI CAD i fizycznego ponownego pomiaru sensorami pozostają otwarte. Historię, hashe i logi zawiera MEMO.md.
+Aktualna weryfikacja: TypeScript i 183 testy / 24 zestawy. Po integracji Sentry i akceptacji nie wykonano nowego prebuilda ani testów Kotlin; wcześniejszy APK nie weryfikuje tych zmian. [Aktualne ograniczenia](../stan-projektu.md).
 
 ### Implementacja podglądu szkicu
 
@@ -32,6 +32,12 @@ Ponowny pomiar korzysta z prefiksu punktów w istniejącym kreatorze; zapis zast
 
 `domain/labelLayout.ts` rozmieszcza prostokąty tekstu z kontrolą kolizji z odcinkami, punktami i pozostałymi etykietami. Korzystają z niego podgląd, PNG i DXF. PNG dopasowuje obszar rysunku do etykiet, wymiary pozostają w tabeli; DXF ma poziome teksty na osobnych warstwach. Notatka jest dodawana do eksportów poza obrysem. [Szczegóły i ograniczenia](edycja-szkicu.md).
 
+## Zgody i raportowanie błędów
+
+[LegalNoticeGate](pierwsze-uruchomienie.md) działa po inicjalizacji SQLite i przed zamontowaniem nawigacji. Akceptacja bieżącej wersji dokumentów i informacja o ograniczeniach mają osobny zapis w user_settings; nie zmieniają zgody na diagnostykę. Starsze ustawienia bez akceptacji wymagają potwierdzenia; projekty pozostają bez zmian.
+
+[Sentry](sentry.md) inicjalizuje się dopiero po osobnym opt-in zapisanym w SQLite. Pierwszy obsłużony błąd może uruchomić dialog zgody; odmowa jest zapamiętana. Filtr przed wysyłką stosuje listę dozwolonych pól, a transport sprawdza zgodę i blokuje stare żądania po jej odwołaniu. Brak natywnych awarii, replay, tracingu i uploadu lokalnych logów. DSN jest publiczny; token do sourcemap nie trafia do aplikacji.
+
 ## 1 Cel i status decyzji
 
 Aplikacja umożliwi tworzenie pomocniczych obrysów 2D w terenie, korektę geometrii oraz eksport do DXF. **React Native z Expo jest pierwszym, wiążącym założeniem użytkownika.** Android, praca offline i podział na P0 oraz P1 wynikają z dokumentacji biznesowej.
@@ -41,10 +47,10 @@ Aplikacja umożliwi tworzenie pomocniczych obrysów 2D w terenie, korektę geome
 | Obszar | Ustalenie | Status |
 | --- | --- | --- |
 | Framework | React Native + Expo | Decyzja użytkownika |
-| Długość w MVP | Ręczne m/cm lub krokomierz/ręczne kroki; domyślnie 75 cm na krok, wartość zmieniana w ustawieniach | Wdrożona decyzja użytkownika |
+| Długość w MVP | Ręczne m/cm/ft/in lub krokomierz/ręczne kroki; domyślnie 75 cm na krok, wartość zmieniana w ustawieniach | Wdrożona decyzja użytkownika |
 | Platforma początkowa | Android | Wymaganie źródłowe |
 | Dane | Offline, lokalnie, bez backendu i kont | Zakres źródłowy prototypu |
-| Logi pomiarowe | Trwały zapis w pamięci wewnętrznej aplikacji, podgląd i kopiowanie treści | Decyzja użytkownika, wymagane od P0 |
+| Logi pomiarowe | Wewnętrzny zapis lokalny; ekrany podglądu i eksportu usunięte | Aktualizacja UI, 22.10.2026 |
 | Języki | TypeScript oraz Kotlin dla sensorów | Propozycja techniczna |
 | Uruchamianie | Expo development build z expo-dev-client | Propozycja dla własnego kodu natywnego |
 | Dokładność | Testy trybu względnego dają akceptowalną dokładność; bez liczbowego progu i uogólnienia na inne tryby | Potwierdzenie użytkownika, 19 października 2026 |
@@ -64,7 +70,7 @@ P1 obejmuje projekty lokalne, punkty, ręczne wprowadzanie długości w krokach 
 
 Aktualne MVP przyjmuje zarówno ręczne długości w m/cm (np. odczytane z miarki), jak i szacowanie krokami. Bezpośrednia integracja z dalmierzem pozostaje dalszym zakresem. Źródłowy dokument Word zachowuje pierwotną treść.
 
-Chmura, logowanie, LiDAR, obowiązkowe ARCore, automatyczna rekonstrukcja 3D i certyfikacja dokładności pozostają poza bieżącym zakresem. Płatności Plus są planowane przed release, bez własnego backendu; nie są jeszcze wdrożone.
+Chmura, logowanie, LiDAR, obowiązkowe ARCore, automatyczna rekonstrukcja 3D i certyfikacja dokładności pozostają poza bieżącym zakresem. W bieżącym kodzie zakup i przywracanie Plus są już wdrożone bez własnego backendu; testy Google Play pozostają otwarte.
 
 ## 3 Architektura i technologie
 

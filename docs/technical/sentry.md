@@ -27,7 +27,7 @@ Stan: 22.10.2026. **DSN EU podłączony; serwer przyjął syntetyczne zdarzenie 
 
 ## Weryfikacja i ograniczenia
 
-Testy obejmują brak inicjalizacji przed zgodą, odrzucanie DSN poza EU, filtrowanie danych, przerwanie żądań i starej kolejki po cofnięciu zgody, awarię inicjalizacji oraz zapis/wycofanie zgody w SQLite. Scenariusze pytania sprawdzają brak wysyłki przed zapisaniem zgody, jednorazowe wysłanie po akceptacji, pamiętanie odmowy po restarcie, brak ponownego pytania po wycofaniu zgody, ochronę przed wielokrotnym kliknięciem i brak wysyłki przy błędzie zapisu decyzji. TypeScript i 180 testów (23 zestawy) przechodzą.
+Testy obejmują brak inicjalizacji przed zgodą, odrzucanie DSN poza EU, filtrowanie danych, przerwanie żądań i starej kolejki po cofnięciu zgody, awarię inicjalizacji oraz zapis/wycofanie zgody w SQLite. Scenariusze pytania sprawdzają brak wysyłki przed zapisaniem zgody, jednorazowe wysłanie po akceptacji, pamiętanie odmowy po restarcie, brak ponownego pytania po wycofaniu zgody, ochronę przed wielokrotnym kliknięciem i brak wysyłki przy błędzie zapisu decyzji. Po dodaniu ekranu pierwszego uruchomienia TypeScript i 183 testy (24 zestawy) przechodzą.
 
 Test sieciowy: 22.10.2026 o 21:54 czasu polskiego. Serwer przyjął zdarzenie `d9b4915fa9e24bc180e49047ce3e4a20`, środowisko `development`, HTTP 200 z potwierdzeniem tego samego ID. Raport lokalny: `artifacts/sentry-connection-check.json`. Test wykonał faktyczny moduł filtrowania i transportu aplikacji z klientem Sentry JavaScript w Node, z zastępczym kontekstem urządzenia oznaczonym jako testowy. To weryfikacja połączenia i przyjęcia danych przez serwer, **nie test środowiska React Native/telefonu, symbolikacji stosu ani widoczności w panelu Sentry**. Nie wysyłano danych użytkownika.
 

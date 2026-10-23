@@ -1,8 +1,12 @@
 # Dokumentacja outlineGo
 
-Stan dokumentacji: **21 października 2026**, wersja 0.1.0. Kod integruje zakup i przywracanie Plus przez Google Play, uprawnienie offline oraz podpisywanie AAB nowym kluczem release. Pakiet sklepowy: `com.bk.dev.mobile.outlinego`; produkt: `outlinego_plus`, 29,99 zł jednorazowo, początkowo Polska. Pierwszy bundle jest w testach wewnętrznych według potwierdzenia użytkownika; produkt i opcja zakupu są zapisane dla Polski, a klucz licencyjny jest podłączony. AAB i APK v2 są zbudowane, a APK zainstalowano na Redmi; oba artefakty poprzedzają najnowszą poprawkę widoku DXF. Testy transakcji pozostają do wykonania. Wcześniej wdrożono DXF, pięć języków, notatki, przypinanie, korekty wymiarów i poprawki podglądu/PNG. Nie opublikowano produkcji. Szczegóły najnowszych testów i artefaktów: [MEMO](../MEMO.md).
+Stan dokumentacji: **22 października 2026**, aplikacja 0.1.0 / versionCode 2, kod funkcjonalny **6f9a305**. Weryfikacja: TypeScript i 183 testy w 24 zestawach. Ostatni zainstalowany APK jest starszy od Sentry i ekranu akceptacji; strona WWW została opublikowana, dokumenty prawne są robocze. Bieżące fakty, hashe i pozostałe prace: [aktualny stan projektu](stan-projektu.md).
 
 ## Obsługa i funkcje
+
+- [Pierwsze uruchomienie, akceptacja regulaminu i ograniczeń](technical/pierwsze-uruchomienie.md)
+- [Sentry, pytanie po błędzie i konfiguracja](technical/sentry.md)
+- [WWW, dokumenty prawne i aktualizacja treści](legal/README.md)
 
 - [Instrukcja użytkowania, instalacji i testów](technical/prototyp.md)
 - [Wizard pomiaru i decyzje UI](technical/wizard-pomiaru.md)

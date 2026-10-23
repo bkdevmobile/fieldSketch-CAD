@@ -23,6 +23,7 @@ interface Store {
   answerErrorReportRequest(id: number, allow: boolean): Promise<void>;
   rememberUi(patch: Pick<UserSettings, 'sketchCorner' | 'lengthInput' | 'sketchDocked'>): Promise<void>;
   refresh(): Promise<void>;
+  updateProjectNote(projectId: string, note: string): Promise<void>;
   run(task: () => Promise<void>, onError?: (error: unknown) => void): Promise<void>;
   start(project: Project, mode: SurveyMode): Promise<string>;
   stop(): Promise<void>;
@@ -47,6 +48,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState(''); const [busy, setBusy] = useState(false);
   const [ready, setReady] = useState(false);
   const lock = useRef(false);
+  const noteWrites = useRef<Promise<void>>(Promise.resolve());
   const [capabilities, setCapabilities] = useState<Capabilities | null>(null);
   const [live, setLive] = useState<LiveSample | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -95,6 +97,19 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     return () => { mounted = false; sample?.remove(); status?.remove(); sub.remove(); };
   }, []);
   const refresh = async () => { if (repo) setProjects(await repo.list()); };
+  const updateProjectNote = (projectId: string, note: string) => {
+    const write = noteWrites.current.then(async () => {
+      const repository = repositoryRef.current;
+      if (!repository) throw new Error(t("Baza nie jest jeszcze gotowa."));
+      await repository.updateMetadata(projectId, { note });
+      setProjects(await repository.list());
+    }).catch(e => {
+      setError(message(e));
+      reportingPrompt.current!.handle(e);
+    });
+    noteWrites.current = write;
+    return write;
+  };
   const run = async (task: () => Promise<void>, onError?: (error: unknown) => void) => {
     if (lock.current) return;
     lock.current = true; setBusy(true); setError('');
@@ -134,7 +149,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     catch (e) { setError(message(e)); }
   };
   const acceptLegalNotice = async (confirmed: boolean) => { await saveSettingsPatch({ legalAcceptance: createLegalAcceptance(confirmed) }); };
-  return <Context.Provider value={{ projects, repo, error, busy, ready: ready && billing.state.ready, capabilities, live, sessionId, sessionProject, settings, plan, billing, updateSettings, acceptLegalNotice, errorReportRequest, answerErrorReportRequest, rememberUi, refresh, run, start, stop, log }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ projects, repo, error, busy, ready: ready && billing.state.ready, capabilities, live, sessionId, sessionProject, settings, plan, billing, updateSettings, acceptLegalNotice, errorReportRequest, answerErrorReportRequest, rememberUi, refresh, updateProjectNote, run, start, stop, log }}>{children}</Context.Provider>;
 }
 export const message = (e: unknown) => e instanceof Error ? e.message : String(e);
 export function useStore() { const store = useContext(Context); if (!store) throw new Error('Missing provider'); return store; }

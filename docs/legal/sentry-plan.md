@@ -5,7 +5,7 @@ Decyzje: 22 października 2026. Użytkownik powierzył dobór ustawień i zleci�
 ## Wybrane ustawienia
 
 - Organizacja w regionie **EU**, wybranym przy jej tworzeniu. Według [Sentry EU FAQ](https://www.sentry.help/en/articles/13964378-sentry-s-eu-region-faq) zdarzenia pozostają w wybranym regionie, ale część metadanych konta i organizacji może być w USA. Nie obiecywać przetwarzania całości danych wyłącznie w UE.
-- **Tylko błędy i awarie**: typ błędu, oczyszczony stack trace, wersja/build aplikacji, wersja Androida, model urządzenia, czas zdarzenia. Bez analityki użycia, transakcji, profilowania, Session Replay, zrzutów ekranu i załączników.
+- **Tylko błędy JavaScript w obecnej integracji**: typ błędu, oczyszczone pozycje w kodzie, wersja/build aplikacji, wersja Androida i czas zdarzenia. Modelu urządzenia nie dodano do aktualnego raportu. Bez analityki użycia, transakcji, profilowania, Session Replay, zrzutów ekranu i załączników; natywne awarie wymagają osobnego wdrożenia filtrów i obsługi zgody.
 - Bez nazw i identyfikatorów szkiców, notatek, punktów, wymiarów, danych kamery, surowych sensorów, lokalnych logów sesji, paragonów, tokenów zakupowych, emaili i trwałych identyfikatorów użytkownika lub urządzenia.
 - Domyślnie **wyłączone**. Osobna dobrowolna zgoda w ustawieniach, niezależna od potwierdzenia ograniczeń pomiarów i zakupu Plus. Wycofanie bez utraty funkcji.
 - Docelowa retencja: **maksymalnie 30 dni**. Przed uruchomieniem potwierdzić egzekwowanie tego okresu na wybranym planie; w razie potrzeby zapewnić automatyczne usuwanie lub krótszą retencję. To nie jest już skonfigurowane ustawienie.

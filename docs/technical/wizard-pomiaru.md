@@ -1,10 +1,10 @@
 # Wizard pomiaru — zaakceptowany projekt UI
 
-Aktualne preferencje: instrukcja P1 bez miniatury; zapamiętywany róg miniatury, domyślnie prawy dolny. Domyślna metoda długości to krokomierz, potem ostatni jawny wybór; formularz zachowuje swój przelicznik. Zgoda na krokomierz jest uzyskiwana przed sesją kierunku; odmowa wybiera ręczną długość. [Prowadzenie pierwszego pomiaru](pierwszy-pomiar.md).
+Aktualne preferencje: instrukcja P1 bez miniatury; zapamiętywany róg miniatury, domyślnie prawy dolny. Domyślna metoda długości to krokomierz, potem ostatni jawny wybór; formularz zachowuje swój przelicznik. W trybie sensorowym zgoda na kamerę poprzedza zgodę krokomierza i sesję kierunku; odmowa wybiera ręczną długość. [Prowadzenie pierwszego pomiaru](pierwszy-pomiar.md).
 
 Data: 21 października 2026. Aplikacja 0.1.0 (versionCode 2), wizard z korektą zapisanych boków, ponownym pomiarem i kontynuacją tego samego szkicu po zakupie Plus.
 
-Aktualna weryfikacja źródeł: TypeScript i 163 testy TS (20 zestawów) przeszły. Moduł płatności ma 11 zaliczonych testów Kotlin; 7 testów orientacji przy ostatnim budowaniu było UP-TO-DATE. Podpisany APK 0.1.0 (versionCode 2) z zakupami i kluczem licencyjnym zainstalowano i uruchomiono na Redmi bez błędów ReactNativeJS/AndroidRuntime. Ten APK i AAB powstały przed ostatnią poprawką początkowego widoku DXF; poprawka jest w źródłach i wymaga nowego budowania. Testy transakcji Google Play, początkowego widoku w GUI CAD i fizycznego ponownego pomiaru sensorami pozostają otwarte. Historię, hashe i logi zawiera MEMO.md. [Artefakty i historia](../../MEMO.md).
+Bieżący stan: **22 października 2026**, źródła 6f9a305, TypeScript i 183 testy / 24 zestawy. Ostatni APK UI nie zawiera Sentry i ekranu akceptacji. [Kod, paczki i pozostałe próby](../stan-projektu.md).
 
 Prowadzenie pierwszego pomiaru obejmuje instrukcję z ilustracją, automatyczny start sesji, blokadę niegotowego odczytu i podpowiedź po dotknięciu celownika. Szczegóły: [pierwszy pomiar](pierwszy-pomiar.md).
 
@@ -12,7 +12,7 @@ Prowadzenie pierwszego pomiaru obejmuje instrukcję z ilustracją, automatyczny 
 
 1. Na początku użytkownik zapisuje pierwszy punkt P1, będący początkiem obrysu.
 2. **Wskaż kierunek** — celowanie z początku boku, przechwycenie kierunku czujnikami i ewentualna korekta.
-3. **Zmierz** — ręczne wpisanie m/cm albo „Start”, przejście do następnego punktu, „Stop” i korekta kroków.
+3. **Zmierz** — ręczne wpisanie m/cm/ft/in albo „Start”, przejście do następnego punktu, „Stop” i korekta kroków.
 4. **Zapisz punkt** — zatwierdzenie kierunku, długości i punktu końcowego boku. Nowy punkt staje się początkiem następnego boku.
 
 Kroki 2–4 powtarzają się. Bok i punkt końcowy pozostają robocze do zatwierdzenia. Szkic oraz „Zakończ” są stale dostępne. „Wstecz” zachowuje dane.
@@ -29,21 +29,21 @@ Kroki 2–4 powtarzają się. Bok i punkt końcowy pozostają robocze do zatwier
 - „Zmierz ponownie” ponawia odczyt z czujników.
 - Po nowej sesji sensora przy istniejących bokach trzeba odtworzyć odniesienie. Domyślnie wybrany jest ostatni zapisany bok, z instrukcją konkretnych punktów. Po zapisie C w ABCD: stań w B, skieruj kamerę na C, ustaw odniesienie, wróć do C i wskaż D. Można świadomie wybrać inny znany bok.
 
-Kąt przechwycony przez aparat jest od 21 października zaokrąglany do pełnego stopnia przed zapisem; ręczne pole dopuszcza maksymalnie 2 miejsca po przecinku. Długości obliczane i wpisywane mają maksymalnie 3 miejsca w bieżącej jednostce m/cm. Surowe odczyty pozostają w historii. [Precyzja wymiarów](precyzja-wymiarow.md).
+Kąt przechwycony przez aparat jest od 21 października zaokrąglany do pełnego stopnia przed zapisem; ręczne pole dopuszcza maksymalnie 2 miejsca po przecinku. Długości obliczane i wpisywane mają maksymalnie 3 miejsca w bieżącej jednostce m/cm/ft/in. Surowe odczyty pozostają w historii. [Precyzja wymiarów](precyzja-wymiarow.md).
 
 ## Długość i jednostki
 
 - Automatyczny krokomierz działa tylko między „Start” i „Stop”.
 - Pokazujemy liczbę kroków, użyty przelicznik i wynikową długość. Użytkownik może poprawić liczbę kroków albo wpisać długość bezpośrednio.
-- Kontrolki krokomierza są w jednym rzędzie: **[−] [liczba kroków] [+] [Start/Stop]**. Start zmienia się w Stop w tym samym miejscu, po prawej stronie pola. Podczas liczenia pole i korekta ±1 są zablokowane, po zatrzymaniu dostępne. Nie ma osobnego Start pod polem ani Stop w dolnym pasku nawigacji. Brak detektora wyłącza Start, ale pozostawia ręczne wpisywanie i korektę kroków. Poprawiona liczba nie nadpisuje surowej liczby wykrytych kroków; nie schodzi poniżej zera. Nie odejmujemy automatycznie stałej liczby kroków.
-- Domyślnie stosujemy metry, z możliwością wyboru cm. Pola akceptują polski przecinek dziesiętny.
+- Kontrolki krokomierza mają dwa rzędy: **[−] [liczba kroków] [+]**, poniżej **[Start/Stop] [ikona kroków]**. Ikona pulsuje podczas pracy; pole i korekta ±1 są wtedy zablokowane. Po Stop można poprawić liczbę kroków bez nadpisywania surowego wyniku. Brak detektora pozostawia ręczne wpisywanie kroków lub długości.
+- Domyślnie stosujemy metry; dostępne są też cm, ft i in. Wybór jednostki jest niezależny od języka. Pola akceptują polski przecinek dziesiętny.
 - Długość kroku ustawiana jest dla użytkownika; początkowo 75 cm. Obserwacja zachowuje użyty przelicznik; zmiana ustawienia nie przelicza historii.
-- W kroku „Zmierz” od razu dostępne są dwie niezależne możliwości: ręczne wpisanie długości w m/cm albo pomiar krokomierzem Start/Stop. Ręczne wpisanie nie wymaga uruchomienia ani wcześniejszego użycia krokomierza i pozwala bezpośrednio przejść do zapisania punktu. Ręcznie wpisana długość zastępuje ewentualny wynik z kroków. Źródło użytej wartości musi być jednoznaczne.
+- W kroku „Zmierz” od razu dostępne są dwie niezależne możliwości: ręczne wpisanie długości w m/cm/ft/in albo pomiar krokomierzem Start/Stop. Ręczne wpisanie nie wymaga uruchomienia ani wcześniejszego użycia krokomierza i pozwala bezpośrednio przejść do zapisania punktu. Ręcznie wpisana długość zastępuje ewentualny wynik z kroków. Źródło użytej wartości musi być jednoznaczne.
 - Zapis boku wymaga kierunku oraz dodatniej, skończonej długości. Geometria nadal liczy w metrach.
 
 ## Szkic na żywo
 
-Po zapisaniu P1 szkic jest widoczny jako pływająca miniatura, domyślnie w prawym dolnym rogu nad stałym paskiem akcji. Można ją przeciągać w obu osiach; po puszczeniu przyciąga się do najbliższego z czterech rogów obszaru nad nawigacją. Wybrany róg jest zachowany podczas zmiany etapu, rozmiaru okna i otwierania klawiatury. Przeciągnięcie nie otwiera podglądu. Dostępność udostępnia także akcję przeniesienia do następnego rogu.
+Po zapisaniu P1 szkic jest domyślnie zadokowany w prawej kolumnie 40%, obok kontrolek pomiaru. Można oddokować go do rogu, przeciągnąć do innego rogu i otworzyć na pełnym ekranie. Róg i tryb są zapisywane. Szczegóły: [aktualny UI](ui-2026-10.md).
 
 Dotknięcie miniatury otwiera dialog na pełną szerokość, wyśrodkowany pionowo na przyciemnionym tle. Zawiera zoom, przesuwanie i dopasowanie. „Wróć do pomiaru”, krzyżyk, dotknięcie tła lub systemowe Wstecz zamyka go bez utraty etapu. Przy klawiaturze miniatura jest mniejsza; zmiana dostępnej wysokości ponownie umieszcza ją w wybranym rogu. Formularz można przewinąć ponad miniaturę.
 
@@ -85,7 +85,7 @@ Sprawdzić cykl kilku boków, korekty kąta i długości, oba źródła długoś
 
 ## Udostępnienie wyniku w MVP
 
-PNG zawiera obrys, numery punktów, tabelę wymiarów i źródeł długości, notatkę oraz oznaczenia wartości szacunkowych i wyliczonego zamknięcia. Free dodaje znak wodny poza treścią. DXF jest objęty bramką Plus. Kod zakupów i przywracania jest podłączony; uruchomienie sprzedaży wymaga konfiguracji Console i testów: [zakupy Google Play](zakupy-google-play.md). Opisy punktów i wymiarów omijają linie obrysu oraz inne etykiety w podglądzie i DXF; w PNG wymiary pozostają w tabeli. [DXF](eksport-dxf.md), [Free/Plus](free-plus.md). Eksporty JSONL/CSV służą diagnostyce.
+PNG zawiera obrys, numery punktów, tabelę wymiarów i źródeł długości, notatkę oraz oznaczenia wartości szacunkowych i wyliczonego zamknięcia. Free dodaje znak wodny poza treścią. DXF jest objęty bramką Plus. Kod zakupów i przywracania jest podłączony; uruchomienie sprzedaży wymaga konfiguracji Console i testów: [zakupy Google Play](zakupy-google-play.md). Opisy punktów i wymiarów omijają linie obrysu oraz inne etykiety w podglądzie i DXF; w PNG wymiary pozostają w tabeli. [DXF](eksport-dxf.md), [Free/Plus](free-plus.md). Lokalne logi nie są eksportowane z bieżącego UI ani wysyłane do Sentry.
 
 ## Wybrany wariant makiety i uwagi do układu
 
@@ -105,9 +105,9 @@ Ikony konturowe Lucide towarzyszą akcjom, statusowi i etapom. Ikony dekoracyjne
 
 ## Stan implementacji i weryfikacji
 
-Aktualny kod: `b00dd74`, aplikacja 0.1.0. Wdrożono opisany wizard, ręczne m/cm, natywny krokomierz `TYPE_STEP_DETECTOR`, SQLite v3 z formularzem i ustawieniami, edycję ostatniego boku z historią `supersedesId`, PNG oraz osobną diagnostykę. Stop, tło i zakończenie sesji wyłączają liczenie; zdarzenia kroków mają identyfikatory sesji i pomiaru. Android 10+ wymaga zgody ACTIVITY_RECOGNITION pobieranej przy Start.
+Aktualny kod funkcjonalny: 6f9a305. Wizard, SQLite, pomiary, korekty i eksporty opisano powyżej; dodatkowo wdrożono [Sentry](sentry.md) oraz [ekran akceptacji](pierwsze-uruchomienie.md). Historia wcześniejszych implementacji pozostaje w MEMO.
 
-Aktualna weryfikacja źródeł: TypeScript i 163 testy TS (20 zestawów) przeszły. Moduł płatności ma 11 zaliczonych testów Kotlin; 7 testów orientacji przy ostatnim budowaniu było UP-TO-DATE. Podpisany APK 0.1.0 (versionCode 2) z zakupami i kluczem licencyjnym zainstalowano i uruchomiono na Redmi bez błędów ReactNativeJS/AndroidRuntime. Ten APK i AAB powstały przed ostatnią poprawką początkowego widoku DXF; poprawka jest w źródłach i wymaga nowego budowania. Testy transakcji Google Play, początkowego widoku w GUI CAD i fizycznego ponownego pomiaru sensorami pozostają otwarte. Historię, hashe i logi zawiera MEMO.md.
+Bieżący stan: **22 października 2026**, źródła 6f9a305, TypeScript i 183 testy / 24 zestawy. Ostatni APK UI nie zawiera Sentry i ekranu akceptacji. [Kod, paczki i pozostałe próby](../stan-projektu.md).
 
 Po próbie użytkownik zaakceptował działanie krokomierza; dodatkowe zliczenia wiąże z ruchami telefonu. Korekta ręczna pozostaje dostępna. Nie wprowadzono automatycznego odejmowania kroków ani zmiany algorytmu.
 
@@ -115,7 +115,7 @@ Po próbie użytkownik zaakceptował działanie krokomierza; dodatkowe zliczenia
 
 ### Nawigacja i ekran pomiaru
 
-Na stronie głównej przycisk menu ⋮ znajduje się po prawej stronie nagłówka i otwiera kompaktową listę Ustawienia / Logi pomiarowe / outlineGo Plus przy przycisku. Menu projektu na liście oraz menu w pomiarze używają tego samego rozwijanego komponentu. Dotknięcie tła i systemowe Wstecz zamykają menu. Nowy projekt ma osobny formularz z nazwą, podsumowaniem globalnych ustawień i stałym przyciskiem utworzenia.
+Na stronie głównej przycisk menu ⋮ znajduje się po prawej stronie nagłówka i otwiera kompaktową listę Ustawienia / outlineGo Plus przy przycisku. Menu projektu na liście oraz menu w pomiarze używają tego samego rozwijanego komponentu. Dotknięcie tła i systemowe Wstecz zamykają menu. Nowy projekt ma osobny formularz z nazwą, podsumowaniem globalnych ustawień i stałym przyciskiem utworzenia.
 
 Potwierdzenia usuwania, cofnięcia, ostrzeżeń odczytu, zakończenia, niezapisanego boku, wyboru jednostki i komunikaty aplikacji są własnymi dialogami Teren: ciepłe jasne tło, zielone akcje, wyróżniona akcja destrukcyjna i spokojne anulowanie. Systemowe zgody Androida i systemowe udostępnianie plików nadal obsługuje system operacyjny.
 
@@ -123,12 +123,12 @@ Pozostałe ekrany używają tego samego stylu: ustawienia w trzech sekcjach z wy
 
 Lista szkiców ma nazwę, datę ostatniej zmiany, ikonę przypięcia i menu ⋮: Otwórz / Przypnij lub Odepnij / Usuń. Dotknięcie wiersza otwiera szkic; usunięcie wymaga potwierdzenia. Początkowo widoczne są 3 pozycje, „Więcej” dodaje po 10. Przypięte szkice są pierwsze, wewnątrz obu grup według daty ostatniej zmiany malejąco. SQLite dostarcza pełną listę; limit widoku nie ukrywa trwale istniejących danych.
 
-- Ustawienia obejmują domyślne m/cm, długość kroku, przyciąganie oraz globalny tryb kierunku (domyślnie względny). Tryb obowiązuje we wszystkich projektach przy kolejnych pomiarach. Zmiana zatrzymuje aktywną sesję i unieważnia roboczy kierunek oraz odniesienie; długość robocza i zapisane obserwacje pozostają zachowane. Brak wybranego sensora na urządzeniu oznacza użycie trybu ręcznego.
+- Ustawienia obejmują domyślne m/cm/ft/in/ft/in, długość kroku, przyciąganie oraz globalny tryb kierunku (domyślnie względny). Tryb obowiązuje we wszystkich projektach przy kolejnych pomiarach. Zmiana zatrzymuje aktywną sesję i unieważnia roboczy kierunek oraz odniesienie; długość robocza i zapisane obserwacje pozostają zachowane. Brak wybranego sensora na urządzeniu oznacza użycie trybu ręcznego.
 - Po przechwyceniu pokazujemy kąt. „Popraw kąt” rozwija pole, lewo/prawo i suwak; domyślnie są schowane. W trybie ręcznym pola są widoczne od razu. Błędna korekta odsłania pole z komunikatem.
 - Przy kierunku pokazujemy wyłącznie prosty status: stabilizowanie, gotowy lub ostrzeżenie. Przycisk „Szczegóły odczytu” i szczegóły liczbowe usunięto z ekranu pomiaru na życzenie użytkownika. Status „Telefon stabilny — możesz zapisać kierunek” jest zielony przy aktywnej sesji, gotowym oknie próbek, rzucie poziomym co najmniej 0,2, jakości co najmniej 2/3 i rozrzucie do 3°. Odtworzenie odniesienia i ostrzeżenia pozostają widoczne automatycznie.
-- W kroku długości pozostają „Wpisz długość” i „Krokomierz”. Zamiast dwóch przycisków m/cm jest kompaktowa, klikalna jednostka. Zmiana przelicza wartość, zachowując fizyczną długość.
+- W kroku długości pozostają „Wpisz długość” i „Krokomierz”. Zamiast dwóch przycisków m/cm/ft/in jest kompaktowa, klikalna jednostka. Zmiana przelicza wartość, zachowując fizyczną długość.
 - Na polecenie użytkownika usunięto całkowicie „Więcej opcji” i jego zawartość z ekranu pomiaru. Tryb kierunku oraz długość kroku ustawiamy globalnie w ustawieniach. Dotychczasowe pomiary i przywrócony formularz zachowują użyty przelicznik; następny bok otrzymuje wartość z ustawień. Korekta liczby kroków nadal jest dostępna.
-- Menu projektu ⋮ zawiera „Wymiary i punkty”, pomoc, cofnięcie boku/zamknięcia, dostępny przy kompletnym podsumowaniu niezależny pomiar powrotu do P1, diagnostykę i ustawienia. Cofnięcie wymaga potwierdzenia odrzucenia bieżącego niezapisanego pomiaru; jeśli potrzebna jest sesja do logowania, otwieramy ją automatycznie.
+- Menu projektu ⋮ zawiera „Wymiary i punkty”, pomoc, cofnięcie boku/zamknięcia, dostępny przy kompletnym podsumowaniu niezależny pomiar powrotu do P1 i ustawienia. Cofnięcie wymaga potwierdzenia odrzucenia bieżącego niezapisanego pomiaru; jeśli potrzebna jest sesja do logowania, otwieramy ją automatycznie.
 - Osobny ekran „Diagnostyka” zawiera kontekst próby, niezależną wartość odniesienia, logi i ręczne zatrzymanie sesji czujników. Dostęp z ustawień oraz menu projektu. Powrót zachowuje etap i formularz, o ile nie zatrzymano sesji; zatrzymanie wymaga ponownego przechwycenia.
 - Stałe dolne akcje i pływająca miniatura szkicu pozostają dostępne. Nie ma globalnego przełącznika pokazywania zaawansowanych opcji.
 

@@ -1,30 +1,29 @@
-# outlineGo (wcześniej FieldSketch CAD)
+# outlineGo
 
-Mobilne narzędzie Android do tworzenia pomocniczych, wymiarowanych szkiców 2D w terenie. Pracuje offline, bez kont i własnego backendu. Technologia: **React Native + Expo + TypeScript**, natywne sensory w Kotlin.
+Aplikacja Android do orientacyjnych, nieprofesjonalnych pomiarów i wymiarowanych szkiców 2D. React Native 0.85.3, Expo SDK 56 i TypeScript, natywne sensory w Kotlin. Szkice są przechowywane lokalnie, bez konta outlineGo i synchronizacji z chmurą.
 
-Długości można wpisać w m/cm albo oszacować krokomierzem Start/Stop; domyślna długość kroku to 75 cm, zmieniana w ustawieniach. Kierunek może być względny, magnetyczny lub ręczny. Użytkownik zaakceptował wykonane próby trybu względnego i działanie krokomierza; nie określono liczbowej gwarancji dokładności.
+Długości można wpisać w m/cm/ft/in albo oszacować krokami. Kierunek jest względny, magnetyczny lub ręczny. Dostępne są korekty, notatki, przypinanie, obwód i pole oraz eksport PNG i DXF. Podgląd może być zadokowany, pływający lub pełnoekranowy. Interfejs obsługuje PL/EN/DE/ES/FR i motyw jasny, ciemny lub systemowy. Nie deklarujemy liczbowej gwarancji dokładności.
 
-Szkice są zapisywane lokalnie. Dostępne są notatki, przypinanie na liście, zbiorcza korekta wymiarów, wybór boku do ponownego pomiaru, pole i obwód oraz eksport PNG i DXF. Opisy omijają linie obrysu i inne etykiety. [Zasady korekt i historia pomiarów](docs/technical/edycja-szkicu.md).
+Free: do 3 szkiców i 8 punktów z P1, PNG ze znakiem wodnym. Jednorazowy Plus przez Google Play usuwa te limity i znak wodny oraz odblokowuje DXF. Cena i dostępność zależą od konfiguracji sklepu; testy transakcji pozostają otwarte.
 
-Interfejs obsługuje PL/EN/DE/ES/FR. Domyślnie wybiera język telefonu, z angielskim jako rezerwowym; język można zmienić w ustawieniach. [Wielojęzyczność](docs/technical/wielojezycznosc.md).
+## Stan na 22 października 2026
 
-Free: do 8 punktów (z P1), do 3 szkiców i PNG ze znakiem wodnym. Plus usuwa limity i znak wodny oraz odblokowuje DXF. Zakup i przywracanie Plus za 29,99 zł jednorazowo są podłączone przez Google Play Billing 9.1.0, z weryfikacją podpisu i trwałym uprawnieniem offline. Pakiet: `com.bk.dev.mobile.outlinego`, produkt: `outlinego_plus`, opcja: `buy`, dostępność: Polska. Użytkownik potwierdził pierwsze wydanie w testach wewnętrznych i zapis produktu; publiczny klucz licencyjny jest osadzony. Do potwierdzenia pozostają aktywacja opcji, testerzy licencji i testy płatności/przywracania. Produkcji nie opublikowano. [Free/Plus](docs/technical/free-plus.md), [zakupy i podpisywanie](docs/technical/zakupy-google-play.md).
+Kod funkcjonalny: **6f9a305**. TypeScript i **183 testy w 24 zestawach** przeszły. W źródłach są opcjonalne Sentry, pytanie o zgodę po błędzie i ekran pierwszego uruchomienia z akceptacją regulaminu oraz ograniczeń pomiarów. Te funkcje wymagają nowego buildu i próby na telefonie.
 
-## Stan projektu
+Ostatni podpisany APK z UI, zainstalowany na Redmi, pochodzi z **0b39f9f** i nie zawiera Sentry ani ekranu akceptacji. Nowy prebuild blokuje obecnie nieprawidłowy lokalny publiczny klucz licencyjny Google Play. AAB jest starszy od obecnych źródeł. [Aktualny stan, hash APK i pozostałe prace](docs/stan-projektu.md).
 
-Aktualizacja UI z 22 października 2026 jest w źródłach: zadokowany szkic 40% z overlayem i pełnym ekranem, motywy jasny/ciemny/systemowy, jednostki ft/in, domyślne nazwy „Mój pomiar” i zmiany układu listy oraz pomiaru. Ekrany diagnostyki i logów usunięto z interfejsu. TypeScript, 168 testów w 21 zestawach i eksport bundla Android przeszły. Podpisany APK z tymi zmianami jest w `artifacts/outlineGo-0.1.0.apk`; AAB nie przebudowano. [Zakres i weryfikacja UI](docs/technical/ui-2026-10.md).
+Pomiar działa offline. Zakupy i przywracanie korzystają z Google Play, a dobrowolne raportowanie błędów JS z Sentry. Raportowanie jest domyślnie wyłączone, wymaga osobnej zgody i nie obejmuje treści szkiców ani lokalnych logów pomiarowych. Potwierdzenie regulaminu nie udziela zgody na diagnostykę. Ekrany przeglądania i eksportu logów usunięto.
 
-Aktualna weryfikacja źródeł: TypeScript i 163 testy TS (20 zestawów) przeszły. Moduł płatności ma 11 zaliczonych testów Kotlin; 7 testów orientacji przy ostatnim budowaniu było UP-TO-DATE. Podpisany APK 0.1.0 (versionCode 2) z zakupami i kluczem licencyjnym zainstalowano i uruchomiono na Redmi bez błędów ReactNativeJS/AndroidRuntime. Ten APK i AAB powstały przed ostatnią poprawką początkowego widoku DXF; poprawka jest w źródłach i wymaga nowego budowania. Testy transakcji Google Play, początkowego widoku w GUI CAD i fizycznego ponownego pomiaru sensorami pozostają otwarte. Historię, hashe i logi zawiera MEMO.md.
-
-Podpisany APK `artifacts/outlineGo-0.1.0.apk`, wersja 0.1.0 / versionCode 2, zainstalowano na Redmi. Pierwszy bundle jest w testach wewnętrznych według potwierdzenia użytkownika; gotowy AAB v2: `artifacts/outlineGo-0.1.0.aab`. Oba artefakty nie zawierają jeszcze ostatniej poprawki początkowego widoku DXF. Nie opublikowano produkcji. Szczegóły i pełne hashe: MEMO.md.
+Strona EN: [outlinego-27ab5.web.app](https://outlinego-27ab5.web.app/). Dokumenty prawne są nadal robocze; ich zatwierdzenie i aktualizacja dla Sentry pozostają warunkiem wydania. Brak potwierdzenia publikacji produkcyjnej w Google Play.
 
 ## Dokumentacja i uruchomienie
 
 - [Indeks dokumentacji](docs/README.md)
-- [Instrukcja użytkowania i instalacji](docs/technical/prototyp.md)
-- [Opis aplikacji, budowanie i testy](app/README.md)
-- [Dokumentacja techniczna](docs/technical/dokumentacja-techniczna.md)
-- [Plan rozwoju i pozostałe prace](docs/plan-rozwoju.md)
-- [Źródłowa dokumentacja biznesowa](docs/business/FieldSketch_CAD_dokumentacja_biznesowa_i_prototyp.docx)
+- [Budowanie i testy](app/README.md)
+- [Pierwsze uruchomienie i akceptacja warunków](docs/technical/pierwsze-uruchomienie.md)
+- [Sentry, zgody i konfiguracja](docs/technical/sentry.md)
+- [Strona i dokumenty prawne](docs/legal/README.md)
+- [Architektura](docs/technical/dokumentacja-techniczna.md)
+- [Plan rozwoju](docs/plan-rozwoju.md) i [historia prac](MEMO.md)
 
-Kod znajduje się w `app/`, dokumentacja w `docs/`. W katalogu `app`: `npm run typecheck`, `npm test`, `npm run build:apk`. APK zawiera JavaScript i działa bez Metro. Logi diagnostyczne pozostają lokalne; można je przeglądać, kopiować i eksportować do JSONL/CSV.
+Kod jest w katalogu app. Podstawowe polecenia: npm ci, npm run typecheck, npm test, npm run build:apk. Szczegóły narzędzi, kluczy i budowania zawiera README aplikacji. Po zmianach funkcji, danych, uprawnień, SDK lub zakupów aktualizować dokumenty prawne i deklaracje sklepowe przed wydaniem.
