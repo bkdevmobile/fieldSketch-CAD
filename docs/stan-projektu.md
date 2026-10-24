@@ -1,6 +1,6 @@
 # Aktualny stan outlineGo
 
-Aktualizacja: **24 października 2026**, kod APK: `8365dca`; nowy AAB z bazy `0aaa75c` i zwiększeniem versionCode. Wersja w konfiguracji: **0.1.0 / versionCode 3**, pakiet `com.bk.dev.mobile.outlinego`. Telefon nadal ma APK v2. Ten dokument opisuje bieżący stan; starsze wpisy w [MEMO](../MEMO.md) i opisach prób zachowują wyniki dla sprawdzonych wtedy wersji.
+Aktualizacja: **24 października 2026**, kod APK: `8365dca`; nowy AAB z bazy `0aaa75c` i zwiększeniem versionCode. Wersja w konfiguracji: **1.0.0 / versionCode 4**, pakiet `com.bk.dev.mobile.outlinego`. Wersja 1.0.0 / v4 nie zostala jeszcze zbudowana; ostatni AAB to 0.1.0 / v3. Telefon nadal ma APK v2. Ten dokument opisuje bieżący stan; starsze wpisy w [MEMO](../MEMO.md) i opisach prób zachowują wyniki dla sprawdzonych wtedy wersji.
 
 ## Kod, paczki i publikacja
 

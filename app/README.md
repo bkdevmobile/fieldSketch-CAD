@@ -1,6 +1,6 @@
 # Aplikacja outlineGo
 
-Stan źródeł: **24 października 2026**, kod APK **8365dca** (v2); konfiguracja i nowy AAB: wersja 0.1.0 / versionCode 3, baza źródeł 0aaa75c i zwiększenie versionCode. Pakiet com.bk.dev.mobile.outlinego. TypeScript i **183 testy w 24 zestawach** przechodzą. [Stan kodu, APK/AAB i publikacji](../docs/stan-projektu.md).
+Stan źródeł: **24 października 2026**, kod APK **8365dca** (v2); konfiguracja: wersja 1.0.0 / versionCode 4 (jeszcze bez nowego buildu); ostatni AAB: 0.1.0 / versionCode 3, baza źródeł 0aaa75c i zwiększenie versionCode. Pakiet com.bk.dev.mobile.outlinego. TypeScript i **183 testy w 24 zestawach** przechodzą. [Stan kodu, APK/AAB i publikacji](../docs/stan-projektu.md).
 
 React Native 0.85.3, Expo SDK 56, TypeScript i lokalne moduły Expo/Kotlin do sensorów oraz Google Play Billing. Zależności i ich wersje rozwiązuje package-lock.json. Expo Go nie obsługuje pełnej aplikacji z tymi modułami.
 

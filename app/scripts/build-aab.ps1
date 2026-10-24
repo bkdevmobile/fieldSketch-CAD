@@ -4,6 +4,8 @@ $appDirectory = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $repoDirectory = [IO.Path]::GetFullPath((Join-Path $appDirectory '..'))
 Push-Location $appDirectory
 try {
+  $appVersion = & node -p "require('./app.config.js').version"
+  if ($LASTEXITCODE -ne 0 -or -not $appVersion) { throw 'Nie odczytano wersji aplikacji.' }
   . (Join-Path $PSScriptRoot 'release-environment.ps1')
   Initialize-OutlineGoSigning
   if (-not $env:ANDROID_HOME) { $env:ANDROID_HOME = Join-Path $env:LOCALAPPDATA 'Android/Sdk' }
@@ -23,7 +25,7 @@ try {
   } finally { Pop-Location }
   $outputDirectory = Join-Path $repoDirectory 'artifacts'
   New-Item -ItemType Directory -Force -Path $outputDirectory | Out-Null
-  $name = if ($AllowUnconfiguredBilling) { 'outlineGo-0.1.0-bootstrap.aab' } else { 'outlineGo-0.1.0.aab' }
+  $name = if ($AllowUnconfiguredBilling) { "outlineGo-$appVersion-bootstrap.aab" } else { "outlineGo-$appVersion.aab" }
   $outputPath = Join-Path $outputDirectory $name
   Copy-Item -LiteralPath 'android/app/build/outputs/bundle/release/app-release.aab' -Destination $outputPath -Force
   & jarsigner -verify $outputPath
