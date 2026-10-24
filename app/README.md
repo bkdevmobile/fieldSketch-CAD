@@ -1,6 +1,6 @@
 # Aplikacja outlineGo
 
-Stan źródeł: **23 października 2026**, kod APK **8365dca**, wersja 0.1.0 / versionCode 2, pakiet com.bk.dev.mobile.outlinego. TypeScript i **183 testy w 24 zestawach** przechodzą. [Stan kodu, APK/AAB i publikacji](../docs/stan-projektu.md).
+Stan źródeł: **24 października 2026**, kod APK **8365dca** (v2); konfiguracja i nowy AAB: wersja 0.1.0 / versionCode 3, baza źródeł 0aaa75c i zwiększenie versionCode. Pakiet com.bk.dev.mobile.outlinego. TypeScript i **183 testy w 24 zestawach** przechodzą. [Stan kodu, APK/AAB i publikacji](../docs/stan-projektu.md).
 
 React Native 0.85.3, Expo SDK 56, TypeScript i lokalne moduły Expo/Kotlin do sensorów oraz Google Play Billing. Zależności i ich wersje rozwiązuje package-lock.json. Expo Go nie obsługuje pełnej aplikacji z tymi modułami.
 
@@ -19,7 +19,9 @@ Build wymaga plików _private/outlinego-release.p12, _private/release-signing.js
 
 APK jest kopiowany do artifacts/outlineGo-0.1.0.apk w katalogu repozytorium; zawiera JavaScript i działa bez Metro. Domyślne architektury: arm64-v8a i x86_64. npm run build:aab tworzy paczkę do Google Play. Pliki _private, wygenerowany Android i artefakty są ignorowane przez Git. [Zakupy, Console i podpisywanie](../docs/technical/zakupy-google-play.md).
 
-APK z 8365dca zbudowano 23.10.2026 (BUILD SUCCESSFUL in 2m 35s), zweryfikowano podpis release, zainstalowano na Redmi przez `install -r` i uruchomiono (Success / Status: ok). Zawiera Sentry, ekran akceptacji i automatyczny zapis notatek. Zadania testów Kotlin były UP-TO-DATE; raporty obejmują 7 testów orientacji i 11 billing bez błędów. Instalacja nie zastępuje testu funkcjonalnego. AAB nie przebudowano. Log: `artifacts/build-apk-2026-10-23.log`.
+APK z 8365dca zbudowano 23.10.2026 (BUILD SUCCESSFUL in 2m 35s), zweryfikowano podpis release, zainstalowano na Redmi przez `install -r` i uruchomiono (Success / Status: ok). Zawiera Sentry, ekran akceptacji i automatyczny zapis notatek. Zadania testów Kotlin były UP-TO-DATE; raporty obejmują 7 testów orientacji i 11 billing bez błędów. Instalacja nie zastępuje testu funkcjonalnego. Log: `artifacts/build-apk-2026-10-23.log`.
+
+24.10.2026 zbudowano podpisany AAB v3: `artifacts/outlineGo-0.1.0-v3.aab` (również standardowa nazwa `outlineGo-0.1.0.aab`). BUILD SUCCESSFUL in 2m 49s; TypeScript i 183 testy przeszły, Kotlin UP-TO-DATE. Skrypt zweryfikował podpis i zgodność certyfikatu z kluczem przesyłania; potwierdzono obecność publicznego klucza Play w paczce. Log: `artifacts/build-aab-2026-10-24.log`, raport: `artifacts/outlineGo-0.1.0-v3-aab-verification.json`. Nie wysyłano do Google Play; nowego APK nie budowano ani nie instalowano.
 
 ## Aktualne funkcje
 

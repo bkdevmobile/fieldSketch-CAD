@@ -1,0 +1,257 @@
+{
+  "generatedAt": "2026-10-24T18:03:26.086Z",
+  "files": [
+    {
+      "file": "googlePlay/emulator-screenshots/pl/phone/01-sketches.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 52748,
+      "sha256": "e7b08d042b562b97ccdeaa3e9be7f1cb76f77e37872247a1ffa9038eab42425d"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/phone/02-field-measurement.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 806140,
+      "sha256": "c1cd3fbce32ac03d5e2e83ccbb754b9145b76642e39656b946ec92ac96e83d40"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/phone/03-summary.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 85245,
+      "sha256": "089e271305ee657dd7989f1bd9d374ec16bdaafbe095f471131c4fa12d19b447"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/phone/04-sketch.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 91292,
+      "sha256": "4c4148ad307e5092326396f2c728adc4adae3f08856a4ae7da376cbc81b83139"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/phone/05-dimensions.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 86517,
+      "sha256": "1d2f58a6f4928c9c8aaf077d2bd5698107108d140678e8151bcc6e8f74ae257a"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/phone/06-png-preview.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 60689,
+      "sha256": "04e6db1f8a5d6f332f156596af3c42059cf5409c05444a8263376e2dc4e03717"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/tablet-7/01-sketches.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 47897,
+      "sha256": "8bd065fe9e9df97774d83503ca13a6fc43c39417e28247e82c10c58b67fa1cca"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/tablet-7/02-field-measurement.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 718575,
+      "sha256": "2259aebe382c614964cd00249111e96c7101c07c42cb72cd9aa70f68bb1d5280"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/tablet-7/03-summary.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 88964,
+      "sha256": "ad5c73a743949539820bce1663398a6f24f0a1ba1f0fcda52188ffc3c03a62d1"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/tablet-7/04-sketch.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 88073,
+      "sha256": "cc3aa148c0642507c187369d4698d426942bebb9387e89676aa8c09eb3602b36"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/tablet-7/05-dimensions.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 84000,
+      "sha256": "71e9fbf3a52d0fa78065cffe8420493cccf8fd7df67ad87ade881f3f1624f0a9"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/tablet-7/06-png-preview.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 62242,
+      "sha256": "aca4a7fe8b98feece08ffd138d1d16d0a2b3cb502c914c1d957df20a1e723b48"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/tablet-10/01-sketches.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 51430,
+      "sha256": "f487ac27e886be787a915214e30d8b4a56db633bd42faec3c7ddeff1a73974fd"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/tablet-10/02-field-measurement.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 892195,
+      "sha256": "61c2f0abfc5f420276877a632db08c2228c95f2b8190778a87cdebf1555e63e1"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/tablet-10/03-summary.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 120668,
+      "sha256": "242f2a80f278c5cc9f2d3c3ac2e871415466d3cb90a9c60f1599429ae51915b0"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/tablet-10/04-sketch.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 134389,
+      "sha256": "01f7a907163617901319b8f5b0b50d4ac93e4fdbac2ec5bf0096b506b2ff6ce9"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/tablet-10/05-dimensions.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 104284,
+      "sha256": "476dc459f49500aab9a69c182a2c2906c60b2dcec1879d27586e65da2e516428"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/pl/tablet-10/06-png-preview.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 93615,
+      "sha256": "41e0ce863b4e1023adecfa39a5423ebfe786379e6115fbdd4392f6cc32557964"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/phone/01-sketches.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 54487,
+      "sha256": "5a3d7bc2fc55b26618db4e2474ea97d5559d320c5a54507468d56ef782a493d7"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/phone/02-field-measurement.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 801293,
+      "sha256": "45383313f0dec6fff03813bec2968d9c34aa21d8ccc6603b9a84a339b4b37eeb"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/phone/03-summary.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 78715,
+      "sha256": "65816a7c7b2868b9da1dde49e623cc3e5f57783faabd83a3d8be7e946d52b17c"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/phone/04-sketch.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 82768,
+      "sha256": "fc867c3c340f33ac39e64bb8347cbf996ede9a1f852394afb980e71429804498"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/phone/05-dimensions.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 85790,
+      "sha256": "20652d91cef3a499e76008a58c1537aacb647466733c6bcadfcbdf0a8c184d98"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/phone/06-png-preview.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 57323,
+      "sha256": "020b13874d873afb2fdee554b079ab04f2a8460b494cda62d5e103829bec32f2"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/tablet-7/01-sketches.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 48784,
+      "sha256": "1edcb92c991ffa114f276d19d84f246f78030784a9dc690d5558a99703d1ae93"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/tablet-7/02-field-measurement.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 714573,
+      "sha256": "e2a06dc4b62d0fc2a90b184d3020fcfacdbe6cdddd23a8d4ede6a5adb5038805"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/tablet-7/03-summary.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 81501,
+      "sha256": "5a0ab82fa42702d5285421e0448b37fd7168d7e1d2b0595bbedc25f99a9f97ee"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/tablet-7/04-sketch.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 81661,
+      "sha256": "6df14ceaf4904a2c4213616854eeb3f16a7339fdb7ec2f585036fd8040712198"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/tablet-7/05-dimensions.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 83154,
+      "sha256": "f90bb7c7d15a0c15bde3da288bb8cdc0e19a05f959c7ccb6b78620af50ae2a25"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/tablet-7/06-png-preview.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 59174,
+      "sha256": "73579c257edcf75233ab2f324d2a414896ea476837d6f127486b0b5cb0d12828"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/tablet-10/01-sketches.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 52997,
+      "sha256": "f5d52a2d9673920882f303dd9f7ca3ada5b4f65aa89022fc37611fac587f2280"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/tablet-10/02-field-measurement.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 887630,
+      "sha256": "940c61c45166ab798a7b65e55d2bab0ef4f4c5b48924bf132bd1b35a2a4b6e75"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/tablet-10/03-summary.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 110203,
+      "sha256": "d839bd2f508cfa741c9e33941e71af102d801bdd1cbefc6d4866d8a0f0153fb3"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/tablet-10/04-sketch.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 127440,
+      "sha256": "fcb6aa2604b3b6768b4a92c176b0858aa94e9ba5ec0c7be93bf19b59139b20fd"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/tablet-10/05-dimensions.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 104351,
+      "sha256": "e5c63ea2c1f1fd01f8eb08d33873bae5ba68c48ff429bb05b7e8c79a638c4773"
+    },
+    {
+      "file": "googlePlay/emulator-screenshots/en/tablet-10/06-png-preview.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 88013,
+      "sha256": "6d1a131603c8eae65a08a063c3bc53455931bbf571b601ec1b05176bf4d8dcaf"
+    }
+  ]
+}

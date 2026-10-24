@@ -1,6 +1,6 @@
 # Aktualny stan outlineGo
 
-Aktualizacja: **23 października 2026**, kod APK: `8365dca`. Wersja w konfiguracji: **0.1.0 / versionCode 2**, pakiet `com.bk.dev.mobile.outlinego`. Ten dokument opisuje bieżący stan; starsze wpisy w [MEMO](../MEMO.md) i opisach prób zachowują wyniki dla sprawdzonych wtedy wersji.
+Aktualizacja: **24 października 2026**, kod APK: `8365dca`; nowy AAB z bazy `0aaa75c` i zwiększeniem versionCode. Wersja w konfiguracji: **0.1.0 / versionCode 3**, pakiet `com.bk.dev.mobile.outlinego`. Telefon nadal ma APK v2. Ten dokument opisuje bieżący stan; starsze wpisy w [MEMO](../MEMO.md) i opisach prób zachowują wyniki dla sprawdzonych wtedy wersji.
 
 ## Kod, paczki i publikacja
 
@@ -10,11 +10,15 @@ Aktualizacja: **23 października 2026**, kod APK: `8365dca`. Wersja w konfigurac
 | Weryfikacja źródeł | TypeScript i **183 testy w 24 zestawach** przeszły przed commitem 8365dca. 23.10 prebuild i release APK: BUILD SUCCESSFUL in 2m 35s. Zadania Kotlin UP-TO-DATE; raporty: 7 testów orientacji i 11 billing, bez błędów |
 | Ostatni podpisany i zainstalowany APK | `artifacts/outlineGo-0.1.0.apk`, źródła `8365dca`, zainstalowany 23.10 na Redmi 23124RA7EO (`a20fa219`) przez `install -r`: Success; uruchomienie Status: ok. Zawiera Sentry, ekran akceptacji i automatyczny zapis notatek |
 | SHA256 tego APK | `7efea90cf234609bab21801a570da260da33b233441e1b7356919741586b5170` |
-| AAB | Nie przebudowano po zmianach UI, Sentry i pierwszego uruchomienia; wcześniejszy AAB v2 nie reprezentuje obecnych źródeł |
+| AAB | Podpisany `artifacts/outlineGo-0.1.0-v3.aab`, 0.1.0 / versionCode 3, zbudowany 24.10.2026. BUILD SUCCESSFUL in 2m 49s; podpis i certyfikat przesyłania zweryfikowane, klucz Play osadzony. SHA256 `4f5dd57a8cee41df4ca6b1d8495c6fa08153f1482fcf2a7ed47a2702264cfe6c`. TypeScript i 183 testy przeszły, Kotlin UP-TO-DATE. Paczki nie wysyłano do Console |
 | Google Play | Według potwierdzenia użytkownika pierwsze wydanie jest w testach wewnętrznych. Brak potwierdzenia publikacji produkcyjnej i wykonanych transakcji testowych |
 | WWW | [Strona EN w Firebase](https://outlinego-27ab5.web.app/) opublikowana; dokumenty prawne nadal oznaczone jako robocze |
 
 Nazwa pliku i niezmieniony versionCode nie identyfikują konkretnego przyrostu. Do porównania paczek używać hasha i commita źródeł. Lokalny raport ostatniego APK: `artifacts/outlineGo-0.1.0-apk-verification.json`. Podpis v2 release potwierdzony przez apksigner; certyfikat SHA256 `8b7dd20f60c62a205c5b66c4c155016b7b9e1b455afc5a6048a1806c622de076`. Log: `artifacts/build-apk-2026-10-23.log`. Instalacja i start nie potwierdzają działania zgód, wysyłania Sentry, zakupów ani sensorów.
+
+## Zrzuty do Google Play
+
+24.10.2026 przygotowano [36 zrzutów aplikacji](../googlePlay/emulator-screenshots/README.md): po sześć ekranów PL i EN dla telefonu, tabletu 7″ oraz tabletu 10″. PNG 9:16, odpowiednio 1080×1920 i 1440×2560; każdy poniżej 8 MB. Podgląd kamery pokazuje wygenerowaną scenę ogrodu podaną do kamery emulatora, a interfejs pochodzi z APK v2. Materiały są lokalne i wymagają dodania do właściwych galerii Play Console.
 
 ## Zgody i prywatność
 
