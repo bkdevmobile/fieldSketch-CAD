@@ -28,6 +28,21 @@ try {
   $name = if ($AllowUnconfiguredBilling) { "outlineGo-$appVersion-bootstrap.aab" } else { "outlineGo-$appVersion.aab" }
   $outputPath = Join-Path $outputDirectory $name
   Copy-Item -LiteralPath 'android/app/build/outputs/bundle/release/app-release.aab' -Destination $outputPath -Force
+  $mappingSource = 'android/app/build/outputs/mapping/release/mapping.txt'
+  if (-not (Test-Path -LiteralPath $mappingSource) -or (Get-Item -LiteralPath $mappingSource).Length -eq 0) { throw 'Brak mapowania R8 dla tego wydania.' }
+  $mappingPath = Join-Path $outputDirectory (([IO.Path]::GetFileNameWithoutExtension($name)) + '-mapping.txt')
+  Copy-Item -LiteralPath $mappingSource -Destination $mappingPath -Force
+  Add-Type -AssemblyName System.IO.Compression.FileSystem
+  $archive = [IO.Compression.ZipFile]::OpenRead($outputPath)
+  try {
+    $entry = $archive.GetEntry('BUNDLE-METADATA/com.android.tools.build.obfuscation/proguard.map')
+    if (-not $entry) { throw 'AAB nie zawiera mapowania R8 dla Google Play.' }
+    $mappingStream = $entry.Open()
+    $sha256 = [Security.Cryptography.SHA256]::Create()
+    try { $embeddedHash = [BitConverter]::ToString($sha256.ComputeHash($mappingStream)).Replace('-', '') }
+    finally { $mappingStream.Dispose(); $sha256.Dispose() }
+    if ($embeddedHash -ne (Get-FileHash -Algorithm SHA256 -LiteralPath $mappingPath).Hash) { throw 'Mapowanie AAB nie odpowiada plikowi mapping.txt.' }
+  } finally { $archive.Dispose() }
   & jarsigner -verify $outputPath
   if ($LASTEXITCODE -ne 0) { throw 'Weryfikacja podpisu AAB nie powiodla sie.' }
   $expectedCertificate = & keytool -list -v -keystore $env:OUTLINEGO_STORE_FILE -storetype PKCS12 -alias $env:OUTLINEGO_KEY_ALIAS -storepass:env OUTLINEGO_STORE_PASSWORD 2>&1
@@ -40,4 +55,6 @@ try {
   Write-Output "Upload certificate SHA256: $actualFingerprint"
   Get-FileHash -Algorithm SHA256 -LiteralPath $outputPath
   Write-Output "AAB: $outputPath"
+  Write-Output "R8 mapping (also embedded in AAB): $mappingPath"
+  Get-FileHash -Algorithm SHA256 -LiteralPath $mappingPath
 } finally { Clear-OutlineGoSigning; Pop-Location }

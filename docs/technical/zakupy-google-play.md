@@ -25,6 +25,12 @@ Nowy pakiet jest osobną aplikacją względem `pl.fieldsketch.cad.prototype`. Ni
 
 ## Budowanie i podpis
 
+Od 24.10.2026 wydania release używają R8: optymalizacji i zaciemniania kodu, usuwania nieużywanego kodu oraz zasobów. Plugin `with-release.cjs` odtwarza flagi `android.enableMinifyInReleaseBuilds=true`, `android.enableShrinkResourcesInReleaseBuilds=true` i reguły `proguard-android-optimize.txt` po każdym prebuildzie. Build debug pozostaje bez minifikacji.
+
+Nazwy paczek wynikają z wersji w `app.config.js`. Dla 1.0.0: `artifacts/outlineGo-1.0.0.aab` i `artifacts/outlineGo-1.0.0.apk`. Skrypty zapisują obok właściwe mapowanie: `outlineGo-1.0.0-mapping.txt` dla AAB i `outlineGo-1.0.0-apk-mapping.txt` dla APK. Gdy mapowania AAB i APK mają identyczny SHA256, skrypt APK wskazuje wspólny plik AAB zamiast tworzyć drugą kopię. Każde mapowanie zachować razem z dokładnie tym wydaniem, z którego pochodzi.
+
+Mapowanie R8 jest również osadzone w AAB pod `BUNDLE-METADATA/com.android.tools.build.obfuscation/proguard.map`. Skrypt AAB sprawdza jego obecność i zgodność SHA256 z osobnym plikiem. Google Play pobiera je automatycznie po przesłaniu AAB; osobne dodanie pliku jest potrzebne dla APK lub przy uzupełnianiu brakującego mapowania konkretnej wersji. Mapa R8 dotyczy Java/Kotlin, a nie map źródłowych JavaScript ani symboli bibliotek C/C++. [Dokumentacja Google Play](https://support.google.com/googleplay/android-developer/answer/9848633?hl=pl).
+
 `npm run build:aab` wykonuje prebuild Expo, testy obu lokalnych modułów Kotlin, budowanie bundle i weryfikację JAR podpisu. Bez klucza licencyjnego domyślnie kończy się błędem; przełącznik bootstrap jest jawnym wyjątkiem do konfiguracji sklepu. `npm run build:apk` również korzysta z prywatnego klucza release.
 
 Hasła trafiają do procesu Gradle przez środowisko, bez wpisywania w argumenty lub pliki projektu Android. Skrypty usuwają zmienne po zakończeniu; Gradle działa bez trwałego demona. Plugin Expo odtwarza konfigurację podpisu po prebuild. Budowanie release bez danych podpisu jest blokowane i nie przechodzi na podpis debugowy.

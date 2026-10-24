@@ -32,6 +32,17 @@ try {
   New-Item -ItemType Directory -Force -Path $outputDirectory | Out-Null
   $outputPath = Join-Path $outputDirectory "outlineGo-$appVersion.apk"
   Copy-Item -LiteralPath 'android/app/build/outputs/apk/release/app-release.apk' -Destination $outputPath -Force
+  $mappingSource = 'android/app/build/outputs/mapping/release/mapping.txt'
+  if (-not (Test-Path -LiteralPath $mappingSource) -or (Get-Item -LiteralPath $mappingSource).Length -eq 0) { throw 'Brak mapowania R8 dla tego wydania.' }
+  $mappingPath = Join-Path $outputDirectory "outlineGo-$appVersion-apk-mapping.txt"
+  $bundleMappingPath = Join-Path $outputDirectory "outlineGo-$appVersion-mapping.txt"
+  if ((Test-Path -LiteralPath $bundleMappingPath) -and
+      (Get-FileHash -Algorithm SHA256 -LiteralPath $mappingSource).Hash -eq (Get-FileHash -Algorithm SHA256 -LiteralPath $bundleMappingPath).Hash) {
+    $mappingPath = $bundleMappingPath
+  } else {
+    Copy-Item -LiteralPath $mappingSource -Destination $mappingPath -Force
+  }
   Get-FileHash -Algorithm SHA256 -LiteralPath $outputPath
   Write-Output "APK: $outputPath"
+  Write-Output "R8 mapping: $mappingPath"
 } finally { Clear-OutlineGoSigning; Pop-Location }
