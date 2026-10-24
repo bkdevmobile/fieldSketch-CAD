@@ -13,7 +13,7 @@ Aktualizacja: **24 października 2026**. Wersja **1.0.0 / versionCode 4**, pakie
 | Nowy APK lokalny / emulator | `artifacts/outlineGo-1.0.0.apk`, 1.0.0 / v4, R8; podpis zweryfikowany, zainstalowany tylko na emulatorze. SHA256 `e383e3b4645dcd433b07fcce433102eb30a8a5cd3d6d3e5311a26c9398a8f0b6`. To samo mapowanie co AAB |
 | AAB | Podpisany `artifacts/outlineGo-1.0.0.aab`, 1.0.0 / versionCode 4, R8 i usuwanie nieużywanych zasobów. 53 570 303 bajty; SHA256 `d628798e7f9d7e8abb7f1301c3d5107fdf983d59a995f0e5989fcf7df5a726d5`. Mapowanie osadzone w AAB i wyeksportowane jako `artifacts/outlineGo-1.0.0-mapping.txt`, identyczność SHA256 sprawdzona. Nie przesyłano do Console |
 | Google Play | Według potwierdzenia użytkownika pierwsze wydanie jest w testach wewnętrznych. Brak potwierdzenia publikacji produkcyjnej i wykonanych transakcji testowych |
-| WWW | [Strona EN w Firebase](https://outlinego-27ab5.web.app/) opublikowana; dokumenty prawne nadal oznaczone jako robocze |
+| WWW | [Strona EN w Firebase](https://outlinego-27ab5.web.app/) opublikowana; oficjalny badge Google Play z linkiem do sklepu, usunięte Coming soon. Widok desktop i mobilny oraz zasób live sprawdzone. Dokumenty prawne nadal oznaczone jako robocze |
 
 Nazwa pliku i niezmieniony versionCode nie identyfikują konkretnego przyrostu. Do porównania paczek używać hasha i commita źródeł. Lokalny raport ostatniego APK: `artifacts/outlineGo-0.1.0-apk-verification.json`. Podpis v2 release potwierdzony przez apksigner; certyfikat SHA256 `8b7dd20f60c62a205c5b66c4c155016b7b9e1b455afc5a6048a1806c622de076`. Log: `artifacts/build-apk-2026-10-23.log`. Instalacja i start nie potwierdzają działania zgód, wysyłania Sentry, zakupów ani sensorów.
 

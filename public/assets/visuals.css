@@ -1,4 +1,6 @@
 /* Website imagery; local assets, no external scripts or fonts. */
+.google-play-badge{display:inline-block;max-width:100%;padding:16px;margin-left:-16px;line-height:0;border-radius:10px}
+.google-play-badge img{display:block;width:215px;max-width:100%;height:auto}
 .hero{grid-template-columns:1fr 1.05fr;gap:44px;padding-top:46px;padding-bottom:60px}
 .hero h1{font-size:clamp(46px,5.8vw,70px)}
 .hero-visual{position:relative;margin:0;border-radius:26px;background:#dfe6d5;box-shadow:0 20px 52px #19372c18;isolation:isolate;overflow:hidden}
