@@ -52,6 +52,13 @@ Zakup i przywracanie Plus za 29,99 zł jednorazowo są podłączone przez Google
 
 Solver sieci, przekątne kontrolne, edytor ograniczeń i migracja SDK pozostają poza bieżącym przyrostem.
 
+## Pomysły na dalszy rozwój
+
+Dodane **25 października 2026**:
+
+1. **Kilka obiektów w jednym szkicu** — możliwość pomiaru i zapisania kilku niezależnych obiektów lub obrysów w ramach jednego szkicu.
+2. **Rysowanie i opisy na eksportowanym szkicu** — możliwość dorysowania linii, dodania napisów oraz swobodnego rysowania odręcznego. Dodane elementy mają być widoczne w wyeksportowanym szkicu.
+
 ## Potwierdzony stan i instalacje
 
 [Stan projektu](stan-projektu.md) rozdziela bieżące źródła od ostatniego APK/AAB i publikacji WWW. APK z Sentry i akceptacją warunków zainstalowano i uruchomiono 23.10; próby funkcjonalne na urządzeniu pozostają otwarte. Wcześniejsze wyniki testów natywnych i instalacji opisuje [MEMO](../MEMO.md).
