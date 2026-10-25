@@ -2,6 +2,10 @@
 
 Stan na **23 października 2026**: aplikacja 0.1.0 / versionCode 2, kod APK 8365dca. TypeScript i 183 testy w 24 zestawach przeszły. APK z Sentry, ekranem akceptacji i automatycznym zapisem notatek zbudowano, zainstalowano i uruchomiono na Redmi; pozostał odbiór funkcjonalny. AAB jest starszy. WWW opublikowane, dokumenty robocze; brak potwierdzenia produkcji w Google Play. [Aktualny stan](stan-projektu.md), [historia](../MEMO.md).
 
+## Główny sposób korzystania z aplikacji
+
+Ustalenie z **25 października 2026**: użytkownik wykonuje **szybki szkic w terenie na telefonie**, a następnie eksportuje go i **dopracowuje na komputerze**. Ten scenariusz stanowi punkt odniesienia przy planowaniu dalszego rozwoju aplikacji.
+
 ## Etapy
 
 1. **Testy technologii** — wykonane próby trybu względnego mają zaakceptowaną przez użytkownika dokładność. Krokomierz zaakceptowano; dodatkowe kroki użytkownik wiąże z ruchem telefonu. Nie określono liczbowego progu dokładności i nie rozszerzono odbioru automatycznie na tryb magnetyczny.

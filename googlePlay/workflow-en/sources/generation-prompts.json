@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-25",
+  "tool": "imagegen",
+  "reference": "Selected concept 2: three-step board",
+  "prompts": [
+    {
+      "key": "workflowFieldPhoto",
+      "prompt": "Edit the provided concept board, extracting and reworking ONLY its left photographic scene into a standalone premium editorial lifestyle photograph. No board, panels, captions, wordmarks, numbers, arrows or added text. Keep the same warm natural European garden/patio atmosphere, olive shirt, approximate field measurement story. Show a person from behind / over shoulder using an ANDROID phone as a camera viewfinder toward a garden corner. Phone at chest height; show the BACK or side of the phone so absolutely no fabricated app UI is visible. Lawn, flower beds and patio fence, natural afternoon light. Photorealistic, believable hands and phone. A medium-wide 4:3 photograph, enough context for both landscape and portrait crops. Do not add professional survey devices, lasers or AR overlays. This photo will be part of a code-composed three-step graphic with an actual Android screenshot in the middle."
+    },
+    {
+      "key": "workflowCadPhoto",
+      "prompt": "Edit the provided concept board, extracting and reworking ONLY its right computer photo into a standalone premium editorial photograph. No board, wordmark, captions, panels, file icons, arrows or added titles. Preserve warm home office desk, cream walls, plants and natural garden light, monitor, keyboard and mouse. Place a large generic CAD monitor filling most of the photo, frontal with only a subtle angle so the drawing is clearly legible. The screen displays a thin cyan closed L-shaped polygon on a charcoal grid. EXACT shape: vertices in order (0,0), (8,0), (8,5), (5,5), (5,8), (0,8), closing to (0,0). Thus lower right arm extends right and the missing notch is upper right. No dimension numbers or fake measurement values, no app name, no third-party logos. Very subtle generic CAD toolbars only. This is a SEPARATE generic desktop CAD program, not outlineGo. Photorealistic 4:3 photograph with room for landscape and portrait crops. Keep full CAD outline on screen, no people needed. It will be paired with a real outlineGo screenshot, which will be composited separately without generative changes."
+    }
+  ],
+  "fieldFollowup": "Change only the Android phone to upright portrait orientation, preserve the rest of the scene, phone back visible; no fabricated UI.",
+  "layout": "HTML/CSS composition with unchanged native Android screenshot files; English text rendered deterministically."
+}

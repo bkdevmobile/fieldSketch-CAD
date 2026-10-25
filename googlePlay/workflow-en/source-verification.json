@@ -1,0 +1,25 @@
+{
+  "created": "2026-10-25",
+  "language": "en",
+  "appScreen": "Actual emulator capture; no generated app UI",
+  "screenshots": [
+    {
+      "profile": "phone",
+      "source": "googlePlay/emulator-screenshots/en/phone/03-summary.png",
+      "sha256": "65816a7c7b2868b9da1dde49e623cc3e5f57783faabd83a3d8be7e946d52b17c",
+      "copiedWithoutChanges": true
+    },
+    {
+      "profile": "tablet-7",
+      "source": "googlePlay/emulator-screenshots/en/tablet-7/03-summary.png",
+      "sha256": "5a0ab82fa42702d5285421e0448b37fd7168d7e1d2b0595bbedc25f99a9f97ee",
+      "copiedWithoutChanges": true
+    },
+    {
+      "profile": "tablet-10",
+      "source": "googlePlay/emulator-screenshots/en/tablet-10/03-summary.png",
+      "sha256": "d839bd2f508cfa741c9e33941e71af102d801bdd1cbefc6d4866d8a0f0153fb3",
+      "copiedWithoutChanges": true
+    }
+  ]
+}

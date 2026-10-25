@@ -1,0 +1,34 @@
+{
+  "created": "2026-10-25",
+  "files": [
+    {
+      "profile": "phone",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 1107376,
+      "sha256": "5a8890c0075289cc7123d740bdefb00b2d99d95e251fe1f51b190a23b2379984",
+      "sourceScreenshotUnchanged": true,
+      "galleryCopyIdentical": true
+    },
+    {
+      "profile": "tablet-7",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 1929412,
+      "sha256": "1412ccc4d8e946e00b1f70038b1a63c0db14bd38bde17638daf5f7a03a2983b2",
+      "sourceScreenshotUnchanged": true,
+      "galleryCopyIdentical": true
+    },
+    {
+      "profile": "tablet-10",
+      "width": 2560,
+      "height": 1440,
+      "bytes": 3240795,
+      "sha256": "29c2570014cab1156971950c964be47c41ac11fb654fc5b8c0299e1b0e501325",
+      "sourceScreenshotUnchanged": true,
+      "galleryCopyIdentical": true
+    }
+  ],
+  "webScreenshotUnchanged": true,
+  "webScreenshotSha256": "65816a7c7b2868b9da1dde49e623cc3e5f57783faabd83a3d8be7e946d52b17c"
+}

@@ -1,5 +1,7 @@
 # Materiały Google Play — outlineGo
 
+Nowa grafika EN **From field to a finished plan** (25.10.2026), wybrana propozycja nr 2 z prawdziwymi zrzutami aplikacji: [workflow-en/README.md](workflow-en/README.md). Gotowe PNG dla telefonu, tabletu 7″ i 10″ są również w `en/screenshots/` jako `03-from-field-to-plan.png`.
+
 Rzeczywiste zrzuty aplikacji PL/EN z emulatora (24.10.2026), po sześć ekranów telefonu, tabletu 7″ i tabletu 10″: [emulator-screenshots/README.md](emulator-screenshots/README.md). Podgląd kamery korzysta z wygenerowanej sceny ogrodu; interfejs pochodzi z uruchomionego APK.
 
 Wybrane przez użytkownika grafiki PL, przygotowane 23.10.2026:
