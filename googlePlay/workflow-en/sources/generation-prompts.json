@@ -13,5 +13,10 @@
     }
   ],
   "fieldFollowup": "Change only the Android phone to upright portrait orientation, preserve the rest of the scene, phone back visible; no fabricated UI.",
-  "layout": "HTML/CSS composition with unchanged native Android screenshot files; English text rendered deterministically."
+  "layout": "HTML/CSS composition with unchanged native Android screenshot files; English text rendered deterministically.",
+  "fieldOrientationCorrection": {
+    "date": "2026-10-26",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: precise-object-edit. Edit target: provided garden photograph. Fix ONLY the orientation of the phone in the woman's hands: she must be looking at its FRONT GLASS SCREEN, with the rear cameras facing away from her toward the garden. Because camera viewpoint is over her shoulder, we should see the front display, NOT the rear camera lenses. Show dark reflective glass with subtle garden reflections and a small unobtrusive centered selfie-camera hole at top, screen idle/dim with no readable UI, no text, no logos. Preserve the phone position, portrait orientation, size, natural hand grip and thumb, woman's appearance, garden, composition, lighting, photographic realism and 4:3 image ratio. Change only the phone surface and minimal edge details necessary to turn it around correctly. Do not add rear camera lenses on the visible front surface."
+  }
 }

@@ -1,0 +1,25 @@
+{
+  "description": "Decoded grayscale differences during each stationary scene, in 0–255 pixel units. Minor differences are expected from lossy H.264 encoding.",
+  "scenes": [
+    {
+      "scene": 1,
+      "meanAbsolutePixelDifference": 0.00816358024691358,
+      "stable": true
+    },
+    {
+      "scene": 2,
+      "meanAbsolutePixelDifference": 0.00015432098765432098,
+      "stable": true
+    },
+    {
+      "scene": 3,
+      "meanAbsolutePixelDifference": 0.00010030864197530864,
+      "stable": true
+    },
+    {
+      "scene": 4,
+      "meanAbsolutePixelDifference": 0.000787037037037037,
+      "stable": true
+    }
+  ]
+}
