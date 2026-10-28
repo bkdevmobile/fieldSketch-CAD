@@ -62,6 +62,7 @@ Dodane **25 października 2026**:
 
 1. **Kilka obiektów w jednym szkicu** — możliwość pomiaru i zapisania kilku niezależnych obiektów lub obrysów w ramach jednego szkicu.
 2. **Rysowanie i opisy na eksportowanym szkicu** — możliwość dorysowania linii, dodania napisów oraz swobodnego rysowania odręcznego. Dodane elementy mają być widoczne w wyeksportowanym szkicu.
+3. **Intuicyjny help wprowadzający** - opisy wraz z rysunkiem pokazujące jak realizować poszczególne kroki pomiaru. Pomoc w postaci okna dialogowego, chckebox "nie pokazuj pomocy"- możliwość przywrócenia w ustawieniach. Zawsze jest możliwość otworzenia okna dotyczącego danego kroku przez przycisk.
 
 ## Potwierdzony stan i instalacje
 
