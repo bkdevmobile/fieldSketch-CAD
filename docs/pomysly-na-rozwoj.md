@@ -54,3 +54,27 @@ Dodać obsługę orientacji poziomej (landscape) i dostosować układ ekranów d
 Data dodania: 23 października 2026. Status: do wdrożenia.
 
 Dodać ustawienia eksportu DXF umożliwiające użytkownikowi zmianę nazw i kolorów warstw. Eksportowany plik powinien uwzględniać wybrane nazwy i kolory.
+
+## 5. Odblokowanie Plusa kodem promocyjnym
+
+Data dodania: 28 października 2026. Status: pomysł do dopracowania.
+
+Dodać możliwość odblokowania outlineGo Plus za pomocą kodu promocyjnego, np. na potrzeby akcji promocyjnych i współpracy z twórcami.
+
+Do ustalenia przed wdrożeniem: sposób realizacji i weryfikacji kodów, liczba użyć i termin ważności kodu oraz czas obowiązywania i przywracanie odblokowanego Plusa.
+
+## 6. Dodawanie zdjęć
+
+Data dodania: 28 października 2026. Status: pomysł do dopracowania.
+
+Dodać możliwość dołączania zdjęć do szkicu, aby dokumentować wygląd obiektu i szczegóły przydatne podczas dalszej pracy.
+
+Do ustalenia przed wdrożeniem: wybór zdjęć z galerii lub wykonanie aparatem, przypisywanie do całego szkicu lub konkretnych punktów, opisy zdjęć, lokalne przechowywanie oraz uwzględnianie zdjęć przy eksporcie i udostępnianiu.
+
+## 7. Prośba o ocenę aplikacji
+
+Data dodania: 28 października 2026. Status: pomysł do dopracowania.
+
+Dodać prośbę o ocenę outlineGo, wyświetlaną po skorzystaniu z aplikacji, np. po ukończeniu szkicu lub udanym eksporcie. Umożliwić pominięcie prośby bez przerywania pracy.
+
+Do ustalenia przed wdrożeniem: moment pierwszej prośby, częstotliwość ponawiania oraz wykorzystanie mechanizmu ocen Google Play.

@@ -24,6 +24,7 @@ Stan dokumentacji: **23 października 2026**, aplikacja 0.1.0 / versionCode 2, k
 
 - [Plan rozwoju i prace przed release](plan-rozwoju.md)
 - [Pomysły na rozwój](pomysly-na-rozwoj.md)
+- [Promocja aplikacji — pomysły i działania](promocja-aplikacji.md)
 - [Stan prac, artefakty i historia wdrożeń](../MEMO.md)
 - [Dokument techniczny: implementacja i architektura docelowa](technical/dokumentacja-techniczna.md)
 - [Budowanie i testowanie aplikacji](../app/README.md)
