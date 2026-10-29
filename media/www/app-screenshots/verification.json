@@ -1,0 +1,152 @@
+{
+  "date": "2026-10-29",
+  "appVersion": "1.0.0",
+  "versionCode": 4,
+  "serial": "emulator-5556",
+  "files": [
+    {
+      "language": "pl",
+      "file": "01-new-sketch.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 96139,
+      "sha256": "d12d64db655c8fcc50dd68985a9757a006034a82a79fe85a282a3515fdfa3d4e"
+    },
+    {
+      "language": "pl",
+      "file": "02-direction.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 777511,
+      "sha256": "2699bf48383d4900c706a5b3806791b8b646d54a1f114876694602144d80f035"
+    },
+    {
+      "language": "pl",
+      "file": "03-angle.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 138220,
+      "sha256": "84d638043cf16e706db6233e1c6128f8f4f795c638f913bf7647574f69802a89"
+    },
+    {
+      "language": "pl",
+      "file": "04-length.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 148049,
+      "sha256": "0c57f33f7d0a4bdb1914f4f3b4c05546e469daae849db7affd63997e90549961"
+    },
+    {
+      "language": "pl",
+      "file": "05-review.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 136874,
+      "sha256": "6d1faf6489bc1aebdd5bd9a7499cf5873c7adf2ba37e11334f1834251f9ed606"
+    },
+    {
+      "language": "pl",
+      "file": "06-summary.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 130152,
+      "sha256": "0ffa519586f1cf9aa0260db36468652b12c1804fdde7571cc9a12c344ba553d6"
+    },
+    {
+      "language": "pl",
+      "file": "07-sketch.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 131463,
+      "sha256": "9f6112dc937ba91dbbbbbeb6f7b9815a304f15a07146f27f09b33bd48cfeec9f"
+    },
+    {
+      "language": "pl",
+      "file": "08-dimensions.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 129736,
+      "sha256": "b0d1dd48f0e000acfa9fb3ca963d83891f0727c8a917936d7814ee4ccf1320b4"
+    },
+    {
+      "language": "pl",
+      "file": "09-png-preview.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 91783,
+      "sha256": "a6cf315c8fac9528c9c8a9223a0d054bb0eca9186da26f8150f29a38c30df336"
+    },
+    {
+      "language": "en",
+      "file": "01-new-sketch.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 94399,
+      "sha256": "10ebaefe3aa34a4d9cbddd6a1ab36863db8bc8a950d6ebeffad80418f63fd7e1"
+    },
+    {
+      "language": "en",
+      "file": "02-direction.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 770778,
+      "sha256": "9fedc077772622ecdec3e480161f238b77aba498c8fdad9b9ec15be7898fb0b2"
+    },
+    {
+      "language": "en",
+      "file": "03-angle.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 125910,
+      "sha256": "938145e7febbad2006b2f34134e89da4da6bb969963f06014b2fc9b70a7e4c03"
+    },
+    {
+      "language": "en",
+      "file": "04-length.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 131080,
+      "sha256": "4d034d22461569530a6b9918e84519b2d9257f5da21f59a68d65c07c6cfe2c92"
+    },
+    {
+      "language": "en",
+      "file": "05-review.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 125108,
+      "sha256": "ebb6951c2ea74294d5d93ac3d2300368f95f4846b4c52491e0b017ec772133a5"
+    },
+    {
+      "language": "en",
+      "file": "06-summary.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 119347,
+      "sha256": "7bebade96d51f133b521c9c9528801618619992a847f28aed2a60ed9e8fef924"
+    },
+    {
+      "language": "en",
+      "file": "07-sketch.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 117081,
+      "sha256": "57434842791b5050df8c9409c79caf652f5e8d7c325e8fd523b8f9c02295df07"
+    },
+    {
+      "language": "en",
+      "file": "08-dimensions.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 128421,
+      "sha256": "23ad0fb1d2f6b75dbb86f279e742a39a436e358974a0c69ce0ef0096b4fd4d29"
+    },
+    {
+      "language": "en",
+      "file": "09-png-preview.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 85482,
+      "sha256": "13988876a1cb6759d20865911ecb39ec7d664d24b086d62156f18a165477753e"
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 
 Data: **29 października 2026**. Status: plan produkcji, bez tworzenia nowych mediów i bez publikacji.
 
+Aktualizacja 29.10.2026: przygotowano ilustracje PL 01–04 w `media/www/illustrations-pl/` (preferowane CAD v2) oraz rzeczywiste zrzuty aplikacji 1.0.0/v4 w `media/www/app-screenshots/`: po dziewięć ekranów PL i EN, od nowego szkicu do podglądu PNG. Szczegóły pochodzenia, arkusze kontaktowe i raport SHA256 są w katalogu zestawu. Zrzuty właściwego eksportu/udostępnienia DXF pozostają niewykonane: dedykowany emulator AOSP działa w Free i nie ma dostępnej oferty Google Play. Pozostałe punkty tego dokumentu opisują plan; mediów nie opublikowano na WWW.
+
 Cel: pokazać przebieg pracy i jej wynik: szkic na telefonie → eksport → dalsza praca na komputerze. Pierwszy etap obejmuje stronę główną, pierwszy szkic, ogród i eksport DXF w PL oraz EN. Pokój i pomoc należą do drugiego etapu.
 
 ## Zasady wspólne
