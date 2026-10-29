@@ -7,6 +7,7 @@
     {
       "language": "pl",
       "file": "01-new-sketch.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 96139,
@@ -15,6 +16,7 @@
     {
       "language": "pl",
       "file": "02-direction.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 777511,
@@ -23,6 +25,7 @@
     {
       "language": "pl",
       "file": "03-angle.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 138220,
@@ -31,6 +34,7 @@
     {
       "language": "pl",
       "file": "04-length.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 148049,
@@ -39,6 +43,7 @@
     {
       "language": "pl",
       "file": "05-review.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 136874,
@@ -47,6 +52,7 @@
     {
       "language": "pl",
       "file": "06-summary.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 130152,
@@ -55,6 +61,7 @@
     {
       "language": "pl",
       "file": "07-sketch.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 131463,
@@ -63,6 +70,7 @@
     {
       "language": "pl",
       "file": "08-dimensions.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 129736,
@@ -71,14 +79,52 @@
     {
       "language": "pl",
       "file": "09-png-preview.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 91783,
       "sha256": "a6cf315c8fac9528c9c8a9223a0d054bb0eca9186da26f8150f29a38c30df336"
     },
     {
+      "language": "pl",
+      "file": "10-plus-dxf-export.png",
+      "entitlementMock": true,
+      "width": 1080,
+      "height": 1920,
+      "bytes": 131780,
+      "sha256": "43cce41a7430400b407051000a321b8795d4306663646db364366ddd0bcc8fc7"
+    },
+    {
+      "language": "pl",
+      "file": "11-plus-dxf-share.png",
+      "entitlementMock": true,
+      "width": 1080,
+      "height": 1920,
+      "bytes": 110266,
+      "sha256": "c9ce43f71789640b8baaf3410ff1cc9ab9992fa476e5369d927ec291c4dd1d48"
+    },
+    {
+      "language": "pl",
+      "file": "12-plus-dxf-ready.png",
+      "entitlementMock": true,
+      "width": 1080,
+      "height": 1920,
+      "bytes": 129272,
+      "sha256": "5a5b911d0b0efb711935aa2f317c5e9c7a4e12a951ea788bfdf182e1ab0829ae"
+    },
+    {
+      "language": "pl",
+      "file": "13-plus-png-preview.png",
+      "entitlementMock": true,
+      "width": 1080,
+      "height": 1920,
+      "bytes": 91059,
+      "sha256": "9d4478dc13065d949abb5f2c3da3065c006d1b1bb5cb24e6fdbe34d2f9a03f4e"
+    },
+    {
       "language": "en",
       "file": "01-new-sketch.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 94399,
@@ -87,6 +133,7 @@
     {
       "language": "en",
       "file": "02-direction.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 770778,
@@ -95,6 +142,7 @@
     {
       "language": "en",
       "file": "03-angle.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 125910,
@@ -103,6 +151,7 @@
     {
       "language": "en",
       "file": "04-length.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 131080,
@@ -111,6 +160,7 @@
     {
       "language": "en",
       "file": "05-review.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 125108,
@@ -119,6 +169,7 @@
     {
       "language": "en",
       "file": "06-summary.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 119347,
@@ -127,6 +178,7 @@
     {
       "language": "en",
       "file": "07-sketch.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 117081,
@@ -135,6 +187,7 @@
     {
       "language": "en",
       "file": "08-dimensions.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 128421,
@@ -143,10 +196,65 @@
     {
       "language": "en",
       "file": "09-png-preview.png",
+      "entitlementMock": false,
       "width": 1080,
       "height": 1920,
       "bytes": 85482,
       "sha256": "13988876a1cb6759d20865911ecb39ec7d664d24b086d62156f18a165477753e"
+    },
+    {
+      "language": "en",
+      "file": "10-plus-dxf-export.png",
+      "entitlementMock": true,
+      "width": 1080,
+      "height": 1920,
+      "bytes": 119908,
+      "sha256": "729a11a08eb8f695b4f1e8452a68b09fe5d6607b711b26762af3ccbb0df27f9f"
+    },
+    {
+      "language": "en",
+      "file": "11-plus-dxf-share.png",
+      "entitlementMock": true,
+      "width": 1080,
+      "height": 1920,
+      "bytes": 98865,
+      "sha256": "893b537a102de6a5c23389e540227fd71d24cb4af78123fe55cc76b67c7891f3"
+    },
+    {
+      "language": "en",
+      "file": "12-plus-dxf-ready.png",
+      "entitlementMock": true,
+      "width": 1080,
+      "height": 1920,
+      "bytes": 114088,
+      "sha256": "81546ab9c2218a19eb919bff43fe3dc10b8289db43e7406b31032f6ad586d03d"
+    },
+    {
+      "language": "en",
+      "file": "13-plus-png-preview.png",
+      "entitlementMock": true,
+      "width": 1080,
+      "height": 1920,
+      "bytes": 84928,
+      "sha256": "9c77cc6f2f03343280887caaccb0e8b609c5db403ba7c9d8de36c0d61b01561e"
+    }
+  ],
+  "exports": [
+    {
+      "language": "pl",
+      "file": "exports/garden-pl.dxf",
+      "entitlementMock": true,
+      "unit": "m",
+      "bytes": 6639,
+      "sha256": "84e0917d42e2d30ae6376fd4ba6518682ccb79bbe013d3ca66640ae52d79dcd4"
+    },
+    {
+      "language": "en",
+      "file": "exports/garden-en.dxf",
+      "entitlementMock": true,
+      "unit": "m",
+      "bytes": 6580,
+      "sha256": "076a5b68d640620a1bb538cd09d5d0e49cc8022d86d583865085731bc37e079b"
     }
   ]
 }
