@@ -2,6 +2,8 @@
 
 Data utworzenia: **28 października 2026**. Status: **plan do realizacji**.
 
+Aktualizacja **29 października 2026**: użytkownik potwierdził weryfikację własności w Search Console. Plik `public/google9be007feff638fa8.html` opublikowano bez zmiany zawartości. Dodano `public/robots.txt` umożliwiający skanowanie i wskazujący mapę oraz `public/sitemap.xml` zawierający stronę główną. Dokumenty prawne pozostają robocze i nie zostały dodane do mapy. Firebase Hosting `outlinego-27ab5`: deploy zakończony, wersja `e9a2b80991e8ad33`; wszystkie trzy pliki zwracają HTTP 200 i treść zgodną z lokalną. Ręczna prośba o indeksowanie napotkała komunikat dziennego limitu; przyczyna nieustalona. Użytkownik zgłosił mapę w panelu; Search Console pokazało błąd odczytu. Późniejszy test na żywo pokazał dozwolone skanowanie i udane pobranie sprawdzanego adresu. Przetworzenie mapy i faktyczne zaindeksowanie pozostają niepotwierdzone. Poniższe opisy pierwotnego stanu i lista zadań dokumentują plan z 28 października.
+
 Cel: rozbudować stronę o aplikacji, ułatwić jej odnajdywanie w wyszukiwarkach i przygotować własną domenę. Dokument zapisuje ustalenia i zadania; nie oznacza wykonania wdrożenia ani zgłoszenia strony w Search Console.
 
 ## Obecny stan
