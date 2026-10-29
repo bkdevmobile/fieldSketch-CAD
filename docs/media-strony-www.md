@@ -1,10 +1,12 @@
 # Plan mediów WWW outlineGo
 
-Data: **29 października 2026**. Status: plan produkcji, bez tworzenia nowych mediów i bez publikacji.
+Data: **29 października 2026**. Status: statyczne media pierwszego etapu przygotowane; integracja ze stroną i filmy do wykonania, bez publikacji nowych mediów.
 
 Aktualizacja 29.10.2026: przygotowano ilustracje PL 01–04 w `media/www/illustrations-pl/` (preferowane CAD v2) oraz rzeczywiste zrzuty aplikacji 1.0.0/v4 w `media/www/app-screenshots/`: po 13 ekranów PL i EN. Dziewięć pokazuje Free, cztery kolejne eksport DXF, systemowe udostępnianie, komunikat gotowości i PNG bez znaku wodnego. Dodatkowe ekrany wykonano na wyraźne polecenie użytkownika z tymczasowym mockiem uprawnienia Plus; sam kod eksportu i UI pozostał bez zmian. Mock, jego APK i wyniki builda usunięto, kod i oryginalny APK emulatora przywrócono. Zachowano wygenerowane DXF PL/EN. Szczegóły pochodzenia, ograniczenia testu, arkusze kontaktowe i raport SHA256 są w katalogu zestawu. Pozostałe punkty tego dokumentu opisują plan; mediów nie opublikowano na WWW.
 
 Aktualizacja CAD 29.10.2026: wykonano rzeczywiste zrzuty importu własnych plików DXF w LibreCAD 2.2.1.5. Zestaw `media/www/librecad-screenshots/` zawiera po trzy główne ujęcia PL i EN (cały obrys, detal, jednostki i warstwy) oraz dwa dodatkowe ujęcia EN dokumentujące pomiar 8.0000 m i wersję programu. Źródłowe DXF pozostały niezmienione; szczegóły i sumy kontrolne są w README i raporcie zestawu. Materiały nie zostały jeszcze opublikowane na WWW.
+
+Aktualizacja domknięcia statycznych mediów etapu 1 (29.10.2026): katalog `media/www/stage1-completion/` zawiera cztery brakujące zrzuty PL/EN (niezapisana korekta istniejącego boku i aktywne pole notatki), schemat kroków w układzie szerokim i pionowym, schemat punktów ogrodu, montaże rzeczywistych ekranów aplikacji i CAD oraz warianty WebP do WWW. Zachowano oryginalne eksporty PNG Free i dokładne kopie sprawdzonych DXF do pobrania. Galeria, pochodzenie i manifest sum kontrolnych znajdują się w katalogu zestawu. Statyczne media są gotowe do integracji; filmy V02/V04/V01 pozostają do osobnej realizacji. Brak deployu; etap 2 poza zakresem.
 
 Cel: pokazać przebieg pracy i jej wynik: szkic na telefonie → eksport → dalsza praca na komputerze. Pierwszy etap obejmuje stronę główną, pierwszy szkic, ogród i eksport DXF w PL oraz EN. Pokój i pomoc należą do drugiego etapu.
 
