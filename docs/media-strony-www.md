@@ -4,6 +4,8 @@ Data: **29 października 2026**. Status: plan produkcji, bez tworzenia nowych me
 
 Aktualizacja 29.10.2026: przygotowano ilustracje PL 01–04 w `media/www/illustrations-pl/` (preferowane CAD v2) oraz rzeczywiste zrzuty aplikacji 1.0.0/v4 w `media/www/app-screenshots/`: po 13 ekranów PL i EN. Dziewięć pokazuje Free, cztery kolejne eksport DXF, systemowe udostępnianie, komunikat gotowości i PNG bez znaku wodnego. Dodatkowe ekrany wykonano na wyraźne polecenie użytkownika z tymczasowym mockiem uprawnienia Plus; sam kod eksportu i UI pozostał bez zmian. Mock, jego APK i wyniki builda usunięto, kod i oryginalny APK emulatora przywrócono. Zachowano wygenerowane DXF PL/EN. Szczegóły pochodzenia, ograniczenia testu, arkusze kontaktowe i raport SHA256 są w katalogu zestawu. Pozostałe punkty tego dokumentu opisują plan; mediów nie opublikowano na WWW.
 
+Aktualizacja CAD 29.10.2026: wykonano rzeczywiste zrzuty importu własnych plików DXF w LibreCAD 2.2.1.5. Zestaw `media/www/librecad-screenshots/` zawiera po trzy główne ujęcia PL i EN (cały obrys, detal, jednostki i warstwy) oraz dwa dodatkowe ujęcia EN dokumentujące pomiar 8.0000 m i wersję programu. Źródłowe DXF pozostały niezmienione; szczegóły i sumy kontrolne są w README i raporcie zestawu. Materiały nie zostały jeszcze opublikowane na WWW.
+
 Cel: pokazać przebieg pracy i jej wynik: szkic na telefonie → eksport → dalsza praca na komputerze. Pierwszy etap obejmuje stronę główną, pierwszy szkic, ogród i eksport DXF w PL oraz EN. Pokój i pomoc należą do drugiego etapu.
 
 ## Zasady wspólne
