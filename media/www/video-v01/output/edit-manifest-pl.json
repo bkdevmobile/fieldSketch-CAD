@@ -1,0 +1,79 @@
+{
+  "duration": 60,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "segments": [
+    {
+      "source": "../video-v04/sources/pl/01-summary.png",
+      "sha256": "23b6b33ca20b0e290d6ed7c98b94e3607b432a90decdf0874ef81160ab19aceb",
+      "still": true,
+      "start": 0,
+      "length": 0,
+      "speed": 1,
+      "hold": 8,
+      "outputStart": 0,
+      "outputSeconds": 8
+    },
+    {
+      "source": "../video-v02/sources/pl/02-first-side.mp4",
+      "sha256": "7b3aab5c94393fb96f744a9999ddbd762c1d71fa923da589a911e09681027c79",
+      "still": false,
+      "start": 11.16,
+      "length": 8,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 8,
+      "outputSeconds": 12
+    },
+    {
+      "source": "../video-v02/sources/pl/06-export.mp4",
+      "sha256": "7318c5489635d3ee109c2756f9662c638dd1da6328af557a67508c93dbbc338c",
+      "still": false,
+      "start": 0,
+      "length": 6,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 20,
+      "outputSeconds": 10
+    },
+    {
+      "source": "../video-v04/sources/pl/01-export.mp4",
+      "sha256": "61fb4465300e41d4c410b6c6179ff38d45ebefb4bc4cd558a7424a4f4d060c5e",
+      "still": false,
+      "start": 2,
+      "length": 6,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 30,
+      "outputSeconds": 10,
+      "endStill": {
+        "source": "../video-v04/sources/pl/02-share.png",
+        "sha256": "b37e6257d30bafc0f532ea4ac73bc6bcc23a14baf4a5cca021fcf3315f02d360",
+        "from": 4
+      }
+    },
+    {
+      "source": "../video-v04/sources/pl/03-overview.mp4",
+      "sha256": "04e8868c7d60f7303bcb63065adfefb8c46be373001c6a778a432286eaa6023e",
+      "still": false,
+      "start": 8,
+      "length": 8,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 40,
+      "outputSeconds": 12
+    },
+    {
+      "source": "../video-v04/sources/pl/01-summary.png",
+      "sha256": "23b6b33ca20b0e290d6ed7c98b94e3607b432a90decdf0874ef81160ab19aceb",
+      "still": true,
+      "start": 0,
+      "length": 0,
+      "speed": 1,
+      "hold": 8,
+      "outputStart": 52,
+      "outputSeconds": 8
+    }
+  ]
+}

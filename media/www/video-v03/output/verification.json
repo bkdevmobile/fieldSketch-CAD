@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-30",
+  "reports": [
+    {
+      "language": "pl",
+      "durationSeconds": 45,
+      "decodedFrames": 1350,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -24.1,
+      "videoStreamPreserved": true,
+      "sourceHashesVerified": true,
+      "pngUnchanged": true,
+      "cameraMovement": true,
+      "sha256": "ff387ddfefc998f8df4bce03ccdd4ea94bbe8fc7ea457889fa2cf8e16de5499c",
+      "bytes": 6671610
+    },
+    {
+      "language": "en",
+      "durationSeconds": 45,
+      "decodedFrames": 1350,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -24.1,
+      "videoStreamPreserved": true,
+      "sourceHashesVerified": true,
+      "pngUnchanged": true,
+      "cameraMovement": true,
+      "sha256": "33134ab3c3ad4815ed198611d52836fc2e4e7f3317d7e1f49dc3ca8e7a13fa3c",
+      "bytes": 6639804
+    }
+  ],
+  "illustration": {
+    "generated": true,
+    "method": "Built-in ImageGen, still image animated with camera zoom; no human motion generated",
+    "sourceSha256": "8a0b3da4dd1bdcbad83152cb4bb1f4b045553ee085215a0a7199218516863ac1",
+    "prompt": "sources/image-prompt.txt"
+  },
+  "music": {
+    "title": "Wallpaper",
+    "artist": "Kevin MacLeod",
+    "license": "CC BY 4.0",
+    "source": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100843",
+    "sha256": "9fa810e5193c88f1b360537366f210f16c2588106d5292f0659e9957fa274f96"
+  }
+}

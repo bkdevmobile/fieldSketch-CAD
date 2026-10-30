@@ -1,0 +1,48 @@
+{
+  "duration": 45,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "disclosure": "Scena ogrodu jest ilustracją wygenerowaną przez AI, z ruchem kadru. Ekrany aplikacji i PNG są rzeczywiste. Film nie dokumentuje pomiaru terenowego ani automatycznego pomiaru telefonem.",
+  "segments": [
+    {
+      "outputStart": 0,
+      "outputSeconds": 12,
+      "kind": "generated-image-camera-motion",
+      "source": "sources/garden-measurement.png",
+      "sha256": "8a0b3da4dd1bdcbad83152cb4bb1f4b045553ee085215a0a7199218516863ac1",
+      "zoomStart": 1,
+      "zoomEnd": 1.035
+    },
+    {
+      "outputStart": 12,
+      "outputSeconds": 17,
+      "kind": "real-app-recording",
+      "source": "../video-v02/sources/pl/02-first-side.mp4",
+      "sha256": "7b3aab5c94393fb96f744a9999ddbd762c1d71fa923da589a911e09681027c79",
+      "start": 11.16,
+      "length": 8,
+      "speed": 1,
+      "hold": 9,
+      "detail": {
+        "source": "sources/garden-measurement.png",
+        "sha256": "8a0b3da4dd1bdcbad83152cb4bb1f4b045553ee085215a0a7199218516863ac1"
+      }
+    },
+    {
+      "outputStart": 29,
+      "outputSeconds": 16,
+      "kind": "real-app-and-export-stills",
+      "source": "../video-v04/sources/pl/01-summary.png",
+      "sha256": "23b6b33ca20b0e290d6ed7c98b94e3607b432a90decdf0874ef81160ab19aceb",
+      "start": 0,
+      "length": 0,
+      "speed": 1,
+      "hold": 16,
+      "detail": {
+        "source": "../video-v02/output/first-sketch-pl-free.png",
+        "sha256": "4ea92b0194824e6fda7703932e44765119c8358495fbe63690b06caad80bd4aa"
+      }
+    }
+  ]
+}

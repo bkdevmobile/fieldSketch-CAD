@@ -1,0 +1,97 @@
+{
+  "date": "2026-10-30",
+  "app": "outlineGo 1.0.0 / versionCode 4",
+  "emulator": "Android API 35 / emulator-5556 / 1080×1920 / density 360",
+  "reports": [
+    {
+      "language": "pl",
+      "projectId": "mvv87zin-k15fsjtsz4",
+      "mode": "manual",
+      "closed": true,
+      "points": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 3
+        },
+        {
+          "x": 0,
+          "y": 3.0000000000000004
+        }
+      ],
+      "perimeterMetres": 14,
+      "areaSquareMetres": 12,
+      "closure": "calculated",
+      "savedCorrection": "3.8 -> 4 m",
+      "durationSeconds": 224,
+      "decodedFrames": 6720,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": false,
+      "png": {
+        "file": "first-sketch-pl-free.png",
+        "width": 1080,
+        "height": 1418,
+        "sha256": "4ea92b0194824e6fda7703932e44765119c8358495fbe63690b06caad80bd4aa"
+      },
+      "video": {
+        "file": "v02-first-sketch-pl.mp4",
+        "bytes": 4097474,
+        "sha256": "7230c6332cc42c7dd90a4462b9c73db797b65fe16060bdf68a4f70573607efbe"
+      }
+    },
+    {
+      "language": "en",
+      "projectId": "mvv8b6gv-yxdcr518du",
+      "mode": "manual",
+      "closed": true,
+      "points": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 3
+        },
+        {
+          "x": 0,
+          "y": 3.0000000000000004
+        }
+      ],
+      "perimeterMetres": 14,
+      "areaSquareMetres": 12,
+      "closure": "calculated",
+      "savedCorrection": "3.8 -> 4 m",
+      "durationSeconds": 224,
+      "decodedFrames": 6720,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": false,
+      "png": {
+        "file": "first-sketch-en-free.png",
+        "width": 1080,
+        "height": 1418,
+        "sha256": "a0d843cb483b6aca1e1c0d6d6904af522a82766e19ce2483629c0916fd23edde"
+      },
+      "video": {
+        "file": "v02-first-sketch-en.mp4",
+        "bytes": 3890217,
+        "sha256": "9d7f5d8298504387b76a42db91ea056645977f319f93dedef91f8aa3d1828864"
+      }
+    }
+  ]
+}

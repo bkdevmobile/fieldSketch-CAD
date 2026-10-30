@@ -1,5 +1,22 @@
 # Plan mediów WWW outlineGo
 
+Stan filmów na 30.10.2026: **V01, V02 i V04 oraz ilustracyjny V03 gotowe lokalnie w PL i EN.** Filmy nie zostały opublikowane ani podłączone do strony WWW.
+
+V03 — „Od pomiaru do szkicu”, 45 s, 1080p/30, PL/EN: osoba mierząca taras na obrazie wygenerowanym ImageGen, łagodne zbliżenie kadru, rzeczywiste ręczne wpisanie długości i oryginalny PNG. Postać jest nieruchoma; nie jest to dokumentacja pomiaru w terenie. Inna melodia: „Wallpaper” Kevina MacLeoda, CC BY 4.0. Obie wersje przeszły kontrolę 1350 klatek, dźwięku, źródeł i eksportu PNG. Pochodzenie oraz kredyty poza obrazem. [Podglądy, filmy, obraz i prompt V03](../media/www/video-v03/README.md). Zestaw i aktualizacja notatek pozostają bez commita.
+
+Materiały zapisane w Git: `7293534` — V02/V04; `d41f643` — V01 PL/EN wraz z muzyką, podglądami, raportem kontroli i aktualizacją notatek. Następny etap dotyczy odbioru i integracji filmów, nie ich produkcji. Aktualizacja notatek po tych commitach pozostaje lokalna.
+
+- **V01 — przegląd „Od szkicu do CAD”**: 60 s, 1080p/30; rzeczywiste źródła V02/V04, ręczny zapis boku → PNG → DXF Plus → ten sam plik w LibreCAD → pobranie aplikacji. Nowa melodia „Easy Lemon (60 second)” Kevina MacLeoda, CC BY 4.0; cichy podkład, brak przyspieszeń, pauzy co najmniej 4 s. Obie wersje przeszły pełną kontrolę obrazu, dźwięku i źródeł. [Filmy, podglądy i raport V01](../media/www/video-v01/README.md).
+
+- **V02 „Pierwszy szkic”** — 224 s (3:44), 1920 × 1080 / 30 kl./s; ręczne wprowadzanie boków, korekta 3,8 → 4 m, wyliczone zamknięcie, 14 m / 12 m² i eksport PNG. Muzyka: „Carefree” — Kevin MacLeod, CC BY 4.0. Aktualne filmy: `media/www/video-v02/output/v02-first-sketch-{pl,en}-with-music.mp4`.
+- **V04 „Od szkicu do CAD”** — 144 s (2:24), 1920 × 1080 / 30 kl./s; rzeczywisty eksport DXF tego samego tarasu 4 × 3 m, otwarcie w LibreCAD, jednostka Metr i kontrola obwodu 14 m. Inna melodia: „Life of Riley” — Kevin MacLeod, CC BY 4.0. Aktualne filmy: `media/www/video-v04/output/v04-dxf-to-cad-{pl,en}.mp4`.
+- **Zasady użytkownika:** spokojne tempo i pauzy; bez dolnych napisów dublujących opis oraz bez technicznych podpisów o produkcji, tempie, pauzach, emulatorze, montażu czy kodach V02/V04. W obrazie tylko instrukcje pomocne widzowi. Kredyty muzyczne pod odtwarzaczem, w metadanych i opisie publikacji; szczegóły produkcji w dokumentacji.
+- Obie wersje V04 przeszły pełne dekodowanie 4320 klatek, kontrolę dźwięku, geometrii, oryginalnych DXF i zgodności obrazu z wersją bez dźwięku. Zapisano miniatury, podglądy, transkrypty i źródła. Po nagraniu z tymczasowym testowym uprawnieniem Plus przywrócono kod i oryginalny APK; materiał nie potwierdza zakupu ani fizycznego pomiaru. Raporty: `media/www/video-v04/output/verification.json` i `sources/restoration.json`.
+
+Następne prace: odbiór filmów przez użytkownika oraz osobna integracja ze stroną i publikacja na jego polecenie. V05 i ewentualny V03 z rzeczywistym nagraniem pomiaru terenowego pozostają opcjonalne; ilustracyjny V03 jest już gotowy.
+
+Podglądy, źródła i raporty: [V01](../media/www/video-v01/README.md), [V02](../media/www/video-v02/README.md), [V04](../media/www/video-v04/README.md). Poniższe aktualizacje z 29 października są historią; dalsze założenia filmów uwzględniają korekty użytkownika.
+
 Data: **29 października 2026**. Status: statyczne media pierwszego etapu przygotowane; integracja ze stroną i filmy do wykonania, bez publikacji nowych mediów.
 
 Aktualizacja 29.10.2026: przygotowano ilustracje PL 01–04 w `media/www/illustrations-pl/` (preferowane CAD v2) oraz rzeczywiste zrzuty aplikacji 1.0.0/v4 w `media/www/app-screenshots/`: po 13 ekranów PL i EN. Dziewięć pokazuje Free, cztery kolejne eksport DXF, systemowe udostępnianie, komunikat gotowości i PNG bez znaku wodnego. Dodatkowe ekrany wykonano na wyraźne polecenie użytkownika z tymczasowym mockiem uprawnienia Plus; sam kod eksportu i UI pozostał bez zmian. Mock, jego APK i wyniki builda usunięto, kod i oryginalny APK emulatora przywrócono. Zachowano wygenerowane DXF PL/EN. Szczegóły pochodzenia, ograniczenia testu, arkusze kontaktowe i raport SHA256 są w katalogu zestawu. Pozostałe punkty tego dokumentu opisują plan; mediów nie opublikowano na WWW.
@@ -40,7 +57,7 @@ Cel: w kilka sekund wyjaśnić, co użytkownik zrobi i co otrzyma.
 - **Grafika główna:** istniejące zdjęcie ogrodu oraz osobny, czytelny ekran ukończonego szkicu. Układ responsywny, bez utrwalania dwóch elementów w jednym szerokim obrazie.
 - **Trzy kroki:** zdjęcie pracy z telefonem → rzeczywisty podgląd szkicu/eksportu → rzeczywisty widok tego samego pliku w CAD. Podpisy poza obrazami.
 - **Dwa podglądy zastosowań:** ogród w etapie 1, pokój po przygotowaniu etapu 2. Każdy prowadzi do poradnika; bez pustych zapowiedzi.
-- **Film główny V01:** 45–60 s, „Od szkicu do CAD”, uruchamiany przyciskiem. Jedno nagranie bazowe z wersją PL i EN napisów oraz ekranami w odpowiednim języku.
+- **Film główny V01:** gotowy, 60 s, „Od szkicu do CAD”, uruchamiany przyciskiem. Montaż V02/V04 z instrukcjami i ekranami w odpowiednim języku, bez technicznych podpisów i dolnych napisów.
 - **Miniatura filmu:** gotowy szkic i jego odpowiednik na komputerze; przycisk odtwarzania jako element strony.
 
 ### 2. Jak to działa — `/pl/jak-to-dziala/`, `/en/how-it-works/`
@@ -50,7 +67,7 @@ Cel: umożliwić wykonanie pierwszego szkicu.
 - **Sekwencja pięciu ekranów:** rozpoczęcie szkicu → zapis kierunku i długości → dodanie kolejnego odcinka → korekta wymiaru → podsumowanie i PNG.
 - Dwa lub trzy ekrany można oprzeć na obecnych materiałach. Brakujące stany trzeba przechwycić. Każdy krok pokazuje jedną czynność, z tekstem instrukcji obok.
 - **Prosty schemat SVG/HTML:** kierunek → długość → zapis punktu. Bez generowanego obrazu rastrowego.
-- **Film V02:** 60–90 s, pierwsze wykonanie małego szkicu z ręcznie wpisywanymi długościami, korektą i eksportem PNG. Widoczne dotknięcia, bez ekranów logowania i danych prywatnych.
+- **Film V02:** gotowy, 224 s; pierwsze wykonanie małego szkicu z ręcznie wpisywanymi długościami, korektą i eksportem PNG. Widoczne dotknięcia, bez ekranów logowania i danych prywatnych.
 - **Wynik do pobrania:** rzeczywisty PNG użytego przykładu. Widoczny wariant Free/Plus musi odpowiadać nagraniu.
 
 ### 3. Szkic ogrodu — `/pl/szkic-ogrodu/`, `/en/garden-sketch/`
@@ -70,7 +87,7 @@ Cel: wykazać rzeczywisty transfer do osobnego programu CAD.
 - **Trzy ujęcia:** akcja eksportu w aplikacji → wybór udostępnienia/zapisu → plik otwarty w wybranym programie CAD.
 - **Porównanie obok siebie:** ten sam obrys w outlineGo i po imporcie, spójna orientacja oraz czytelne wymiary. Nazwę programu CAD podajemy w podpisie.
 - **Detal techniczny:** ekran jednostek i warstw, jeżeli są istotne dla użytego procesu. Własne adnotacje poza oryginalnym zrzutem.
-- **Film V04:** 60–90 s, eksport Plus → przeniesienie pliku → otwarcie → kontrola jednostek i przykładowego wymiaru. Oznaczyć cięcia i przyspieszenia; nie udawać pojedynczego ciągłego nagrania między urządzeniami.
+- **Film V04:** gotowy, 144 s; eksport Plus → przeniesienie pliku → otwarcie w LibreCAD → kontrola jednostki Metr i obwodu 14 m. Bez przyspieszania; informacje o montażu i pochodzeniu wyłącznie w dokumentacji.
 - **Przykładowy plik DXF:** rzeczywisty eksport aplikacji, sprawdzony w pokazanym programie. Obok podgląd PNG, jednostki, wersja aplikacji i krótka instrukcja otwarcia.
 - Dostęp do działającego eksportu Plus i programu CAD trzeba potwierdzić przed produkcją. Nie zastępujemy ich ilustracją funkcji.
 
@@ -89,8 +106,8 @@ Cel: wykazać rzeczywisty transfer do osobnego programu CAD.
 
 | Film | Przebieg | Źródło |
 | --- | --- | --- |
-| V01 — przegląd | 0–5 s: potrzeba i przestrzeń; 5–20 s: szkic; 20–30 s: PNG/DXF; 30–50 s: prawdziwy import i dalsza praca; 50–60 s: wynik i pobranie aplikacji | Montaż materiałów V02/V04, zdjęcie kontekstowe, bez konieczności osobnej sesji. |
-| V02 — pierwszy szkic | Start → kierunek/długość → kolejne odcinki → korekta → zapis i PNG | Rzeczywiste nagranie UI, PL/EN; emulator dopuszczalny z opisem demonstracji. |
+| V01 — przegląd, gotowy | 0–8 s: gotowy szkic; 8–20 s: zapis boku; 20–30 s: PNG; 30–40 s: DXF; 40–52 s: ten sam obrys w CAD; 52–60 s: pobranie aplikacji | Montaż rzeczywistych nagrań i zrzutów V02/V04; PL/EN, bez osobnej sesji emulatora. |
+| V02 — pierwszy szkic | Start → kierunek/długość → kolejne odcinki → korekta → zapis i PNG | Rzeczywiste nagranie UI, PL/EN; emulator; pochodzenie demonstracji opisane w dokumentacji. |
 | V04 — do CAD | Gotowy szkic → eksport DXF Plus → zapis/przeniesienie → otwarcie w CAD → kontrola jednostek/wymiaru | Rzeczywiste nagranie aplikacji i pulpitu, działający eksport Plus. |
 
 Lektor nie jest wymagany. Filmy mają być zrozumiałe bez dźwięku, z krótkimi podpisami i tekstowym opisem kroków na stronie. Wersje językowe montujemy z tego samego scenariusza, nie nagrywamy dwóch różnych przykładów.
@@ -104,10 +121,10 @@ To założenia projektu, do sprawdzenia po pierwszym eksporcie i przeglądzie na
 - Wyniki i schematy: zachować oryginalny PNG eksportu; adnotacje i schematy jako SVG/HTML. Nie usuwać znaku wodnego Free z materiałów.
 - Filmy instruktażowe: master 1920 × 1080, 30 kl./s, MP4 H.264; pionowy ekran aplikacji umieścić obok krótkiego opisu lub detalu. Nie ucinać ważnych kontrolek dla wypełnienia kadru. Na telefonie zapewnić pełny ekran i czytelny powiększony detal.
 - Wariant pionowy 1080 × 1920 jest dodatkowym eksportem promocyjnym, nie warunkiem uruchomienia serwisu.
-- Każdy film: miniatura WebP, napisy WebVTT PL/EN, krótki transkrypt/opis w HTML. Bazowo bez muzyki i bez lektora; nie używać wersji z licencjonowaną muzyką bez zachowania wymaganych oznaczeń.
+- Każdy film: miniatura WebP, krótki transkrypt/opis w HTML, instrukcje PL/EN w obrazie. Bez dolnych ścieżek napisów dublujących instrukcje. Cichy podkład muzyczny, inna melodia dla kolejnego filmu; kredyty zgodne z licencją poza obrazem. Wersje bez dźwięku zachować.
 - Filmy uruchamiane po kliknięciu, bez autoplay z dźwiękiem; `preload="none"`, miniatura zamiast pobierania filmu przy wejściu na stronę. Wybrać hosting plików po ustaleniu rzeczywistych rozmiarów i przewidywanego transferu.
 - Roboczy budżet zdjęcia: 80–200 KB, większy obraz główny do około 250 KB; czytelność UI ma pierwszeństwo przed limitem. Cel dla filmu: około 8–20 MB/min, do oceny na rzeczywistym materiale.
-- Źródła poza `public/`, np. `media/www/sources/`; do `public/assets/` trafiają wyłącznie używane wersje WWW. Nazwy: `garden-summary-pl-960.webp`, `first-sketch-en.mp4`, `dxf-export-pl.vtt`.
+- Źródła poza `public/`, np. `media/www/sources/`; do `public/assets/` trafiają wyłącznie używane wersje WWW. Nazwy: `garden-summary-pl-960.webp`, `first-sketch-en.mp4`, `dxf-export-pl.mp4`.
 
 ## Kolejność produkcji i minimum do publikacji
 
@@ -116,7 +133,7 @@ To założenia projektu, do sprawdzenia po pierwszym eksporcie i przeglądzie na
 3. W jednej sesji przechwycić brakujące ekrany PL/EN i nagrania V02/V04. Z tych nagrań wybrać dodatkowe klatki do instrukcji.
 4. Przygotować podgląd prawdziwego importu CAD, PNG/DXF do pobrania i wersje WWW istniejących zdjęć.
 5. Opublikować cztery kompletne podstrony PL/EN z obrazami i plikami wynikowymi. Filmy nie blokują publikacji, jeśli instrukcja tekstowa i zrzuty wystarczają do wykonania czynności.
-6. Dodać V02/V04, potem złożyć V01 z tych materiałów. V03 i V05 dopiero przy realizacji osobnych sesji/przykładów.
+6. V01/V02/V04 są gotowe lokalnie. Odbiór przez użytkownika, integracja filmów i publikacja pozostają osobnym zadaniem. V03 i V05 dopiero przy realizacji osobnych sesji/przykładów.
 
 **Minimalny zestaw etapu 1:** istniejące zdjęcia kontekstowe, zestaw pięciu kroków pierwszego szkicu w PL/EN, trzy stany przykładu ogrodu w PL/EN, rzeczywisty eksport/udostępnienie DXF w PL/EN, jeden widok CAD i jego czytelny detal, gotowe PNG/DXF oraz miniatury użytych filmów. Część ekranów można współdzielić między stronami, jeśli opisuje tę samą czynność. Docelowe filmy: V02, V04 i montaż V01; terenowy V03 jest opcjonalny.
 

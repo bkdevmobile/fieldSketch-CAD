@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-30",
+  "reports": [
+    {
+      "language": "pl",
+      "durationSeconds": 144,
+      "decodedFrames": 4320,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "geometry": {
+        "unit": "metre",
+        "vertices": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 3.0000000000000004
+          }
+        ],
+        "perimeterMetres": 14
+      },
+      "dxfSha256": "d6957569908534d5e4ef686daea975ac1d4946125915f470cd41e448c5c91351",
+      "videoSha256": "4f196129dda440e2571ec07dcb9f17f26798ed47b72acecc8f6e3f2b4f4ff107",
+      "bytes": 5619726,
+      "videoStreamPreserved": true
+    },
+    {
+      "language": "en",
+      "durationSeconds": 144,
+      "decodedFrames": 4320,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "geometry": {
+        "unit": "metre",
+        "vertices": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 3.0000000000000004
+          }
+        ],
+        "perimeterMetres": 14
+      },
+      "dxfSha256": "27efddbc59b27835bddfedaf8deb19b2627ca7571c0efa568e31fe05f4dbae8e",
+      "videoSha256": "5d22e6ee1ebd7b7282cf1185ca7d1b09ea1f7630f6644bc88ad83c82a4236d78",
+      "bytes": 5532312,
+      "videoStreamPreserved": true
+    }
+  ],
+  "music": {
+    "title": "Life of Riley",
+    "artist": "Kevin MacLeod",
+    "license": "CC BY 4.0",
+    "sourceSha256": "1916f05cd1860949f9241e17966d334c39852b531329e4a05802720bb154c564"
+  },
+  "restoration": {
+    "storeRestored": true,
+    "storeSha256": "4173af33613f8f554267875215146ea954787693170cf564fd50e732ea4c1032",
+    "originalApkSha256": "e383e3b4645dcd433b07fcce433102eb30a8a5cd3d6d3e5311a26c9398a8f0b6",
+    "productionApkUnchanged": true
+  }
+}

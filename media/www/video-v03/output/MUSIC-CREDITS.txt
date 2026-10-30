@@ -1,0 +1,3 @@
+Music: "Wallpaper" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100843. Changes: 45-second excerpt, quiet volume normalization, 2-second fade-in and 3-second fade-out, AAC encoding.
+
+Include this attribution in the published video description.
