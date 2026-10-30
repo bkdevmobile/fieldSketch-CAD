@@ -1,5 +1,15 @@
 # Aktualny stan outlineGo
 
+## Aktualizacja WWW — 30 października 2026
+
+Zakres użytkownika: **tylko pierwszy etap**. Statyczne media są kompletne, a osiem stron PL/EN złożono lokalnie w `public/` i zapisano w commicie **`d0682b6`**. Szczegóły, adresy i polecenia: [WWW — etap 1](www-etap-1.md). Media: `e6f27d3` (LibreCAD) i `91086bf` (domknięcie zestawu statycznego), źródła i pochodzenie w `media/www/`.
+
+Kontrola struktury, 374 lokalnych odwołań, metadanych, par językowych, mediów, HTTP 200/301/404 i czterech pobrań PNG/DXF przeszła (`node scripts/verify-www.cjs --serve`). **Nowych stron nie wdrożono**. Odbiór wizualny desktop/mobile i interakcji pozostaje otwarty: brak dostępnej przeglądarki sterowanej, a narzędzie natywnego Chrome zakończyło się timeoutem zatwierdzenia. Następnie: poprawki po odbiorze, deploy do istniejącego Firebase `outlinego-27ab5` i kontrola live ośmiu adresów, przekierowań oraz mapy. Filmy V02/V04/V01 to osobne zadanie; pokój i pomoc należą do etapu 2, poza bieżącym zakresem.
+
+Użytkownik potwierdził własność w Search Console 29.10. Plik Google, robots.txt i pierwotna mapa zostały opublikowane. Limit prośby o indeksowanie i błąd odczytu zgłoszonej mapy pozostają bez potwierdzonego rozwiązania; późniejszy test na żywo potwierdził możliwość pobrania strony, nie jej indeksowanie. Nową mapę sprawdzić po wdrożeniu. W ramach tych prac nie zmieniano aplikacji, paczek ani telefonu.
+
+Poniższy stan aplikacji i paczek zachowuje datę ostatniej weryfikacji; opis WWW w tabeli dotyczy wcześniejszej wersji publicznej, a nie ośmiu nowych stron.
+
 Aktualizacja: **24 października 2026**. Wersja **1.0.0 / versionCode 4**, pakiet `com.bk.dev.mobile.outlinego`; podpisane AAB i APK z bazy `f14a274` oraz zmian R8. Telefon nadal ma APK v2; nowe wydanie sprawdzono na osobnym emulatorze. Ten dokument opisuje bieżący stan; starsze wpisy w [MEMO](../MEMO.md) zachowują wyniki historyczne.
 
 ## Kod, paczki i publikacja

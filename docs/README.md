@@ -26,6 +26,8 @@ Stan dokumentacji: **23 października 2026**, aplikacja 0.1.0 / versionCode 2, k
 - [Pomysły na rozwój](pomysly-na-rozwoj.md)
 - [Promocja aplikacji — pomysły i działania](promocja-aplikacji.md)
 - [Rozbudowa strony WWW — domeny, Search Console i SEO](rozbudowa-strony-www.md)
+- [WWW — gotowe strony etapu 1, kontrole i prace przed deployem](www-etap-1.md)
+- [Plan i stan mediów WWW](media-strony-www.md)
 - [Stan prac, artefakty i historia wdrożeń](../MEMO.md)
 - [Dokument techniczny: implementacja i architektura docelowa](technical/dokumentacja-techniczna.md)
 - [Budowanie i testowanie aplikacji](../app/README.md)

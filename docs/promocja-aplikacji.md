@@ -103,3 +103,23 @@ Jeżeli priorytetem będzie promocja globalna od początku, wybrać **outlinego.
 Po zakupie podłączyć domenę do istniejącej strony w Firebase Hosting, które obsługuje własne domeny i zapewnia certyfikat SSL: [dokumentacja Firebase](https://firebase.google.com/docs/hosting/custom-domain). Zakup domeny nie wymaga budowy strony od nowa ani zakupu osobnego hostingu.
 
 Własną domenę traktować jako element budowania marki i wygody udostępniania adresu. Sam zakup nie gwarantuje wzrostu pobrań ani rekomendacji AI.
+
+## 4. Prowadzenie strony outlineGo na Facebooku
+
+Data dodania: **30 października 2026**. Status: **pomysł do zaplanowania**.
+
+### Cel
+
+Prowadzić stronę aplikacji na Facebooku jako kanał prezentacji zastosowań, publikowania porad i informowania o rozwoju outlineGo.
+
+### Zakres do zaplanowania
+
+- Ustalić język strony, odbiorców i częstotliwość publikacji.
+- Przygotować tematy postów: pierwszy szkic, przykład ogrodu, korekta wymiarów, notatki oraz eksport PNG i DXF do CAD.
+- Wykorzystać przygotowane grafiki i rzeczywiste zrzuty aplikacji; materiały demonstracyjne opisywać zgodnie z ich pochodzeniem.
+- Kierować do odpowiednich poradników WWW i karty Google Play; zachować zgodność opisów z funkcjami Free/Plus.
+- Ustalić sposób odpowiadania na pytania i zbierania uwag użytkowników.
+
+### Realizacja i wyniki
+
+Zapisano pomysł prowadzenia strony. Istnienie strony i jej adres nie zostały potwierdzone; nie utworzono strony ani nie opublikowano postów w ramach tego zadania. Harmonogram i ocena skuteczności do ustalenia.
