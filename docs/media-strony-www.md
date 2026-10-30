@@ -2,6 +2,8 @@
 
 Stan filmów na 30.10.2026: **V01, V02 i V04 gotowe lokalnie w PL i EN.** Filmy nie zostały opublikowane ani podłączone do strony WWW.
 
+Materiały zapisane w Git: `7293534` — V02/V04; `d41f643` — V01 PL/EN wraz z muzyką, podglądami, raportem kontroli i aktualizacją notatek. Następny etap dotyczy odbioru i integracji filmów, nie ich produkcji. Aktualizacja notatek po tych commitach pozostaje lokalna.
+
 - **V01 — przegląd „Od szkicu do CAD”**: 60 s, 1080p/30; rzeczywiste źródła V02/V04, ręczny zapis boku → PNG → DXF Plus → ten sam plik w LibreCAD → pobranie aplikacji. Nowa melodia „Easy Lemon (60 second)” Kevina MacLeoda, CC BY 4.0; cichy podkład, brak przyspieszeń, pauzy co najmniej 4 s. Obie wersje przeszły pełną kontrolę obrazu, dźwięku i źródeł. [Filmy, podglądy i raport V01](../media/www/video-v01/README.md).
 
 - **V02 „Pierwszy szkic”** — 224 s (3:44), 1920 × 1080 / 30 kl./s; ręczne wprowadzanie boków, korekta 3,8 → 4 m, wyliczone zamknięcie, 14 m / 12 m² i eksport PNG. Muzyka: „Carefree” — Kevin MacLeod, CC BY 4.0. Aktualne filmy: `media/www/video-v02/output/v02-first-sketch-{pl,en}-with-music.mp4`.
@@ -11,7 +13,7 @@ Stan filmów na 30.10.2026: **V01, V02 i V04 gotowe lokalnie w PL i EN.** Filmy 
 
 Następne prace: odbiór filmów przez użytkownika oraz osobna integracja ze stroną i publikacja na jego polecenie. V03/V05 pozostają opcjonalnymi zadaniami dalszych etapów.
 
-Podglądy, źródła i raporty: [V02](../media/www/video-v02/README.md), [V04](../media/www/video-v04/README.md). Poniższe aktualizacje z 29 października są historią; dalsze założenia filmów uwzględniają korekty użytkownika.
+Podglądy, źródła i raporty: [V01](../media/www/video-v01/README.md), [V02](../media/www/video-v02/README.md), [V04](../media/www/video-v04/README.md). Poniższe aktualizacje z 29 października są historią; dalsze założenia filmów uwzględniają korekty użytkownika.
 
 Data: **29 października 2026**. Status: statyczne media pierwszego etapu przygotowane; integracja ze stroną i filmy do wykonania, bez publikacji nowych mediów.
 

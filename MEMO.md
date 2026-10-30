@@ -2,6 +2,8 @@
 
 Stan filmów na 30.10.2026: **V01, V02 i V04 gotowe lokalnie w PL i EN.** Filmy nie zostały opublikowane ani podłączone do strony WWW.
 
+Zapis w Git: `7293534` — materiały V02/V04 wraz ze źródłami, muzyką i raportami; `d41f643` — V01 PL/EN, nowa muzyka, podglądy, skrypty i aktualizacja statusu. Po ostatnim commicie repozytorium było czyste. Niniejsze uzupełnienie notatek jest późniejszą zmianą lokalną.
+
 - **V01 „Od szkicu do CAD” — przegląd**: 60 s, 1920 × 1080 / 30 kl./s; montaż oryginalnych materiałów V02/V04, od zapisu boku przez PNG i DXF do tego samego obrysu w LibreCAD oraz zaproszenie do pobrania aplikacji. Nowa melodia: „Easy Lemon (60 second)” — Kevin MacLeod, CC BY 4.0. Bez przyspieszania, pauzy co najmniej 4 s, bez technicznych podpisów i dolnych napisów. Pełna kontrola obu wersji: 1800 klatek, AAC stereo, −23,5 LUFS, zgodność obrazu i źródeł. Filmy: `media/www/video-v01/output/v01-overview-{pl,en}.mp4`; podglądy, pochodzenie i raport: [V01](media/www/video-v01/README.md).
 
 - **V02 „Pierwszy szkic”** — 224 s (3:44), 1920 × 1080 / 30 kl./s; ręczne wprowadzanie boków, korekta 3,8 → 4 m, wyliczone zamknięcie, 14 m / 12 m² i eksport PNG. Muzyka: „Carefree” — Kevin MacLeod, CC BY 4.0. Aktualne filmy: `media/www/video-v02/output/v02-first-sketch-{pl,en}-with-music.mp4`.
@@ -11,7 +13,7 @@ Stan filmów na 30.10.2026: **V01, V02 i V04 gotowe lokalnie w PL i EN.** Filmy 
 
 Następne prace: odbiór filmów przez użytkownika oraz osobna integracja ze stroną i publikacja na jego polecenie. V03/V05 pozostają opcjonalnymi zadaniami dalszych etapów.
 
-Dokumentacja filmów: [V02](media/www/video-v02/README.md), [V04](media/www/video-v04/README.md). Poniższe wpisy zachowują historię prac; wcześniejsze statusy filmów są nieaktualne.
+Dokumentacja filmów: [V01](media/www/video-v01/README.md), [V02](media/www/video-v02/README.md), [V04](media/www/video-v04/README.md). Poniższe wpisy zachowują historię prac; wcześniejsze statusy filmów są nieaktualne.
 
 Stan po publikacji 30.10.2026: etap 1 WWW jest wdrożony na https://outlinego-27ab5.web.app/pl/ i /en/ — osiem stron marketingowych oraz sześć finalnych dokumentów prawnych PL/EN (obowiązują od 30.10.2026, temat redakcji zamknięty). Desktop sprawdzono w VS Code, telefon zaakceptował użytkownik. Wdrożono poprawki wizualne, oficjalne badge Google Play, aktualne ilustracje udostępniania, lżejsze obrazy, doprecyzowane leady i JSON-LD WebSite/BreadcrumbList. Commit SEO fdcc1f3; zapis wdrożenia 97e7e84; wersja Firebase 056f218e8640f749. Po publikacji 25 zasobów ma zgodne SHA-256 z plikami lokalnymi, 301 i 404 działają. Pozostają PageSpeed Insights/Core Web Vitals oraz kontrola przetworzenia mapy i indeksowania w Search Console; własna domena opcjonalnie. Nie zmieniano aplikacji ani APK/AAB. Filmy oraz etap 2 są poza zakończonym zakresem. Poniższe wpisy są historią; starsze informacje o braku deployu nie opisują obecnego stanu.
 
