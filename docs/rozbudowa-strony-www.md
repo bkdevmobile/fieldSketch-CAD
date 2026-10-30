@@ -1,6 +1,8 @@
 # Rozbudowa strony WWW outlineGo
 
-Data utworzenia: **28 października 2026**. Status: **plan do realizacji**.
+Stan po publikacji 30.10.2026: etap 1 WWW jest wdrożony na https://outlinego-27ab5.web.app/pl/ i /en/ — osiem stron marketingowych oraz sześć finalnych dokumentów prawnych PL/EN (obowiązują od 30.10.2026, temat redakcji zamknięty). Desktop sprawdzono w VS Code, telefon zaakceptował użytkownik. Wdrożono poprawki wizualne, oficjalne badge Google Play, aktualne ilustracje udostępniania, lżejsze obrazy, doprecyzowane leady i JSON-LD WebSite/BreadcrumbList. Commit SEO fdcc1f3; zapis wdrożenia 97e7e84; wersja Firebase 056f218e8640f749. Po publikacji 25 zasobów ma zgodne SHA-256 z plikami lokalnymi, 301 i 404 działają. Pozostają PageSpeed Insights/Core Web Vitals oraz kontrola przetworzenia mapy i indeksowania w Search Console; własna domena opcjonalnie. Nie zmieniano aplikacji ani APK/AAB. Filmy oraz etap 2 są poza zakończonym zakresem.
+
+Data utworzenia: **28 października 2026**. Status: **etap 1 opublikowany 30.10.2026; pozostałe propozycje poniżej są planem lub historią**.
 
 Aktualizacja **29 października 2026**: użytkownik potwierdził weryfikację własności w Search Console. Plik `public/google9be007feff638fa8.html` opublikowano bez zmiany zawartości. Dodano `public/robots.txt` umożliwiający skanowanie i wskazujący mapę oraz `public/sitemap.xml` zawierający stronę główną. Dokumenty prawne pozostają robocze i nie zostały dodane do mapy. Firebase Hosting `outlinego-27ab5`: deploy zakończony, wersja `e9a2b80991e8ad33`; wszystkie trzy pliki zwracają HTTP 200 i treść zgodną z lokalną. Ręczna prośba o indeksowanie napotkała komunikat dziennego limitu; przyczyna nieustalona. Użytkownik zgłosił mapę w panelu; Search Console pokazało błąd odczytu. Późniejszy test na żywo pokazał dozwolone skanowanie i udane pobranie sprawdzanego adresu. Przetworzenie mapy i faktyczne zaindeksowanie pozostają niepotwierdzone. Poniższe opisy pierwotnego stanu i lista zadań dokumentują plan z 28 października.
 
@@ -170,12 +172,12 @@ Google wskazuje ryzyko stron tworzonych masowo pod podobne zapytania bez dodatko
 ## Kolejność działań i odbiór
 
 - [ ] Wybrać domenę i rejestratora po ponownym sprawdzeniu dostępności i cen.
-- [ ] Dopracować treść, tytuł i opis strony.
-- [ ] Przygotować treści i przykłady dla etapu 1 serwisu z podstronami, zgodnie z koncepcją powyżej.
-- [ ] Przygotować pliki robots.txt, sitemap.xml i plik weryfikacyjny Google.
-- [ ] Sprawdzić przygotowane zmiany i opublikować je w Firebase Hosting.
+- [x] Dopracować treść, tytuł i opis strony.
+- [x] Przygotować treści i przykłady dla etapu 1 serwisu z podstronami, zgodnie z koncepcją powyżej.
+- [x] Przygotować pliki robots.txt, sitemap.xml i plik weryfikacyjny Google.
+- [x] Sprawdzić przygotowane zmiany i opublikować je w Firebase Hosting.
 - [ ] Zakończyć weryfikację w Search Console, zgłosić mapę i stronę główną.
 - [ ] Po zakupie skonfigurować własną domenę, HTTPS i preferowany adres oraz zaktualizować konfigurację SEO i Search Console.
 - [ ] Zapisywać daty wdrożeń oraz obserwować indeksowanie, wyświetlenia, kliknięcia i przejścia do Google Play w zakresie dostępnych danych.
 
-Stan realizacji: utworzono dokument; zakup domeny, zmiany strony, wdrożenie i konfiguracja Search Console pozostają do wykonania.
+Stan realizacji: etap 1 wdrożony i odebrany; własność Search Console potwierdzona wcześniej przez użytkownika. Pozostają kontrola indeksowania i przetworzenia aktualnej mapy, pomiar wydajności oraz opcjonalna własna domena. Historia i pierwotne założenia powyżej nie oznaczają otwartych zadań zakończonego etapu.

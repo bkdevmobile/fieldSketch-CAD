@@ -1,5 +1,7 @@
 # Strona i dokumenty prawne outlineGo
 
+Stan po publikacji 30.10.2026: etap 1 WWW jest wdrożony na https://outlinego-27ab5.web.app/pl/ i /en/ — osiem stron marketingowych oraz sześć finalnych dokumentów prawnych PL/EN (obowiązują od 30.10.2026, temat redakcji zamknięty). Desktop sprawdzono w VS Code, telefon zaakceptował użytkownik. Wdrożono poprawki wizualne, oficjalne badge Google Play, aktualne ilustracje udostępniania, lżejsze obrazy, doprecyzowane leady i JSON-LD WebSite/BreadcrumbList. Commit SEO fdcc1f3; zapis wdrożenia 97e7e84; wersja Firebase 056f218e8640f749. Po publikacji 25 zasobów ma zgodne SHA-256 z plikami lokalnymi, 301 i 404 działają. Pozostają PageSpeed Insights/Core Web Vitals oraz kontrola przetworzenia mapy i indeksowania w Search Console; własna domena opcjonalnie. Nie zmieniano aplikacji ani APK/AAB. Filmy oraz etap 2 są poza zakończonym zakresem. Publiczne dokumenty zachowują celowy noindex. Nie zmieniano wersji akceptacji w aplikacji ani deklaracji Data safety. Nie wracamy do pominiętego telefonu i ustalania liczbowej retencji Sentry.
+
 ## Czysta redakcja PL/EN — obowiązywanie od 30 października 2026
 
 Użytkownik wybrał datę obowiązywania **30.10.2026**. Wszystkie sześć dokumentów ma tę datę oraz datę ostatniej aktualizacji. Usunięto publiczne oznaczenia wersji roboczej, instrukcje do potwierdzenia konfiguracji, nazwę pakietu i numer kompilacji. Zachowano informacje istotne dla użytkownika: zakres działania, ograniczenia pomiarów, dane lokalne i logi, eksporty, dobrowolność raportowania oraz prawa konsumenta.
