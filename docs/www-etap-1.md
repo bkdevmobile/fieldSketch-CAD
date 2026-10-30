@@ -1,5 +1,7 @@
 # WWW — wdrożenie stron pierwszego etapu
 
+Publikacja 30.10.2026: commit fdcc1f3 wdrożono na https://outlinego-27ab5.web.app przez Firebase Hosting, projekt outlinego-27ab5, wersja 056f218e8640f749. CLI zakończył release complete. Po wdrożeniu 25 publicznych zasobów (osiem stron marketingowych, sześć dokumentów, robots, sitemap, CSS/JS/logo, dwie zoptymalizowane ilustracje i cztery pliki do pobrania) porównano SHA-256 z lokalnymi plikami: zgodne. Potwierdzono 301 z / i /index.html do /en/ oraz rzeczywiste 404. Wcześniejsze wzmianki o braku publikacji opisują stan historyczny. PageSpeed Insights i Search Console pozostają osobnymi krokami.
+
 Odbiór mobilny 30.10.2026: użytkownik potwierdził poprawne działanie strony na telefonie i zlecił commit oraz publikację na Firebase Hosting w projekcie outlinego-27ab5.
 
 SEO 30.10.2026: wdrożono punkty 1, 3 i 4 audytu. Zmniejszono warianty WWW dwóch najcięższych ekranów PL/EN, doprecyzowano lead strony głównej i dodano JSON-LD WebSite na obu stronach głównych oraz BreadcrumbList na sześciu poradnikach. WebSite ma jeden identyfikator i URL domeny; główny adres przekierowuje do EN. Kontrola JSON-LD porównuje pozycje, adresy i nazwy z widocznymi okruszkami. Kontrole mediów i stron po HTTP przeszły. Bez publikacji; pomiar wydajności na telefonie pozostaje osobnym krokiem.
