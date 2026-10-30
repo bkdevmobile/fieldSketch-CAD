@@ -1,5 +1,7 @@
 # Media do pierwszego etapu WWW
 
+SEO 30.10.2026: warianty WWW `02-direction` i ilustracji udostępniania v2 PL/EN używają teraz stratnego WebP quality 90. Porównano czytelność obu języków z PNG; źródłowe PNG, pozostałe zrzuty i pliki eksportu są zachowane. Warianty 960: udostępnianie 46 KB zamiast 869–918 KB, kierunek 135–139 KB zamiast 451–460 KB (rozmiary dziesiętne). Starsza wzmianka o bezstratnym UI ma ten wyjątek.
+
 Aktualizacja 30.10.2026: generator dodaje osobne warianty `web/{pl,en}/illustrations/11-plus-dxf-share-v2-{480,960}.webp` z gotowych `../share-mockups/11-plus-dxf-share-{pl,en}-v2.png`. Zawierają ikony e-maila, wiadomości i zapisu pliku; są edytowanymi ilustracjami, nie surowymi zrzutami Androida. Manifest zachowuje źródła i hashe, a oryginalne warianty `web/{pl,en}/app/11-plus-dxf-share-*` pozostają bez podmiany. Strony DXF używają ilustracji v2 z odpowiednimi podpisami. Starszy opis wyłącznego użycia surowego panelu poniżej jest historyczny.
 
 Aktualizacja 30.10.2026: generator dodaje osobne warianty `web/{pl,en}/illustrations/11-plus-dxf-share-v2-{480,960}.webp` z gotowych `../share-mockups/11-plus-dxf-share-{pl,en}-v2.png`. Zawierają ikony e-maila, wiadomości i zapisu pliku; są edytowanymi ilustracjami, nie surowymi zrzutami Androida. Manifest zachowuje źródła i hashe, a oryginalne warianty `web/{pl,en}/app/11-plus-dxf-share-*` pozostają bez podmiany. Strony DXF używają ilustracji v2 z odpowiednimi podpisami. Starszy opis wyłącznego użycia surowego panelu poniżej jest historyczny.

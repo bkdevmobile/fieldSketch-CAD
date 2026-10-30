@@ -23,6 +23,28 @@ let preview;
     const title=html.match(/<title>(.*?)<\/title>/)?.[1];assert(title&&!titles.has(title),'Unique title');titles.add(title);
     const desc=attr(html.match(/<meta name="description"[^>]*>/)?.[0]||'','content');assert(desc&&!descriptions.has(desc),'Unique description');descriptions.add(desc);
     assert(html.includes(`<link rel="canonical" href="${origin}${route}">`),'Canonical '+route);
+    assert(!/<meta\b[^>]*name="robots"[^>]*content="[^"]*(?:noindex|nofollow)/i.test(html),'Marketing page remains indexable '+route);
+    const schemaBlocks=[...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+    assert.equal(schemaBlocks.length,1,'One structured data block '+route);
+    const schema=JSON.parse(schemaBlocks[0][1]);
+    assert.equal(schema['@context'],'https://schema.org');
+    if(i===0){
+      assert.equal(schema['@type'],'WebSite');
+      assert.equal(schema.url,origin+'/');
+      assert.equal(schema.name,'outlineGo');
+      assert.deepEqual(schema.inLanguage,['pl','en']);
+    }else{
+      assert.equal(schema['@type'],'BreadcrumbList');
+      assert.equal(schema.itemListElement.length,2);
+      const crumbs=html.match(/<nav class="breadcrumbs"[\s\S]*?<\/nav>/)?.[0];
+      assert(crumbs,'Visible breadcrumbs '+route);
+      for(const [index,item] of schema.itemListElement.entries()){
+        assert.equal(item['@type'],'ListItem');
+        assert.equal(item.position,index+1);
+        assert.equal(item.item,origin+(index===0?pages[0]:route));
+        assert(crumbs.includes(item.name),'Structured breadcrumb matches visible name '+route);
+      }
+    }
     for(const code of ['pl','en'])assert(html.includes(`<link rel="alternate" hreflang="${code}" href="${origin}${routes[code][i]}">`),'Reciprocal language links');
     const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(new Set(ids).size,ids.length,'Duplicate IDs '+route);
     for(const tag of html.match(/<(?:a|img|source|link|script)\b[^>]*>/g)||[]){

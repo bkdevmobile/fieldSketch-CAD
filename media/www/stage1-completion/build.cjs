@@ -45,7 +45,10 @@ async function main(){
     for(const width of widths){
       const file=path.join(root,'web',`${stem}-${width}.webp`);
       fs.mkdirSync(path.dirname(file),{recursive:true});
-      await sharp(input).resize({width,withoutEnlargement:true}).webp({lossless:kind==='screenshot'||kind==='edited-share-mockup',quality:88,effort:5}).toFile(file);
+      // Compress the camera scene and sharing illustrations for the web;
+      // original PNGs and other interface screenshots remain unchanged.
+      const optimized=kind==='edited-share-mockup'||stem.endsWith('/02-direction');
+      await sharp(input).resize({width,withoutEnlargement:true}).webp({lossless:!optimized&&(kind==='screenshot'||kind==='edited-share-mockup'),quality:optimized?90:88,effort:5}).toFile(file);
       await record(file,source,alt,kind);
       assets.push({file:path.relative(root,file).replaceAll('\\','/'),alt,kind});
     }

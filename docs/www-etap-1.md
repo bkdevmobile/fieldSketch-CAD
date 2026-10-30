@@ -1,5 +1,9 @@
 # WWW — wdrożenie stron pierwszego etapu
 
+Odbiór mobilny 30.10.2026: użytkownik potwierdził poprawne działanie strony na telefonie i zlecił commit oraz publikację na Firebase Hosting w projekcie outlinego-27ab5.
+
+SEO 30.10.2026: wdrożono punkty 1, 3 i 4 audytu. Zmniejszono warianty WWW dwóch najcięższych ekranów PL/EN, doprecyzowano lead strony głównej i dodano JSON-LD WebSite na obu stronach głównych oraz BreadcrumbList na sześciu poradnikach. WebSite ma jeden identyfikator i URL domeny; główny adres przekierowuje do EN. Kontrola JSON-LD porównuje pozycje, adresy i nazwy z widocznymi okruszkami. Kontrole mediów i stron po HTTP przeszły. Bez publikacji; pomiar wydajności na telefonie pozostaje osobnym krokiem.
+
 Poprawki po odbiorze 30.10.2026: ujednolicono numerację poradnika ogrodu PL/EN do 01–04 i połączono niełamliwą spacją wartość 8,2/8.2 z jednostką m w poradniku korekty. Dodano obsługę Escape i zdarzenia cancel w powiększeniu obrazów. Po odświeżeniu podglądu VS Code potwierdzono zamknięcie klawiszem Escape i powrót fokusu do obrazu oraz poprawny podpis z nierozdzielonym „8,2 m”. Kontrola `node scripts/verify-www.cjs --http` i składnia JS przeszły. Pozostaje odbiór na telefonie; zmiany lokalne, bez publikacji.
 
 Aktualizacja panelu udostępniania 30.10.2026: na uwagę użytkownika zastąpiono używany w poradnikach DXF surowy zrzut bez ikon przygotowanymi wcześniej ilustracjami v2 PL/EN z e-mailem, wiadomościami i zapisem pliku. Osobne warianty WebP zachowują źródła w manifeście, a podpisy nie określają już ilustracji jako oryginalnego panelu systemowego. Nie zmieniano aplikacji ani oryginalnych zrzutów. Bez deployu.
