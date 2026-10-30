@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-29",
+  "app": "LibreCAD",
+  "version": "2.2.1.5",
+  "controlDistanceMetres": 8,
+  "files": [
+    {
+      "language": "pl",
+      "file": "01-import-overview.jpg",
+      "width": 1920,
+      "height": 1032,
+      "bytes": 144104,
+      "sha256": "764af4cb51247968675efef5a766e6df0d8872aa7f5320540ca7514605b06896"
+    },
+    {
+      "language": "pl",
+      "file": "02-dimension-detail.jpg",
+      "width": 1920,
+      "height": 1032,
+      "bytes": 138179,
+      "sha256": "3c94ad9fac4281c75ae3949fbedf6fb7a896e6f9c2f95bca0f2d06ab0100f9f1"
+    },
+    {
+      "language": "pl",
+      "file": "03-units-and-layers.jpg",
+      "width": 1920,
+      "height": 1032,
+      "bytes": 161695,
+      "sha256": "cd0e3fdbb337b908ebab9debafe1b72ce5ad4ff5b3bdec724c844d1931289b6d"
+    },
+    {
+      "language": "en",
+      "file": "01-import-overview.jpg",
+      "width": 1920,
+      "height": 1032,
+      "bytes": 139203,
+      "sha256": "56c377539587c2284441dc29cd04e3abedca0caa708b6b7374b6f5bbcf8c2e3c"
+    },
+    {
+      "language": "en",
+      "file": "02-dimension-detail.jpg",
+      "width": 1920,
+      "height": 1032,
+      "bytes": 140857,
+      "sha256": "3d9b2b6df6647a1c53b0ad94f436d36810f87aee22cb2402c31b5efdb0233944"
+    },
+    {
+      "language": "en",
+      "file": "03-units-and-layers.jpg",
+      "width": 1920,
+      "height": 1032,
+      "bytes": 159994,
+      "sha256": "b04e63c3c83db5ee24ef6aa9f95388bec191625daeea1c7d87bc62841d379e8d"
+    },
+    {
+      "language": "en",
+      "file": "04-distance-check.jpg",
+      "width": 1920,
+      "height": 1032,
+      "bytes": 152692,
+      "sha256": "a56ccba79024ae569bef60df03a9a19e70f6774e90fc0514f1a5272f31ac6b9f"
+    },
+    {
+      "language": "en",
+      "file": "05-librecad-version.jpg",
+      "width": 1920,
+      "height": 1032,
+      "bytes": 149440,
+      "sha256": "05f3bbbd6101d1ae4b8bb328032b470f2924e0dc6e72557c4287c1aee60811e7"
+    }
+  ],
+  "sources": [
+    {
+      "language": "pl",
+      "file": "../app-screenshots/exports/garden-pl.dxf",
+      "sha256": "84e0917d42e2d30ae6376fd4ba6518682ccb79bbe013d3ca66640ae52d79dcd4",
+      "unchanged": true
+    },
+    {
+      "language": "en",
+      "file": "../app-screenshots/exports/garden-en.dxf",
+      "sha256": "076a5b68d640620a1bb538cd09d5d0e49cc8022d86d583865085731bc37e079b",
+      "unchanged": true
+    }
+  ]
+}

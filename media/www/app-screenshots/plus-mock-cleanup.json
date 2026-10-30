@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-29",
+  "baseCommit": "2185000b480889f06ef76fe8a08689f8cff1fedc",
+  "temporaryMock": "StoreProvider plan fixed to plus for emulator screenshots; export implementation unchanged",
+  "temporaryApkSha256": "ba1d741a08839101e6c0229952cdd6b68a6c312bd44fa9c5f98eaabca44f38a8",
+  "sourceRestoredByteForByte": true,
+  "storeSourceSha256BeforeAndAfter": "4173af33613f8f554267875215146ea954787693170cf564fd50e732ea4c1032",
+  "originalApkAndInstalledEmulatorApkSha256": "e383e3b4645dcd433b07fcce433102eb30a8a5cd3d6d3e5311a26c9398a8f0b6",
+  "temporaryApkRemoved": true,
+  "mockBuildAndCaptureScriptsRemoved": true,
+  "derivedAppBuildDirectoryRemoved": true,
+  "freeDxfGateVerifiedAfterReinstall": true,
+  "typecheckPassedAfterSourceRestore": true,
+  "appGitDiffEmpty": true,
+  "purchasesTested": false,
+  "filesSentToRecipients": false,
+  "productionPackagesOverwritten": false,
+  "userPhoneModified": false
+}

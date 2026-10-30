@@ -1,0 +1,1250 @@
+{
+  "date": "2026-10-29",
+  "scope": "Stage 1 static media; no video, deployment or Plus entitlement changes",
+  "files": [
+    {
+      "file": "web/pl/app/01-new-sketch-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 32300,
+      "sha256": "12b2eae5dd18558c2091b9cdc6003daea85f5d94b72bd577aa0eec8c59354302",
+      "source": "../app-screenshots/pl/01-new-sketch.png",
+      "alt": "Nowy szkic",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/01-new-sketch-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 75012,
+      "sha256": "95ee62a4b304b58804b260dc513a8e17c368db0f4f0dc0930b62f675baf9a8df",
+      "source": "../app-screenshots/pl/01-new-sketch.png",
+      "alt": "Nowy szkic",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/02-direction-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 48018,
+      "sha256": "09409fed194fd258d5262b74b41b0489bfc36fb90d475e452648b89c078ee5f5",
+      "source": "../app-screenshots/pl/02-direction.png",
+      "alt": "Zapis kierunku",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/02-direction-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 138772,
+      "sha256": "9999f91a028b4b9ce2925455bdef83812050fc949bb20df314193da98fe529f0",
+      "source": "../app-screenshots/pl/02-direction.png",
+      "alt": "Zapis kierunku",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/03-angle-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 52080,
+      "sha256": "afc1a5f0d29d725614f053ea7592986cf333d6908160210e120a0b503148a508",
+      "source": "../app-screenshots/pl/03-angle.png",
+      "alt": "Zapisany kierunek",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/03-angle-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 118198,
+      "sha256": "134f9e9dac3d19ac3ca847c349cc1a0f1c6802a3d8c832b890e7a4d736338915",
+      "source": "../app-screenshots/pl/03-angle.png",
+      "alt": "Zapisany kierunek",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/04-length-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 54324,
+      "sha256": "0be56d1999b18082245beb17b18c175ded98451aa99271acccbf6a16523a6389",
+      "source": "../app-screenshots/pl/04-length.png",
+      "alt": "Wpisywanie długości",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/04-length-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 123122,
+      "sha256": "06635703d634f050a5f6c52513776a366d361112a1d7608e490f6c87ffa7da57",
+      "source": "../app-screenshots/pl/04-length.png",
+      "alt": "Wpisywanie długości",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/05-review-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 49718,
+      "sha256": "a5d4606fe751c464f116feebf694acfd0992edd5d9323d7a5f183fd42e1a5830",
+      "source": "../app-screenshots/pl/05-review.png",
+      "alt": "Sprawdzenie boku",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/05-review-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 110378,
+      "sha256": "1389beefdcb00e1ab4cfdc93dbd6ed652ace34c8c4f40a12162a405dac99ed3c",
+      "source": "../app-screenshots/pl/05-review.png",
+      "alt": "Sprawdzenie boku",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/06-summary-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 47186,
+      "sha256": "1cf3225802fcc5776a1baf5dc6cd265bd8781f476f275ed13148cc0c39f92d9b",
+      "source": "../app-screenshots/pl/06-summary.png",
+      "alt": "Podsumowanie ogrodu",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/06-summary-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 104530,
+      "sha256": "cc204245123d8b8c5b70b4bfe634628981bb70129b413c7e4823d25a43223f78",
+      "source": "../app-screenshots/pl/06-summary.png",
+      "alt": "Podsumowanie ogrodu",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/07-sketch-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 50322,
+      "sha256": "293959485d11236ad866857dd26fa58682c84cf001da73b24a3eba530a92e77b",
+      "source": "../app-screenshots/pl/07-sketch.png",
+      "alt": "Obrys ogrodu",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/07-sketch-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 111198,
+      "sha256": "134f4391fdb863fc006ea7fbedbc1bcb5905af1c364246767ea319f59264e6ed",
+      "source": "../app-screenshots/pl/07-sketch.png",
+      "alt": "Obrys ogrodu",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/08-dimensions-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 48702,
+      "sha256": "01d8d95ccba653259489942188bfe09e985b6240cc6877db185c295ca0858954",
+      "source": "../app-screenshots/pl/08-dimensions.png",
+      "alt": "Wymiary i punkty",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/08-dimensions-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 116642,
+      "sha256": "dff027dd2c112e36bb2604ee2cc1eac6624f021ad1db968d6bdb812b4ab0c3ef",
+      "source": "../app-screenshots/pl/08-dimensions.png",
+      "alt": "Wymiary i punkty",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/09-png-preview-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 27190,
+      "sha256": "10592d2e4ed1c8fdf9a4c29e8012049b025d093238504e87d2c1cb1b14607b98",
+      "source": "../app-screenshots/pl/09-png-preview.png",
+      "alt": "Podgląd PNG ze znakiem wodnym Free",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/09-png-preview-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 61412,
+      "sha256": "fa618b9ff2b1d9686d19d0f1d87fdcd9d5a2aa763eb8d47f3a38dfc3363b8e37",
+      "source": "../app-screenshots/pl/09-png-preview.png",
+      "alt": "Podgląd PNG ze znakiem wodnym Free",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/10-plus-dxf-export-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 48160,
+      "sha256": "a687d46f1843a8829f90db50a826e30ce20e18b9386f9fd218908099a1be3757",
+      "source": "../app-screenshots/pl/10-plus-dxf-export.png",
+      "alt": "Eksport DXF w Plus",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/10-plus-dxf-export-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 106076,
+      "sha256": "90dd9f70b1040c6894e8961ef696311568672cbf5577312fafc6ec4229528697",
+      "source": "../app-screenshots/pl/10-plus-dxf-export.png",
+      "alt": "Eksport DXF w Plus",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/11-plus-dxf-share-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 37516,
+      "sha256": "792f45304c130859424a2940ff1aa0ff1ffd66528d975d1cfdd6e26abecce915",
+      "source": "../app-screenshots/pl/11-plus-dxf-share.png",
+      "alt": "Udostępnianie DXF w Androidzie",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/11-plus-dxf-share-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 86148,
+      "sha256": "50507c2e7e80e4fce659934bb3259dcab81ebad2627c76b053df377a08052fa2",
+      "source": "../app-screenshots/pl/11-plus-dxf-share.png",
+      "alt": "Udostępnianie DXF w Androidzie",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/12-plus-dxf-ready-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 41954,
+      "sha256": "22a2530ba077b0436c97adfac8ed1eab51b16a5972fb4e818945ea9ba0d6e846",
+      "source": "../app-screenshots/pl/12-plus-dxf-ready.png",
+      "alt": "Przygotowany DXF",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/12-plus-dxf-ready-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 101260,
+      "sha256": "6cb6461dc625945eb3d94833b0945b91be7d2145167e946b4898063367a1a35e",
+      "source": "../app-screenshots/pl/12-plus-dxf-ready.png",
+      "alt": "Przygotowany DXF",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/13-plus-png-preview-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 27212,
+      "sha256": "a8fe1432a33313ed44fec050b7b1bf3e1e16816572d08816020d9643fc30ba16",
+      "source": "../app-screenshots/pl/13-plus-png-preview.png",
+      "alt": "Podgląd PNG w Plus",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/13-plus-png-preview-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 61972,
+      "sha256": "8e0066f8837da2f9b053106ffa80a8fef309767d7003d6321460b714a369fbf2",
+      "source": "../app-screenshots/pl/13-plus-png-preview.png",
+      "alt": "Podgląd PNG w Plus",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/illustrations/11-plus-dxf-share-v2-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 18936,
+      "sha256": "9f673d6a5e31f496bb598a17a62aff4e63695547bc9acc09d87636c9ec24cfe8",
+      "source": "../share-mockups/11-plus-dxf-share-pl-v2.png",
+      "alt": "Ilustracja panelu udostępniania DXF z ikonami e-maila, wiadomości i zapisu pliku",
+      "kind": "edited-share-mockup"
+    },
+    {
+      "file": "web/pl/illustrations/11-plus-dxf-share-v2-960.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 46452,
+      "sha256": "5e13a4f529c56e538526c3c6ded10f30756202228f2b80da72facaf8241bc30e",
+      "source": "../share-mockups/11-plus-dxf-share-pl-v2.png",
+      "alt": "Ilustracja panelu udostępniania DXF z ikonami e-maila, wiadomości i zapisu pliku",
+      "kind": "edited-share-mockup"
+    },
+    {
+      "file": "screenshots/pl/14-edit-length.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 104041,
+      "sha256": "cc12415d58b2e0a0a268400bd4a782e5a6d7b1381fce372632f6282109d31251",
+      "source": "Android emulator-5556; original adb screencap",
+      "alt": "Niezapisana korekta boku P1–P2 z 8 do 8,2 m",
+      "kind": "original-screenshot"
+    },
+    {
+      "file": "web/pl/app/14-edit-length-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 37168,
+      "sha256": "4b1355b8b11c1817efaf72cc8a4f76431ba3652632153155ccb84076031c12c1",
+      "source": "screenshots/pl/14-edit-length.png",
+      "alt": "Niezapisana korekta boku P1–P2 z 8 do 8,2 m",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/14-edit-length-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 81148,
+      "sha256": "d8c1b2a16e5be0e03882968cd682da8959c0278baf5ba79b99e47c393c2b256b",
+      "source": "screenshots/pl/14-edit-length.png",
+      "alt": "Niezapisana korekta boku P1–P2 z 8 do 8,2 m",
+      "kind": "screenshot"
+    },
+    {
+      "file": "screenshots/pl/15-edit-note.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 131788,
+      "sha256": "6583ae18667c2640eaab66f66a047acf698558121b1573236967a961c0c494c5",
+      "source": "Android emulator-5556; original adb screencap",
+      "alt": "Pole edycji notatki do szkicu ogrodu",
+      "kind": "original-screenshot"
+    },
+    {
+      "file": "web/pl/app/15-edit-note-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 50474,
+      "sha256": "624258e1b1c2911caf7c2688f00d60784c2181277d1da4cb6fb9ba19021bdffa",
+      "source": "screenshots/pl/15-edit-note.png",
+      "alt": "Pole edycji notatki do szkicu ogrodu",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/app/15-edit-note-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 120622,
+      "sha256": "8d4e20cc5d4f80f026cc81f937a2d747ec9270eb85a4b6e4f3d54fed27245cd2",
+      "source": "screenshots/pl/15-edit-note.png",
+      "alt": "Pole edycji notatki do szkicu ogrodu",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/cad/01-import-overview-960.webp",
+      "width": 960,
+      "height": 516,
+      "bytes": 92000,
+      "sha256": "4a082ad353c39f5c2467d42dc55210cab22aa961fbbe0388e799934c925f1440",
+      "source": "../librecad-screenshots/pl/01-import-overview.jpg",
+      "alt": "Rzeczywisty import DXF w LibreCAD: 01-import-overview",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/cad/01-import-overview-1440.webp",
+      "width": 1440,
+      "height": 774,
+      "bytes": 184422,
+      "sha256": "148edce2c681dff7239baf611f0703631339535d590bbe3fb3993e968af815de",
+      "source": "../librecad-screenshots/pl/01-import-overview.jpg",
+      "alt": "Rzeczywisty import DXF w LibreCAD: 01-import-overview",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/cad/02-dimension-detail-960.webp",
+      "width": 960,
+      "height": 516,
+      "bytes": 87692,
+      "sha256": "54162e1ca8b859d438738bec2295a486d43ff109d748b1db42a16536fa6d4025",
+      "source": "../librecad-screenshots/pl/02-dimension-detail.jpg",
+      "alt": "Rzeczywisty import DXF w LibreCAD: 02-dimension-detail",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/cad/02-dimension-detail-1440.webp",
+      "width": 1440,
+      "height": 774,
+      "bytes": 175794,
+      "sha256": "3f953d48b6f154ba389e0258557c2cd3fc151829bb5c4da915bcfd41ea8a8e07",
+      "source": "../librecad-screenshots/pl/02-dimension-detail.jpg",
+      "alt": "Rzeczywisty import DXF w LibreCAD: 02-dimension-detail",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/cad/03-units-and-layers-960.webp",
+      "width": 960,
+      "height": 516,
+      "bytes": 100828,
+      "sha256": "63abc0725f254e0474c795b3b9c1e69e731d21d73d15ef9ddc0261d4069fa4fd",
+      "source": "../librecad-screenshots/pl/03-units-and-layers.jpg",
+      "alt": "Rzeczywisty import DXF w LibreCAD: 03-units-and-layers",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/pl/cad/03-units-and-layers-1440.webp",
+      "width": 1440,
+      "height": 774,
+      "bytes": 202546,
+      "sha256": "b8b74514395de9d2eb1a2028e16c51ba36b800628b4f732cbd794acf91226a16",
+      "source": "../librecad-screenshots/pl/03-units-and-layers.jpg",
+      "alt": "Rzeczywisty import DXF w LibreCAD: 03-units-and-layers",
+      "kind": "screenshot"
+    },
+    {
+      "file": "svg/pl/direction-length-point.svg",
+      "width": 1008,
+      "height": 256,
+      "bytes": 1547,
+      "sha256": "60f52597bed037d208f4e367a604ad02d5d09453ef59ce4f0826213a1a1924eb",
+      "source": "Authored SVG; garden coordinates match verified DXF",
+      "alt": "Schemat: direction-length-point",
+      "kind": "svg"
+    },
+    {
+      "file": "svg/pl/direction-length-point-mobile.svg",
+      "width": 336,
+      "height": 736,
+      "bytes": 1545,
+      "sha256": "9f1301d4386a8d2c29487e98a085e2a49b89fd0e31e44727b4b99726fb4e4d42",
+      "source": "Authored SVG; garden coordinates match verified DXF",
+      "alt": "Schemat: direction-length-point-mobile",
+      "kind": "svg"
+    },
+    {
+      "file": "svg/pl/garden-points.svg",
+      "width": 960,
+      "height": 880,
+      "bytes": 2421,
+      "sha256": "61b46baa8ec8298a7f206ae890a841404a015604b1e44ee720a2bd8166bde0f1",
+      "source": "Authored SVG; garden coordinates match verified DXF",
+      "alt": "Schemat: garden-points",
+      "kind": "svg"
+    },
+    {
+      "file": "downloads/garden-pl-free.png",
+      "width": 1080,
+      "height": 1787,
+      "bytes": 120661,
+      "sha256": "3743f4f7f9ad1da85e9c786536f17ccf307341f34e90dbb8dce9e9086ef0c2b5",
+      "source": "Real app Free export; existing watermark preserved",
+      "alt": "Ogród: oryginalny eksport PNG Free",
+      "kind": "download"
+    },
+    {
+      "file": "downloads/garden-pl.dxf",
+      "bytes": 6639,
+      "sha256": "84e0917d42e2d30ae6376fd4ba6518682ccb79bbe013d3ca66640ae52d79dcd4",
+      "source": "../app-screenshots/exports/garden-pl.dxf",
+      "kind": "download",
+      "unit": "m"
+    },
+    {
+      "file": "graphics/pl/workflow.png",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 319079,
+      "sha256": "cbbab5c1ccfad1021ebf098b345ef165479333b6697a8d970efeb894397ca148",
+      "source": "Composition of unchanged real app and LibreCAD screenshots",
+      "alt": "Od szkicu do CAD",
+      "kind": "composite"
+    },
+    {
+      "file": "web/pl/workflow-720.webp",
+      "width": 720,
+      "height": 450,
+      "bytes": 20348,
+      "sha256": "c1b898e32f0f71e6758d41caddb850603d7fde074ce27aff2c74c6c1bdaa439d",
+      "source": "graphics/pl/workflow.png",
+      "alt": "Od szkicu do CAD",
+      "kind": "composite"
+    },
+    {
+      "file": "web/pl/workflow-1440.webp",
+      "width": 1440,
+      "height": 900,
+      "bytes": 56368,
+      "sha256": "349819a644a7fc7240defe32d163bb48855009030468c95ae9aa8f0ee128e6a7",
+      "source": "graphics/pl/workflow.png",
+      "alt": "Od szkicu do CAD",
+      "kind": "composite"
+    },
+    {
+      "file": "graphics/pl/same-outline.png",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 318456,
+      "sha256": "920403d97b09f3ff890d9bff0721a5f793c5a4df5a13caa1a3dd2468362a8c52",
+      "source": "Composition of unchanged real app and LibreCAD screenshots",
+      "alt": "Ten sam obrys w aplikacji i CAD",
+      "kind": "composite"
+    },
+    {
+      "file": "web/pl/same-outline-720.webp",
+      "width": 720,
+      "height": 450,
+      "bytes": 20440,
+      "sha256": "5583f463f700c41e168e52b2f5e46827a265fb2f8d7a48490f0520a776cbcce2",
+      "source": "graphics/pl/same-outline.png",
+      "alt": "Ten sam obrys w aplikacji i CAD",
+      "kind": "composite"
+    },
+    {
+      "file": "web/pl/same-outline-1440.webp",
+      "width": 1440,
+      "height": 900,
+      "bytes": 55964,
+      "sha256": "dfeba468e579996a2385bc049ed62e997e1d18009295c35cac5d7bfc8b255fdc",
+      "source": "graphics/pl/same-outline.png",
+      "alt": "Ten sam obrys w aplikacji i CAD",
+      "kind": "composite"
+    },
+    {
+      "file": "web/en/app/01-new-sketch-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 31908,
+      "sha256": "cfb438fd16acc13e1509f2af9cef8ca1d11c7b3e4aaf1b5a2c0da64eb67e110b",
+      "source": "../app-screenshots/en/01-new-sketch.png",
+      "alt": "New sketch",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/01-new-sketch-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 75208,
+      "sha256": "f688c21844e6e77ff2b25661263900c7d16f400092723aebc6e67b60884064d8",
+      "source": "../app-screenshots/en/01-new-sketch.png",
+      "alt": "New sketch",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/02-direction-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 47168,
+      "sha256": "58632fe47431f40c956d42f6e2bc70d1191a13be67c99180fc4ffbb650a2548a",
+      "source": "../app-screenshots/en/02-direction.png",
+      "alt": "Save direction",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/02-direction-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 135302,
+      "sha256": "cb6adb6f9b3e615d85784b6d3af5f8b2cebb94986eb73044a21cf1fc611767d5",
+      "source": "../app-screenshots/en/02-direction.png",
+      "alt": "Save direction",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/03-angle-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 48298,
+      "sha256": "0880ad32a72897ec50a8497f188972cc01e04bfecf518d743edb4e9f452b43b1",
+      "source": "../app-screenshots/en/03-angle.png",
+      "alt": "Direction ready",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/03-angle-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 107542,
+      "sha256": "e90a73ac6332293a7e9b15ad9f4cb6d9b798ee112137a68f9cca152ad48700d4",
+      "source": "../app-screenshots/en/03-angle.png",
+      "alt": "Direction ready",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/04-length-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 50606,
+      "sha256": "e7c04f0112b36ddce36d4c7742e52175b5720705d2e82ec39aafa91c9d885139",
+      "source": "../app-screenshots/en/04-length.png",
+      "alt": "Enter side length",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/04-length-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 110398,
+      "sha256": "e91c183469156905376ab78b5fdcc8cc3b269f6c72000f1a3bdc42b163b716a9",
+      "source": "../app-screenshots/en/04-length.png",
+      "alt": "Enter side length",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/05-review-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 46774,
+      "sha256": "52bc6196f666e078669dcbdef36365bbf734978bc1a9cd3a32705832ace12bf3",
+      "source": "../app-screenshots/en/05-review.png",
+      "alt": "Review side",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/05-review-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 101660,
+      "sha256": "b532884ea027aa481872cbc3fde3491f25e0820c2d38dd34f8ffd0651ea948d1",
+      "source": "../app-screenshots/en/05-review.png",
+      "alt": "Review side",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/06-summary-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 44646,
+      "sha256": "8701444a022f8286c5944c8b6943172c3c04daefafaad1d2fa2468ad85ee41da",
+      "source": "../app-screenshots/en/06-summary.png",
+      "alt": "Garden summary",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/06-summary-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 96572,
+      "sha256": "e23b7137ccbf2411310207b831cbc4b4f05c33500adca5d72e61f43261da049d",
+      "source": "../app-screenshots/en/06-summary.png",
+      "alt": "Garden summary",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/07-sketch-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 46138,
+      "sha256": "d1317eaf8b8a145f8d3290470c88cff27fe04728a6a7c19da188ff810da2321f",
+      "source": "../app-screenshots/en/07-sketch.png",
+      "alt": "Garden outline",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/07-sketch-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 97846,
+      "sha256": "3eeb4a582688647f6a572dd693fcd361f215ec57eb226e88646c342e7377f9b6",
+      "source": "../app-screenshots/en/07-sketch.png",
+      "alt": "Garden outline",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/08-dimensions-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 50490,
+      "sha256": "1d76270b0dcef68c98a960fd8e0841755cdbd871503d5538391606001aa695d2",
+      "source": "../app-screenshots/en/08-dimensions.png",
+      "alt": "Dimensions and points",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/08-dimensions-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 117574,
+      "sha256": "347f16972aaec5a5ec260a2a7849f0134f7fb0e57bfd88b269e5cb68eb56e96f",
+      "source": "../app-screenshots/en/08-dimensions.png",
+      "alt": "Dimensions and points",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/09-png-preview-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 25672,
+      "sha256": "ac08c91e217bc6161430cc921d83aedc57c6d47d1f440223cc6782fdde50f2bb",
+      "source": "../app-screenshots/en/09-png-preview.png",
+      "alt": "PNG preview, Free watermark",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/09-png-preview-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 57920,
+      "sha256": "d3a4bb1e9e54facab7c6a0d33ff3a1a386f94fc749d7220626666a612ed14363",
+      "source": "../app-screenshots/en/09-png-preview.png",
+      "alt": "PNG preview, Free watermark",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/10-plus-dxf-export-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 44980,
+      "sha256": "1aab6f6f6a3495d9689f9facb8a45cc8897bbb4f0ff18f417db1c09750d9d11f",
+      "source": "../app-screenshots/en/10-plus-dxf-export.png",
+      "alt": "DXF export in Plus",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/10-plus-dxf-export-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 97202,
+      "sha256": "ac16030e234e315b9267bd80cbd697faa5f8ff80d0d2b83f1ab3e4860f57b2d8",
+      "source": "../app-screenshots/en/10-plus-dxf-export.png",
+      "alt": "DXF export in Plus",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/11-plus-dxf-share-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 33344,
+      "sha256": "6a050aa8ea1468c16ebe56e755d40c288fd2db280ba057801fcc953c0052db1d",
+      "source": "../app-screenshots/en/11-plus-dxf-share.png",
+      "alt": "Android DXF share sheet",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/11-plus-dxf-share-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 75342,
+      "sha256": "c2cf2bf674a130c8e150d054b0d37e74e0c1397c8b49758b69fd1d1340815a2c",
+      "source": "../app-screenshots/en/11-plus-dxf-share.png",
+      "alt": "Android DXF share sheet",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/12-plus-dxf-ready-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 37060,
+      "sha256": "dae0a6bd63c5e73f95886aa25cbf8008e541965cb8e20ddf4eff1aecef627929",
+      "source": "../app-screenshots/en/12-plus-dxf-ready.png",
+      "alt": "DXF prepared",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/12-plus-dxf-ready-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 86064,
+      "sha256": "309b6887b5f846e34ee8e414054337846cadb2b53d877bc1540dc94d41f0fc48",
+      "source": "../app-screenshots/en/12-plus-dxf-ready.png",
+      "alt": "DXF prepared",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/13-plus-png-preview-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 25688,
+      "sha256": "b9d4b1af37ca171d4653cc14e1595bc0101f0c05cabeabe84d300891e6ce0b24",
+      "source": "../app-screenshots/en/13-plus-png-preview.png",
+      "alt": "PNG preview in Plus",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/13-plus-png-preview-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 58580,
+      "sha256": "934f2d7df956b300d8ca37f07b9e7315f356c3df0570b9ab85e46f6fc7a14a8d",
+      "source": "../app-screenshots/en/13-plus-png-preview.png",
+      "alt": "PNG preview in Plus",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/illustrations/11-plus-dxf-share-v2-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 18500,
+      "sha256": "db48a9466665098c5c5f4be26670a6df9fa4b76c0197be17d42081db5eb0a50a",
+      "source": "../share-mockups/11-plus-dxf-share-en-v2.png",
+      "alt": "Illustration of DXF sharing with email, messages and save-file icons",
+      "kind": "edited-share-mockup"
+    },
+    {
+      "file": "web/en/illustrations/11-plus-dxf-share-v2-960.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 45880,
+      "sha256": "af4b3b47b9043deeadc03c813b0a89451ac4dbd1c7a135837bd6717b4632e388",
+      "source": "../share-mockups/11-plus-dxf-share-en-v2.png",
+      "alt": "Illustration of DXF sharing with email, messages and save-file icons",
+      "kind": "edited-share-mockup"
+    },
+    {
+      "file": "screenshots/en/14-edit-length.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 104962,
+      "sha256": "f10f6f6653c9caf53d09bcc0080f4386a0c7e4221e0769e5082c0ca966445323",
+      "source": "Android emulator-5556; original adb screencap",
+      "alt": "Unsaved correction of side P1–P2 from 8 to 8.2 m",
+      "kind": "original-screenshot"
+    },
+    {
+      "file": "web/en/app/14-edit-length-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 36526,
+      "sha256": "1e9ab4571dd5c92d05b9f6d631034207627f9460401f1a1be2b099268d1ef4b8",
+      "source": "screenshots/en/14-edit-length.png",
+      "alt": "Unsaved correction of side P1–P2 from 8 to 8.2 m",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/14-edit-length-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 80388,
+      "sha256": "f6548290f59dbc551fc31663df8ece5bc51b94ee82fc6238fd8ed604b916f731",
+      "source": "screenshots/en/14-edit-length.png",
+      "alt": "Unsaved correction of side P1–P2 from 8 to 8.2 m",
+      "kind": "screenshot"
+    },
+    {
+      "file": "screenshots/en/15-edit-note.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 119962,
+      "sha256": "7194f89af368c3535c66da52744989ec0448ed6bef7cc902803898ae5d15979e",
+      "source": "Android emulator-5556; original adb screencap",
+      "alt": "Editable garden sketch note",
+      "kind": "original-screenshot"
+    },
+    {
+      "file": "web/en/app/15-edit-note-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 47394,
+      "sha256": "ba15fca5a536b520faad8ae6026bd87f40672482a9cdba1414bdb3f29c4cb22f",
+      "source": "screenshots/en/15-edit-note.png",
+      "alt": "Editable garden sketch note",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/app/15-edit-note-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 112550,
+      "sha256": "8e7522bb3d6d447eefb663bffa5346e9e1d72954ea1b0bc314c0a290bb5b3cd9",
+      "source": "screenshots/en/15-edit-note.png",
+      "alt": "Editable garden sketch note",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/cad/01-import-overview-960.webp",
+      "width": 960,
+      "height": 516,
+      "bytes": 87892,
+      "sha256": "039faf288feac41b9b5d36a6001a4cd5595485da310b22ec621e672551ab586c",
+      "source": "../librecad-screenshots/en/01-import-overview.jpg",
+      "alt": "Actual DXF import in LibreCAD: 01-import-overview",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/cad/01-import-overview-1440.webp",
+      "width": 1440,
+      "height": 774,
+      "bytes": 174622,
+      "sha256": "2670f597da53731ca1a489bfa89bcfc701ef6fec178881aa9de50dd6f36b168f",
+      "source": "../librecad-screenshots/en/01-import-overview.jpg",
+      "alt": "Actual DXF import in LibreCAD: 01-import-overview",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/cad/02-dimension-detail-960.webp",
+      "width": 960,
+      "height": 516,
+      "bytes": 91080,
+      "sha256": "b74ba10f48a913785fe057073148f5ab71660cc6ba56bc13e0fe2483cc97b2cc",
+      "source": "../librecad-screenshots/en/02-dimension-detail.jpg",
+      "alt": "Actual DXF import in LibreCAD: 02-dimension-detail",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/cad/02-dimension-detail-1440.webp",
+      "width": 1440,
+      "height": 774,
+      "bytes": 182264,
+      "sha256": "edee5e26c0b686ed7de03cc532735e7dd73113971aee5c5527c597baec0bb325",
+      "source": "../librecad-screenshots/en/02-dimension-detail.jpg",
+      "alt": "Actual DXF import in LibreCAD: 02-dimension-detail",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/cad/03-units-and-layers-960.webp",
+      "width": 960,
+      "height": 516,
+      "bytes": 97226,
+      "sha256": "c44eb47af7cafa952c77b86a970674bdf0302daaa27e53a0d14085b3e8147fb5",
+      "source": "../librecad-screenshots/en/03-units-and-layers.jpg",
+      "alt": "Actual DXF import in LibreCAD: 03-units-and-layers",
+      "kind": "screenshot"
+    },
+    {
+      "file": "web/en/cad/03-units-and-layers-1440.webp",
+      "width": 1440,
+      "height": 774,
+      "bytes": 196332,
+      "sha256": "4d2286e587a9c6088eae0e2d7a52fafed13d8773000f06ebf50ddec6a871b707",
+      "source": "../librecad-screenshots/en/03-units-and-layers.jpg",
+      "alt": "Actual DXF import in LibreCAD: 03-units-and-layers",
+      "kind": "screenshot"
+    },
+    {
+      "file": "svg/en/direction-length-point.svg",
+      "width": 1008,
+      "height": 256,
+      "bytes": 1533,
+      "sha256": "5c1a37774dddd2bd0bfcf13117e069d9a5f1b690db3eb05e0a28269dacd4a19b",
+      "source": "Authored SVG; garden coordinates match verified DXF",
+      "alt": "Diagram: direction-length-point",
+      "kind": "svg"
+    },
+    {
+      "file": "svg/en/direction-length-point-mobile.svg",
+      "width": 336,
+      "height": 736,
+      "bytes": 1531,
+      "sha256": "77ed51638b2df5a90c2902253ecd4b7ae154de923bb36abbfd3ac61c899644bc",
+      "source": "Authored SVG; garden coordinates match verified DXF",
+      "alt": "Diagram: direction-length-point-mobile",
+      "kind": "svg"
+    },
+    {
+      "file": "svg/en/garden-points.svg",
+      "width": 960,
+      "height": 880,
+      "bytes": 2419,
+      "sha256": "ea481e019382f6c72f07059fd2a1af3f0fe20c85d11014a0bedf8541ac71bb33",
+      "source": "Authored SVG; garden coordinates match verified DXF",
+      "alt": "Diagram: garden-points",
+      "kind": "svg"
+    },
+    {
+      "file": "downloads/garden-en-free.png",
+      "width": 1080,
+      "height": 1787,
+      "bytes": 110311,
+      "sha256": "cbd781730e10af82cc80ff81bd694ca899c76be92dc984897b99c3218f33f164",
+      "source": "Real app Free export; existing watermark preserved",
+      "alt": "Garden: original Free PNG export",
+      "kind": "download"
+    },
+    {
+      "file": "downloads/garden-en.dxf",
+      "bytes": 6580,
+      "sha256": "076a5b68d640620a1bb538cd09d5d0e49cc8022d86d583865085731bc37e079b",
+      "source": "../app-screenshots/exports/garden-en.dxf",
+      "kind": "download",
+      "unit": "m"
+    },
+    {
+      "file": "graphics/en/workflow.png",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 307311,
+      "sha256": "6cc3512b870c40e9e26e48e5e2edc232ddca852f92c4069d83883a9b12abefaf",
+      "source": "Composition of unchanged real app and LibreCAD screenshots",
+      "alt": "From sketch to CAD",
+      "kind": "composite"
+    },
+    {
+      "file": "web/en/workflow-720.webp",
+      "width": 720,
+      "height": 450,
+      "bytes": 19684,
+      "sha256": "894b90843770fafc69392a107f8eabd53b4ffdf69cd89ba82840d19634880c46",
+      "source": "graphics/en/workflow.png",
+      "alt": "From sketch to CAD",
+      "kind": "composite"
+    },
+    {
+      "file": "web/en/workflow-1440.webp",
+      "width": 1440,
+      "height": 900,
+      "bytes": 53430,
+      "sha256": "8b413047b7ba9f03e4f56f7f9b334f05c6e0046ee5e9676e93acc45406341744",
+      "source": "graphics/en/workflow.png",
+      "alt": "From sketch to CAD",
+      "kind": "composite"
+    },
+    {
+      "file": "graphics/en/same-outline.png",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 307128,
+      "sha256": "0758487996dac847c83e30b474d94a0d6033a7897dbdd6a6fd50115aa9825b34",
+      "source": "Composition of unchanged real app and LibreCAD screenshots",
+      "alt": "The same outline in the app and CAD",
+      "kind": "composite"
+    },
+    {
+      "file": "web/en/same-outline-720.webp",
+      "width": 720,
+      "height": 450,
+      "bytes": 20116,
+      "sha256": "2125f6dad334769c63920136c93c226711a01c2639931a4b6200ac20440561c1",
+      "source": "graphics/en/same-outline.png",
+      "alt": "The same outline in the app and CAD",
+      "kind": "composite"
+    },
+    {
+      "file": "web/en/same-outline-1440.webp",
+      "width": 1440,
+      "height": 900,
+      "bytes": 54146,
+      "sha256": "c141185be8403e35e3cb80a581776f7da91d6c9b570eabdbb482dd372ba55023",
+      "source": "graphics/en/same-outline.png",
+      "alt": "The same outline in the app and CAD",
+      "kind": "composite"
+    },
+    {
+      "file": "web/shared/garden-context-480.webp",
+      "width": 480,
+      "height": 360,
+      "bytes": 58738,
+      "sha256": "323b7a7605ffd20bdcd809229a89c0cb67892de4a093afbcf5407888b170acf8",
+      "source": "../../../public/assets/garden-measurement-1280.webp",
+      "alt": "Illustrative garden scene / Ilustracyjna scena ogrodu",
+      "kind": "illustration"
+    },
+    {
+      "file": "web/shared/garden-context-960.webp",
+      "width": 960,
+      "height": 720,
+      "bytes": 170318,
+      "sha256": "95d65711441be7d2189000f3c3b737964a7e7a9660ddf7bd3e20baa44e72186b",
+      "source": "../../../public/assets/garden-measurement-1280.webp",
+      "alt": "Illustrative garden scene / Ilustracyjna scena ogrodu",
+      "kind": "illustration"
+    },
+    {
+      "file": "web/shared/garden-context-1280.webp",
+      "width": 1280,
+      "height": 960,
+      "bytes": 253088,
+      "sha256": "695a48aadfb70549ee1d792184ff5695c4b4a3d14326c956c6141a8f67015e83",
+      "source": "../../../public/assets/garden-measurement-1280.webp",
+      "alt": "Illustrative garden scene / Ilustracyjna scena ogrodu",
+      "kind": "illustration"
+    },
+    {
+      "file": "web/shared/field-context-480.webp",
+      "width": 480,
+      "height": 360,
+      "bytes": 62072,
+      "sha256": "a33dc1c4da9eaf89046b07a946c92b2ca18d04d696e1bb53be6e0190d36e2549",
+      "source": "../../../public/assets/workflow-field-960.webp",
+      "alt": "Illustrative use of a phone outdoors / Ilustracja pracy z telefonem w terenie",
+      "kind": "illustration"
+    },
+    {
+      "file": "web/shared/field-context-960.webp",
+      "width": 960,
+      "height": 720,
+      "bytes": 162084,
+      "sha256": "ba91af8950d7027589c1d635088077c2e8bbd65553611c3836e55a314afd8328",
+      "source": "../../../public/assets/workflow-field-960.webp",
+      "alt": "Illustrative use of a phone outdoors / Ilustracja pracy z telefonem w terenie",
+      "kind": "illustration"
+    }
+  ],
+  "sources": [
+    {
+      "file": "../app-screenshots/pl/01-new-sketch.png",
+      "sha256": "d12d64db655c8fcc50dd68985a9757a006034a82a79fe85a282a3515fdfa3d4e"
+    },
+    {
+      "file": "../app-screenshots/pl/02-direction.png",
+      "sha256": "2699bf48383d4900c706a5b3806791b8b646d54a1f114876694602144d80f035"
+    },
+    {
+      "file": "../app-screenshots/pl/03-angle.png",
+      "sha256": "84d638043cf16e706db6233e1c6128f8f4f795c638f913bf7647574f69802a89"
+    },
+    {
+      "file": "../app-screenshots/pl/04-length.png",
+      "sha256": "0c57f33f7d0a4bdb1914f4f3b4c05546e469daae849db7affd63997e90549961"
+    },
+    {
+      "file": "../app-screenshots/pl/05-review.png",
+      "sha256": "6d1faf6489bc1aebdd5bd9a7499cf5873c7adf2ba37e11334f1834251f9ed606"
+    },
+    {
+      "file": "../app-screenshots/pl/06-summary.png",
+      "sha256": "0ffa519586f1cf9aa0260db36468652b12c1804fdde7571cc9a12c344ba553d6"
+    },
+    {
+      "file": "../app-screenshots/pl/07-sketch.png",
+      "sha256": "9f6112dc937ba91dbbbbbeb6f7b9815a304f15a07146f27f09b33bd48cfeec9f"
+    },
+    {
+      "file": "../app-screenshots/pl/08-dimensions.png",
+      "sha256": "b0d1dd48f0e000acfa9fb3ca963d83891f0727c8a917936d7814ee4ccf1320b4"
+    },
+    {
+      "file": "../app-screenshots/pl/09-png-preview.png",
+      "sha256": "a6cf315c8fac9528c9c8a9223a0d054bb0eca9186da26f8150f29a38c30df336"
+    },
+    {
+      "file": "../app-screenshots/pl/10-plus-dxf-export.png",
+      "sha256": "43cce41a7430400b407051000a321b8795d4306663646db364366ddd0bcc8fc7"
+    },
+    {
+      "file": "../app-screenshots/pl/11-plus-dxf-share.png",
+      "sha256": "c9ce43f71789640b8baaf3410ff1cc9ab9992fa476e5369d927ec291c4dd1d48"
+    },
+    {
+      "file": "../app-screenshots/pl/12-plus-dxf-ready.png",
+      "sha256": "5a5b911d0b0efb711935aa2f317c5e9c7a4e12a951ea788bfdf182e1ab0829ae"
+    },
+    {
+      "file": "../app-screenshots/pl/13-plus-png-preview.png",
+      "sha256": "9d4478dc13065d949abb5f2c3da3065c006d1b1bb5cb24e6fdbe34d2f9a03f4e"
+    },
+    {
+      "file": "../share-mockups/11-plus-dxf-share-pl-v2.png",
+      "sha256": "0f09a78e2fa94b40fb123f015e7413c30aa1ba2f2a3625d61cf8347db208bf25"
+    },
+    {
+      "file": "screenshots/pl/14-edit-length.png",
+      "sha256": "cc12415d58b2e0a0a268400bd4a782e5a6d7b1381fce372632f6282109d31251"
+    },
+    {
+      "file": "screenshots/pl/15-edit-note.png",
+      "sha256": "6583ae18667c2640eaab66f66a047acf698558121b1573236967a961c0c494c5"
+    },
+    {
+      "file": "../librecad-screenshots/pl/01-import-overview.jpg",
+      "sha256": "764af4cb51247968675efef5a766e6df0d8872aa7f5320540ca7514605b06896"
+    },
+    {
+      "file": "../librecad-screenshots/pl/02-dimension-detail.jpg",
+      "sha256": "3c94ad9fac4281c75ae3949fbedf6fb7a896e6f9c2f95bca0f2d06ab0100f9f1"
+    },
+    {
+      "file": "../librecad-screenshots/pl/03-units-and-layers.jpg",
+      "sha256": "cd0e3fdbb337b908ebab9debafe1b72ce5ad4ff5b3bdec724c844d1931289b6d"
+    },
+    {
+      "file": "graphics/pl/workflow.png",
+      "sha256": "cbbab5c1ccfad1021ebf098b345ef165479333b6697a8d970efeb894397ca148"
+    },
+    {
+      "file": "graphics/pl/same-outline.png",
+      "sha256": "920403d97b09f3ff890d9bff0721a5f793c5a4df5a13caa1a3dd2468362a8c52"
+    },
+    {
+      "file": "../app-screenshots/en/01-new-sketch.png",
+      "sha256": "10ebaefe3aa34a4d9cbddd6a1ab36863db8bc8a950d6ebeffad80418f63fd7e1"
+    },
+    {
+      "file": "../app-screenshots/en/02-direction.png",
+      "sha256": "9fedc077772622ecdec3e480161f238b77aba498c8fdad9b9ec15be7898fb0b2"
+    },
+    {
+      "file": "../app-screenshots/en/03-angle.png",
+      "sha256": "938145e7febbad2006b2f34134e89da4da6bb969963f06014b2fc9b70a7e4c03"
+    },
+    {
+      "file": "../app-screenshots/en/04-length.png",
+      "sha256": "4d034d22461569530a6b9918e84519b2d9257f5da21f59a68d65c07c6cfe2c92"
+    },
+    {
+      "file": "../app-screenshots/en/05-review.png",
+      "sha256": "ebb6951c2ea74294d5d93ac3d2300368f95f4846b4c52491e0b017ec772133a5"
+    },
+    {
+      "file": "../app-screenshots/en/06-summary.png",
+      "sha256": "7bebade96d51f133b521c9c9528801618619992a847f28aed2a60ed9e8fef924"
+    },
+    {
+      "file": "../app-screenshots/en/07-sketch.png",
+      "sha256": "57434842791b5050df8c9409c79caf652f5e8d7c325e8fd523b8f9c02295df07"
+    },
+    {
+      "file": "../app-screenshots/en/08-dimensions.png",
+      "sha256": "23ad0fb1d2f6b75dbb86f279e742a39a436e358974a0c69ce0ef0096b4fd4d29"
+    },
+    {
+      "file": "../app-screenshots/en/09-png-preview.png",
+      "sha256": "13988876a1cb6759d20865911ecb39ec7d664d24b086d62156f18a165477753e"
+    },
+    {
+      "file": "../app-screenshots/en/10-plus-dxf-export.png",
+      "sha256": "729a11a08eb8f695b4f1e8452a68b09fe5d6607b711b26762af3ccbb0df27f9f"
+    },
+    {
+      "file": "../app-screenshots/en/11-plus-dxf-share.png",
+      "sha256": "893b537a102de6a5c23389e540227fd71d24cb4af78123fe55cc76b67c7891f3"
+    },
+    {
+      "file": "../app-screenshots/en/12-plus-dxf-ready.png",
+      "sha256": "81546ab9c2218a19eb919bff43fe3dc10b8289db43e7406b31032f6ad586d03d"
+    },
+    {
+      "file": "../app-screenshots/en/13-plus-png-preview.png",
+      "sha256": "9c77cc6f2f03343280887caaccb0e8b609c5db403ba7c9d8de36c0d61b01561e"
+    },
+    {
+      "file": "../share-mockups/11-plus-dxf-share-en-v2.png",
+      "sha256": "2769d93a466aba7d219905a82b8c664a41518a8cd684fa9ea748288cbf1039dd"
+    },
+    {
+      "file": "screenshots/en/14-edit-length.png",
+      "sha256": "f10f6f6653c9caf53d09bcc0080f4386a0c7e4221e0769e5082c0ca966445323"
+    },
+    {
+      "file": "screenshots/en/15-edit-note.png",
+      "sha256": "7194f89af368c3535c66da52744989ec0448ed6bef7cc902803898ae5d15979e"
+    },
+    {
+      "file": "../librecad-screenshots/en/01-import-overview.jpg",
+      "sha256": "56c377539587c2284441dc29cd04e3abedca0caa708b6b7374b6f5bbcf8c2e3c"
+    },
+    {
+      "file": "../librecad-screenshots/en/02-dimension-detail.jpg",
+      "sha256": "3d9b2b6df6647a1c53b0ad94f436d36810f87aee22cb2402c31b5efdb0233944"
+    },
+    {
+      "file": "../librecad-screenshots/en/03-units-and-layers.jpg",
+      "sha256": "b04e63c3c83db5ee24ef6aa9f95388bec191625daeea1c7d87bc62841d379e8d"
+    },
+    {
+      "file": "graphics/en/workflow.png",
+      "sha256": "6cc3512b870c40e9e26e48e5e2edc232ddca852f92c4069d83883a9b12abefaf"
+    },
+    {
+      "file": "graphics/en/same-outline.png",
+      "sha256": "0758487996dac847c83e30b474d94a0d6033a7897dbdd6a6fd50115aa9825b34"
+    },
+    {
+      "file": "../../../public/assets/garden-measurement-1280.webp",
+      "sha256": "f44448a5731cdac72b7705bc43b945ef51a845d2405c74c78b3f4158d75caaf0"
+    },
+    {
+      "file": "../../../public/assets/workflow-field-960.webp",
+      "sha256": "5b218cd3150b982224ce73459dc398a61db84f7a32f73b04c772901680c9a473"
+    }
+  ]
+}
