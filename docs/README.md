@@ -1,6 +1,6 @@
 # Dokumentacja outlineGo
 
-Stan dokumentacji: **23 października 2026**, aplikacja 0.1.0 / versionCode 2, kod APK **8365dca**. TypeScript i 183 testy w 24 zestawach przeszły. Nowy podpisany APK z Sentry, ekranem akceptacji i automatycznym zapisem notatek zainstalowano i uruchomiono na Redmi; testy funkcjonalne pozostają otwarte. AAB jest starszy. WWW opublikowane, dokumenty prawne robocze. [Aktualny stan projektu](stan-projektu.md).
+Stan dokumentacji: **30 października 2026**. WWW PL/EN etapu 1 i finalne dokumenty prawne opublikowane, odbiór desktop/mobile zakończony. Pozostają pomiar wydajności i kontrola indeksowania. Stan aplikacji/paczek opisuje [aktualny stan projektu](stan-projektu.md); publikacja strony nie jest wydaniem aplikacji.
 
 ## Obsługa i funkcje
 
@@ -24,6 +24,11 @@ Stan dokumentacji: **23 października 2026**, aplikacja 0.1.0 / versionCode 2, k
 
 - [Plan rozwoju i prace przed release](plan-rozwoju.md)
 - [Pomysły na rozwój](pomysly-na-rozwoj.md)
+- [Promocja aplikacji — pomysły i działania](promocja-aplikacji.md)
+- [Rozbudowa strony WWW — domeny, Search Console i SEO](rozbudowa-strony-www.md)
+- [WWW — opublikowany etap 1 i kontrola wdrożenia](www-etap-1.md)
+- [Audyt SEO i wdrożone usprawnienia](seo-audyt-2026-10-30.md)
+- [Plan i stan mediów WWW](media-strony-www.md)
 - [Stan prac, artefakty i historia wdrożeń](../MEMO.md)
 - [Dokument techniczny: implementacja i architektura docelowa](technical/dokumentacja-techniczna.md)
 - [Budowanie i testowanie aplikacji](../app/README.md)
