@@ -1,6 +1,8 @@
 # Plan mediów WWW outlineGo
 
-Stan filmów na 30.10.2026: **V01, V02 i V04 gotowe lokalnie w PL i EN.** Filmy nie zostały opublikowane ani podłączone do strony WWW.
+Stan filmów na 30.10.2026: **V01, V02 i V04 oraz ilustracyjny V03 gotowe lokalnie w PL i EN.** Filmy nie zostały opublikowane ani podłączone do strony WWW.
+
+V03 — „Od pomiaru do szkicu”, 45 s, 1080p/30, PL/EN: osoba mierząca taras na obrazie wygenerowanym ImageGen, łagodne zbliżenie kadru, rzeczywiste ręczne wpisanie długości i oryginalny PNG. Postać jest nieruchoma; nie jest to dokumentacja pomiaru w terenie. Inna melodia: „Wallpaper” Kevina MacLeoda, CC BY 4.0. Obie wersje przeszły kontrolę 1350 klatek, dźwięku, źródeł i eksportu PNG. Pochodzenie oraz kredyty poza obrazem. [Podglądy, filmy, obraz i prompt V03](../media/www/video-v03/README.md). Zestaw i aktualizacja notatek pozostają bez commita.
 
 Materiały zapisane w Git: `7293534` — V02/V04; `d41f643` — V01 PL/EN wraz z muzyką, podglądami, raportem kontroli i aktualizacją notatek. Następny etap dotyczy odbioru i integracji filmów, nie ich produkcji. Aktualizacja notatek po tych commitach pozostaje lokalna.
 
@@ -11,7 +13,7 @@ Materiały zapisane w Git: `7293534` — V02/V04; `d41f643` — V01 PL/EN wraz z
 - **Zasady użytkownika:** spokojne tempo i pauzy; bez dolnych napisów dublujących opis oraz bez technicznych podpisów o produkcji, tempie, pauzach, emulatorze, montażu czy kodach V02/V04. W obrazie tylko instrukcje pomocne widzowi. Kredyty muzyczne pod odtwarzaczem, w metadanych i opisie publikacji; szczegóły produkcji w dokumentacji.
 - Obie wersje V04 przeszły pełne dekodowanie 4320 klatek, kontrolę dźwięku, geometrii, oryginalnych DXF i zgodności obrazu z wersją bez dźwięku. Zapisano miniatury, podglądy, transkrypty i źródła. Po nagraniu z tymczasowym testowym uprawnieniem Plus przywrócono kod i oryginalny APK; materiał nie potwierdza zakupu ani fizycznego pomiaru. Raporty: `media/www/video-v04/output/verification.json` i `sources/restoration.json`.
 
-Następne prace: odbiór filmów przez użytkownika oraz osobna integracja ze stroną i publikacja na jego polecenie. V03/V05 pozostają opcjonalnymi zadaniami dalszych etapów.
+Następne prace: odbiór filmów przez użytkownika oraz osobna integracja ze stroną i publikacja na jego polecenie. V05 i ewentualny V03 z rzeczywistym nagraniem pomiaru terenowego pozostają opcjonalne; ilustracyjny V03 jest już gotowy.
 
 Podglądy, źródła i raporty: [V01](../media/www/video-v01/README.md), [V02](../media/www/video-v02/README.md), [V04](../media/www/video-v04/README.md). Poniższe aktualizacje z 29 października są historią; dalsze założenia filmów uwzględniają korekty użytkownika.
 

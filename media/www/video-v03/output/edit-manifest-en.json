@@ -1,0 +1,48 @@
+{
+  "duration": 45,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "disclosure": "The garden scene is an AI-generated illustration with camera movement. App screens and PNG are real. This film does not document a field measurement or automatic phone measurement.",
+  "segments": [
+    {
+      "outputStart": 0,
+      "outputSeconds": 12,
+      "kind": "generated-image-camera-motion",
+      "source": "sources/garden-measurement.png",
+      "sha256": "8a0b3da4dd1bdcbad83152cb4bb1f4b045553ee085215a0a7199218516863ac1",
+      "zoomStart": 1,
+      "zoomEnd": 1.035
+    },
+    {
+      "outputStart": 12,
+      "outputSeconds": 17,
+      "kind": "real-app-recording",
+      "source": "../video-v02/sources/en/02-first-side.mp4",
+      "sha256": "27db4fca7bf1f709e00a0ebdb957368f1c2d9deb3e3e519af4b3b9abc809564a",
+      "start": 14.61,
+      "length": 8,
+      "speed": 1,
+      "hold": 9,
+      "detail": {
+        "source": "sources/garden-measurement.png",
+        "sha256": "8a0b3da4dd1bdcbad83152cb4bb1f4b045553ee085215a0a7199218516863ac1"
+      }
+    },
+    {
+      "outputStart": 29,
+      "outputSeconds": 16,
+      "kind": "real-app-and-export-stills",
+      "source": "../video-v04/sources/en/01-summary.png",
+      "sha256": "a5a22aa7c8fefaaf4725d323c80710e07d6babfb70ec9391ebab8ca6c098c447",
+      "start": 0,
+      "length": 0,
+      "speed": 1,
+      "hold": 16,
+      "detail": {
+        "source": "../video-v02/output/first-sketch-en-free.png",
+        "sha256": "a0d843cb483b6aca1e1c0d6d6904af522a82766e19ce2483629c0916fd23edde"
+      }
+    }
+  ]
+}
