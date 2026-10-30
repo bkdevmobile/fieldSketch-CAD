@@ -1,0 +1,29 @@
+{
+  "source": "../../../googlePlay/promo-en/audio/Carefree.mp3",
+  "sourceSha256": "8433b770a630d9b1594fd484442c677907ece899a4d149954cd2e74fd733e311",
+  "credit": "Music: \"Carefree\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400037. Changes: excerpted, repeated with a 2.5-second crossfade, normalized to quiet background level, 2-second fade-in, 4-second fade-out, encoded to AAC.",
+  "targetLoudnessLUFS": -24,
+  "fadeInSeconds": 2,
+  "fadeOutSeconds": 4,
+  "crossfadeSeconds": 2.5,
+  "reports": [
+    {
+      "language": "pl",
+      "file": "v02-first-sketch-pl-with-music.mp4",
+      "durationSeconds": 224,
+      "decodedFrames": 6720,
+      "videoStreamIdentical": true,
+      "audio": "AAC stereo, 48 kHz, 192 kb/s",
+      "sha256": "b932a9bd1937636bb47249ce6add25442212f1e6760d49709e26a371e4552028"
+    },
+    {
+      "language": "en",
+      "file": "v02-first-sketch-en-with-music.mp4",
+      "durationSeconds": 224,
+      "decodedFrames": 6720,
+      "videoStreamIdentical": true,
+      "audio": "AAC stereo, 48 kHz, 192 kb/s",
+      "sha256": "1ce42e0d9874183ae4bae504e0ba297c761b9c0847103cfdf806bdd9804c4834"
+    }
+  ]
+}

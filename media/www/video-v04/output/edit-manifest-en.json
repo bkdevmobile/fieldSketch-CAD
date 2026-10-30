@@ -1,0 +1,54 @@
+{
+  "duration": 144,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "audio": true,
+  "segments": [
+    {
+      "source": "sources/en/01-export.mp4",
+      "start": 0,
+      "length": 9.86,
+      "speed": 0.3792307692307692,
+      "hold": 6,
+      "outputStart": 0,
+      "outputSeconds": 32
+    },
+    {
+      "source": "sources/en/02-open.mp4",
+      "start": 0.3999999999999986,
+      "length": 21,
+      "speed": 0.9545454545454546,
+      "hold": 6,
+      "outputStart": 32,
+      "outputSeconds": 28
+    },
+    {
+      "source": "sources/en/03-overview.mp4",
+      "start": 2,
+      "length": 18,
+      "speed": 1,
+      "hold": 8,
+      "outputStart": 60,
+      "outputSeconds": 26
+    },
+    {
+      "source": "sources/en/04-units.mp4",
+      "start": 0,
+      "length": 8,
+      "speed": 1,
+      "hold": 16,
+      "outputStart": 86,
+      "outputSeconds": 24
+    },
+    {
+      "source": "sources/en/05-distance.mp4",
+      "start": 0,
+      "length": 20,
+      "speed": 0.8333333333333334,
+      "hold": 10,
+      "outputStart": 110,
+      "outputSeconds": 34
+    }
+  ]
+}

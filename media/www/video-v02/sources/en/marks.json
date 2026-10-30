@@ -1,0 +1,217 @@
+[
+  {
+    "label": "start",
+    "clip": "01-create",
+    "t": 1.201
+  },
+  {
+    "label": "New sketch",
+    "clip": "01-create",
+    "t": 4.465
+  },
+  {
+    "label": "Sketch name=Patio",
+    "clip": "01-create",
+    "t": 10.84
+  },
+  {
+    "label": "Create sketch",
+    "clip": "01-create",
+    "t": 13.155
+  },
+  {
+    "label": "end",
+    "clip": "01-create",
+    "t": 17.965
+  },
+  {
+    "label": "start",
+    "clip": "02-first-side",
+    "t": 1.2
+  },
+  {
+    "label": "At the corner · save P1",
+    "clip": "02-first-side",
+    "t": 3.817
+  },
+  {
+    "label": "Set direction",
+    "clip": "02-first-side",
+    "t": 6.526
+  },
+  {
+    "label": "Direction ready · enter length",
+    "clip": "02-first-side",
+    "t": 9.37
+  },
+  {
+    "label": "Side length (m)=4",
+    "clip": "02-first-side",
+    "t": 16.824
+  },
+  {
+    "label": "Review side",
+    "clip": "02-first-side",
+    "t": 19.683
+  },
+  {
+    "label": "Save point",
+    "clip": "02-first-side",
+    "t": 22.481
+  },
+  {
+    "label": "end",
+    "clip": "02-first-side",
+    "t": 24.282
+  },
+  {
+    "label": "start",
+    "clip": "03-next-sides",
+    "t": 1.2
+  },
+  {
+    "label": "Turn from previous side (°)=90",
+    "clip": "03-next-sides",
+    "t": 6.653
+  },
+  {
+    "label": "Set direction",
+    "clip": "03-next-sides",
+    "t": 8.988
+  },
+  {
+    "label": "Direction ready · enter length",
+    "clip": "03-next-sides",
+    "t": 11.381
+  },
+  {
+    "label": "Side length (m)=3",
+    "clip": "03-next-sides",
+    "t": 17.173
+  },
+  {
+    "label": "Review side",
+    "clip": "03-next-sides",
+    "t": 19.538
+  },
+  {
+    "label": "Save point",
+    "clip": "03-next-sides",
+    "t": 21.899
+  },
+  {
+    "label": "Turn from previous side (°)=90",
+    "clip": "03-next-sides",
+    "t": 27.302
+  },
+  {
+    "label": "Set direction",
+    "clip": "03-next-sides",
+    "t": 29.641
+  },
+  {
+    "label": "Direction ready · enter length",
+    "clip": "03-next-sides",
+    "t": 32.053
+  },
+  {
+    "label": "Side length (m)=3.8",
+    "clip": "03-next-sides",
+    "t": 37.925
+  },
+  {
+    "label": "Review side",
+    "clip": "03-next-sides",
+    "t": 40.326
+  },
+  {
+    "label": "Save point",
+    "clip": "03-next-sides",
+    "t": 42.687
+  },
+  {
+    "label": "Finish",
+    "clip": "03-next-sides",
+    "t": 45.085
+  },
+  {
+    "label": "Leave open",
+    "clip": "03-next-sides",
+    "t": 47.527
+  },
+  {
+    "label": "end",
+    "clip": "03-next-sides",
+    "t": 49.895
+  },
+  {
+    "label": "start",
+    "clip": "04-correction",
+    "t": 1.2
+  },
+  {
+    "label": "Edit last side",
+    "clip": "04-correction",
+    "t": 4.381
+  },
+  {
+    "label": "Side length (m)=4",
+    "clip": "04-correction",
+    "t": 10.365
+  },
+  {
+    "label": "Save changes",
+    "clip": "04-correction",
+    "t": 13.12
+  },
+  {
+    "label": "end",
+    "clip": "04-correction",
+    "t": 14.922
+  },
+  {
+    "label": "start",
+    "clip": "05-close",
+    "t": 1.2
+  },
+  {
+    "label": "Continue measurement",
+    "clip": "05-close",
+    "t": 3.56
+  },
+  {
+    "label": "Finish",
+    "clip": "05-close",
+    "t": 6.61
+  },
+  {
+    "label": "Close outline",
+    "clip": "05-close",
+    "t": 9.085
+  },
+  {
+    "label": "end",
+    "clip": "05-close",
+    "t": 11.365
+  },
+  {
+    "label": "start",
+    "clip": "06-export",
+    "t": 1.2
+  },
+  {
+    "label": "Export PNG",
+    "clip": "06-export",
+    "t": 3.599
+  },
+  {
+    "label": "Share PNG",
+    "clip": "06-export",
+    "t": 6.652
+  },
+  {
+    "label": "end",
+    "clip": "06-export",
+    "t": 8.87
+  }
+]

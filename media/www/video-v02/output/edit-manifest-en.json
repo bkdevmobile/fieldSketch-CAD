@@ -1,0 +1,57 @@
+{
+  "duration": 224,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "audio": false,
+  "segments": [
+    {
+      "source": "sources/en/01-create.mp4",
+      "sourceSeconds": 15.3,
+      "outputStart": 0,
+      "outputSeconds": 22,
+      "speed": 0.95625,
+      "holdSeconds": 6
+    },
+    {
+      "source": "sources/en/02-first-side.mp4",
+      "sourceSeconds": 22.61,
+      "outputStart": 22,
+      "outputSeconds": 40,
+      "speed": 0.665,
+      "holdSeconds": 6
+    },
+    {
+      "source": "sources/en/03-next-sides.mp4",
+      "sourceSeconds": 49.69,
+      "outputStart": 62,
+      "outputSeconds": 80,
+      "speed": 0.6714864864864865,
+      "holdSeconds": 6
+    },
+    {
+      "source": "sources/en/04-correction.mp4",
+      "sourceSeconds": 13.79,
+      "outputStart": 142,
+      "outputSeconds": 30,
+      "speed": 0.5745833333333333,
+      "holdSeconds": 6
+    },
+    {
+      "source": "sources/en/05-close.mp4",
+      "sourceSeconds": 12.35,
+      "outputStart": 172,
+      "outputSeconds": 28,
+      "speed": 0.5613636363636364,
+      "holdSeconds": 6
+    },
+    {
+      "source": "sources/en/06-export.mp4",
+      "sourceSeconds": 8.58,
+      "outputStart": 200,
+      "outputSeconds": 24,
+      "speed": 0.4766666666666667,
+      "holdSeconds": 6
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "id": "mvv87zin-k15fsjtsz4",
+  "schemaVersion": 1,
+  "name": "Taras",
+  "createdAt": "2026-10-30T17:08:43.535Z",
+  "updatedAt": "2026-10-30T17:10:28.934Z",
+  "geometryRevision": 5,
+  "mode": "manual",
+  "points": [
+    {
+      "id": "mvv87zin-4ggjpcvku3",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "mvv88j6z-pz7qqfc721",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "id": "mvv892hg-njk36q559m",
+      "x": 4,
+      "y": 3
+    },
+    {
+      "id": "mvv89iia-6sd08l84zi",
+      "x": 0,
+      "y": 3.0000000000000004
+    }
+  ],
+  "observations": [
+    {
+      "id": "mvv88j6z-6p9do1cts6",
+      "kind": "side",
+      "fromPointId": "mvv87zin-4ggjpcvku3",
+      "toPointId": "mvv88j6z-pz7qqfc721",
+      "lengthSource": "manual",
+      "stepCount": null,
+      "stepLengthCm": null,
+      "lengthM": 4,
+      "lengthCm": 400,
+      "theta": 0,
+      "mode": "manual",
+      "capturedTheta": 0,
+      "referenceFrameId": "395601a0-3c8a-4cb4-b07f-67e8cec0709b",
+      "capture": null,
+      "predictedEnd": {
+        "id": "mvv88j6z-pz7qqfc721",
+        "x": 4,
+        "y": 0
+      },
+      "createdAt": "2026-10-30T17:09:09.035Z"
+    },
+    {
+      "id": "mvv892hg-8y2zhxewr3",
+      "kind": "side",
+      "fromPointId": "mvv88j6z-pz7qqfc721",
+      "toPointId": "mvv892hg-njk36q559m",
+      "lengthSource": "manual",
+      "stepCount": null,
+      "stepLengthCm": null,
+      "lengthM": 3,
+      "lengthCm": 300,
+      "theta": 1.5707963267948966,
+      "mode": "manual",
+      "capturedTheta": 1.5707963267948966,
+      "referenceFrameId": "395601a0-3c8a-4cb4-b07f-67e8cec0709b",
+      "capture": null,
+      "predictedEnd": {
+        "id": "mvv892hg-njk36q559m",
+        "x": 4,
+        "y": 3
+      },
+      "createdAt": "2026-10-30T17:09:34.036Z"
+    },
+    {
+      "id": "mvv89iia-fvyg78k9fs",
+      "kind": "side",
+      "fromPointId": "mvv892hg-njk36q559m",
+      "toPointId": "mvv89iia-6sd08l84zi",
+      "lengthSource": "manual",
+      "stepCount": null,
+      "stepLengthCm": null,
+      "lengthM": 3.8,
+      "lengthCm": 380,
+      "theta": 3.141592653589793,
+      "mode": "manual",
+      "capturedTheta": 3.141592653589793,
+      "referenceFrameId": "395601a0-3c8a-4cb4-b07f-67e8cec0709b",
+      "capture": null,
+      "predictedEnd": {
+        "id": "mvv89iia-6sd08l84zi",
+        "x": 0.20000000000000018,
+        "y": 3.0000000000000004
+      },
+      "createdAt": "2026-10-30T17:09:54.802Z"
+    },
+    {
+      "id": "mvv89z5c-ij0ua0gh2w",
+      "kind": "side",
+      "fromPointId": "mvv892hg-njk36q559m",
+      "toPointId": "mvv89iia-6sd08l84zi",
+      "lengthSource": "manual",
+      "stepCount": null,
+      "stepLengthCm": null,
+      "lengthM": 4,
+      "lengthCm": 400,
+      "theta": 3.141592653589793,
+      "mode": "manual",
+      "capturedTheta": 3.141592653589793,
+      "referenceFrameId": "395601a0-3c8a-4cb4-b07f-67e8cec0709b",
+      "capture": null,
+      "predictedEnd": {
+        "id": "mvv89iia-6sd08l84zi",
+        "x": 0,
+        "y": 3.0000000000000004
+      },
+      "createdAt": "2026-10-30T17:10:16.368Z",
+      "supersedesId": "mvv89iia-fvyg78k9fs"
+    }
+  ],
+  "activeObservationIds": [
+    "mvv88j6z-6p9do1cts6",
+    "mvv892hg-8y2zhxewr3",
+    "mvv89z5c-ij0ua0gh2w"
+  ],
+  "closed": true,
+  "closureObservationId": null
+}
