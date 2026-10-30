@@ -45,7 +45,7 @@ async function main(){
     for(const width of widths){
       const file=path.join(root,'web',`${stem}-${width}.webp`);
       fs.mkdirSync(path.dirname(file),{recursive:true});
-      await sharp(input).resize({width,withoutEnlargement:true}).webp({lossless:kind==='screenshot',quality:88,effort:5}).toFile(file);
+      await sharp(input).resize({width,withoutEnlargement:true}).webp({lossless:kind==='screenshot'||kind==='edited-share-mockup',quality:88,effort:5}).toFile(file);
       await record(file,source,alt,kind);
       assets.push({file:path.relative(root,file).replaceAll('\\','/'),alt,kind});
     }
@@ -54,6 +54,7 @@ async function main(){
   for(const lang of ['pl','en']){
     const l=labels[lang];
     for(const [name,alt] of Object.entries(screenNames))await variants(path.join(www,'app-screenshots',lang,name+'.png'),`${lang}/app/${name}`,[480,960],alt.split(' / ')[lang==='pl'?1:0],'screenshot');
+    await variants(path.join(www,'share-mockups',`11-plus-dxf-share-${lang}-v2.png`),`${lang}/illustrations/11-plus-dxf-share-v2`,[480,960],lang==='pl'?'Ilustracja panelu udostępniania DXF z ikonami e-maila, wiadomości i zapisu pliku':'Illustration of DXF sharing with email, messages and save-file icons','edited-share-mockup');
     for(const [name,alt] of [['14-edit-length',lang==='pl'?'Niezapisana korekta boku P1–P2 z 8 do 8,2 m':'Unsaved correction of side P1–P2 from 8 to 8.2 m'],['15-edit-note',lang==='pl'?'Pole edycji notatki do szkicu ogrodu':'Editable garden sketch note']]){
       const input=path.join(root,'screenshots',lang,name+'.png');
       const m=await sharp(input).metadata();if(m.width!==1080||m.height!==1920)throw Error('Unexpected screenshot dimensions');

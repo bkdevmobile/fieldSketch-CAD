@@ -17,6 +17,16 @@
     });
   });
   document.querySelector('#viewer-close').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    event.preventDefault();
+    event.stopPropagation();
+    dialog.close();
+  });
+  dialog.addEventListener('cancel', event => {
+    event.preventDefault();
+    dialog.close();
+  });
   dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
   dialog.addEventListener('close', () => {
     document.body.classList.remove('viewer-open');

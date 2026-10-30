@@ -36,6 +36,29 @@ let preview;
     }
     assert(!/TODO|Lorem ipsum|Coming soon/.test(html),'Placeholder content');
   }
+  const legalPairs=[['privacy.html','/pl/prywatnosc/'],['terms.html','/pl/regulamin/'],['measurement-notice.html','/pl/ograniczenia-pomiarow/']];
+  for(const [en,pl] of legalPairs){
+    const english=fs.readFileSync(path.join(root,en),'utf8');
+    const polish=fs.readFileSync(resolveFile(pl),'utf8');
+    assert(english.includes(`href="${pl}" lang="pl" hreflang="pl"`),'English legal page links to Polish counterpart');
+    assert(polish.includes(`href="/${en}" lang="en" hreflang="en"`),'Polish legal page links to English counterpart');
+    for(const tag of ['h1','h2','p','li','address'])assert.equal((polish.match(new RegExp('<'+tag+'(?:\\s[^>]*)?>','g'))||[]).length,(english.match(new RegExp('<'+tag+'(?:\\s[^>]*)?>','g'))||[]).length,'Translated legal content structure: '+en+' '+tag);
+    for(const [route,html,lang] of [['/'+en,english,'en'],[pl,polish,'pl']]){
+      assert(html.includes(`<html lang="${lang}">`),'Legal page language '+route);
+      assert(html.includes('<meta name="robots" content="noindex">'),'Legal page indexing preference '+route);
+      assert(html.includes('<p class="legal-meta">'),'Legal effective/update date '+route);
+      assert(!/class="draft"|Draft for review|Wersja robocza|Remaining configuration to confirm|Pozostała konfiguracja do potwierdzenia|com\.bk\.dev\.mobile\.outlinego|version code 4|kod wersji 4/.test(html),'No internal drafting notes '+route);
+      assert.equal((html.match(/<h1[ >]/g)||[]).length,1,'Legal H1 '+route);
+      for(const match of html.matchAll(/(?:href|src)="([^"]+)"/g)){
+        const u=new URL(match[1].replaceAll('&amp;','&'),origin+route);
+        if(u.origin!==origin)continue;
+        const file=resolveFile(decodeURIComponent(u.pathname));
+        assert(fs.existsSync(file),'Legal local target '+match[1]);
+        if(u.hash)assert(fs.readFileSync(file,'utf8').includes(`id="${u.hash.slice(1)}"`),'Legal anchor '+match[1]);
+      }
+    }
+  }
+  console.log('Verified 6 legal pages: PL/EN links, dates, no internal drafting notes, matching content structure and local links.');
   const sitemap=fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
   const locs=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
   assert.deepEqual(locs,Object.values(routes).flat().map(r=>origin+r),'Sitemap covers exactly the eight pages');

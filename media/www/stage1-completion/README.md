@@ -1,5 +1,9 @@
 # Media do pierwszego etapu WWW
 
+Aktualizacja 30.10.2026: generator dodaje osobne warianty `web/{pl,en}/illustrations/11-plus-dxf-share-v2-{480,960}.webp` z gotowych `../share-mockups/11-plus-dxf-share-{pl,en}-v2.png`. Zawierają ikony e-maila, wiadomości i zapisu pliku; są edytowanymi ilustracjami, nie surowymi zrzutami Androida. Manifest zachowuje źródła i hashe, a oryginalne warianty `web/{pl,en}/app/11-plus-dxf-share-*` pozostają bez podmiany. Strony DXF używają ilustracji v2 z odpowiednimi podpisami. Starszy opis wyłącznego użycia surowego panelu poniżej jest historyczny.
+
+Aktualizacja 30.10.2026: generator dodaje osobne warianty `web/{pl,en}/illustrations/11-plus-dxf-share-v2-{480,960}.webp` z gotowych `../share-mockups/11-plus-dxf-share-{pl,en}-v2.png`. Zawierają ikony e-maila, wiadomości i zapisu pliku; są edytowanymi ilustracjami, nie surowymi zrzutami Androida. Manifest zachowuje źródła i hashe, a oryginalne warianty `web/{pl,en}/app/11-plus-dxf-share-*` pozostają bez podmiany. Strony DXF używają ilustracji v2 z odpowiednimi podpisami. Starszy opis wyłącznego użycia surowego panelu poniżej jest historyczny.
+
 Przygotowano 29.10.2026. Zestaw uzupełnia `../app-screenshots/` i `../librecad-screenshots/`. Bez deployu i zmian kodu aplikacji.
 
 ## Zawartość

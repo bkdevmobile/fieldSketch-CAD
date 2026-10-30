@@ -263,6 +263,26 @@
       "kind": "screenshot"
     },
     {
+      "file": "web/pl/illustrations/11-plus-dxf-share-v2-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 265994,
+      "sha256": "e08295c779105d6be2856a50480ad8187f42fff8089793ad0aceb671ef758c14",
+      "source": "../share-mockups/11-plus-dxf-share-pl-v2.png",
+      "alt": "Ilustracja panelu udostępniania DXF z ikonami e-maila, wiadomości i zapisu pliku",
+      "kind": "edited-share-mockup"
+    },
+    {
+      "file": "web/pl/illustrations/11-plus-dxf-share-v2-960.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 869184,
+      "sha256": "795f2abc3b3baea2310e577a5f3247cebfb365c73f6011ec284e8a85a2e97b03",
+      "source": "../share-mockups/11-plus-dxf-share-pl-v2.png",
+      "alt": "Ilustracja panelu udostępniania DXF z ikonami e-maila, wiadomości i zapisu pliku",
+      "kind": "edited-share-mockup"
+    },
+    {
       "file": "screenshots/pl/14-edit-length.png",
       "width": 1080,
       "height": 1920,
@@ -751,6 +771,26 @@
       "kind": "screenshot"
     },
     {
+      "file": "web/en/illustrations/11-plus-dxf-share-v2-480.webp",
+      "width": 480,
+      "height": 853,
+      "bytes": 273918,
+      "sha256": "ac9cb730cf1f0a12ce1c45791cdc579a6b773362175ef71480c7a7acb40effa0",
+      "source": "../share-mockups/11-plus-dxf-share-en-v2.png",
+      "alt": "Illustration of DXF sharing with email, messages and save-file icons",
+      "kind": "edited-share-mockup"
+    },
+    {
+      "file": "web/en/illustrations/11-plus-dxf-share-v2-960.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 918310,
+      "sha256": "e5853f4dc79f1095c403857b00d88657a85c827da972906e1a418fded6bd213b",
+      "source": "../share-mockups/11-plus-dxf-share-en-v2.png",
+      "alt": "Illustration of DXF sharing with email, messages and save-file icons",
+      "kind": "edited-share-mockup"
+    },
+    {
       "file": "screenshots/en/14-edit-length.png",
       "width": 1080,
       "height": 1920,
@@ -1083,6 +1123,10 @@
       "sha256": "9d4478dc13065d949abb5f2c3da3065c006d1b1bb5cb24e6fdbe34d2f9a03f4e"
     },
     {
+      "file": "../share-mockups/11-plus-dxf-share-pl-v2.png",
+      "sha256": "0f09a78e2fa94b40fb123f015e7413c30aa1ba2f2a3625d61cf8347db208bf25"
+    },
+    {
       "file": "screenshots/pl/14-edit-length.png",
       "sha256": "cc12415d58b2e0a0a268400bd4a782e5a6d7b1381fce372632f6282109d31251"
     },
@@ -1161,6 +1205,10 @@
     {
       "file": "../app-screenshots/en/13-plus-png-preview.png",
       "sha256": "9c77cc6f2f03343280887caaccb0e8b609c5db403ba7c9d8de36c0d61b01561e"
+    },
+    {
+      "file": "../share-mockups/11-plus-dxf-share-en-v2.png",
+      "sha256": "2769d93a466aba7d219905a82b8c664a41518a8cd684fa9ea748288cbf1039dd"
     },
     {
       "file": "screenshots/en/14-edit-length.png",
