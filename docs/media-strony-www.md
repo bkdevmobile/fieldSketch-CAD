@@ -1,13 +1,15 @@
 # Plan mediów WWW outlineGo
 
-Stan filmów na 30.10.2026: **V02 i V04 gotowe lokalnie w PL i EN; V01 pozostaje do montażu.** Filmy nie zostały opublikowane ani podłączone do strony WWW.
+Stan filmów na 30.10.2026: **V01, V02 i V04 gotowe lokalnie w PL i EN.** Filmy nie zostały opublikowane ani podłączone do strony WWW.
+
+- **V01 — przegląd „Od szkicu do CAD”**: 60 s, 1080p/30; rzeczywiste źródła V02/V04, ręczny zapis boku → PNG → DXF Plus → ten sam plik w LibreCAD → pobranie aplikacji. Nowa melodia „Easy Lemon (60 second)” Kevina MacLeoda, CC BY 4.0; cichy podkład, brak przyspieszeń, pauzy co najmniej 4 s. Obie wersje przeszły pełną kontrolę obrazu, dźwięku i źródeł. [Filmy, podglądy i raport V01](../media/www/video-v01/README.md).
 
 - **V02 „Pierwszy szkic”** — 224 s (3:44), 1920 × 1080 / 30 kl./s; ręczne wprowadzanie boków, korekta 3,8 → 4 m, wyliczone zamknięcie, 14 m / 12 m² i eksport PNG. Muzyka: „Carefree” — Kevin MacLeod, CC BY 4.0. Aktualne filmy: `media/www/video-v02/output/v02-first-sketch-{pl,en}-with-music.mp4`.
 - **V04 „Od szkicu do CAD”** — 144 s (2:24), 1920 × 1080 / 30 kl./s; rzeczywisty eksport DXF tego samego tarasu 4 × 3 m, otwarcie w LibreCAD, jednostka Metr i kontrola obwodu 14 m. Inna melodia: „Life of Riley” — Kevin MacLeod, CC BY 4.0. Aktualne filmy: `media/www/video-v04/output/v04-dxf-to-cad-{pl,en}.mp4`.
 - **Zasady użytkownika:** spokojne tempo i pauzy; bez dolnych napisów dublujących opis oraz bez technicznych podpisów o produkcji, tempie, pauzach, emulatorze, montażu czy kodach V02/V04. W obrazie tylko instrukcje pomocne widzowi. Kredyty muzyczne pod odtwarzaczem, w metadanych i opisie publikacji; szczegóły produkcji w dokumentacji.
 - Obie wersje V04 przeszły pełne dekodowanie 4320 klatek, kontrolę dźwięku, geometrii, oryginalnych DXF i zgodności obrazu z wersją bez dźwięku. Zapisano miniatury, podglądy, transkrypty i źródła. Po nagraniu z tymczasowym testowym uprawnieniem Plus przywrócono kod i oryginalny APK; materiał nie potwierdza zakupu ani fizycznego pomiaru. Raporty: `media/www/video-v04/output/verification.json` i `sources/restoration.json`.
 
-Następne prace: montaż V01 z istniejących materiałów V02/V04 oraz osobna integracja filmów ze stroną i publikacja na polecenie użytkownika. V03/V05 pozostają opcjonalnymi zadaniami dalszych etapów.
+Następne prace: odbiór filmów przez użytkownika oraz osobna integracja ze stroną i publikacja na jego polecenie. V03/V05 pozostają opcjonalnymi zadaniami dalszych etapów.
 
 Podglądy, źródła i raporty: [V02](../media/www/video-v02/README.md), [V04](../media/www/video-v04/README.md). Poniższe aktualizacje z 29 października są historią; dalsze założenia filmów uwzględniają korekty użytkownika.
 
@@ -51,7 +53,7 @@ Cel: w kilka sekund wyjaśnić, co użytkownik zrobi i co otrzyma.
 - **Grafika główna:** istniejące zdjęcie ogrodu oraz osobny, czytelny ekran ukończonego szkicu. Układ responsywny, bez utrwalania dwóch elementów w jednym szerokim obrazie.
 - **Trzy kroki:** zdjęcie pracy z telefonem → rzeczywisty podgląd szkicu/eksportu → rzeczywisty widok tego samego pliku w CAD. Podpisy poza obrazami.
 - **Dwa podglądy zastosowań:** ogród w etapie 1, pokój po przygotowaniu etapu 2. Każdy prowadzi do poradnika; bez pustych zapowiedzi.
-- **Film główny V01:** 45–60 s, „Od szkicu do CAD”, uruchamiany przyciskiem. Montaż V02/V04 z instrukcjami i ekranami w odpowiednim języku, bez technicznych podpisów i dolnych napisów.
+- **Film główny V01:** gotowy, 60 s, „Od szkicu do CAD”, uruchamiany przyciskiem. Montaż V02/V04 z instrukcjami i ekranami w odpowiednim języku, bez technicznych podpisów i dolnych napisów.
 - **Miniatura filmu:** gotowy szkic i jego odpowiednik na komputerze; przycisk odtwarzania jako element strony.
 
 ### 2. Jak to działa — `/pl/jak-to-dziala/`, `/en/how-it-works/`
@@ -100,7 +102,7 @@ Cel: wykazać rzeczywisty transfer do osobnego programu CAD.
 
 | Film | Przebieg | Źródło |
 | --- | --- | --- |
-| V01 — przegląd | 0–5 s: potrzeba i przestrzeń; 5–20 s: szkic; 20–30 s: PNG/DXF; 30–50 s: prawdziwy import i dalsza praca; 50–60 s: wynik i pobranie aplikacji | Montaż materiałów V02/V04, zdjęcie kontekstowe, bez konieczności osobnej sesji. |
+| V01 — przegląd, gotowy | 0–8 s: gotowy szkic; 8–20 s: zapis boku; 20–30 s: PNG; 30–40 s: DXF; 40–52 s: ten sam obrys w CAD; 52–60 s: pobranie aplikacji | Montaż rzeczywistych nagrań i zrzutów V02/V04; PL/EN, bez osobnej sesji emulatora. |
 | V02 — pierwszy szkic | Start → kierunek/długość → kolejne odcinki → korekta → zapis i PNG | Rzeczywiste nagranie UI, PL/EN; emulator; pochodzenie demonstracji opisane w dokumentacji. |
 | V04 — do CAD | Gotowy szkic → eksport DXF Plus → zapis/przeniesienie → otwarcie w CAD → kontrola jednostek/wymiaru | Rzeczywiste nagranie aplikacji i pulpitu, działający eksport Plus. |
 
@@ -127,7 +129,7 @@ To założenia projektu, do sprawdzenia po pierwszym eksporcie i przeglądzie na
 3. W jednej sesji przechwycić brakujące ekrany PL/EN i nagrania V02/V04. Z tych nagrań wybrać dodatkowe klatki do instrukcji.
 4. Przygotować podgląd prawdziwego importu CAD, PNG/DXF do pobrania i wersje WWW istniejących zdjęć.
 5. Opublikować cztery kompletne podstrony PL/EN z obrazami i plikami wynikowymi. Filmy nie blokują publikacji, jeśli instrukcja tekstowa i zrzuty wystarczają do wykonania czynności.
-6. V02/V04 są gotowe lokalnie. Złożyć V01 z tych materiałów; integracja filmów i publikacja pozostają osobnym zadaniem. V03 i V05 dopiero przy realizacji osobnych sesji/przykładów.
+6. V01/V02/V04 są gotowe lokalnie. Odbiór przez użytkownika, integracja filmów i publikacja pozostają osobnym zadaniem. V03 i V05 dopiero przy realizacji osobnych sesji/przykładów.
 
 **Minimalny zestaw etapu 1:** istniejące zdjęcia kontekstowe, zestaw pięciu kroków pierwszego szkicu w PL/EN, trzy stany przykładu ogrodu w PL/EN, rzeczywisty eksport/udostępnienie DXF w PL/EN, jeden widok CAD i jego czytelny detal, gotowe PNG/DXF oraz miniatury użytych filmów. Część ekranów można współdzielić między stronami, jeśli opisuje tę samą czynność. Docelowe filmy: V02, V04 i montaż V01; terenowy V03 jest opcjonalny.
 

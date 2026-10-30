@@ -1,13 +1,15 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
-Stan filmów na 30.10.2026: **V02 i V04 gotowe lokalnie w PL i EN; V01 pozostaje do montażu.** Filmy nie zostały opublikowane ani podłączone do strony WWW.
+Stan filmów na 30.10.2026: **V01, V02 i V04 gotowe lokalnie w PL i EN.** Filmy nie zostały opublikowane ani podłączone do strony WWW.
+
+- **V01 „Od szkicu do CAD” — przegląd**: 60 s, 1920 × 1080 / 30 kl./s; montaż oryginalnych materiałów V02/V04, od zapisu boku przez PNG i DXF do tego samego obrysu w LibreCAD oraz zaproszenie do pobrania aplikacji. Nowa melodia: „Easy Lemon (60 second)” — Kevin MacLeod, CC BY 4.0. Bez przyspieszania, pauzy co najmniej 4 s, bez technicznych podpisów i dolnych napisów. Pełna kontrola obu wersji: 1800 klatek, AAC stereo, −23,5 LUFS, zgodność obrazu i źródeł. Filmy: `media/www/video-v01/output/v01-overview-{pl,en}.mp4`; podglądy, pochodzenie i raport: [V01](media/www/video-v01/README.md).
 
 - **V02 „Pierwszy szkic”** — 224 s (3:44), 1920 × 1080 / 30 kl./s; ręczne wprowadzanie boków, korekta 3,8 → 4 m, wyliczone zamknięcie, 14 m / 12 m² i eksport PNG. Muzyka: „Carefree” — Kevin MacLeod, CC BY 4.0. Aktualne filmy: `media/www/video-v02/output/v02-first-sketch-{pl,en}-with-music.mp4`.
 - **V04 „Od szkicu do CAD”** — 144 s (2:24), 1920 × 1080 / 30 kl./s; rzeczywisty eksport DXF tego samego tarasu 4 × 3 m, otwarcie w LibreCAD, jednostka Metr i kontrola obwodu 14 m. Inna melodia: „Life of Riley” — Kevin MacLeod, CC BY 4.0. Aktualne filmy: `media/www/video-v04/output/v04-dxf-to-cad-{pl,en}.mp4`.
 - **Zasady użytkownika:** spokojne tempo i pauzy; bez dolnych napisów dublujących opis oraz bez technicznych podpisów o produkcji, tempie, pauzach, emulatorze, montażu czy kodach V02/V04. W obrazie tylko instrukcje pomocne widzowi. Kredyty muzyczne pod odtwarzaczem, w metadanych i opisie publikacji; szczegóły produkcji w dokumentacji.
 - Obie wersje V04 przeszły pełne dekodowanie 4320 klatek, kontrolę dźwięku, geometrii, oryginalnych DXF i zgodności obrazu z wersją bez dźwięku. Zapisano miniatury, podglądy, transkrypty i źródła. Po nagraniu z tymczasowym testowym uprawnieniem Plus przywrócono kod i oryginalny APK; materiał nie potwierdza zakupu ani fizycznego pomiaru. Raporty: `media/www/video-v04/output/verification.json` i `sources/restoration.json`.
 
-Następne prace: montaż V01 z istniejących materiałów V02/V04 oraz osobna integracja filmów ze stroną i publikacja na polecenie użytkownika. V03/V05 pozostają opcjonalnymi zadaniami dalszych etapów.
+Następne prace: odbiór filmów przez użytkownika oraz osobna integracja ze stroną i publikacja na jego polecenie. V03/V05 pozostają opcjonalnymi zadaniami dalszych etapów.
 
 Dokumentacja filmów: [V02](media/www/video-v02/README.md), [V04](media/www/video-v04/README.md). Poniższe wpisy zachowują historię prac; wcześniejsze statusy filmów są nieaktualne.
 
