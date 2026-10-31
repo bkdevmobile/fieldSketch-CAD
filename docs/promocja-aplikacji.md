@@ -123,3 +123,19 @@ Prowadzić stronę aplikacji na Facebooku jako kanał prezentacji zastosowań, p
 ### Realizacja i wyniki
 
 Zapisano pomysł prowadzenia strony. Istnienie strony i jej adres nie zostały potwierdzone; nie utworzono strony ani nie opublikowano postów w ramach tego zadania. Harmonogram i ocena skuteczności do ustalenia.
+
+## 5. Wygenerować i opublikować YouTube Shorts
+
+Data dodania: **31 października 2026**. Status: **zadanie do realizacji**.
+
+### Cel i zakres
+
+- Przygotować krótkie, pionowe filmy promujące outlineGo i opublikować je jako YouTube Shorts.
+- W pierwszej kolejności pokazać **pomiar za pomocą czujników — największy atut aplikacji**: celowanie kamerą, zapis kierunku, krokomierz Start → przejście → zatrzymanie → Stop i powstający szkic.
+- Wykorzystać gotowe materiały V01–V06, przede wszystkim V06; przygotować montaż do pionowego kadru z czytelnym UI, zamiast ucinać ważne kontrolki.
+- Przygotować tytuły, opisy, kredyty muzyczne i odnośniki do aplikacji. Punktem wyjścia są [metadane pełnych filmów](youtube-metadane.md); Shorts wymagają osobnego dopasowania.
+- Zachować spokojne, czytelne kroki, bez technicznych napisów i dublujących podpisów. Symulację czujników i wygenerowane ilustracje ujawnić w opisie oraz odpowiednich ustawieniach publikacji.
+
+### Realizacja i wyniki
+
+Zadanie zapisane na polecenie użytkownika. Shorts nie zostały jeszcze wygenerowane ani opublikowane. Po realizacji dopisać daty, adresy filmów i wyniki publikacji.
