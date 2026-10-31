@@ -1,6 +1,6 @@
 # WWW — etap 2
 
-Stan na **31 października 2026**: zaimplementowany lokalnie i zapisany w commicie `3c3fc6e`, bez publikacji. Materiały filmowe V05/V06 oraz poprawki V01/V03/V04 zapisano wcześniej w `88d89d7`. Późniejsza integracja V01–V04 oraz aktualizacja notatek pozostają lokalne, bez nowego commita.
+Stan na **31 października 2026**: opublikowany w Firebase Hosting `outlinego-27ab5`, wersja `3f872ac19f672a6e`, około 19:53 Europe/Warsaw. Kod etapu 2: `3c3fc6e`; integracja wszystkich filmów: `4aa98e3`. Materiały filmowe: `88d89d7`. Bieżący zapis publikacji i skrypt kontroli live pozostają bez nowego commita.
 
 ## Zakres
 
@@ -42,6 +42,6 @@ Generator automatycznie przygotowuje zasoby etapu 2 przez `scripts/prepare-www-s
 
 Kontrola obejmuje 12 stron, dokumenty prawne, lokalne odwołania i kotwice, pary językowe, metadane, sitemap, integralność źródeł/eksportów, opis symulacji, ustawienia odtwarzaczy i kredyty. W trybie HTTP sprawdza kody 200/301/404, PNG/DXF oraz nagłówki, zakresy i integralność fragmentów wszystkich sześciu filmów w PL/EN. Kontrola po integracji V01–V04 przeszła: 12 stron, 630 lokalnych odwołań, 40 zasobów etapu 2, właściwe filmy/języki, zgodne SHA-256, MIME MP4 i odpowiedzi 206 dla zakresów wszystkich 12 plików MP4.
 
-**Odbiór wizualny i interakcje w przeglądarce pozostają do potwierdzenia:** brak hosta Browser Use, a próba otwarcia natywnego Chrome przez computer-use zakończyła się `Computer Use app approval timed out`. Nie potwierdzono odtwarzania w przeglądarce ani wyglądu desktop/mobile. Źródłowe obrazy można przeglądać lokalnie; kontrola HTTP nie zastępuje odbioru wizualnego.
+**Odbiór WWW w przeglądarce — zakończony:** 31.10.2026 użytkownik potwierdził: „testy w przeglądarce ok”. Punkt odbioru zamknięto na podstawie testów użytkownika. Wcześniejsza próba automatycznej kontroli była niedostępna z powodu braku hosta Browser Use i timeoutu computer-use; nie jest to otwarta blokada odbioru.
 
-Do publikacji pozostają odbiór lokalnego podglądu, osobne polecenie wdrożenia i kontrola live. Nowe strony nie są jeszcze dostępne w publicznym serwisie.
+Publikacja na polecenie użytkownika zakończona: https://outlinego-27ab5.web.app/pl/ i /en/. Wszystkie 12 stron i 137 zasobów publicznych mają zgodne SHA-256 z plikami lokalnymi; wszystkie 12 MP4 obsługuje zakresy bajtów (206), przekierowania 301 i odpowiedź 404 są poprawne. Kontrola `node scripts/verify-www-live.cjs` przeszła. Log wdrożenia: `artifacts/firebase-www-stage2-deploy-2026-10-31.log`; raport: `artifacts/www-stage2-live-verification-2026-10-31.json`. Odbiór w przeglądarce potwierdzony przez użytkownika 31.10.2026. Pozostaje obserwacja indeksowania i pomiar wydajności.

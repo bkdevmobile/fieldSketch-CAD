@@ -126,7 +126,7 @@ Zapisano pomysł prowadzenia strony. Istnienie strony i jej adres nie zostały p
 
 ## 5. Wygenerować i opublikować YouTube Shorts
 
-Data dodania: **31 października 2026**. Status: **zadanie do realizacji**.
+Data dodania: **31 października 2026**. Status: **pierwszy Shorts opublikowany — potwierdzenie użytkownika z 31.10.2026**. Kolejne materiały pozostają do zaplanowania.
 
 ### Cel i zakres
 
@@ -138,4 +138,20 @@ Data dodania: **31 października 2026**. Status: **zadanie do realizacji**.
 
 ### Realizacja i wyniki
 
-Zadanie zapisane na polecenie użytkownika. Shorts nie zostały jeszcze wygenerowane ani opublikowane. Po realizacji dopisać daty, adresy filmów i wyniki publikacji.
+Użytkownik potwierdził publikację pierwszego Shortsa: [YouTube Shorts — T12jpWwueGA](https://www.youtube.com/shorts/T12jpWwueGA). Data potwierdzenia: **31.10.2026**; dokładnej daty publikacji i wyników nie podano. Pozostałe adresy opublikowanych filmów zapisano poniżej.
+
+## 6. Filmy opublikowane na YouTube
+
+**Potwierdzenie użytkownika z 31 października 2026:** opublikowano sześć filmów oraz jeden Shorts pod poniższymi adresami. Data wpisu jest datą otrzymania potwierdzenia, nie ustaloną datą publikacji poszczególnych filmów. Przypisania adresów do V01–V06 i wersji językowych nie potwierdzono; poniższa numeracja zachowuje kolejność przekazaną przez użytkownika.
+
+| Pozycja | Rodzaj | Opublikowany materiał |
+| --- | --- | --- |
+| 1 | Film | [lsLog5fihLI](https://www.youtube.com/watch?v=lsLog5fihLI) |
+| 2 | Film | [vU_GZGLLbbs](https://www.youtube.com/watch?v=vU_GZGLLbbs) |
+| 3 | Film | [SgDSsxakoSc](https://www.youtube.com/watch?v=SgDSsxakoSc) |
+| 4 | Film | [c3eB9KIP1-A](https://www.youtube.com/watch?v=c3eB9KIP1-A) |
+| 5 | Film | [5PsxaTydVi4](https://www.youtube.com/watch?v=5PsxaTydVi4) |
+| 6 | Film | [Y0RK2G2we_w](https://www.youtube.com/watch?v=Y0RK2G2we_w) |
+| 7 | Shorts | [T12jpWwueGA](https://www.youtube.com/shorts/T12jpWwueGA) |
+
+Publikacja na YouTube nie oznacza wdrożenia lokalnej wersji WWW ani zastąpienia osadzonych plików MP4 odtwarzaczami YouTube. Statystyki i wnioski z publikacji pozostają do uzupełnienia.
