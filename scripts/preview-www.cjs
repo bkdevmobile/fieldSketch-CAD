@@ -16,7 +16,17 @@ http.createServer((req,res)=>{
   }
   const exists=fs.existsSync(file)&&fs.statSync(file).isFile();
   if(!exists)file=path.join(root,'404.html');
-  res.writeHead(exists?200:404,{'Content-Type':mime[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store'});
+  const size = fs.statSync(file).size;
+  const headers = {'Content-Type':path.extname(file)==='.mp4'?'video/mp4':mime[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store','Accept-Ranges':'bytes'};
+  const range = req.headers.range?.match(/^bytes=(\d+)-(\d*)$/);
+  if (exists && range) {
+    const start = Number(range[1]), end = range[2] ? Math.min(Number(range[2]), size - 1) : size - 1;
+    if (start >= size || start > end) { res.writeHead(416, {'Content-Range':`bytes */${size}`});res.end();return; }
+    res.writeHead(206, {...headers,'Content-Length':end-start+1,'Content-Range':`bytes ${start}-${end}/${size}`});
+    if(req.method==='HEAD')res.end();else fs.createReadStream(file,{start,end}).pipe(res);
+    return;
+  }
+  res.writeHead(exists?200:404,{...headers,'Content-Length':size});
   if(req.method==='HEAD'){res.end();return;}
   fs.createReadStream(file).pipe(res);
 }).listen(4173,'127.0.0.1',()=>console.log('Local: http://127.0.0.1:4173/pl/'));

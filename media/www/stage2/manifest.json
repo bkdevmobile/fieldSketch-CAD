@@ -1,0 +1,214 @@
+{
+  "date": "2026-10-31",
+  "note": "Actual app captures and original exports. Room illustration generated with ImageGen; V06 directions, steps and virtual camera scene are simulated. See video READMEs for provenance.",
+  "files": [
+    {
+      "file": "room-960.webp",
+      "source": "media/www/video-v05/sources/room-measurement.png",
+      "sourceSha256": "9f4eb4db992fd8e6c995d2e8ba3e2c419084c6a32fc5198b8df40edaabea3180",
+      "sha256": "f0ddd8d008af06e0791063f1525c6232a6b964e3335e3c2fd4727a3ab28bdabd",
+      "bytes": 47582,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "room-1440.webp",
+      "source": "media/www/video-v05/sources/room-measurement.png",
+      "sourceSha256": "9f4eb4db992fd8e6c995d2e8ba3e2c419084c6a32fc5198b8df40edaabea3180",
+      "sha256": "20a4d5e4320ff49712a2845734256a13c26707ef44fa89479d3edc5ce3c163af",
+      "bytes": 82288,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "file": "pl/room-review.webp",
+      "source": "media/www/video-v05/sources/pl/02-review.png",
+      "sourceSha256": "4b58c8368476b81e327a199c26ea1edf92793436af198bbadb9e5e8ab73e409f",
+      "sha256": "4a7bdafa73a891b7b36b99da0bacee581eb7938ed06e615fb3fd0d127a964411",
+      "bytes": 28898,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "pl/room-correction.webp",
+      "source": "media/www/video-v05/sources/pl/04-correction.png",
+      "sourceSha256": "6d4ce9c5e199793dc8ccc3a59a893f05626a2d75d5e6235768b072d7c85c00e1",
+      "sha256": "fac75ea5712025093d67db76c612d409f67c26a44eac4b2f42f8abcc6505b191",
+      "bytes": 19010,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "pl/room-summary.webp",
+      "source": "media/www/video-v05/sources/pl/05-summary-stable.png",
+      "sourceSha256": "7f1453b70d258aa949dc16b5a552c5cdc0de7aa57fb4e9a63d118ef04709847d",
+      "sha256": "000b3e4f4576257189b63bd923319b0a15644b0337d8dc0a67e9ac18a628ab39",
+      "bytes": 24358,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "pl/sketches.webp",
+      "source": "googlePlay/emulator-screenshots/pl/phone/01-sketches.png",
+      "sourceSha256": "e7b08d042b562b97ccdeaa3e9be7f1cb76f77e37872247a1ffa9038eab42425d",
+      "sha256": "210a603dedb85e3722610a45c2997c1d1115685dd447467a86832af308ba482d",
+      "bytes": 18658,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "pl/camera.webp",
+      "source": "media/www/video-v06/sources/pl/02-direction.png",
+      "sourceSha256": "52fae7f9cef625c4f72448beb6af024566dae5da9d89fb94f2ffaa93593e2bac",
+      "sha256": "5c36a1161ae73e0ba7ffb7e8ab94f5afc9a20d7206a96e44ae9bde9e6aab2254",
+      "bytes": 29302,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "pl/steps.webp",
+      "source": "media/www/video-v06/sources/pl/03-steps-stopped.png",
+      "sourceSha256": "024b542dd733ca25db79f80d8e199c176d74bee932e2848685bd7c1f2701681b",
+      "sha256": "fd46e837c6ec0e90d69a6dbb5688d1d1300b54b827ca062187814115d68238bd",
+      "bytes": 40364,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "pl/room-free.png",
+      "source": "media/www/video-v05/output/room-pl-free.png",
+      "sourceSha256": "4d6fb9860a85b17a898f4d002e8a653db826587ed7a34bfb3743067807dde416",
+      "sha256": "4d6fb9860a85b17a898f4d002e8a653db826587ed7a34bfb3743067807dde416",
+      "bytes": 83328,
+      "width": 1080,
+      "height": 1460
+    },
+    {
+      "file": "pl/room.mp4",
+      "source": "media/www/video-v05/output/v05-room-pl.mp4",
+      "sourceSha256": "4712033a827fbadad62ae43909806324544e8b98bcc9c16675d6dc94f9496f49",
+      "sha256": "4712033a827fbadad62ae43909806324544e8b98bcc9c16675d6dc94f9496f49",
+      "bytes": 7520738
+    },
+    {
+      "file": "pl/room-poster.webp",
+      "source": "media/www/video-v05/output/poster-pl.webp",
+      "sourceSha256": "5db93622df658cf657fa565dd9373faf41df83b3059561a6d6964f9b664c26b8",
+      "sha256": "5db93622df658cf657fa565dd9373faf41df83b3059561a6d6964f9b664c26b8",
+      "bytes": 190472,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "pl/camera-steps.mp4",
+      "source": "media/www/video-v06/output/v06-camera-steps-pl.mp4",
+      "sourceSha256": "bfe4c79d8ecd03f137ed59df44b59d34b9d497013a6113be73113c79f3fe2dd8",
+      "sha256": "bfe4c79d8ecd03f137ed59df44b59d34b9d497013a6113be73113c79f3fe2dd8",
+      "bytes": 5015249
+    },
+    {
+      "file": "pl/camera-steps-poster.webp",
+      "source": "media/www/video-v06/output/poster-pl.webp",
+      "sourceSha256": "11198615c4315b9a040ffedb21303863d13207030888e44f85654dc099c03d07",
+      "sha256": "11198615c4315b9a040ffedb21303863d13207030888e44f85654dc099c03d07",
+      "bytes": 95346,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "en/room-review.webp",
+      "source": "media/www/video-v05/sources/en/02-review.png",
+      "sourceSha256": "c22627a6b1f2ad6ac4b8adda7293afd5bd88c1ff6a5cd4fa01c24e47159b144c",
+      "sha256": "9bd5e0a5b4e9ee011589ba661588de43acc0fb5f7c3fdc30ea5b65e24acc7c31",
+      "bytes": 26222,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "en/room-correction.webp",
+      "source": "media/www/video-v05/sources/en/04-correction.png",
+      "sourceSha256": "667eb33748af656aabec6bf0ff0e5032729d4c385c391e87b076f362faff3303",
+      "sha256": "cdf2559758d7a0ccec6ae4f21c03c0cc2d0cd13775fc68c1295ab61909102c94",
+      "bytes": 18460,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "en/room-summary.webp",
+      "source": "media/www/video-v05/sources/en/05-summary-stable.png",
+      "sourceSha256": "4de7d2c415cb708ba56ffabe97b75be644af463acd00549464975b54f1188399",
+      "sha256": "4b5f43d1397bb920d127df7ac942b00997d1c3914a41af6d75871340af017fc2",
+      "bytes": 22826,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "en/sketches.webp",
+      "source": "googlePlay/emulator-screenshots/en/phone/01-sketches.png",
+      "sourceSha256": "5a3d7bc2fc55b26618db4e2474ea97d5559d320c5a54507468d56ef782a493d7",
+      "sha256": "78d0ca2ee73d21aaf09ae3f2d139ab778d42ee7d709f1855b051e5b6e97f78fc",
+      "bytes": 19596,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "en/camera.webp",
+      "source": "media/www/video-v06/sources/en/02-direction.png",
+      "sourceSha256": "79d1762e88183796a017b4c3a5db66dd3a250730fc064cf9017b38e8bda00392",
+      "sha256": "1992cc8704d4918db95fe7e4838d5169cfbff158067f06ec214e9801f531df00",
+      "bytes": 26688,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "en/steps.webp",
+      "source": "media/www/video-v06/sources/en/03-steps-stopped.png",
+      "sourceSha256": "ec8ea03b0f1985c6b0bd036c5bc9850d3da2298e5681a36acc48acab0eecb659",
+      "sha256": "189e1d37364f4e109faad93af905a6366fdd2f7c7f648e4f931c3e202fd2b2c6",
+      "bytes": 35164,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "en/room-free.png",
+      "source": "media/www/video-v05/output/room-en-free.png",
+      "sourceSha256": "3861c8c2cad1539d9b8104b5a35dbf9f3dd741e2a9eccbd21f8235fef289ca41",
+      "sha256": "3861c8c2cad1539d9b8104b5a35dbf9f3dd741e2a9eccbd21f8235fef289ca41",
+      "bytes": 75973,
+      "width": 1080,
+      "height": 1460
+    },
+    {
+      "file": "en/room.mp4",
+      "source": "media/www/video-v05/output/v05-room-en.mp4",
+      "sourceSha256": "1880ec958a88093c719a67c8ff2ce3e882d270cd53f93e0a30913c079abc200a",
+      "sha256": "1880ec958a88093c719a67c8ff2ce3e882d270cd53f93e0a30913c079abc200a",
+      "bytes": 7416323
+    },
+    {
+      "file": "en/room-poster.webp",
+      "source": "media/www/video-v05/output/poster-en.webp",
+      "sourceSha256": "4c8c51aba5d13e809f68cd6dc3ac13bcbe222350724183fdafaa0123fd9d5b60",
+      "sha256": "4c8c51aba5d13e809f68cd6dc3ac13bcbe222350724183fdafaa0123fd9d5b60",
+      "bytes": 187802,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "en/camera-steps.mp4",
+      "source": "media/www/video-v06/output/v06-camera-steps-en.mp4",
+      "sourceSha256": "1c922c8b5f46f21a99c25d28041132c72992b4d0508b4981e8056a031b5e2666",
+      "sha256": "1c922c8b5f46f21a99c25d28041132c72992b4d0508b4981e8056a031b5e2666",
+      "bytes": 4926473
+    },
+    {
+      "file": "en/camera-steps-poster.webp",
+      "source": "media/www/video-v06/output/poster-en.webp",
+      "sourceSha256": "10f3d7c1fcaa30626466b86a72293c4f8521137aeaa26f04e556140b7be0284f",
+      "sha256": "10f3d7c1fcaa30626466b86a72293c4f8521137aeaa26f04e556140b7be0284f",
+      "bytes": 90614,
+      "width": 1920,
+      "height": 1080
+    }
+  ]
+}

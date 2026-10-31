@@ -1,5 +1,8 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
+**31.10.2026 — etap 2 WWW zaimplementowany lokalnie:** Plan pokoju i Pomoc w PL/EN, razem 12 stron marketingowych. Pokój: przykład 5 × 4 m, korekta, PNG i film V05. Pomoc: kamera/czujniki/krokomierz, V06 z opisem symulacji, długość kroku, zapis, korekty, eksport i Plus. Nowe strony są w nawigacji, parach językowych i sitemap; strona główna promuje pomiar sensorami i przykład pokoju. V05/V06 podłączono w lokalnym WWW, pozostałe filmy pozostają osobnymi materiałami. Testy struktury, integralności i HTTP przeszły (12 stron, 606 odwołań, 24 nowe zasoby, zakresy MP4). Odbiór wizualny desktop/mobile i odtwarzanie w przeglądarce niepotwierdzone: computer-use zwrócił timeout zgody, host Browser Use niedostępny. Bez deployu i commita. [Stan etapu 2](docs/www-etap-2.md). Poniższe wzmianki o braku integracji filmów lub realizacji etapu 2 opisują wcześniejszy stan.
+
+
 **Stan materiałów na 31.10.2026: V01–V06 gotowe lokalnie w PL i EN.** Filmy nie są jeszcze podłączone do WWW ani opublikowane. Statyczny etap 1 WWW został opublikowany 30.10.2026; produkcja filmów jest osobnym zakresem.
 
 **Stała decyzja użytkownika: pomiar za pomocą czujników telefonu jest największym atutem outlineGo i głównym przekazem promocyjnym.** W materiałach WWW, Google Play, filmach, ilustracjach i tekstach pierwszeństwo ma celowanie kamerą → zapis kierunku z czujników orientacji → krokomierz Start → przejście → zatrzymanie → Stop → zapis punktu i szkic. Ręczne wpisywanie kierunków i wymiarów jest opcją uzupełniającą. Kamera jest celownikiem; odległość z kroków jest szacunkowa i zależy od długości kroku. Nie sugerować skanowania AR ani pomiaru odległości samą kamerą.
