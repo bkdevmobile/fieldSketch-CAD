@@ -1,9 +1,9 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
-**31.10.2026 — etap 2 WWW zaimplementowany lokalnie:** Plan pokoju i Pomoc w PL/EN, razem 12 stron marketingowych. Pokój: przykład 5 × 4 m, korekta, PNG i film V05. Pomoc: kamera/czujniki/krokomierz, V06 z opisem symulacji, długość kroku, zapis, korekty, eksport i Plus. Nowe strony są w nawigacji, parach językowych i sitemap; strona główna promuje pomiar sensorami i przykład pokoju. V05/V06 podłączono w lokalnym WWW, pozostałe filmy pozostają osobnymi materiałami. Testy struktury, integralności i HTTP przeszły (12 stron, 606 odwołań, 24 nowe zasoby, zakresy MP4). Odbiór wizualny desktop/mobile i odtwarzanie w przeglądarce niepotwierdzone: computer-use zwrócił timeout zgody, host Browser Use niedostępny. Bez deployu i commita. [Stan etapu 2](docs/www-etap-2.md). Poniższe wzmianki o braku integracji filmów lub realizacji etapu 2 opisują wcześniejszy stan.
+**31.10.2026 — etap 2 WWW zaimplementowany lokalnie:** Plan pokoju i Pomoc w PL/EN, razem 12 stron marketingowych. Pokój: przykład 5 × 4 m, korekta, PNG i film V05. Pomoc: kamera/czujniki/krokomierz, V06 z opisem symulacji, długość kroku, zapis, korekty, eksport i Plus. Nowe strony są w nawigacji, parach językowych i sitemap; strona główna promuje pomiar sensorami i przykład pokoju. V05/V06 podłączono w lokalnym WWW, pozostałe filmy pozostają osobnymi materiałami. Testy struktury, integralności i HTTP przeszły (12 stron, 606 odwołań, 24 nowe zasoby, zakresy MP4). Odbiór wizualny desktop/mobile i odtwarzanie w przeglądarce niepotwierdzone: computer-use zwrócił timeout zgody, host Browser Use niedostępny. Implementację zapisano w commicie `3c3fc6e`; materiały V05/V06 i poprawki wcześniejszych filmów w `88d89d7`, a wcześniejszą aktualizację notatek w `1745118`. Bez deployu. Bieżące uzupełnienie notatek jest zmianą po commicie. [Stan etapu 2](docs/www-etap-2.md). Poniższe wzmianki o braku integracji filmów lub realizacji etapu 2 opisują wcześniejszy stan.
 
 
-**Stan materiałów na 31.10.2026: V01–V06 gotowe lokalnie w PL i EN.** Filmy nie są jeszcze podłączone do WWW ani opublikowane. Statyczny etap 1 WWW został opublikowany 30.10.2026; produkcja filmów jest osobnym zakresem.
+**Stan materiałów na 31.10.2026: V01–V06 gotowe lokalnie w PL i EN.** V05 i V06 są podłączone do lokalnej wersji WWW etapu 2; V01–V04 pozostają osobnymi materiałami. Żaden film nie został opublikowany. Statyczny etap 1 WWW został opublikowany 30.10.2026; produkcja filmów jest osobnym zakresem.
 
 **Stała decyzja użytkownika: pomiar za pomocą czujników telefonu jest największym atutem outlineGo i głównym przekazem promocyjnym.** W materiałach WWW, Google Play, filmach, ilustracjach i tekstach pierwszeństwo ma celowanie kamerą → zapis kierunku z czujników orientacji → krokomierz Start → przejście → zatrzymanie → Stop → zapis punktu i szkic. Ręczne wpisywanie kierunków i wymiarów jest opcją uzupełniającą. Kamera jest celownikiem; odległość z kroków jest szacunkowa i zależy od długości kroku. Nie sugerować skanowania AR ani pomiaru odległości samą kamerą.
 
@@ -34,9 +34,9 @@ Stałe zasady kolejnych filmów:
 
 Wszystkie wersje mają 1920 × 1080, 30 kl./s, H.264 i muzykę AAC stereo. Zaktualizowane zestawy przeszły kontrole obrazu, dźwięku, źródeł i geometrii; raporty oraz arkusze klatek znajdują się w katalogach filmów.
 
-**Zapis w Git:** V02/V04 — `7293534`; V01 — `d41f643`; pierwotny V03 — `1d8c2e9`. V05, V06, późniejsze poprawki V01/V03/V04 i bieżące notatki pozostają bez nowego commita.
+**Zapis w Git:** V02/V04 — `7293534`; V01 — `d41f643`; pierwotny V03 — `1d8c2e9`. V05, V06 i późniejsze poprawki V01/V03/V04 — `88d89d7`; aktualizacja notatek — `1745118`; implementacja etapu 2 WWW — `3c3fc6e`. Tylko bieżące uzupełnienie notatek pozostaje bez nowego commita.
 
-**Następne prace:** odbiór aktualnych filmów przez użytkownika; następnie osobna integracja z WWW i publikacja na jego polecenie, z pierwszeństwem V06 oraz przekazu o sensorach. Opcjonalne nagranie fizycznego pomiaru telefonem może uzupełnić demonstrację. Gotowość V05 nie oznacza realizacji podstrony pokoju z etapu 2.
+**Następne prace:** odbiór wizualny etapu 2 na komputerze i telefonie, sprawdzenie interakcji oraz odtwarzania V05/V06; następnie publikacja na polecenie użytkownika i kontrola live 12 stron, mediów oraz mapy witryny. Podstrona pokoju i pomoc są już zaimplementowane lokalnie. Integracja V01–V04 oraz nagranie fizycznego pomiaru telefonem pozostają osobnymi zadaniami. W promocji utrzymać pierwszeństwo sensorów.
 
 Poniższe wpisy zachowują historię i wcześniejsze założenia; aktualny stan filmów podano powyżej.
 

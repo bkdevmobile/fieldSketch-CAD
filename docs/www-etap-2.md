@@ -1,6 +1,6 @@
 # WWW — etap 2
 
-Stan na **31 października 2026**: zaimplementowany lokalnie, bez publikacji i bez commita.
+Stan na **31 października 2026**: zaimplementowany lokalnie i zapisany w commicie `3c3fc6e`, bez publikacji. Materiały filmowe V05/V06 oraz poprawki V01/V03/V04 zapisano wcześniej w `88d89d7`. Bieżąca aktualizacja notatek pozostaje bez nowego commita.
 
 ## Zakres
 
