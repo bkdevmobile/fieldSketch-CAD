@@ -1,21 +1,41 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
-Stan filmów na 30.10.2026: **V01, V02 i V04 oraz ilustracyjny V03 gotowe lokalnie w PL i EN.** Filmy nie zostały opublikowane ani podłączone do strony WWW.
+**Stan materiałów na 31.10.2026: V01–V06 gotowe lokalnie w PL i EN.** Filmy nie są jeszcze podłączone do WWW ani opublikowane. Statyczny etap 1 WWW został opublikowany 30.10.2026; produkcja filmów jest osobnym zakresem.
 
-V03 — „Od pomiaru do szkicu”, 45 s, 1080p/30: wygenerowany wbudowanym ImageGen obraz osoby mierzącej taras, subtelne zbliżenie kadru, rzeczywiste nagranie ręcznego wpisania długości oraz oryginalny PNG. Postać pozostaje nieruchoma; to wersja ilustracyjna, nie zapis pomiaru terenowego. Nowa muzyka „Wallpaper” — Kevin MacLeod, CC BY 4.0. Bez technicznych podpisów i dolnych napisów; pochodzenie i kredyty pod odtwarzaczem oraz w metadanych. PL/EN zweryfikowane: 45 s, 1350 klatek, AAC stereo, −24,1 LUFS, źródła i PNG niezmienione. [Filmy, źródłowy obraz, prompt i raport V03](media/www/video-v03/README.md). Bez uruchamiania Weave/Runway i bez zmian aplikacji. Zestaw V03 oraz bieżące notatki nie mają jeszcze commita.
+**Stała decyzja użytkownika: pomiar za pomocą czujników telefonu jest największym atutem outlineGo i głównym przekazem promocyjnym.** W materiałach WWW, Google Play, filmach, ilustracjach i tekstach pierwszeństwo ma celowanie kamerą → zapis kierunku z czujników orientacji → krokomierz Start → przejście → zatrzymanie → Stop → zapis punktu i szkic. Ręczne wpisywanie kierunków i wymiarów jest opcją uzupełniającą. Kamera jest celownikiem; odległość z kroków jest szacunkowa i zależy od długości kroku. Nie sugerować skanowania AR ani pomiaru odległości samą kamerą.
 
-Zapis w Git: `7293534` — materiały V02/V04 wraz ze źródłami, muzyką i raportami; `d41f643` — V01 PL/EN, nowa muzyka, podglądy, skrypty i aktualizacja statusu. Po ostatnim commicie repozytorium było czyste. Niniejsze uzupełnienie notatek jest późniejszą zmianą lokalną.
+| Film — dokumentacja, podglądy i raporty | Długość PL/EN | Aktualna zawartość | Muzyka — Kevin MacLeod, CC BY 4.0 |
+| --- | --- | --- | --- |
+| [V01 — Od szkicu do CAD](media/www/video-v01/README.md) | 60 s | Przegląd: bok → PNG → DXF → LibreCAD; poprawione kadrowanie CAD | Easy Lemon (60 second) |
+| [V02 — Pierwszy szkic](media/www/video-v02/README.md) | 224 s (3:44) | Ręczne wymiary, korekta 3,8 → 4 m, obrys 4 × 3 m, 14 m / 12 m² i PNG | Carefree |
+| [V03 — Od pomiaru do szkicu](media/www/video-v03/README.md) | 45 s | Ilustracja pomiaru ogrodu, rzeczywiste UI i PNG; płynne oddalenie bez ruchu na boki | Wallpaper |
+| [V04 — Eksport DXF do CAD](media/www/video-v04/README.md) | 144 s (2:24) | Eksport Plus, obrys 4 × 3 m w LibreCAD, jednostka Metr i obwód 14 m; bez okna plików | Life of Riley |
+| [V05 — Szkic pokoju](media/www/video-v05/README.md) | 72 s (1:12) | Ilustracja pomiaru pokoju oraz pełna instrukcja: 5 × 4 m, korekta 4,8 → 5 m, 18 m / 20 m² i PNG | Dream Culture |
+| [V06 — Kamera i krokomierz](media/www/video-v06/README.md) | 108 s (1:48) | Priorytet promocyjny: celownik, kierunek, Start/Stop, rosnący licznik, zapis boku i PNG | Montauk Point |
 
-- **V01 „Od szkicu do CAD” — przegląd**: 60 s, 1920 × 1080 / 30 kl./s; montaż oryginalnych materiałów V02/V04, od zapisu boku przez PNG i DXF do tego samego obrysu w LibreCAD oraz zaproszenie do pobrania aplikacji. Nowa melodia: „Easy Lemon (60 second)” — Kevin MacLeod, CC BY 4.0. Bez przyspieszania, pauzy co najmniej 4 s, bez technicznych podpisów i dolnych napisów. Pełna kontrola obu wersji: 1800 klatek, AAC stereo, −23,5 LUFS, zgodność obrazu i źródeł. Filmy: `media/www/video-v01/output/v01-overview-{pl,en}.mp4`; podglądy, pochodzenie i raport: [V01](media/www/video-v01/README.md).
+Ostatnie wykonane poprawki:
 
-- **V02 „Pierwszy szkic”** — 224 s (3:44), 1920 × 1080 / 30 kl./s; ręczne wprowadzanie boków, korekta 3,8 → 4 m, wyliczone zamknięcie, 14 m / 12 m² i eksport PNG. Muzyka: „Carefree” — Kevin MacLeod, CC BY 4.0. Aktualne filmy: `media/www/video-v02/output/v02-first-sketch-{pl,en}-with-music.mp4`.
-- **V04 „Od szkicu do CAD”** — 144 s (2:24), 1920 × 1080 / 30 kl./s; rzeczywisty eksport DXF tego samego tarasu 4 × 3 m, otwarcie w LibreCAD, jednostka Metr i kontrola obwodu 14 m. Inna melodia: „Life of Riley” — Kevin MacLeod, CC BY 4.0. Aktualne filmy: `media/www/video-v04/output/v04-dxf-to-cad-{pl,en}.mp4`.
-- **Zasady użytkownika:** spokojne tempo i pauzy; bez dolnych napisów dublujących opis oraz bez technicznych podpisów o produkcji, tempie, pauzach, emulatorze, montażu czy kodach V02/V04. W obrazie tylko instrukcje pomocne widzowi. Kredyty muzyczne pod odtwarzaczem, w metadanych i opisie publikacji; szczegóły produkcji w dokumentacji.
-- Obie wersje V04 przeszły pełne dekodowanie 4320 klatek, kontrolę dźwięku, geometrii, oryginalnych DXF i zgodności obrazu z wersją bez dźwięku. Zapisano miniatury, podglądy, transkrypty i źródła. Po nagraniu z tymczasowym testowym uprawnieniem Plus przywrócono kod i oryginalny APK; materiał nie potwierdza zakupu ani fizycznego pomiaru. Raporty: `media/www/video-v04/output/verification.json` i `sources/restoration.json`.
+- **V01/V04 — prywatność:** usunięto okno wyboru pliku i wykadrowano CAD do potrzebnego rysunku, jednostek i odczytu długości. Lokalne pliki, ścieżki i historia nie pojawiają się w poprawionych filmach. Surowe nagrania są wyłącznie materiałem produkcyjnym; publikować pliki z katalogów `output`.
+- **V03 — ruch ilustracji:** pierwsze 12 s ma delikatne oddalenie 1,035 → 1,000 ze stałym środkiem i łagodnym początkiem/końcem. Transformacja zmiennoprzecinkowa zastąpiła zoompan powodujący wrażenie skakania. PL/EN, miniatury i podglądy odtworzono.
+- **V05 — ilustracja pokoju:** dodano 12 s otwarcia z takim samym spokojnym oddaleniem oraz obraz przy pierwszym wymiarze. Dotychczasowe 60 s instrukcji zachowano; aktualna długość to 72 s. Obrazy V03/V05 są wygenerowane, postacie nieruchome; nie dokumentują fizycznego pomiaru.
+- **V06 — zrealizowana symulacja zaakceptowana przez użytkownika:** emulator nie ma detektora kroków. Tymczasowy adapter dostarczał kierunki i kroki 8 / 6 / 8; rzeczywiste UI, przelicznik 75 cm, SQLite, geometria i PNG dają 6 × 4,5 m, 21 m / 27 m². Wirtualna kamera otrzymała wygenerowany obraz ogrodu z pliku. Symulację ujawniono pod odtwarzaczem i w metadanych MP4. Oryginalny kod, APK, bazę i profil emulatora przywrócono; testowy APK i wyniki builda usunięto. Pochodzenie i potwierdzenie przywrócenia zapisano w dokumentacji oraz `sources/restoration.json` zestawu V06.
 
-Następne prace: odbiór filmów przez użytkownika oraz osobna integracja ze stroną i publikacja na jego polecenie. V05 i ewentualny V03 z rzeczywistym nagraniem pomiaru terenowego pozostają opcjonalne; ilustracyjny V03 jest już gotowy.
+Stałe zasady kolejnych filmów:
 
-Dokumentacja filmów: [V01](media/www/video-v01/README.md), [V02](media/www/video-v02/README.md), [V04](media/www/video-v04/README.md). Poniższe wpisy zachowują historię prac; wcześniejsze statusy filmów są nieaktualne.
+- Spokojne tempo, czytelne pauzy, bez przyspieszania kroków.
+- Bez dolnych napisów dublujących opis po lewej i bez technicznych podpisów o tempie, pauzach, emulatorze, montażu czy kodach Vxx. W obrazie tylko treść pomocna widzowi.
+- Bez prywatnych plików, folderów, ścieżek, historii, kont i zbędnych elementów pulpitu.
+- Ilustracje: delikatne oddalenie ze stałym środkiem, bez przesuwania na boki i skakania.
+- Cicha muzyka, inna melodia dla kolejnego filmu; kredyty i pochodzenie materiałów poza obrazem filmu. Zachować wersje bez dźwięku.
+- Symulacje i ilustracje jasno opisywać pod filmem i w metadanych. Demonstracja emulatora nie potwierdza fizycznej dokładności sensorów.
+
+Wszystkie wersje mają 1920 × 1080, 30 kl./s, H.264 i muzykę AAC stereo. Zaktualizowane zestawy przeszły kontrole obrazu, dźwięku, źródeł i geometrii; raporty oraz arkusze klatek znajdują się w katalogach filmów.
+
+**Zapis w Git:** V02/V04 — `7293534`; V01 — `d41f643`; pierwotny V03 — `1d8c2e9`. V05, V06, późniejsze poprawki V01/V03/V04 i bieżące notatki pozostają bez nowego commita.
+
+**Następne prace:** odbiór aktualnych filmów przez użytkownika; następnie osobna integracja z WWW i publikacja na jego polecenie, z pierwszeństwem V06 oraz przekazu o sensorach. Opcjonalne nagranie fizycznego pomiaru telefonem może uzupełnić demonstrację. Gotowość V05 nie oznacza realizacji podstrony pokoju z etapu 2.
+
+Poniższe wpisy zachowują historię i wcześniejsze założenia; aktualny stan filmów podano powyżej.
 
 Stan po publikacji 30.10.2026: etap 1 WWW jest wdrożony na https://outlinego-27ab5.web.app/pl/ i /en/ — osiem stron marketingowych oraz sześć finalnych dokumentów prawnych PL/EN (obowiązują od 30.10.2026, temat redakcji zamknięty). Desktop sprawdzono w VS Code, telefon zaakceptował użytkownik. Wdrożono poprawki wizualne, oficjalne badge Google Play, aktualne ilustracje udostępniania, lżejsze obrazy, doprecyzowane leady i JSON-LD WebSite/BreadcrumbList. Commit SEO fdcc1f3; zapis wdrożenia 97e7e84; wersja Firebase 056f218e8640f749. Po publikacji 25 zasobów ma zgodne SHA-256 z plikami lokalnymi, 301 i 404 działają. Pozostają PageSpeed Insights/Core Web Vitals oraz kontrola przetworzenia mapy i indeksowania w Search Console; własna domena opcjonalnie. Nie zmieniano aplikacji ani APK/AAB. Filmy oraz etap 2 są poza zakończonym zakresem. Poniższe wpisy są historią; starsze informacje o braku deployu nie opisują obecnego stanu.
 

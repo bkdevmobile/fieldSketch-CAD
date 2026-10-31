@@ -6,6 +6,10 @@ Historyczny stan aplikacji na **23 października 2026** (bieżące potwierdzenia
 
 ## Główny sposób korzystania z aplikacji
 
+**Priorytet promocyjny ustalony przez użytkownika 31 października 2026:** największym atutem outlineGo jest pomiar przy użyciu czujników telefonu. Rozwój prezentacji produktu i materiały promocyjne mają przede wszystkim pokazywać celowanie kamerą, zapis kierunku z sensorów orientacji, krokomierz Start/Stop i tworzenie szkicu w czasie przechodzenia między narożnikami. Ręczne wpisywanie wymiarów i kierunków jest metodą uzupełniającą. Kamera pełni rolę celownika, a odległości z kroków są szacunkowe; komunikacja nie może sugerować skanowania AR ani automatycznego pomiaru odległości samą kamerą.
+
+**Materiały na 31.10.2026:** V01–V06 są gotowe lokalnie w PL/EN. Priorytetowy V06 pokazuje kamerę i krokomierz z zaakceptowaną przez użytkownika, ujawnioną w opisie symulacją odczytów. Aplikację i emulator przywrócono po nagraniu. V03 ma płynne oddalenie bez ruchu na boki, a V05 ilustrację pomiaru pokoju i długość 72 s. Filmy czekają na odbiór i osobne zlecenie integracji/publikacji; nie zostały wdrożone na WWW. [Aktualny zestaw i zasady produkcji](media-strony-www.md).
+
 Ustalenie z **25 października 2026**: użytkownik wykonuje **szybki szkic w terenie na telefonie**, a następnie eksportuje go i **dopracowuje na komputerze**. Ten scenariusz stanowi punkt odniesienia przy planowaniu dalszego rozwoju aplikacji.
 
 ## Etapy
