@@ -1,5 +1,8 @@
 # V02 — pierwszy szkic / your first sketch
 
+**Integracja WWW — 31.10.2026:** film podłączony lokalnie w PL/EN na podstronie „Jak to działa”, z miniaturą, opisem pochodzenia i kredytami muzycznymi. Bez publikacji. Poniższe informacje o braku integracji opisują wcześniejszy stan.
+
+
 Przygotowano lokalnie 30.10.2026. Rzeczywiste nagrania aplikacji w dedykowanym emulatorze Androida, z opisami kroków i schematem obrysu. Bez publikacji.
 
 Zasada użytkownika: w filmach nie umieszczać technicznych napisów o produkcji, tempie, pauzach, emulatorze czy montażu ani wewnętrznych kodów V02. Aktualne wersje zawierają wyłącznie opisy przydatne do obsługi aplikacji; informacje o pochodzeniu pozostają w dokumentacji.

@@ -1,5 +1,8 @@
 # V03 — Od pomiaru do szkicu
 
+**Integracja WWW — 31.10.2026:** film podłączony lokalnie w PL/EN na podstronie „Szkic ogrodu”, z miniaturą, opisem pochodzenia i kredytami muzycznymi. Bez publikacji. Poniższe informacje o braku integracji opisują wcześniejszy stan.
+
+
 Wersja ilustracyjna, przygotowana lokalnie 30.10.2026: **45 sekund**, PL i EN, 1920 × 1080 / 30 kl./s, H.264 i AAC stereo 48 kHz. Bez publikacji.
 
 - [Podgląd PL](output/preview-pl.html) · [MP4 PL](output/v03-garden-pl.mp4)

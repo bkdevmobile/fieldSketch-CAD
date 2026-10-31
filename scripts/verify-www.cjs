@@ -100,7 +100,7 @@ let preview;
       const png=await fetch(`${local}/assets/stage2/${lang}/room-free.png`);
       assert.equal(png.status,200);
       assert.equal(hash(Buffer.from(await png.arrayBuffer())),hash(fs.readFileSync(path.join(root,`assets/stage2/${lang}/room-free.png`))),'Room PNG HTTP integrity');
-      for(const name of ['room','camera-steps']){
+      for(const name of ['overview','first-sketch','garden','dxf-to-cad','room','camera-steps']){
         const target=`${local}/assets/stage2/${lang}/${name}.mp4`;
         const head=await fetch(target,{method:'HEAD'});
         assert.equal(head.status,200);assert.equal(head.headers.get('content-type'),'video/mp4');
@@ -117,13 +117,16 @@ let preview;
     assert.equal(hash(fs.readFileSync(path.resolve(root,'..',entry.source))),entry.sourceSha256,'Stage 2 source hash '+entry.file);
     if (entry.file.endsWith('.mp4') || entry.file.endsWith('/room-free.png')) assert.equal(entry.sha256,entry.sourceSha256,'Original video/PNG preserved');
   }
-  for(const lang of ['pl','en'])for(const page of [4,5]){
+  const videoNames=['overview','first-sketch','garden','dxf-to-cad','room','camera-steps'];
+  for(const lang of ['pl','en'])for(const page of [0,1,2,3,4,5]){
     const html=fs.readFileSync(resolveFile(routes[lang][page]),'utf8');
-    assert.equal((html.match(/<video /g)||[]).length,1,'One relevant video per new page');
+    assert.equal((html.match(/<video /g)||[]).length,1,'One relevant video per page');
+    assert(html.includes(`<source src="/assets/stage2/${lang}/${videoNames[page]}.mp4" type="video/mp4">`),'Correct film and language on '+routes[lang][page]);
     const video=html.match(/<video [^>]*>/)[0];
     assert(video.includes('preload="none"') && video.includes('controls') && video.includes('playsinline') && !video.includes('autoplay'),'Video loads on request');
     assert(html.includes('CC BY 4.0'),'Music credits');
-    assert(html.includes(lang==='pl'?(page===4?'wygenerowana':'symulowane'):(page===4?'generated':'simulated')),'Visible provenance disclosure');
+    if([2,4,5].includes(page)) assert(html.includes(lang==='pl'?(page===5?'symulowane':'wygenerowan'):(page===5?'simulated':'generated')),'Visible provenance disclosure');
+    if([1,2,3].includes(page))assert(html.includes(lang==='pl'?'osobny':'separate') || page===2,'Video example distinguished from the page example');
     if(page===4)assert(html.includes('18 m')&&html.includes('20 m²'),'Room geometry');
   }
   console.log(`Verified 12 pages, unique metadata, language pairs, ${links} local references, ${images} image elements, ${media} stage 1 media and ${stage2.files.length} stage 2 assets${checkHttp?'; HTTP 200/301/404 and downloads verified':''}.`);

@@ -8,18 +8,7 @@ module.exports = function ({ pick, esc, intro, sectionHead, button, related, cta
     const img = `<img src="${asset(file)}" width="${info.width}" height="${info.height}" alt="${esc(alt)}" loading="lazy" decoding="async" class="${cls}">`;
     return zoom ? `<a class="zoom-image" href="${asset(file)}" data-zoom>${img}<span class="zoom-symbol" aria-hidden="true">↗</span></a>` : img;
   }
-  function video(lang, name) {
-    const room = name === 'room', pl = lang === 'pl';
-    const title = room ? pick(lang, 'Szkic pokoju krok po kroku', 'A room sketch, step by step') : pick(lang, 'Kamera i krokomierz w praktyce', 'Camera and step counter in action');
-    const disclosure = room
-      ? pick(lang, 'Ilustracja osoby mierzącej pokój została wygenerowana. Ekrany aplikacji i eksport PNG są rzeczywiste; wymiary przykładu wpisano ręcznie.', 'The illustration of a person measuring a room was generated. App screens and the PNG export are actual captures; the example dimensions were entered manually.')
-      : pick(lang, 'Demonstracja w emulatorze: kierunki i odczyty kroków są symulowane, a obraz ogrodu w wirtualnej kamerze pochodzi z wygenerowanej ilustracji. Interfejs, przeliczanie długości, zapis i PNG są rzeczywiste. Film nie dokumentuje fizycznego pomiaru.', 'Emulator demonstration: directions and step readings are simulated, and the virtual camera garden scene comes from a generated illustration. The interface, length calculation, saving and PNG export are real. This is not a recording of a physical measurement.');
-    const melody = room ? 'Dream Culture' : 'Montauk Point';
-    const transcript = room
-      ? pick(lang, 'Ilustracja pomiaru pokoju → nowy szkic Salon → bok 5 m → boki 4 m i 4,8 m → korekta 4,8 na 5 m → wyliczone zamknięcie → obwód 18 m, pole 20 m² → eksport PNG.', 'Room measurement illustration → new Room sketch → 5 m side → 4 m and 4.8 m sides → correct 4.8 to 5 m → calculated closure → 18 m perimeter, 20 m² area → PNG export.')
-      : pick(lang, 'Celowanie tylną kamerą → zapis kierunku → Start → rosnący licznik kroków → zatrzymanie i Stop → sprawdzenie długości → zapis punktu → kolejne boki → zamknięcie i PNG. Przy długości kroku 75 cm odczyty 8, 6 i 8 kroków dają boki 6 m, 4,5 m i 6 m; zamknięcie 4,5 m jest wyliczone. Wynik: 21 m i 27 m².', 'Aim with the rear camera → capture direction → Start → increasing step count → stand still and Stop → check the length → save a point → next sides → close and export PNG. With a 75 cm step length, counts of 8, 6 and 8 give sides of 6 m, 4.5 m and 6 m; the 4.5 m closure is calculated. Result: 21 m and 27 m².');
-    return `<figure class="video-card"><video controls playsinline preload="none" width="1920" height="1080" poster="${asset(`${lang}/${name}-poster.webp`)}" aria-label="${title}"><source src="${asset(`${lang}/${name}.mp4`)}" type="video/mp4"><a href="${asset(`${lang}/${name}.mp4`)}">${pick(lang, 'Otwórz film MP4', 'Open the MP4 video')}</a></video><figcaption><strong>${title} · ${room ? '1:12' : '1:48'}</strong><p>${disclosure}</p><details><summary>${pick(lang, 'Opis filmu i muzyka', 'Video description and music')}</summary><p>${transcript}</p><p>${pick(lang, 'Muzyka', 'Music')}: <a href="https://incompetech.com/music/royalty-free/">${melody} — Kevin MacLeod (incompetech.com)</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. ${pick(lang, 'Skrócony podkład, zmieniony poziom i łagodne wejście/wyjście.', 'Excerpt with adjusted volume and fades.')}</p></details></figcaption></figure>`;
-  }
+  const { video } = require('./www-videos.cjs')({ esc, pick, sectionHead });
   function guide(lang, n, title, text, file, alt) {
     return `<section class="guide-step" id="room-step-${n}"><div class="step-copy"><span class="step-number">0${n}</span><h2>${title}</h2>${text}</div><figure class="phone-figure">${image(`${lang}/${file}.webp`, alt, 'phone-image')}<figcaption>${alt}</figcaption></figure></section>`;
   }

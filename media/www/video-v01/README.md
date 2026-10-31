@@ -1,5 +1,8 @@
 # V01 — Od szkicu do CAD
 
+**Integracja WWW — 31.10.2026:** film podłączony lokalnie w PL/EN na podstronie „stronie głównej”, z miniaturą, opisem pochodzenia i kredytami muzycznymi. Bez publikacji. Poniższe informacje o braku integracji opisują wcześniejszy stan.
+
+
 Film przeglądowy przygotowany lokalnie 30.10.2026 w PL i EN: **60 sekund**, 1920 × 1080, 30 kl./s, H.264 i AAC stereo 48 kHz. Bez publikacji i integracji z WWW.
 
 Korekta prywatności 30.10.2026: ujęcie LibreCAD kadruje wyłącznie obszar rysunku (x=36, y=90, 1740 × 750), bez paneli z lokalnymi plikami i ścieżkami. Poprawiono obie wersje oraz arkusze podglądu; czas i muzyka bez zmian. Surowe nagrania CAD pozostają materiałem produkcyjnym, a nie wersją do publikacji. Odpowiednia kontrola kadrowania została dodana do `verify.cjs`.

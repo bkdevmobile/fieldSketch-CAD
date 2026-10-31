@@ -28,8 +28,9 @@ async function add(source, file, width) {
       'steps': 'media/www/video-v06/sources/' + lang + '/03-steps-stopped.png'
     })) await add(source, `${lang}/${name}.webp`, 720);
     await add(`media/www/video-v05/output/room-${lang}-free.png`, `${lang}/room-free.png`);
-    for (const [id, name] of [['05', 'room'], ['06', 'camera-steps']]) {
-      await add(`media/www/video-v${id}/output/v${id}-${name}-${lang}.mp4`, `${lang}/${name}.mp4`);
+    for (const [id, name] of [['01', 'overview'], ['02', 'first-sketch'], ['03', 'garden'], ['04', 'dxf-to-cad'], ['05', 'room'], ['06', 'camera-steps']]) {
+      const filename = `v${id}-${name}-${lang}${id === '02' ? '-with-music' : ''}.mp4`;
+      await add(`media/www/video-v${id}/output/${filename}`, `${lang}/${name}.mp4`);
       await add(`media/www/video-v${id}/output/poster-${lang}.webp`, `${lang}/${name}-poster.webp`);
     }
   }

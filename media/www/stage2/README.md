@@ -6,6 +6,6 @@ Zestaw przygotowywany przez `node scripts/prepare-www-stage2.cjs` (także automa
 - Ekrany pokoju i oryginalne PNG Free: ta sama sesja 5 × 4 m, korekta, 18 m / 20 m². Znak wodny zachowany.
 - Lista szkiców: rzeczywiste ekrany z demonstracyjnej sesji materiałów Google Play.
 - Kamera i krokomierz: rzeczywiste UI z symulowanymi odczytami i wygenerowanym obrazem w wirtualnej kamerze. Pełne pochodzenie: [V06](../video-v06/README.md).
-- Filmy V05/V06 i miniatury PL/EN: dokładne kopie gotowych wyników. Muzyka Dream Culture / Montauk Point — Kevin MacLeod (incompetech.com), CC BY 4.0. Przy publikacji zachować widoczne opisy pochodzenia i kredyty pod odtwarzaczami.
+- Filmy V01–V06 i miniatury PL/EN: dokładne kopie gotowych, poprawionych wyników (w tym kadrowanie prywatności V01/V04 i płynne oddalenie V03). Muzyka Easy Lemon (60 second) / Carefree / Wallpaper / Life of Riley / Dream Culture / Montauk Point — Kevin MacLeod (incompetech.com), CC BY 4.0. Przy publikacji zachować widoczne opisy pochodzenia i kredyty pod odtwarzaczami.
 
 Nie kopiować baz danych, surowych nagrań, testowego adaptera ani plików roboczych do katalogu publicznego. Zestaw nie dokumentuje fizycznego pomiaru wnętrza ani dokładności sensorów.
