@@ -13,6 +13,7 @@ function run(args){const r=spawnSync(ffmpeg,['-hide_banner','-y',...args],{encod
   const videoHash=f=>run(['-i',f,'-map','0:v:0','-c','copy','-f','hash','-hash','sha256','-']).stdout.trim();
   assert(videoHash(film)===videoHash(silent),'Music changed picture');
   const edit=JSON.parse(fs.readFileSync(path.join(out,`edit-manifest-${lang}.json`),'utf8'));
+  assert(edit.segments[4].privacy==='drawing-viewport-only'&&edit.segments[4].viewportCrop?.x===36&&edit.segments[4].viewportCrop?.y===90&&edit.segments[4].viewportCrop?.width===1740&&edit.segments[4].viewportCrop?.height===750,'CAD must exclude local file panels');
   assert(edit.segments.length===6&&edit.segments.reduce((s,v)=>s+v.outputSeconds,0)===60,'Unexpected edit');
   for(const s of edit.segments){assert(s.speed===1&&s.hold>=4,'Unexpected acceleration or missing pause');assert(sha(path.resolve(__dirname,s.source))===s.sha256,'Source changed');if(s.endStill)assert(sha(path.resolve(__dirname,s.endStill.source))===s.endStill.sha256,'End still changed');}
   assert(sha(path.join(out,`patio-${lang}-free.png`))===sha(path.resolve(__dirname,`../video-v02/output/first-sketch-${lang}-free.png`)),'PNG changed');

@@ -12,16 +12,24 @@
       "speed": 0.3792307692307692,
       "hold": 6,
       "outputStart": 0,
-      "outputSeconds": 32
+      "outputSeconds": 32,
+      "privacy": "app-only"
     },
     {
-      "source": "sources/en/02-open.mp4",
-      "start": 0.3999999999999986,
-      "length": 21,
-      "speed": 0.9545454545454546,
-      "hold": 6,
+      "source": "sources/en/03-overview.mp4",
+      "start": 8,
+      "length": 12,
+      "speed": 0.6666666666666666,
+      "hold": 10,
       "outputStart": 32,
-      "outputSeconds": 28
+      "outputSeconds": 28,
+      "privacy": "drawing-viewport-only",
+      "viewportCrop": {
+        "x": 36,
+        "y": 90,
+        "width": 1740,
+        "height": 750
+      }
     },
     {
       "source": "sources/en/03-overview.mp4",
@@ -30,7 +38,14 @@
       "speed": 1,
       "hold": 8,
       "outputStart": 60,
-      "outputSeconds": 26
+      "outputSeconds": 26,
+      "privacy": "drawing-viewport-only",
+      "viewportCrop": {
+        "x": 36,
+        "y": 90,
+        "width": 1740,
+        "height": 750
+      }
     },
     {
       "source": "sources/en/04-units.mp4",
@@ -39,7 +54,8 @@
       "speed": 1,
       "hold": 16,
       "outputStart": 86,
-      "outputSeconds": 24
+      "outputSeconds": 24,
+      "privacy": "units-dialog-crop"
     },
     {
       "source": "sources/en/05-distance.mp4",
@@ -48,7 +64,14 @@
       "speed": 0.8333333333333334,
       "hold": 10,
       "outputStart": 110,
-      "outputSeconds": 34
+      "outputSeconds": 34,
+      "privacy": "drawing-viewport-and-length-status-only",
+      "viewportCrop": {
+        "x": 36,
+        "y": 90,
+        "width": 1740,
+        "height": 750
+      }
     }
   ]
 }

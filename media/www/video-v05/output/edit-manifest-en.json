@@ -1,0 +1,96 @@
+{
+  "duration": 72,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "disclosure": "The room measurement scene is an AI-generated illustration with a gentle zoom out. App screens and the exported PNG are real. This film does not document a physical measurement or automatic phone measurement.",
+  "segments": [
+    {
+      "source": "sources/room-measurement.png",
+      "sha256": "9f4eb4db992fd8e6c995d2e8ba3e2c419084c6a32fc5198b8df40edaabea3180",
+      "kind": "generated-room-illustration",
+      "outputStart": 0,
+      "outputSeconds": 12,
+      "motion": "centered-zoom-out",
+      "zoomStart": 1.035,
+      "zoomEnd": 1,
+      "center": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pan": false,
+      "interpolation": "cubic"
+    },
+    {
+      "source": "sources/en/01-create.mp4",
+      "sha256": "60e543004a633e1dfc8abbbc4a7072d48d7b0233d17b1bc58a0d0d2d58ab5f6f",
+      "start": 13.969999999999999,
+      "length": 6,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 12,
+      "outputSeconds": 10
+    },
+    {
+      "source": "sources/en/02-first-side.mp4",
+      "sha256": "2ac8ad6c550fbf887723121a5e529e02aba82c0c875066e09e84657776c592b2",
+      "start": 13.739999999999998,
+      "length": 6,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 22,
+      "outputSeconds": 10,
+      "illustration": {
+        "source": "sources/room-measurement.png",
+        "sha256": "9f4eb4db992fd8e6c995d2e8ba3e2c419084c6a32fc5198b8df40edaabea3180"
+      }
+    },
+    {
+      "source": "sources/en/03-next-sides.mp4",
+      "sha256": "b96d22519012a231e8ca4499fc28aec805b622dbf677dfea4bb05858de92baad",
+      "start": 46.16,
+      "length": 6,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 32,
+      "outputSeconds": 10
+    },
+    {
+      "source": "sources/en/04-correction.mp4",
+      "sha256": "efe7ae1c1e6f53ed39a667279caf689c2ac6d586924e4cca50e374a211a59270",
+      "start": 8.46,
+      "length": 6,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 42,
+      "outputSeconds": 10
+    },
+    {
+      "source": "sources/en/05-close.mp4",
+      "sha256": "61103a1719be30baf3fd7b016915a82f2e7081de80491077ce513d4291ce8c76",
+      "start": 5.109999999999999,
+      "length": 6,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 52,
+      "outputSeconds": 10,
+      "endStill": {
+        "source": "sources/en/05-summary-stable.png",
+        "sha256": "4de7d2c415cb708ba56ffabe97b75be644af463acd00549464975b54f1188399",
+        "from": 5,
+        "extractedFrom": "sources/en/06-export.mp4",
+        "sourceTime": 0.3
+      }
+    },
+    {
+      "source": "sources/en/06-export.mp4",
+      "sha256": "3d71e030c8ce035dc590b78d369565658c0a41fd8c77ffb85af56aeed8807e47",
+      "start": 0,
+      "length": 6,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 62,
+      "outputSeconds": 10
+    }
+  ]
+}

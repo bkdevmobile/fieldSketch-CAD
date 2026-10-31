@@ -1,0 +1,342 @@
+{
+  "date": "2026-10-31",
+  "note": "Actual app captures and original exports. Room illustration generated with ImageGen; V06 directions, steps and virtual camera scene are simulated. See video READMEs for provenance.",
+  "files": [
+    {
+      "file": "room-960.webp",
+      "source": "media/www/video-v05/sources/room-measurement.png",
+      "sourceSha256": "9f4eb4db992fd8e6c995d2e8ba3e2c419084c6a32fc5198b8df40edaabea3180",
+      "sha256": "f0ddd8d008af06e0791063f1525c6232a6b964e3335e3c2fd4727a3ab28bdabd",
+      "bytes": 47582,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "room-1440.webp",
+      "source": "media/www/video-v05/sources/room-measurement.png",
+      "sourceSha256": "9f4eb4db992fd8e6c995d2e8ba3e2c419084c6a32fc5198b8df40edaabea3180",
+      "sha256": "20a4d5e4320ff49712a2845734256a13c26707ef44fa89479d3edc5ce3c163af",
+      "bytes": 82288,
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "file": "pl/room-review.webp",
+      "source": "media/www/video-v05/sources/pl/02-review.png",
+      "sourceSha256": "4b58c8368476b81e327a199c26ea1edf92793436af198bbadb9e5e8ab73e409f",
+      "sha256": "4a7bdafa73a891b7b36b99da0bacee581eb7938ed06e615fb3fd0d127a964411",
+      "bytes": 28898,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "pl/room-correction.webp",
+      "source": "media/www/video-v05/sources/pl/04-correction.png",
+      "sourceSha256": "6d4ce9c5e199793dc8ccc3a59a893f05626a2d75d5e6235768b072d7c85c00e1",
+      "sha256": "fac75ea5712025093d67db76c612d409f67c26a44eac4b2f42f8abcc6505b191",
+      "bytes": 19010,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "pl/room-summary.webp",
+      "source": "media/www/video-v05/sources/pl/05-summary-stable.png",
+      "sourceSha256": "7f1453b70d258aa949dc16b5a552c5cdc0de7aa57fb4e9a63d118ef04709847d",
+      "sha256": "000b3e4f4576257189b63bd923319b0a15644b0337d8dc0a67e9ac18a628ab39",
+      "bytes": 24358,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "pl/sketches.webp",
+      "source": "googlePlay/emulator-screenshots/pl/phone/01-sketches.png",
+      "sourceSha256": "e7b08d042b562b97ccdeaa3e9be7f1cb76f77e37872247a1ffa9038eab42425d",
+      "sha256": "210a603dedb85e3722610a45c2997c1d1115685dd447467a86832af308ba482d",
+      "bytes": 18658,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "pl/camera.webp",
+      "source": "media/www/video-v06/sources/pl/02-direction.png",
+      "sourceSha256": "52fae7f9cef625c4f72448beb6af024566dae5da9d89fb94f2ffaa93593e2bac",
+      "sha256": "5c36a1161ae73e0ba7ffb7e8ab94f5afc9a20d7206a96e44ae9bde9e6aab2254",
+      "bytes": 29302,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "pl/steps.webp",
+      "source": "media/www/video-v06/sources/pl/03-steps-stopped.png",
+      "sourceSha256": "024b542dd733ca25db79f80d8e199c176d74bee932e2848685bd7c1f2701681b",
+      "sha256": "fd46e837c6ec0e90d69a6dbb5688d1d1300b54b827ca062187814115d68238bd",
+      "bytes": 40364,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "pl/room-free.png",
+      "source": "media/www/video-v05/output/room-pl-free.png",
+      "sourceSha256": "4d6fb9860a85b17a898f4d002e8a653db826587ed7a34bfb3743067807dde416",
+      "sha256": "4d6fb9860a85b17a898f4d002e8a653db826587ed7a34bfb3743067807dde416",
+      "bytes": 83328,
+      "width": 1080,
+      "height": 1460
+    },
+    {
+      "file": "pl/overview.mp4",
+      "source": "media/www/video-v01/output/v01-overview-pl.mp4",
+      "sourceSha256": "cd1898d56e115ddf847c6989d58e05df664d5583856872567d9becc078493409",
+      "sha256": "cd1898d56e115ddf847c6989d58e05df664d5583856872567d9becc078493409",
+      "bytes": 2381535
+    },
+    {
+      "file": "pl/overview-poster.webp",
+      "source": "media/www/video-v01/output/poster-pl.webp",
+      "sourceSha256": "ccc7f49444d14178f1a139024aaf06d2c182f7cdce91c11ff767ed15c249b9cd",
+      "sha256": "ccc7f49444d14178f1a139024aaf06d2c182f7cdce91c11ff767ed15c249b9cd",
+      "bytes": 61600,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "pl/first-sketch.mp4",
+      "source": "media/www/video-v02/output/v02-first-sketch-pl-with-music.mp4",
+      "sourceSha256": "b932a9bd1937636bb47249ce6add25442212f1e6760d49709e26a371e4552028",
+      "sha256": "b932a9bd1937636bb47249ce6add25442212f1e6760d49709e26a371e4552028",
+      "bytes": 9727965
+    },
+    {
+      "file": "pl/first-sketch-poster.webp",
+      "source": "media/www/video-v02/output/poster-pl.webp",
+      "sourceSha256": "f053ec5649739b246435ef67376b34b40b5f33d9dd1f49098fc73bf95af40076",
+      "sha256": "f053ec5649739b246435ef67376b34b40b5f33d9dd1f49098fc73bf95af40076",
+      "bytes": 65612,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "pl/garden.mp4",
+      "source": "media/www/video-v03/output/v03-garden-pl.mp4",
+      "sourceSha256": "a51500992186aeea3eec2cb29fb25373b5820ce5b40b47bde511ce1f2b2be1e3",
+      "sha256": "a51500992186aeea3eec2cb29fb25373b5820ce5b40b47bde511ce1f2b2be1e3",
+      "bytes": 10114881
+    },
+    {
+      "file": "pl/garden-poster.webp",
+      "source": "media/www/video-v03/output/poster-pl.webp",
+      "sourceSha256": "5e9a62e9c9dd905dc8f6cac7b5d74f916992654ffb52e350abeda262b0392410",
+      "sha256": "5e9a62e9c9dd905dc8f6cac7b5d74f916992654ffb52e350abeda262b0392410",
+      "bytes": 367306,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "pl/dxf-to-cad.mp4",
+      "source": "media/www/video-v04/output/v04-dxf-to-cad-pl.mp4",
+      "sourceSha256": "2baacd39006e2ab0cfc3be527dfc839f1a463a8c0ab99bb3c7b9f89f278d080e",
+      "sha256": "2baacd39006e2ab0cfc3be527dfc839f1a463a8c0ab99bb3c7b9f89f278d080e",
+      "bytes": 5189627
+    },
+    {
+      "file": "pl/dxf-to-cad-poster.webp",
+      "source": "media/www/video-v04/output/poster-pl.webp",
+      "sourceSha256": "372da272ebabf1eec945f57bcda1cf9b116c41a44e67e0efb41778b38e6f3ed5",
+      "sha256": "372da272ebabf1eec945f57bcda1cf9b116c41a44e67e0efb41778b38e6f3ed5",
+      "bytes": 43120,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "pl/room.mp4",
+      "source": "media/www/video-v05/output/v05-room-pl.mp4",
+      "sourceSha256": "4712033a827fbadad62ae43909806324544e8b98bcc9c16675d6dc94f9496f49",
+      "sha256": "4712033a827fbadad62ae43909806324544e8b98bcc9c16675d6dc94f9496f49",
+      "bytes": 7520738
+    },
+    {
+      "file": "pl/room-poster.webp",
+      "source": "media/www/video-v05/output/poster-pl.webp",
+      "sourceSha256": "5db93622df658cf657fa565dd9373faf41df83b3059561a6d6964f9b664c26b8",
+      "sha256": "5db93622df658cf657fa565dd9373faf41df83b3059561a6d6964f9b664c26b8",
+      "bytes": 190472,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "pl/camera-steps.mp4",
+      "source": "media/www/video-v06/output/v06-camera-steps-pl.mp4",
+      "sourceSha256": "bfe4c79d8ecd03f137ed59df44b59d34b9d497013a6113be73113c79f3fe2dd8",
+      "sha256": "bfe4c79d8ecd03f137ed59df44b59d34b9d497013a6113be73113c79f3fe2dd8",
+      "bytes": 5015249
+    },
+    {
+      "file": "pl/camera-steps-poster.webp",
+      "source": "media/www/video-v06/output/poster-pl.webp",
+      "sourceSha256": "11198615c4315b9a040ffedb21303863d13207030888e44f85654dc099c03d07",
+      "sha256": "11198615c4315b9a040ffedb21303863d13207030888e44f85654dc099c03d07",
+      "bytes": 95346,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "en/room-review.webp",
+      "source": "media/www/video-v05/sources/en/02-review.png",
+      "sourceSha256": "c22627a6b1f2ad6ac4b8adda7293afd5bd88c1ff6a5cd4fa01c24e47159b144c",
+      "sha256": "9bd5e0a5b4e9ee011589ba661588de43acc0fb5f7c3fdc30ea5b65e24acc7c31",
+      "bytes": 26222,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "en/room-correction.webp",
+      "source": "media/www/video-v05/sources/en/04-correction.png",
+      "sourceSha256": "667eb33748af656aabec6bf0ff0e5032729d4c385c391e87b076f362faff3303",
+      "sha256": "cdf2559758d7a0ccec6ae4f21c03c0cc2d0cd13775fc68c1295ab61909102c94",
+      "bytes": 18460,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "en/room-summary.webp",
+      "source": "media/www/video-v05/sources/en/05-summary-stable.png",
+      "sourceSha256": "4de7d2c415cb708ba56ffabe97b75be644af463acd00549464975b54f1188399",
+      "sha256": "4b5f43d1397bb920d127df7ac942b00997d1c3914a41af6d75871340af017fc2",
+      "bytes": 22826,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "en/sketches.webp",
+      "source": "googlePlay/emulator-screenshots/en/phone/01-sketches.png",
+      "sourceSha256": "5a3d7bc2fc55b26618db4e2474ea97d5559d320c5a54507468d56ef782a493d7",
+      "sha256": "78d0ca2ee73d21aaf09ae3f2d139ab778d42ee7d709f1855b051e5b6e97f78fc",
+      "bytes": 19596,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "en/camera.webp",
+      "source": "media/www/video-v06/sources/en/02-direction.png",
+      "sourceSha256": "79d1762e88183796a017b4c3a5db66dd3a250730fc064cf9017b38e8bda00392",
+      "sha256": "1992cc8704d4918db95fe7e4838d5169cfbff158067f06ec214e9801f531df00",
+      "bytes": 26688,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "en/steps.webp",
+      "source": "media/www/video-v06/sources/en/03-steps-stopped.png",
+      "sourceSha256": "ec8ea03b0f1985c6b0bd036c5bc9850d3da2298e5681a36acc48acab0eecb659",
+      "sha256": "189e1d37364f4e109faad93af905a6366fdd2f7c7f648e4f931c3e202fd2b2c6",
+      "bytes": 35164,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "file": "en/room-free.png",
+      "source": "media/www/video-v05/output/room-en-free.png",
+      "sourceSha256": "3861c8c2cad1539d9b8104b5a35dbf9f3dd741e2a9eccbd21f8235fef289ca41",
+      "sha256": "3861c8c2cad1539d9b8104b5a35dbf9f3dd741e2a9eccbd21f8235fef289ca41",
+      "bytes": 75973,
+      "width": 1080,
+      "height": 1460
+    },
+    {
+      "file": "en/overview.mp4",
+      "source": "media/www/video-v01/output/v01-overview-en.mp4",
+      "sourceSha256": "2ad282571f27ff9082613a37ab5170b6ef7a4f36100702f4b6098440d3f13715",
+      "sha256": "2ad282571f27ff9082613a37ab5170b6ef7a4f36100702f4b6098440d3f13715",
+      "bytes": 2374021
+    },
+    {
+      "file": "en/overview-poster.webp",
+      "source": "media/www/video-v01/output/poster-en.webp",
+      "sourceSha256": "e0d403bd0f6c69d236bc53c7bd008d474b020ca9108b6346f7ddbddd42197479",
+      "sha256": "e0d403bd0f6c69d236bc53c7bd008d474b020ca9108b6346f7ddbddd42197479",
+      "bytes": 58670,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "en/first-sketch.mp4",
+      "source": "media/www/video-v02/output/v02-first-sketch-en-with-music.mp4",
+      "sourceSha256": "1ce42e0d9874183ae4bae504e0ba297c761b9c0847103cfdf806bdd9804c4834",
+      "sha256": "1ce42e0d9874183ae4bae504e0ba297c761b9c0847103cfdf806bdd9804c4834",
+      "bytes": 9520705
+    },
+    {
+      "file": "en/first-sketch-poster.webp",
+      "source": "media/www/video-v02/output/poster-en.webp",
+      "sourceSha256": "a8738e3bd877b0cd4b666b7daa20bd247887be4a67f3d70168d5600b783ba932",
+      "sha256": "a8738e3bd877b0cd4b666b7daa20bd247887be4a67f3d70168d5600b783ba932",
+      "bytes": 62916,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "en/garden.mp4",
+      "source": "media/www/video-v03/output/v03-garden-en.mp4",
+      "sourceSha256": "61c75d188d9830a11cf55bfedbb8c98c61876782b3def0a773ceeece3d6a1398",
+      "sha256": "61c75d188d9830a11cf55bfedbb8c98c61876782b3def0a773ceeece3d6a1398",
+      "bytes": 10083169
+    },
+    {
+      "file": "en/garden-poster.webp",
+      "source": "media/www/video-v03/output/poster-en.webp",
+      "sourceSha256": "2dd485bc17c55cd39d3f37655f1909cfb2a902072c1f975be5e380a966ad11a6",
+      "sha256": "2dd485bc17c55cd39d3f37655f1909cfb2a902072c1f975be5e380a966ad11a6",
+      "bytes": 365314,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "en/dxf-to-cad.mp4",
+      "source": "media/www/video-v04/output/v04-dxf-to-cad-en.mp4",
+      "sourceSha256": "d42a7bc3510a9b3676802bea5ada6d725a2d5229a3223cdeca48539b5dd24772",
+      "sha256": "d42a7bc3510a9b3676802bea5ada6d725a2d5229a3223cdeca48539b5dd24772",
+      "bytes": 5063246
+    },
+    {
+      "file": "en/dxf-to-cad-poster.webp",
+      "source": "media/www/video-v04/output/poster-en.webp",
+      "sourceSha256": "48e76b7483390256503cce06621dfaa72c29149f7ca3720abcc2de378c303953",
+      "sha256": "48e76b7483390256503cce06621dfaa72c29149f7ca3720abcc2de378c303953",
+      "bytes": 39852,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "en/room.mp4",
+      "source": "media/www/video-v05/output/v05-room-en.mp4",
+      "sourceSha256": "1880ec958a88093c719a67c8ff2ce3e882d270cd53f93e0a30913c079abc200a",
+      "sha256": "1880ec958a88093c719a67c8ff2ce3e882d270cd53f93e0a30913c079abc200a",
+      "bytes": 7416323
+    },
+    {
+      "file": "en/room-poster.webp",
+      "source": "media/www/video-v05/output/poster-en.webp",
+      "sourceSha256": "4c8c51aba5d13e809f68cd6dc3ac13bcbe222350724183fdafaa0123fd9d5b60",
+      "sha256": "4c8c51aba5d13e809f68cd6dc3ac13bcbe222350724183fdafaa0123fd9d5b60",
+      "bytes": 187802,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "en/camera-steps.mp4",
+      "source": "media/www/video-v06/output/v06-camera-steps-en.mp4",
+      "sourceSha256": "1c922c8b5f46f21a99c25d28041132c72992b4d0508b4981e8056a031b5e2666",
+      "sha256": "1c922c8b5f46f21a99c25d28041132c72992b4d0508b4981e8056a031b5e2666",
+      "bytes": 4926473
+    },
+    {
+      "file": "en/camera-steps-poster.webp",
+      "source": "media/www/video-v06/output/poster-en.webp",
+      "sourceSha256": "10f3d7c1fcaa30626466b86a72293c4f8521137aeaa26f04e556140b7be0284f",
+      "sha256": "10f3d7c1fcaa30626466b86a72293c4f8521137aeaa26f04e556140b7be0284f",
+      "bytes": 90614,
+      "width": 1920,
+      "height": 1080
+    }
+  ]
+}

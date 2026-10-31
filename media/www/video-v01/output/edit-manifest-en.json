@@ -62,7 +62,14 @@
       "speed": 1,
       "hold": 4,
       "outputStart": 40,
-      "outputSeconds": 12
+      "outputSeconds": 12,
+      "privacy": "drawing-viewport-only",
+      "viewportCrop": {
+        "x": 36,
+        "y": 90,
+        "width": 1740,
+        "height": 750
+      }
     },
     {
       "source": "../video-v04/sources/en/01-summary.png",

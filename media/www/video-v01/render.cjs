@@ -31,13 +31,13 @@ async function render(lang){const c=copy[lang],v02=path.resolve(__dirname,'../vi
   const d=definitions[i],duration=durations[i],background=path.join(work,`${lang}-${i}.png`);await sharp(Buffer.from(bg(i,c))).png().toFile(background);
   const start=d.last?Math.max(0,seconds(d.file)-d.last):d.start||0,hold=d.still?duration:duration-d.length;
   let filter=d.still?'fps=30':`trim=start=${start}:duration=${d.length},setpts=PTS-STARTPTS,fps=30,tpad=stop_mode=clone:stop_duration=${duration},trim=duration=${duration}`;
-  if(i===4)filter+=`,${lang==='pl'?'crop=2066:960:0:0,':''}scale=1728:640:force_original_aspect_ratio=decrease:flags=lanczos,pad=1728:640:(ow-iw)/2:0:color=0xf6f5ef`;
+  if(i===4)filter+=',crop=1740:750:36:90,scale=1728:640:force_original_aspect_ratio=decrease:flags=lanczos,pad=1728:640:(ow-iw)/2:0:color=0xf6f5ef';
   else filter+=',scale=540:960:flags=lanczos';
   filter+=`,setsar=1[screen];[1:v][screen]overlay=${i===4?'96:395':'1268:60'}:shortest=1${i===3?'[base];[2:v]scale=540:960:flags=lanczos,setsar=1[share];[base][share]overlay=1268:60:enable=gte(t\\,4)':''},format=yuv420p[v]`;
   const segment=path.join(work,`${lang}-${i}.mp4`);
   const share=path.join(v04,'sources',lang,'02-share.png');
   run([...(d.still?['-loop','1','-framerate','30']:[]),'-i',d.file,'-loop','1','-framerate','30','-i',background,...(i===3?['-loop','1','-framerate','30','-i',share]:[]),'-filter_complex_threads','2','-filter_complex','[0:v]'+filter,'-map','[v]','-t',String(duration),'-an','-c:v','libx264','-preset','medium','-crf','19','-threads','4','-pix_fmt','yuv420p',segment],path.join(work,`${lang}-${i}.log`));
-  segments.push(segment);manifest.push({source:path.relative(__dirname,d.file).replaceAll('\\','/'),sha256:sha(d.file),still:!!d.still,start,length:d.still?0:d.length,speed:1,hold,outputStart:offset,outputSeconds:duration,...(i===3?{endStill:{source:path.relative(__dirname,share).replaceAll('\\','/'),sha256:sha(share),from:4}}:{})});offset+=duration;console.log('Rendered '+lang+' '+i);
+  segments.push(segment);manifest.push({source:path.relative(__dirname,d.file).replaceAll('\\','/'),sha256:sha(d.file),still:!!d.still,start,length:d.still?0:d.length,speed:1,hold,outputStart:offset,outputSeconds:duration,...(i===4?{privacy:'drawing-viewport-only',viewportCrop:{x:36,y:90,width:1740,height:750}}:{}),...(i===3?{endStill:{source:path.relative(__dirname,share).replaceAll('\\','/'),sha256:sha(share),from:4}}:{})});offset+=duration;console.log('Rendered '+lang+' '+i);
  }
  const list=path.join(work,lang+'-concat.txt');fs.writeFileSync(list,segments.map(p=>`file '${p.replaceAll('\\','/')}'`).join('\n'));
  const silent=path.join(out,`v01-overview-${lang}-silent.mp4`),film=path.join(out,`v01-overview-${lang}.mp4`);

@@ -1,0 +1,57 @@
+// Test-only adapter for the user-authorized sensor demonstration.
+// App UI, camera view, permission checks, geometry, steps conversion and persistence stay unchanged.
+// This file is appended only while building the temporary APK and is never imported by production.
+let demoSession = '';
+let demoStarted = 0;
+let demoCaptures = 0;
+let demoStepRuns = 0;
+let demoOrientationTimer: ReturnType<typeof setInterval> | undefined;
+let demoStepTimer: ReturnType<typeof setInterval> | undefined;
+let demoSteps: StepSample | null = null;
+const demoListeners: Record<string, Set<(sample: any) => void>> = { orientationSample: new Set(), stepSample: new Set() };
+const emitDemo = (event: string, sample: any) => demoListeners[event]?.forEach(callback => callback(sample));
+function clearDemoTimers() { clearInterval(demoOrientationTimer); clearInterval(demoStepTimer); }
+const demoSensors = new Proxy(module as OrientationModule, {
+  get(target, key) {
+    if (key === 'getCapabilities') return async () => ({ ...(await target.getCapabilities()), magnetic: true, relative: true, stepDetector: true });
+    if (key === 'addListener') return (event: string, callback: (sample: any) => void) => {
+      if (demoListeners[event]) { demoListeners[event].add(callback); return { remove: () => demoListeners[event].delete(callback) }; }
+      return target.addListener(event as keyof NativeEvents, callback);
+    };
+    if (key === 'startSession') return async (options: string) => {
+      clearDemoTimers();
+      const original = JSON.parse(options);
+      const result = await target.startSession(JSON.stringify({ ...original, mode: 'manual' }));
+      demoSession = result.sessionId; demoStarted = Date.now(); demoCaptures = 0; demoStepRuns = 0; demoSteps = null;
+      await target.appendEvent('demo_simulation', JSON.stringify({ simulatedOrientation: true, simulatedStepDetector: true, source: 'V06 user-authorized demonstration', stepTargets: [8, 6, 8], headingsRad: [Math.PI / 2, 0, -Math.PI / 2] }));
+      demoOrientationTimer = setInterval(() => emitDemo('orientationSample', {
+        headingRad: Math.PI / 2 - demoCaptures * Math.PI / 2, pitchDeg: 0, horizontalProjection: 1,
+        accuracy: 3, stdDevDeg: 0.2, sampleCount: Math.min(60, Math.floor((Date.now() - demoStarted) / 40)),
+        ready: Date.now() - demoStarted > 2200, sessionId: demoSession,
+      }), 200);
+      return { sessionId: demoSession, mode: original.mode };
+    };
+    if (key === 'stopSession') return async () => { clearDemoTimers(); demoSteps = null; demoSession = ''; await target.stopSession(); };
+    if (key === 'captureDirection') return async () => {
+      const capture: Capture = { headingRad: Math.PI / 2 - demoCaptures * Math.PI / 2, stdDevDeg: 0.2,
+        accuracy: 3, sampleCount: 60, horizontalProjection: 1, stable: true, sessionId: demoSession, timestampUtc: new Date().toISOString() };
+      demoCaptures++; await target.appendEvent('demo_capture', JSON.stringify({ simulated: true, capture })); return capture;
+    };
+    if (key === 'startStepMeasurement') return async (sessionId: string) => {
+      if (sessionId !== demoSession) throw new Error('Demo session changed');
+      clearInterval(demoStepTimer); const targetCount = [8, 6, 8][demoStepRuns++ % 3];
+      demoSteps = { measurementId: 'demo-' + Date.now(), steps: 0, active: true, sessionId };
+      demoStepTimer = setInterval(() => {
+        if (!demoSteps?.active || demoSteps.steps >= targetCount) return;
+        demoSteps = { ...demoSteps, steps: demoSteps.steps + 1 }; emitDemo('stepSample', demoSteps);
+        void target.appendEvent('demo_step_sample', JSON.stringify({ simulated: true, ...demoSteps }));
+      }, 800);
+      return { ...demoSteps };
+    };
+    if (key === 'stopStepMeasurement') return async (measurementId: string) => {
+      clearInterval(demoStepTimer); if (!demoSteps || demoSteps.measurementId !== measurementId) throw new Error('Demo measurement changed');
+      demoSteps = { ...demoSteps, active: false }; await target.appendEvent('demo_step_stopped', JSON.stringify({ simulated: true, ...demoSteps })); return { ...demoSteps };
+    };
+    const value = Reflect.get(target, key, target); return typeof value === 'function' ? value.bind(target) : value;
+  },
+});
