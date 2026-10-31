@@ -9,7 +9,7 @@ Wersja ilustracyjna, przygotowana lokalnie 30.10.2026: **45 sekund**, PL i EN, 1
 
 Na polecenie użytkownika film wykorzystuje wygenerowany obraz: osoba mierząca bok tarasu taśmą i trzymająca telefon ekranem do siebie. Obraz utworzono wbudowanym narzędziem **ImageGen**. Źródło zapisano w `sources/garden-measurement.png`, pełny prompt w [sources/image-prompt.txt](sources/image-prompt.txt). Osoba jest fikcyjna.
 
-Pierwsze 12 s to subtelne zbliżenie obrazu (1,000 → 1,035). **Postać pozostaje nieruchoma**: to animacja kadru, nie generatywne wideo z ruchem człowieka i nie dokumentacja rzeczywistego pomiaru terenowego. Nie uruchamiano płatnego generatora wideo Weave ani Runway.
+Po korekcie użytkownika 31.10.2026 pierwsze 12 s to subtelne **oddalenie obrazu (1,035 → 1,000), bez przesuwania na boki**. Środek obrazu pozostaje stały; ruch ma łagodny początek i koniec. Transformacja współrzędnych zmiennoprzecinkowych z interpolacją cubic zastąpiła wcześniejszy zoompan, którego zaokrąglenia kadru powodowały wrażenie skakania. **Postać pozostaje nieruchoma**: to animacja kadru, nie generatywne wideo z ruchem człowieka i nie dokumentacja rzeczywistego pomiaru terenowego. Nie uruchamiano płatnego generatora wideo Weave ani Runway.
 
 12–29 s: rzeczywiste nagranie ręcznego wpisania długości i zapisu punktu z V02, obok wygenerowana scena. Bez przyspieszania; końcowa pauza co najmniej 9 s. 29–45 s: rzeczywiste podsumowanie tego samego przykładu z V04 oraz oryginalny PNG Free z V02. Przykład tarasu 4 × 3 m, 14 m / 12 m² jest demonstracyjny; zdjęcie nie stanowi dowodu zmierzenia tych wartości. Zamykający bok jest wyliczony. Zachowano znak wodny Free.
 

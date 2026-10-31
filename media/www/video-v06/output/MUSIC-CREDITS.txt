@@ -1,0 +1,3 @@
+Music: "Montauk Point" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400013. Changes: 108-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.
+
+Include this attribution and the simulation disclosure in the published video description.

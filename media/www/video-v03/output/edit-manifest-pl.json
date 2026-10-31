@@ -11,8 +11,16 @@
       "kind": "generated-image-camera-motion",
       "source": "sources/garden-measurement.png",
       "sha256": "8a0b3da4dd1bdcbad83152cb4bb1f4b045553ee085215a0a7199218516863ac1",
-      "zoomStart": 1,
-      "zoomEnd": 1.035
+      "motion": "centered-zoom-out",
+      "zoomStart": 1.035,
+      "zoomEnd": 1,
+      "center": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pan": false,
+      "interpolation": "cubic",
+      "easing": "cosine"
     },
     {
       "outputStart": 12,

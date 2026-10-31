@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-30",
+  "date": "2026-10-31",
   "reports": [
     {
       "language": "pl",
@@ -14,8 +14,12 @@
       "sourceHashesVerified": true,
       "pngUnchanged": true,
       "cameraMovement": true,
-      "sha256": "ff387ddfefc998f8df4bce03ccdd4ea94bbe8fc7ea457889fa2cf8e16de5499c",
-      "bytes": 6671610
+      "motion": "centered-zoom-out",
+      "pan": false,
+      "zoomStart": 1.035,
+      "zoomEnd": 1,
+      "sha256": "a51500992186aeea3eec2cb29fb25373b5820ce5b40b47bde511ce1f2b2be1e3",
+      "bytes": 10114881
     },
     {
       "language": "en",
@@ -30,13 +34,17 @@
       "sourceHashesVerified": true,
       "pngUnchanged": true,
       "cameraMovement": true,
-      "sha256": "33134ab3c3ad4815ed198611d52836fc2e4e7f3317d7e1f49dc3ca8e7a13fa3c",
-      "bytes": 6639804
+      "motion": "centered-zoom-out",
+      "pan": false,
+      "zoomStart": 1.035,
+      "zoomEnd": 1,
+      "sha256": "61c75d188d9830a11cf55bfedbb8c98c61876782b3def0a773ceeece3d6a1398",
+      "bytes": 10083169
     }
   ],
   "illustration": {
     "generated": true,
-    "method": "Built-in ImageGen, still image animated with camera zoom; no human motion generated",
+    "method": "Built-in ImageGen, still image animated with centred zoom out and no pan; no human motion generated",
     "sourceSha256": "8a0b3da4dd1bdcbad83152cb4bb1f4b045553ee085215a0a7199218516863ac1",
     "prompt": "sources/image-prompt.txt"
   },

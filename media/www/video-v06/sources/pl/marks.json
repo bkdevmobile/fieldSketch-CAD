@@ -1,0 +1,202 @@
+[
+  {
+    "clip": "",
+    "label": "Nowy szkic",
+    "t": 1793429197.457
+  },
+  {
+    "clip": "",
+    "label": "Utwórz szkic",
+    "t": 1793429207.373
+  },
+  {
+    "clip": "",
+    "label": "Stoję w narożniku · zapisz P1",
+    "t": 1793429212.215
+  },
+  {
+    "clip": "01-camera",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "01-camera",
+    "label": "end",
+    "t": 11.06
+  },
+  {
+    "clip": "02-direction",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "02-direction",
+    "label": "Zapisz kierunek do narożnika",
+    "t": 6.125
+  },
+  {
+    "clip": "02-direction",
+    "label": "Kierunek gotowy · podaj długość",
+    "t": 10.333
+  },
+  {
+    "clip": "02-direction",
+    "label": "end",
+    "t": 13.952
+  },
+  {
+    "clip": "03-steps",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "03-steps",
+    "label": "Uruchom krokomierz",
+    "t": 4.362
+  },
+  {
+    "clip": "03-steps",
+    "label": "Zatrzymaj krokomierz",
+    "t": 18.276
+  },
+  {
+    "clip": "03-steps",
+    "label": "end",
+    "t": 21.437
+  },
+  {
+    "clip": "04-save",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "04-save",
+    "label": "Sprawdź bok",
+    "t": 3.53
+  },
+  {
+    "clip": "04-save",
+    "label": "Zapisz punkt",
+    "t": 7.718
+  },
+  {
+    "clip": "04-save",
+    "label": "end",
+    "t": 11.128
+  },
+  {
+    "clip": "05-camera-next",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "05-camera-next",
+    "label": "Zapisz kierunek do narożnika",
+    "t": 8.357
+  },
+  {
+    "clip": "05-camera-next",
+    "label": "Kierunek gotowy · podaj długość",
+    "t": 12.546
+  },
+  {
+    "clip": "05-camera-next",
+    "label": "end",
+    "t": 15.952
+  },
+  {
+    "clip": "06-steps-next",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "06-steps-next",
+    "label": "Uruchom krokomierz",
+    "t": 3.603
+  },
+  {
+    "clip": "06-steps-next",
+    "label": "Zatrzymaj krokomierz",
+    "t": 14.192
+  },
+  {
+    "clip": "06-steps-next",
+    "label": "Sprawdź bok",
+    "t": 17.412
+  },
+  {
+    "clip": "06-steps-next",
+    "label": "Zapisz punkt",
+    "t": 21.287
+  },
+  {
+    "clip": "06-steps-next",
+    "label": "end",
+    "t": 24.612
+  },
+  {
+    "clip": "07-third-side",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "07-third-side",
+    "label": "Zapisz kierunek do narożnika",
+    "t": 7.107
+  },
+  {
+    "clip": "07-third-side",
+    "label": "Kierunek gotowy · podaj długość",
+    "t": 10.505
+  },
+  {
+    "clip": "07-third-side",
+    "label": "Uruchom krokomierz",
+    "t": 13.967
+  },
+  {
+    "clip": "07-third-side",
+    "label": "Zatrzymaj krokomierz",
+    "t": 26.096
+  },
+  {
+    "clip": "07-third-side",
+    "label": "Sprawdź bok",
+    "t": 28.743
+  },
+  {
+    "clip": "07-third-side",
+    "label": "Zapisz punkt",
+    "t": 32.53
+  },
+  {
+    "clip": "07-third-side",
+    "label": "end",
+    "t": 35.852
+  },
+  {
+    "clip": "08-result",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "08-result",
+    "label": "Zakończ",
+    "t": 4.531
+  },
+  {
+    "clip": "08-result",
+    "label": "Zamknij obrys",
+    "t": 8.487
+  },
+  {
+    "clip": "08-result",
+    "label": "Eksportuj PNG",
+    "t": 16.626
+  },
+  {
+    "clip": "08-result",
+    "label": "end",
+    "t": 23.77
+  }
+]

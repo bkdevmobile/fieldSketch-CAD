@@ -1,0 +1,104 @@
+{
+  "duration": 108,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "disclosure": "Demonstracja w emulatorze z symulowanymi odczytami kierunku i kroków. Obraz ogrodu jest podany do wirtualnej kamery z pliku. Interfejs, przeliczanie długości, zapis szkicu i PNG są rzeczywiste. Film nie dokumentuje fizycznego pomiaru ani dokładności czujników.",
+  "segments": [
+    {
+      "source": "sources/pl/01-camera.mp4",
+      "sha256": "d09dc099f013c74b812cf1e88a8452b0758597337269c43f92b9bc5b098effa7",
+      "start": 0,
+      "length": 6,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 0,
+      "outputSeconds": 10
+    },
+    {
+      "source": "sources/pl/02-direction.mp4",
+      "sha256": "6f412c30674785d888152877f3159639330946edf49ecbb8dcb5698b4ae7a3cd",
+      "start": 0,
+      "length": 10,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 10,
+      "outputSeconds": 14,
+      "endStill": {
+        "source": "sources/pl/02-direction.png",
+        "sha256": "52fae7f9cef625c4f72448beb6af024566dae5da9d89fb94f2ffaa93593e2bac",
+        "from": 10
+      }
+    },
+    {
+      "source": "sources/pl/03-steps.mp4",
+      "sha256": "deac950f1d475b50c55b8dbea123b33160b7b130a43bb701144c1a3e1dc8354c",
+      "start": 0,
+      "length": 18.48,
+      "speed": 1,
+      "hold": 7.52,
+      "outputStart": 24,
+      "outputSeconds": 26,
+      "endStill": {
+        "source": "sources/pl/03-steps-stopped.png",
+        "sha256": "024b542dd733ca25db79f80d8e199c176d74bee932e2848685bd7c1f2701681b",
+        "from": 22
+      }
+    },
+    {
+      "source": "sources/pl/04-save.mp4",
+      "sha256": "58853a67f966a860241912ddab7fffda22ff24296f5591486f17c10983f313d7",
+      "start": 4.359999999999999,
+      "length": 6,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 50,
+      "outputSeconds": 10
+    },
+    {
+      "source": "sources/pl/05-camera-next.mp4",
+      "sha256": "e0b6c586680a698fe6202dac363515d9f9bb8f8380b7829ba18f53f91580e93b",
+      "start": 0,
+      "length": 12.32,
+      "speed": 1,
+      "hold": 5.68,
+      "outputStart": 60,
+      "outputSeconds": 18,
+      "endStill": {
+        "source": "sources/pl/05-direction.png",
+        "sha256": "c038ead26bf7076ef0e90bddfcb18f4d1cc52122a35bdb60b4e8d26cb014a7f0",
+        "from": 14
+      }
+    },
+    {
+      "source": "sources/pl/06-steps-next.mp4",
+      "sha256": "c3262460f73d8c68d75ec9b02ad99486e169f9403a4e31dcddb94e178aaf7afb",
+      "start": 0,
+      "length": 12,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 78,
+      "outputSeconds": 16,
+      "endStill": {
+        "source": "sources/pl/06-review.png",
+        "sha256": "06b598796735072a346fc22a146f9b0678a5190568b5b4952178f2139a4bc078",
+        "from": 12
+      }
+    },
+    {
+      "source": "sources/pl/08-result.mp4",
+      "sha256": "faa0a0deb3d6ae6a8a6b5fb0a2377bcd9343bb61d1e4b3cc871270f6caef0d91",
+      "start": 8.370000000000001,
+      "length": 10,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 94,
+      "outputSeconds": 14,
+      "endStill": {
+        "source": "sources/pl/08-preview.png",
+        "sha256": "e8e4281fefe8bbff952a60181056cc7254ee5b49d1f386d0d3c258922c731efa",
+        "from": 10
+      }
+    }
+  ]
+}

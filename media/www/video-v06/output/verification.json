@@ -1,0 +1,162 @@
+{
+  "date": "2026-10-31",
+  "reports": [
+    {
+      "language": "pl",
+      "projectId": "mvw1fzyu-oo7mh82hpq",
+      "name": "Teren",
+      "mode": "relative",
+      "points": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 4.5
+        },
+        {
+          "x": 0,
+          "y": 4.500000000000001
+        }
+      ],
+      "steps": [
+        8,
+        6,
+        8
+      ],
+      "detectedSteps": [
+        8,
+        6,
+        8
+      ],
+      "stepLengthCm": 75,
+      "lengthsMetres": [
+        6,
+        4.5,
+        6
+      ],
+      "perimeterMetres": 21,
+      "areaSquareMetres": 27,
+      "closure": "calculated",
+      "simulated": true,
+      "pngSha256": "d1b533657df0b544b41c7cd20804599ce5d6e0a2d366563dd71a3cc9901e5e09",
+      "durationSeconds": 108,
+      "decodedFrames": 3240,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -23.1,
+      "videoStreamPreserved": true,
+      "sourceHashesVerified": true,
+      "simulationDisclosed": true,
+      "sha256": "bfe4c79d8ecd03f137ed59df44b59d34b9d497013a6113be73113c79f3fe2dd8",
+      "bytes": 5015249
+    },
+    {
+      "language": "en",
+      "projectId": "mvw1mzf8-uqxvi846na",
+      "name": "Garden",
+      "mode": "relative",
+      "points": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 4.5
+        },
+        {
+          "x": 0,
+          "y": 4.500000000000001
+        }
+      ],
+      "steps": [
+        8,
+        6,
+        8
+      ],
+      "detectedSteps": [
+        8,
+        6,
+        8
+      ],
+      "stepLengthCm": 75,
+      "lengthsMetres": [
+        6,
+        4.5,
+        6
+      ],
+      "perimeterMetres": 21,
+      "areaSquareMetres": 27,
+      "closure": "calculated",
+      "simulated": true,
+      "pngSha256": "ac9de3d0d3dde36803793b2f1f0f97e43f9945a9aab770ecf15565d01354a2b9",
+      "durationSeconds": 108,
+      "decodedFrames": 3240,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -23.1,
+      "videoStreamPreserved": true,
+      "sourceHashesVerified": true,
+      "simulationDisclosed": true,
+      "sha256": "1c922c8b5f46f21a99c25d28041132c72992b4d0508b4981e8056a031b5e2666",
+      "bytes": 4926473
+    }
+  ],
+  "music": {
+    "title": "Montauk Point",
+    "artist": "Kevin MacLeod",
+    "license": "CC BY 4.0",
+    "source": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400013",
+    "sha256": "bba425149807011f6a9cfd1db38bb06cab3d0e82e8a1d9ecaf280f71e5fc2b1b"
+  },
+  "cameraInput": {
+    "file": "sources/camera-input.png",
+    "sha256": "b45e67ccfad08d6320e644d1463cc667a48f06896d40807c19785b61f4ab2dfb",
+    "source": "googlePlay/emulator-screenshots/sources/garden-camera.png",
+    "virtual": true
+  },
+  "restoration": {
+    "date": "2026-10-31",
+    "sourceRestored": true,
+    "sourceSha256": "004ad5978f0fb81a113f20b61b458dc4cbeb8789da0b5452aa3ff7d0ca9a8790",
+    "originalApkReinstalled": true,
+    "productionApkUnchanged": true,
+    "productionApkSha256": "e383e3b4645dcd433b07fcce433102eb30a8a5cd3d6d3e5311a26c9398a8f0b6",
+    "testApkSha256": "fac1f9cf4efcb3037f64ed80d224a3df4ea48509ad7b14ce40ecd7f7c9824d14",
+    "demonstrationDatabaseRestored": true,
+    "restoredFiles": [
+      {
+        "file": "fieldsketch.db",
+        "sha256": "63837e02f8f480f25ed366545cd1c7b3550203efb92a0495ac79cb90698ee9bc"
+      },
+      {
+        "file": "fieldsketch.db-wal",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "fieldsketch.db-shm",
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      }
+    ],
+    "locale": "en",
+    "touchIndicatorsOff": true,
+    "demoClockExited": true,
+    "hostWebcamUsed": false,
+    "simulation": "temporary JavaScript adapter for orientation and step events; virtual camera image file; original app UI and geometry",
+    "temporaryBuildArtifactsRemoved": true
+  }
+}

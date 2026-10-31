@@ -21,8 +21,13 @@ async function render(lang){const c=copy[lang],v02=path.resolve(__dirname,'../vi
  const manifests=[],segments=[];
  const overlay=path.join(work,`photo-overlay-${lang}.png`);await sharp(Buffer.from(panel(c))).png().toFile(overlay);
  const first=path.join(work,`${lang}-0.mp4`);
- run(['-loop','1','-framerate','30','-i',photo,'-loop','1','-framerate','30','-i',overlay,'-filter_complex_threads','2','-filter_complex',"[0:v]scale=2304:1296:force_original_aspect_ratio=increase,crop=2304:1296,zoompan=z='1+0.035*min(on,359)/359':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:s=1920x1080:fps=30[scene];[scene][1:v]overlay=0:0:shortest=1,format=yuv420p[v]",'-map','[v]','-t','12','-an','-c:v','libx264','-preset','medium','-crf','19','-threads','4',first],path.join(work,lang+'-0.log'));
- segments.push(first);manifests.push({outputStart:0,outputSeconds:12,kind:'generated-image-camera-motion',source:'sources/garden-measurement.png',sha256:sha(photo),zoomStart:1,zoomEnd:1.035});console.log('Rendered '+lang+' garden');
+ // Floating-point corner transforms avoid the integer crop steps of zoompan.
+ // All four corners scale symmetrically around the fixed image centre.
+ const zoom='1.035-0.035*(0.5-0.5*cos(PI*min(on,359)/359))';
+ const left=`W*(1-(${zoom}))/2`,right=`W*(1+(${zoom}))/2`,top=`H*(1-(${zoom}))/2`,bottom=`H*(1+(${zoom}))/2`;
+ const motion=`[0:v]scale=1920:1080:force_original_aspect_ratio=increase:flags=lanczos,crop=1920:1080,format=yuv444p,perspective=x0='${left}':y0='${top}':x1='${right}':y1='${top}':x2='${left}':y2='${bottom}':x3='${right}':y3='${bottom}':sense=destination:eval=frame:interpolation=cubic[scene];[scene][1:v]overlay=0:0:shortest=1,format=yuv420p[v]`;
+ run(['-loop','1','-framerate','30','-i',photo,'-loop','1','-framerate','30','-i',overlay,'-filter_complex_threads','2','-filter_complex',motion,'-map','[v]','-t','12','-an','-c:v','libx264','-preset','medium','-crf','19','-threads','4',first],path.join(work,lang+'-0.log'));
+ segments.push(first);manifests.push({outputStart:0,outputSeconds:12,kind:'generated-image-camera-motion',source:'sources/garden-measurement.png',sha256:sha(photo),motion:'centered-zoom-out',zoomStart:1.035,zoomEnd:1,center:{x:0.5,y:0.5},pan:false,interpolation:'cubic',easing:'cosine'});console.log('Rendered '+lang+' garden');
  for(const i of [1,2]){
   const background=path.join(work,`${lang}-${i}.png`);await sharp(Buffer.from(bg(c,i))).png().toFile(background);
   const length=i===1?17:16,segment=path.join(work,`${lang}-${i}.mp4`),source=i===1?manual:summary,start=i===1?Math.max(0,seconds(manual)-8):0;

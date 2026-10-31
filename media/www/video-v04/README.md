@@ -2,6 +2,14 @@
 
 Gotowe lokalnie 30.10.2026: wersje PL i EN, po 144 s (2:24), 1920 × 1080, 30 kl./s, AAC stereo. Bez publikacji na WWW.
 
+Korekta prywatności 30.10.2026: z obu wersji usunięto całe okno wyboru pliku z komputera. Etap otwierania pokazuje kartę przykładowego DXF i rzeczywisty widok już otwartego rysunku. W pozostałych ujęciach CAD pokazano wyłącznie obszar rysunku (crop x=36, y=90, 1740 × 750), osobny fragment preferencji jednostek i fragment odczytu długości. Panele z historią, listami plików oraz lokalnymi ścieżkami nie trafiają do filmu. Ta sama poprawka objęła V01, który korzysta z tych nagrań. Długość, geometria i muzyka pozostały bez zmian.
+
+Surowe nagrania w `sources` zachowują lokalny materiał produkcyjny i nie są wersją do publikacji. W szczególności `02-open.mp4` jest wyłączony z montażu. Publikować wyłącznie poprawione filmy z `output`; skrypt weryfikacji sprawdza wykluczenie tego źródła i kadry CAD. Miniatury i arkusze klatek odtworzono z poprawionych filmów.
+
+Korekta prywatności 30.10.2026: z obu wersji usunięto całe okno wyboru pliku z komputera. Etap otwierania pokazuje kartę przykładowego DXF i rzeczywisty widok już otwartego rysunku. W pozostałych ujęciach CAD pokazano wyłącznie obszar rysunku (crop x=36, y=90, 1740 × 750), osobny fragment preferencji jednostek i fragment odczytu długości. Panele z historią, listami plików oraz lokalnymi ścieżkami nie trafiają do filmu. Ta sama poprawka objęła V01, który korzysta z tych nagrań. Długość, geometria i muzyka pozostały bez zmian.
+
+Surowe nagrania w `sources` zachowują lokalny materiał produkcyjny i nie są wersją do publikacji. W szczególności `02-open.mp4` jest wyłączony z montażu. Publikować wyłącznie poprawione filmy z `output`; skrypt weryfikacji sprawdza wykluczenie tego źródła i kadry CAD. Miniatury i arkusze klatek odtworzono z poprawionych filmów.
+
 - [Podgląd PL](output/preview-pl.html) · [MP4 PL](output/v04-dxf-to-cad-pl.mp4)
 - [Podgląd EN](output/preview-en.html) · [MP4 EN](output/v04-dxf-to-cad-en.mp4)
 - Oryginalne eksporty: [DXF PL](output/patio-pl.dxf), [DXF EN](output/patio-en.dxf).

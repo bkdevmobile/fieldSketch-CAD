@@ -2,6 +2,10 @@
 
 Film przeglądowy przygotowany lokalnie 30.10.2026 w PL i EN: **60 sekund**, 1920 × 1080, 30 kl./s, H.264 i AAC stereo 48 kHz. Bez publikacji i integracji z WWW.
 
+Korekta prywatności 30.10.2026: ujęcie LibreCAD kadruje wyłącznie obszar rysunku (x=36, y=90, 1740 × 750), bez paneli z lokalnymi plikami i ścieżkami. Poprawiono obie wersje oraz arkusze podglądu; czas i muzyka bez zmian. Surowe nagrania CAD pozostają materiałem produkcyjnym, a nie wersją do publikacji. Odpowiednia kontrola kadrowania została dodana do `verify.cjs`.
+
+Korekta prywatności 30.10.2026: ujęcie LibreCAD kadruje wyłącznie obszar rysunku (x=36, y=90, 1740 × 750), bez paneli z lokalnymi plikami i ścieżkami. Poprawiono obie wersje oraz arkusze podglądu; czas i muzyka bez zmian. Surowe nagrania CAD pozostają materiałem produkcyjnym, a nie wersją do publikacji. Odpowiednia kontrola kadrowania została dodana do `verify.cjs`.
+
 - [Podgląd PL](output/preview-pl.html) · [MP4 PL](output/v01-overview-pl.mp4)
 - [Podgląd EN](output/preview-en.html) · [MP4 EN](output/v01-overview-en.mp4)
 

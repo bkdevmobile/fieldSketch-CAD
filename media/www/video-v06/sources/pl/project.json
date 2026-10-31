@@ -1,0 +1,139 @@
+{
+  "id": "mvw1fzyu-oo7mh82hpq",
+  "schemaVersion": 1,
+  "name": "Teren",
+  "createdAt": "2026-10-31T06:46:46.229Z",
+  "updatedAt": "2026-10-31T06:49:27.351Z",
+  "geometryRevision": 4,
+  "mode": "relative",
+  "points": [
+    {
+      "id": "mvw1fzyu-pdiield5wr",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "mvw1hf3y-653ccszvnq",
+      "x": 6,
+      "y": 0
+    },
+    {
+      "id": "mvw1icx2-mtn8e2erjh",
+      "x": 6,
+      "y": 4.5
+    },
+    {
+      "id": "mvw1j5ri-pm5fpm1mot",
+      "x": 0,
+      "y": 4.500000000000001
+    }
+  ],
+  "observations": [
+    {
+      "id": "mvw1hf3y-5awtjocksr",
+      "kind": "side",
+      "fromPointId": "mvw1fzyu-pdiield5wr",
+      "toPointId": "mvw1hf3y-653ccszvnq",
+      "lengthSource": "steps",
+      "stepCount": 8,
+      "stepLengthCm": 75,
+      "stepMeasurementId": "demo-1793429246351",
+      "detectedSteps": 8,
+      "lengthM": 6,
+      "lengthCm": 600,
+      "theta": 0,
+      "mode": "relative",
+      "capturedTheta": 0,
+      "referenceFrameId": "75f116b3-3521-4932-ab32-654baf50a600",
+      "capture": {
+        "headingRad": 1.5707963267948966,
+        "stdDevDeg": 0.2,
+        "accuracy": 3,
+        "sampleCount": 60,
+        "horizontalProjection": 1,
+        "stable": true,
+        "sessionId": "75f116b3-3521-4932-ab32-654baf50a600",
+        "timestampUtc": "2026-10-31T06:47:12.714Z"
+      },
+      "predictedEnd": {
+        "id": "mvw1hf3y-653ccszvnq",
+        "x": 6,
+        "y": 0
+      },
+      "createdAt": "2026-10-31T06:47:52.510Z"
+    },
+    {
+      "id": "mvw1icx2-8rvyrqjkj8",
+      "kind": "side",
+      "fromPointId": "mvw1hf3y-653ccszvnq",
+      "toPointId": "mvw1icx2-mtn8e2erjh",
+      "lengthSource": "steps",
+      "stepCount": 6,
+      "stepLengthCm": 75,
+      "stepMeasurementId": "demo-1793429298678",
+      "detectedSteps": 6,
+      "lengthM": 4.5,
+      "lengthCm": 450,
+      "theta": 1.5707963267948966,
+      "mode": "relative",
+      "capturedTheta": 1.5707963267948966,
+      "referenceFrameId": "75f116b3-3521-4932-ab32-654baf50a600",
+      "capture": {
+        "headingRad": 0,
+        "stdDevDeg": 0.2,
+        "accuracy": 3,
+        "sampleCount": 60,
+        "horizontalProjection": 1,
+        "stable": true,
+        "sessionId": "75f116b3-3521-4932-ab32-654baf50a600",
+        "timestampUtc": "2026-10-31T06:48:05.964Z"
+      },
+      "predictedEnd": {
+        "id": "mvw1icx2-mtn8e2erjh",
+        "x": 6,
+        "y": 4.5
+      },
+      "createdAt": "2026-10-31T06:48:36.326Z"
+    },
+    {
+      "id": "mvw1j5rj-j1j6i45m5x",
+      "kind": "side",
+      "fromPointId": "mvw1icx2-mtn8e2erjh",
+      "toPointId": "mvw1j5ri-pm5fpm1mot",
+      "lengthSource": "steps",
+      "stepCount": 8,
+      "stepLengthCm": 75,
+      "stepMeasurementId": "demo-1793429335170",
+      "detectedSteps": 8,
+      "lengthM": 6,
+      "lengthCm": 600,
+      "theta": 3.141592653589793,
+      "mode": "relative",
+      "capturedTheta": 3.141592653589793,
+      "referenceFrameId": "75f116b3-3521-4932-ab32-654baf50a600",
+      "capture": {
+        "headingRad": -1.5707963267948966,
+        "stdDevDeg": 0.2,
+        "accuracy": 3,
+        "sampleCount": 60,
+        "horizontalProjection": 1,
+        "stable": true,
+        "sessionId": "75f116b3-3521-4932-ab32-654baf50a600",
+        "timestampUtc": "2026-10-31T06:48:48.310Z"
+      },
+      "predictedEnd": {
+        "id": "mvw1j5ri-pm5fpm1mot",
+        "x": 0,
+        "y": 4.500000000000001
+      },
+      "createdAt": "2026-10-31T06:49:13.711Z"
+    }
+  ],
+  "activeObservationIds": [
+    "mvw1hf3y-5awtjocksr",
+    "mvw1icx2-8rvyrqjkj8",
+    "mvw1j5rj-j1j6i45m5x"
+  ],
+  "closed": true,
+  "closureObservationId": null
+}

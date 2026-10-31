@@ -21,12 +21,15 @@ function dxfGeometry(file){const lines=fs.readFileSync(file,'utf8').trim().split
   assert(/1920x1080/.test(decoded.stderr)&&/30 fps/.test(decoded.stderr)&&/Audio: aac/.test(decoded.stderr),'Unexpected video/audio format');assert(!/Subtitle:/.test(decoded.stderr),'Unexpected subtitles');
   const videoHash=file=>run(['-i',file,'-map','0:v:0','-c','copy','-f','hash','-hash','sha256','-']).stdout.trim();assert(videoHash(film)===videoHash(silent),'Audio mix changed video stream');
   const edit=JSON.parse(fs.readFileSync(path.join(out,`edit-manifest-${lang}.json`)));assert(edit.segments.every(s=>s.speed<=1&&s.hold>=6),'Unexpected acceleration');
+  assert(edit.segments.every(s=>!s.source.endsWith('/02-open.mp4')),'Private file dialog must not appear');
+  for(const i of [1,2,4])assert(edit.segments[i].viewportCrop?.x===36&&edit.segments[i].viewportCrop?.y===90&&edit.segments[i].viewportCrop?.width===1740&&edit.segments[i].viewportCrop?.height===750,'CAD must use only the drawing viewport');
+  assert(edit.segments[3].privacy==='units-dialog-crop'&&edit.segments[4].privacy==='drawing-viewport-and-length-status-only','Unexpected CAD crop policy');
   const html=fs.readFileSync(path.join(out,`preview-${lang}.html`),'utf8');assert(!/<track\b/.test(html),'Duplicate subtitle track');
   const buffers=[];for(const [i,time] of [18,48,79,96,121,139].entries()){
    const frame=path.join(__dirname,'rendered',lang+'-qa-'+i+'.png');run(['-ss',String(time),'-i',film,'-frames:v','1',frame]);buffers.push(await sharp(frame).resize(960,540).toBuffer());
   }
   await sharp({create:{width:1920,height:1620,channels:3,background:'#f6f5ef'}}).composite(buffers.map((input,i)=>({input,left:i%2*960,top:Math.floor(i/2)*540}))).png().toFile(path.join(out,`contact-sheet-${lang}.png`));
-  reports.push({language:lang,durationSeconds:144,decodedFrames:4320,width:1920,height:1080,fps:30,audio:'AAC stereo 48 kHz',geometry,dxfSha256:sha(dxf),videoSha256:sha(film),bytes:fs.statSync(film).size,videoStreamPreserved:true});console.log('Verified '+lang+': 4320 frames, audio, original DXF, metres, 14 m.');
+  reports.push({language:lang,durationSeconds:144,decodedFrames:4320,width:1920,height:1080,fps:30,audio:'AAC stereo 48 kHz',geometry,dxfSha256:sha(dxf),videoSha256:sha(film),bytes:fs.statSync(film).size,videoStreamPreserved:true,privateFileDialogExcluded:true,cadViewportCropsVerified:true});console.log('Verified '+lang+': 4320 frames, audio, original DXF, metres, 14 m, private file dialog excluded.');
  }
  const audioCheck=run(['-i',path.join(out,'v04-dxf-to-cad-pl.mp4'),'-vn','-af','ebur128=peak=true','-f','null','-']);fs.writeFileSync(path.join(out,'audio-validation.log'),audioCheck.stderr);
  const restoration=JSON.parse(fs.readFileSync(path.join(__dirname,'sources/restoration.json')));assert(restoration.storeRestored&&restoration.productionApkUnchanged,'Restoration not confirmed');

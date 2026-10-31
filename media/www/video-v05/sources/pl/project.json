@@ -1,0 +1,129 @@
+{
+  "id": "mvvgyg2x-9q385xozk0",
+  "schemaVersion": 1,
+  "name": "Salon",
+  "createdAt": "2026-10-30T21:13:14.985Z",
+  "updatedAt": "2026-10-30T21:15:02.408Z",
+  "geometryRevision": 5,
+  "mode": "manual",
+  "points": [
+    {
+      "id": "mvvgyg2x-gw5efd9tlw",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "mvvgz022-ok622kqfvr",
+      "x": 5,
+      "y": 0
+    },
+    {
+      "id": "mvvgzjov-l6vsdt1mqi",
+      "x": 5,
+      "y": 4
+    },
+    {
+      "id": "mvvgzzyn-ty4jx8omt3",
+      "x": 0,
+      "y": 4.000000000000001
+    }
+  ],
+  "observations": [
+    {
+      "id": "mvvgz022-u94ef61th2",
+      "kind": "side",
+      "fromPointId": "mvvgyg2x-gw5efd9tlw",
+      "toPointId": "mvvgz022-ok622kqfvr",
+      "lengthSource": "manual",
+      "stepCount": null,
+      "stepLengthCm": null,
+      "lengthM": 5,
+      "lengthCm": 500,
+      "theta": 0,
+      "mode": "manual",
+      "capturedTheta": 0,
+      "referenceFrameId": "f034669f-be9b-4c6f-853e-f4aafd41ae90",
+      "capture": null,
+      "predictedEnd": {
+        "id": "mvvgz022-ok622kqfvr",
+        "x": 5,
+        "y": 0
+      },
+      "createdAt": "2026-10-30T21:13:40.874Z"
+    },
+    {
+      "id": "mvvgzjov-o4o7wpnetq",
+      "kind": "side",
+      "fromPointId": "mvvgz022-ok622kqfvr",
+      "toPointId": "mvvgzjov-l6vsdt1mqi",
+      "lengthSource": "manual",
+      "stepCount": null,
+      "stepLengthCm": null,
+      "lengthM": 4,
+      "lengthCm": 400,
+      "theta": 1.5707963267948966,
+      "mode": "manual",
+      "capturedTheta": 1.5707963267948966,
+      "referenceFrameId": "f034669f-be9b-4c6f-853e-f4aafd41ae90",
+      "capture": null,
+      "predictedEnd": {
+        "id": "mvvgzjov-l6vsdt1mqi",
+        "x": 5,
+        "y": 4
+      },
+      "createdAt": "2026-10-30T21:14:06.319Z"
+    },
+    {
+      "id": "mvvgzzyn-rggkennhg9",
+      "kind": "side",
+      "fromPointId": "mvvgzjov-l6vsdt1mqi",
+      "toPointId": "mvvgzzyn-ty4jx8omt3",
+      "lengthSource": "manual",
+      "stepCount": null,
+      "stepLengthCm": null,
+      "lengthM": 4.8,
+      "lengthCm": 480,
+      "theta": 3.141592653589793,
+      "mode": "manual",
+      "capturedTheta": 3.141592653589793,
+      "referenceFrameId": "f034669f-be9b-4c6f-853e-f4aafd41ae90",
+      "capture": null,
+      "predictedEnd": {
+        "id": "mvvgzzyn-ty4jx8omt3",
+        "x": 0.20000000000000018,
+        "y": 4.000000000000001
+      },
+      "createdAt": "2026-10-30T21:14:27.407Z"
+    },
+    {
+      "id": "mvvh0hb5-hk3rpoqox0",
+      "kind": "side",
+      "fromPointId": "mvvgzjov-l6vsdt1mqi",
+      "toPointId": "mvvgzzyn-ty4jx8omt3",
+      "lengthSource": "manual",
+      "stepCount": null,
+      "stepLengthCm": null,
+      "lengthM": 5,
+      "lengthCm": 500,
+      "theta": 3.141592653589793,
+      "mode": "manual",
+      "capturedTheta": 3.141592653589793,
+      "referenceFrameId": "f034669f-be9b-4c6f-853e-f4aafd41ae90",
+      "capture": null,
+      "predictedEnd": {
+        "id": "mvvgzzyn-ty4jx8omt3",
+        "x": 0,
+        "y": 4.000000000000001
+      },
+      "createdAt": "2026-10-30T21:14:49.889Z",
+      "supersedesId": "mvvgzzyn-rggkennhg9"
+    }
+  ],
+  "activeObservationIds": [
+    "mvvgz022-u94ef61th2",
+    "mvvgzjov-o4o7wpnetq",
+    "mvvh0hb5-hk3rpoqox0"
+  ],
+  "closed": true,
+  "closureObservationId": null
+}

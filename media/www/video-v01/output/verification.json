@@ -13,8 +13,8 @@
       "videoStreamPreserved": true,
       "sourceHashesVerified": true,
       "pngAndDxfUnchanged": true,
-      "sha256": "23b4c6d3b02c6199e12cbe1d7d9c4574c1646434e14bbe9be342b5266cfabeb7",
-      "bytes": 2444491
+      "sha256": "cd1898d56e115ddf847c6989d58e05df664d5583856872567d9becc078493409",
+      "bytes": 2381535
     },
     {
       "language": "en",
@@ -28,8 +28,8 @@
       "videoStreamPreserved": true,
       "sourceHashesVerified": true,
       "pngAndDxfUnchanged": true,
-      "sha256": "6f536d3db56ddab325746f0f87e92c62e3809aaa5f151b6364c3326fcec3eb85",
-      "bytes": 2441147
+      "sha256": "2ad282571f27ff9082613a37ab5170b6ef7a4f36100702f4b6098440d3f13715",
+      "bytes": 2374021
     }
   ],
   "music": {
