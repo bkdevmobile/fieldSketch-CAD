@@ -1,0 +1,104 @@
+{
+  "duration": 108,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "disclosure": "Emulator demonstration with simulated direction and step sensor readings. A garden image file supplies the virtual camera. The interface, length conversion, sketch persistence and exported PNG are real. This film does not document a physical measurement or sensor accuracy.",
+  "segments": [
+    {
+      "source": "sources/en/01-camera.mp4",
+      "sha256": "48ca7755380a227cd89cbf9fc50ee8f273eb054692f3619b68a77bb31c500aa5",
+      "start": 0,
+      "length": 6,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 0,
+      "outputSeconds": 10
+    },
+    {
+      "source": "sources/en/02-direction.mp4",
+      "sha256": "3819d73f81ce111ff9b1e93b7c9d039dd4a3de1b5bdd2f1322795b5ef7b4122d",
+      "start": 0,
+      "length": 10,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 10,
+      "outputSeconds": 14,
+      "endStill": {
+        "source": "sources/en/02-direction.png",
+        "sha256": "79d1762e88183796a017b4c3a5db66dd3a250730fc064cf9017b38e8bda00392",
+        "from": 10
+      }
+    },
+    {
+      "source": "sources/en/03-steps.mp4",
+      "sha256": "767dfb5c21c0d1d367cec13d7b4a35be626dd33d7ce0fa274626b422aadd743c",
+      "start": 0,
+      "length": 18.25,
+      "speed": 1,
+      "hold": 7.75,
+      "outputStart": 24,
+      "outputSeconds": 26,
+      "endStill": {
+        "source": "sources/en/03-steps-stopped.png",
+        "sha256": "ec8ea03b0f1985c6b0bd036c5bc9850d3da2298e5681a36acc48acab0eecb659",
+        "from": 22
+      }
+    },
+    {
+      "source": "sources/en/04-save.mp4",
+      "sha256": "1a3b602f466172d80bab601e6f12e3e25050b2ae8eca9da44b16b7ea50362740",
+      "start": 4.6899999999999995,
+      "length": 6,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 50,
+      "outputSeconds": 10
+    },
+    {
+      "source": "sources/en/05-camera-next.mp4",
+      "sha256": "1840eb917d6976e16f630525bfa784be9d44e2bad2772b91a5231035570058f7",
+      "start": 0,
+      "length": 12.47,
+      "speed": 1,
+      "hold": 5.529999999999999,
+      "outputStart": 60,
+      "outputSeconds": 18,
+      "endStill": {
+        "source": "sources/en/05-direction.png",
+        "sha256": "d47eb18616da1bb0f994151e188068b897b0308b0fd672747e2ea9646245c70e",
+        "from": 14
+      }
+    },
+    {
+      "source": "sources/en/06-steps-next.mp4",
+      "sha256": "7deabbd923d167e5c389f94d2a5c82da03b12f7ffd32ca91357f729b0811cb7c",
+      "start": 0,
+      "length": 12,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 78,
+      "outputSeconds": 16,
+      "endStill": {
+        "source": "sources/en/06-review.png",
+        "sha256": "3dfd14080f28c449478dc7cba12ab8b692c841d88b613e12e272bd86f1025c90",
+        "from": 12
+      }
+    },
+    {
+      "source": "sources/en/08-result.mp4",
+      "sha256": "4c3e918ec0ab1ee265f66a72f7b7e95274970e82bf3e6c305ee4c5c98fb7241c",
+      "start": 7.690000000000001,
+      "length": 10,
+      "speed": 1,
+      "hold": 4,
+      "outputStart": 94,
+      "outputSeconds": 14,
+      "endStill": {
+        "source": "sources/en/08-preview.png",
+        "sha256": "f979d71fbcd50d5a30339cde073d83d8e6cb375a78900d6278dc1818a810e889",
+        "from": 10
+      }
+    }
+  ]
+}

@@ -123,3 +123,35 @@ Prowadzić stronę aplikacji na Facebooku jako kanał prezentacji zastosowań, p
 ### Realizacja i wyniki
 
 Zapisano pomysł prowadzenia strony. Istnienie strony i jej adres nie zostały potwierdzone; nie utworzono strony ani nie opublikowano postów w ramach tego zadania. Harmonogram i ocena skuteczności do ustalenia.
+
+## 5. Wygenerować i opublikować YouTube Shorts
+
+Data dodania: **31 października 2026**. Status: **pierwszy Shorts opublikowany — potwierdzenie użytkownika z 31.10.2026**. Kolejne materiały pozostają do zaplanowania.
+
+### Cel i zakres
+
+- Przygotować krótkie, pionowe filmy promujące outlineGo i opublikować je jako YouTube Shorts.
+- W pierwszej kolejności pokazać **pomiar za pomocą czujników — największy atut aplikacji**: celowanie kamerą, zapis kierunku, krokomierz Start → przejście → zatrzymanie → Stop i powstający szkic.
+- Wykorzystać gotowe materiały V01–V06, przede wszystkim V06; przygotować montaż do pionowego kadru z czytelnym UI, zamiast ucinać ważne kontrolki.
+- Przygotować tytuły, opisy, kredyty muzyczne i odnośniki do aplikacji. Punktem wyjścia są [metadane pełnych filmów](youtube-metadane.md); Shorts wymagają osobnego dopasowania.
+- Zachować spokojne, czytelne kroki, bez technicznych napisów i dublujących podpisów. Symulację czujników i wygenerowane ilustracje ujawnić w opisie oraz odpowiednich ustawieniach publikacji.
+
+### Realizacja i wyniki
+
+Użytkownik potwierdził publikację pierwszego Shortsa: [YouTube Shorts — T12jpWwueGA](https://www.youtube.com/shorts/T12jpWwueGA). Data potwierdzenia: **31.10.2026**; dokładnej daty publikacji i wyników nie podano. Pozostałe adresy opublikowanych filmów zapisano poniżej.
+
+## 6. Filmy opublikowane na YouTube
+
+**Potwierdzenie użytkownika z 31 października 2026:** opublikowano sześć filmów oraz jeden Shorts pod poniższymi adresami. Data wpisu jest datą otrzymania potwierdzenia, nie ustaloną datą publikacji poszczególnych filmów. Przypisania adresów do V01–V06 i wersji językowych nie potwierdzono; poniższa numeracja zachowuje kolejność przekazaną przez użytkownika.
+
+| Pozycja | Rodzaj | Opublikowany materiał |
+| --- | --- | --- |
+| 1 | Film | [lsLog5fihLI](https://www.youtube.com/watch?v=lsLog5fihLI) |
+| 2 | Film | [vU_GZGLLbbs](https://www.youtube.com/watch?v=vU_GZGLLbbs) |
+| 3 | Film | [SgDSsxakoSc](https://www.youtube.com/watch?v=SgDSsxakoSc) |
+| 4 | Film | [c3eB9KIP1-A](https://www.youtube.com/watch?v=c3eB9KIP1-A) |
+| 5 | Film | [5PsxaTydVi4](https://www.youtube.com/watch?v=5PsxaTydVi4) |
+| 6 | Film | [Y0RK2G2we_w](https://www.youtube.com/watch?v=Y0RK2G2we_w) |
+| 7 | Shorts | [T12jpWwueGA](https://www.youtube.com/shorts/T12jpWwueGA) |
+
+Publikacja na YouTube nie oznacza wdrożenia lokalnej wersji WWW ani zastąpienia osadzonych plików MP4 odtwarzaczami YouTube. Statystyki i wnioski z publikacji pozostają do uzupełnienia.

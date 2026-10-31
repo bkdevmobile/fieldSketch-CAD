@@ -1,0 +1,47 @@
+1
+00:00:00,000 --> 00:00:05,000
+Tworzymy „Taras” w trybie ręcznym.
+
+2
+00:00:05,000 --> 00:00:10,000
+Przykład: prostokąt o wymiarach 4 × 3 m. Kierunki i długości wpisujemy ręcznie.
+
+3
+00:00:10,000 --> 00:00:18,500
+Zapisz P1 i ustaw pierwszy kierunek 0°.
+
+4
+00:00:18,500 --> 00:00:27,000
+Wpisz 4 m, sprawdź bok i zapisz P2. Każdy bok przechodzi te same trzy etapy.
+
+5
+00:00:27,000 --> 00:00:36,500
+Wpisuj skręt 90° w lewo.
+
+6
+00:00:36,500 --> 00:00:46,000
+Dodaj 3 m i 3,8 m, zapisując każdy punkt. Po trzecim boku wybierz Zostaw otwarty.
+
+7
+00:00:46,000 --> 00:00:52,000
+W podsumowaniu wybierz poprawę boku.
+
+8
+00:00:52,000 --> 00:00:58,000
+Zmień 3,8 m na 4 m i zapisz poprawki. Korekta zmienia zapisany wynik szkicu.
+
+9
+00:00:58,000 --> 00:01:03,000
+Kontynuuj pomiar → Zakończ → Zamknij obrys.
+
+10
+00:01:03,000 --> 00:01:08,000
+Bok do P1 jest wyliczony, a nie zmierzony. Obwód 14 m · pole 12 m².
+
+11
+00:01:08,000 --> 00:01:14,000
+Wybierz Eksportuj PNG → Udostępnij PNG.
+
+12
+00:01:14,000 --> 00:01:20,000
+Free zachowuje znak wodny outlineGo. Plik został utworzony; nie wysyłamy go odbiorcy.

@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-31",
+  "reports": [
+    {
+      "language": "pl",
+      "durationSeconds": 45,
+      "decodedFrames": 1350,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -24.1,
+      "videoStreamPreserved": true,
+      "sourceHashesVerified": true,
+      "pngUnchanged": true,
+      "cameraMovement": true,
+      "motion": "centered-zoom-out",
+      "pan": false,
+      "zoomStart": 1.035,
+      "zoomEnd": 1,
+      "sha256": "a51500992186aeea3eec2cb29fb25373b5820ce5b40b47bde511ce1f2b2be1e3",
+      "bytes": 10114881
+    },
+    {
+      "language": "en",
+      "durationSeconds": 45,
+      "decodedFrames": 1350,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -24.1,
+      "videoStreamPreserved": true,
+      "sourceHashesVerified": true,
+      "pngUnchanged": true,
+      "cameraMovement": true,
+      "motion": "centered-zoom-out",
+      "pan": false,
+      "zoomStart": 1.035,
+      "zoomEnd": 1,
+      "sha256": "61c75d188d9830a11cf55bfedbb8c98c61876782b3def0a773ceeece3d6a1398",
+      "bytes": 10083169
+    }
+  ],
+  "illustration": {
+    "generated": true,
+    "method": "Built-in ImageGen, still image animated with centred zoom out and no pan; no human motion generated",
+    "sourceSha256": "8a0b3da4dd1bdcbad83152cb4bb1f4b045553ee085215a0a7199218516863ac1",
+    "prompt": "sources/image-prompt.txt"
+  },
+  "music": {
+    "title": "Wallpaper",
+    "artist": "Kevin MacLeod",
+    "license": "CC BY 4.0",
+    "source": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100843",
+    "sha256": "9fa810e5193c88f1b360537366f210f16c2588106d5292f0659e9957fa274f96"
+  }
+}

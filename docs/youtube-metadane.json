@@ -1,0 +1,270 @@
+{
+  "date": "2026-10-31",
+  "status": "proposal",
+  "videos": [
+    {
+      "id": "01",
+      "duration": "1:00",
+      "stem": "overview",
+      "music": "Easy Lemon (60 second)",
+      "pl": {
+        "title": "Od szkicu na telefonie do CAD — poznaj outlineGo",
+        "thumbnail": "OD SZKICU DO CAD",
+        "body": "Zapisz obrys na telefonie i zabierz go do dalszej pracy na komputerze. Zobacz outlineGo w minutę: pierwszy bok, podgląd szkicu, eksport PNG i przejście przez DXF do LibreCAD.\n\nPNG jest dostępny w Free. Eksport własnych szkiców do DXF wymaga Plus. Film pokazuje rzeczywiste ekrany aplikacji i CAD z danymi demonstracyjnymi; ten przykład wykorzystuje ręczne wprowadzanie wymiarów.",
+        "hashtags": "#outlineGo #Szkic2D #DXF",
+        "tags": [
+          "outlineGo",
+          "szkic na telefonie",
+          "szkic 2D",
+          "Android",
+          "eksport DXF",
+          "PNG",
+          "LibreCAD",
+          "z telefonu do CAD"
+        ],
+        "comment": "Co chcesz szkicować: ogród, taras czy pokój? Napisz w komentarzu.",
+        "description": "Zapisz obrys na telefonie i zabierz go do dalszej pracy na komputerze. Zobacz outlineGo w minutę: pierwszy bok, podgląd szkicu, eksport PNG i przejście przez DXF do LibreCAD.\n\nPNG jest dostępny w Free. Eksport własnych szkiców do DXF wymaga Plus. Film pokazuje rzeczywiste ekrany aplikacji i CAD z danymi demonstracyjnymi; ten przykład wykorzystuje ręczne wprowadzanie wymiarów.\n\nPobierz outlineGo na Androida: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nStrona aplikacji: https://outlinego-27ab5.web.app/pl/\n\nMusic: \"Easy Lemon (60 second)\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1200077. Changes: 60-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.\n\n#outlineGo #Szkic2D #DXF",
+        "file": "media/www/video-v01/output/v01-overview-pl.mp4"
+      },
+      "en": {
+        "title": "From a phone sketch to CAD — meet outlineGo",
+        "thumbnail": "FROM SKETCH TO CAD",
+        "body": "Capture an outline on your phone and take it into your next step on a computer. Meet outlineGo in one minute: save a side, review the sketch, export a PNG and take the DXF into LibreCAD.\n\nPNG export is available in Free. Exporting your own sketches to DXF requires Plus. The video shows actual app and CAD screens with demonstration data; this example uses manually entered dimensions.",
+        "hashtags": "#outlineGo #2DSketch #DXF",
+        "tags": [
+          "outlineGo",
+          "phone sketch",
+          "2D sketch",
+          "Android",
+          "DXF export",
+          "PNG",
+          "LibreCAD",
+          "phone to CAD"
+        ],
+        "comment": "What would you like to sketch: a garden, a patio or a room? Tell us in the comments.",
+        "description": "Capture an outline on your phone and take it into your next step on a computer. Meet outlineGo in one minute: save a side, review the sketch, export a PNG and take the DXF into LibreCAD.\n\nPNG export is available in Free. Exporting your own sketches to DXF requires Plus. The video shows actual app and CAD screens with demonstration data; this example uses manually entered dimensions.\n\nGet outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nApp website: https://outlinego-27ab5.web.app/en/\n\nMusic: \"Easy Lemon (60 second)\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1200077. Changes: 60-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.\n\n#outlineGo #2DSketch #DXF",
+        "file": "media/www/video-v01/output/v01-overview-en.mp4"
+      }
+    },
+    {
+      "id": "02",
+      "duration": "3:44",
+      "stem": "first-sketch",
+      "music": "Carefree",
+      "pl": {
+        "title": "Jak zrobić pierwszy szkic z wymiarami? outlineGo krok po kroku",
+        "thumbnail": "TWÓJ PIERWSZY SZKIC",
+        "body": "Zrób pierwszy szkic w outlineGo: ustaw kierunek, wpisz długość i zapisz kolejny punkt. Spokojna instrukcja pokazuje także korektę wymiaru, zamknięcie obrysu i eksport PNG.\n\nPrzykład 4 × 3 m: poprawiamy bok z 3,8 m na 4 m, otrzymując obwód 14 m i pole 12 m². Ostatni bok jest wyliczonym połączeniem z punktem początkowym.\n\nRzeczywisty interfejs aplikacji, ręcznie wpisane dane demonstracyjne. Ten film uczy ręcznego wariantu pracy; kamera i krokomierz są pokazane w osobnym filmie. PNG ze znakiem wodnym jest dostępny w Free.",
+        "hashtags": "#outlineGo #SzkicZWymiarami #Android",
+        "tags": [
+          "outlineGo",
+          "pierwszy szkic",
+          "szkic z wymiarami",
+          "instrukcja outlineGo",
+          "ręczne wymiary",
+          "korekta wymiarów",
+          "eksport PNG",
+          "Android"
+        ],
+        "comment": "Który krok warto pokazać dokładniej: kierunek, korektę czy eksport PNG?",
+        "description": "Zrób pierwszy szkic w outlineGo: ustaw kierunek, wpisz długość i zapisz kolejny punkt. Spokojna instrukcja pokazuje także korektę wymiaru, zamknięcie obrysu i eksport PNG.\n\nPrzykład 4 × 3 m: poprawiamy bok z 3,8 m na 4 m, otrzymując obwód 14 m i pole 12 m². Ostatni bok jest wyliczonym połączeniem z punktem początkowym.\n\nRzeczywisty interfejs aplikacji, ręcznie wpisane dane demonstracyjne. Ten film uczy ręcznego wariantu pracy; kamera i krokomierz są pokazane w osobnym filmie. PNG ze znakiem wodnym jest dostępny w Free.\n\nPobierz outlineGo na Androida: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nStrona aplikacji: https://outlinego-27ab5.web.app/pl/\n\nMusic: \"Carefree\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400037. Changes: excerpted, repeated with a 2.5-second crossfade, normalized to quiet background level, 2-second fade-in, 4-second fade-out, encoded to AAC.\n\n#outlineGo #SzkicZWymiarami #Android",
+        "file": "media/www/video-v02/output/v02-first-sketch-pl-with-music.mp4"
+      },
+      "en": {
+        "title": "Make your first dimensioned sketch — outlineGo step by step",
+        "thumbnail": "YOUR FIRST SKETCH",
+        "body": "Make your first sketch in outlineGo: set a direction, enter a length and save the next point. This paced walkthrough also covers correcting a dimension, closing the outline and exporting a PNG.\n\nThe 4 × 3 m example corrects a side from 3.8 m to 4 m, giving a 14 m perimeter and a 12 m² area. The final side is a calculated connection to the starting point.\n\nActual app interface with manually entered demonstration data. This video teaches the manual workflow; camera and step counting are covered in a separate video. Watermarked PNG export is available in Free.",
+        "hashtags": "#outlineGo #DimensionedSketch #Android",
+        "tags": [
+          "outlineGo",
+          "first sketch",
+          "dimensioned sketch",
+          "outlineGo tutorial",
+          "manual dimensions",
+          "edit dimensions",
+          "PNG export",
+          "Android"
+        ],
+        "comment": "Which step would you like to see in more detail: direction, corrections or PNG export?",
+        "description": "Make your first sketch in outlineGo: set a direction, enter a length and save the next point. This paced walkthrough also covers correcting a dimension, closing the outline and exporting a PNG.\n\nThe 4 × 3 m example corrects a side from 3.8 m to 4 m, giving a 14 m perimeter and a 12 m² area. The final side is a calculated connection to the starting point.\n\nActual app interface with manually entered demonstration data. This video teaches the manual workflow; camera and step counting are covered in a separate video. Watermarked PNG export is available in Free.\n\nGet outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nApp website: https://outlinego-27ab5.web.app/en/\n\nMusic: \"Carefree\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400037. Changes: excerpted, repeated with a 2.5-second crossfade, normalized to quiet background level, 2-second fade-in, 4-second fade-out, encoded to AAC.\n\n#outlineGo #DimensionedSketch #Android",
+        "file": "media/www/video-v02/output/v02-first-sketch-en-with-music.mp4"
+      }
+    },
+    {
+      "id": "03",
+      "duration": "0:45",
+      "stem": "garden",
+      "music": "Wallpaper",
+      "pl": {
+        "title": "Szkic ogrodu na telefonie — od wymiarów do PNG | outlineGo",
+        "thumbnail": "OGRÓD → SZKIC",
+        "body": "Zachowaj obrys ogrodu lub tarasu w czytelnym szkicu na telefonie. Zobacz krótki przykład przejścia od wpisania wymiaru do podsumowania i gotowego PNG w outlineGo.\n\nScena osoby mierzącej ogród jest wygenerowaną ilustracją, animowaną delikatnym oddaleniem. Nie jest zapisem fizycznego pomiaru. Ekrany aplikacji i eksport PNG są rzeczywiste, a dane przykładu wpisano ręcznie.\n\nSzkic pomaga we wstępnym planowaniu. Wymiary potrzebne do zakupu materiałów lub wykonania prac sprawdź odpowiednim narzędziem.",
+        "hashtags": "#outlineGo #SzkicOgrodu #PlanowanieOgrodu",
+        "tags": [
+          "outlineGo",
+          "szkic ogrodu",
+          "plan ogrodu",
+          "szkic tarasu",
+          "wymiary ogrodu",
+          "szkic na telefonie",
+          "PNG",
+          "Android"
+        ],
+        "comment": "Jaki obrys przyda Ci się częściej: ogród, taras czy podjazd?",
+        "description": "Zachowaj obrys ogrodu lub tarasu w czytelnym szkicu na telefonie. Zobacz krótki przykład przejścia od wpisania wymiaru do podsumowania i gotowego PNG w outlineGo.\n\nScena osoby mierzącej ogród jest wygenerowaną ilustracją, animowaną delikatnym oddaleniem. Nie jest zapisem fizycznego pomiaru. Ekrany aplikacji i eksport PNG są rzeczywiste, a dane przykładu wpisano ręcznie.\n\nSzkic pomaga we wstępnym planowaniu. Wymiary potrzebne do zakupu materiałów lub wykonania prac sprawdź odpowiednim narzędziem.\n\nPobierz outlineGo na Androida: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nStrona aplikacji: https://outlinego-27ab5.web.app/pl/\n\nMusic: \"Wallpaper\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100843. Changes: 45-second excerpt, quiet volume normalization, 2-second fade-in and 3-second fade-out, AAC encoding.\n\n#outlineGo #SzkicOgrodu #PlanowanieOgrodu",
+        "file": "media/www/video-v03/output/v03-garden-pl.mp4"
+      },
+      "en": {
+        "title": "Sketch a garden on your phone — dimensions to PNG | outlineGo",
+        "thumbnail": "GARDEN → SKETCH",
+        "body": "Keep a garden or patio outline as a clear sketch on your phone. See a short outlineGo example, from entering a dimension to the summary and a finished PNG.\n\nThe person measuring the garden is a generated illustration animated with a gentle zoom out. It is not a recording of a physical measurement. App screens and the PNG export are real, with manually entered demonstration data.\n\nThe sketch supports early planning. Verify dimensions needed for buying materials or construction with appropriate equipment.",
+        "hashtags": "#outlineGo #GardenSketch #GardenPlanning",
+        "tags": [
+          "outlineGo",
+          "garden sketch",
+          "garden plan",
+          "patio sketch",
+          "garden dimensions",
+          "phone sketch",
+          "PNG",
+          "Android"
+        ],
+        "comment": "Which outline would you use most: a garden, a patio or a driveway?",
+        "description": "Keep a garden or patio outline as a clear sketch on your phone. See a short outlineGo example, from entering a dimension to the summary and a finished PNG.\n\nThe person measuring the garden is a generated illustration animated with a gentle zoom out. It is not a recording of a physical measurement. App screens and the PNG export are real, with manually entered demonstration data.\n\nThe sketch supports early planning. Verify dimensions needed for buying materials or construction with appropriate equipment.\n\nGet outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nApp website: https://outlinego-27ab5.web.app/en/\n\nMusic: \"Wallpaper\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100843. Changes: 45-second excerpt, quiet volume normalization, 2-second fade-in and 3-second fade-out, AAC encoding.\n\n#outlineGo #GardenSketch #GardenPlanning",
+        "file": "media/www/video-v03/output/v03-garden-en.mp4"
+      }
+    },
+    {
+      "id": "04",
+      "duration": "2:24",
+      "stem": "dxf-to-cad",
+      "music": "Life of Riley",
+      "pl": {
+        "title": "Eksport DXF z telefonu do LibreCAD — outlineGo Plus",
+        "thumbnail": "TELEFON → DXF → CAD",
+        "body": "Przenieś szkic z telefonu do programu CAD. Zobacz eksport DXF w outlineGo Plus, ten sam obrys otwarty w LibreCAD oraz sprawdzenie jednostki i długości.\n\nPrzykład: prostokąt 4 × 3 m, jednostka metr i obwód 14 m. W CAD sprawdzamy geometrię, a nie tylko napisy wymiarów.\n\nEksport własnych szkiców do DXF wymaga Plus. LibreCAD jest osobnym programem. Film pokazuje rzeczywisty interfejs i eksport z danymi demonstracyjnymi. Uprawnienie Plus podczas nagrania było testowe; materiał nie dokumentuje zakupu.",
+        "hashtags": "#outlineGo #DXF #LibreCAD",
+        "tags": [
+          "outlineGo",
+          "eksport DXF",
+          "DXF Android",
+          "LibreCAD",
+          "CAD",
+          "z telefonu do CAD",
+          "outlineGo Plus",
+          "jednostki CAD"
+        ],
+        "comment": "W jakim programie otwierasz DXF? Napisz, jaki przykład importu byłby dla Ciebie przydatny.",
+        "description": "Przenieś szkic z telefonu do programu CAD. Zobacz eksport DXF w outlineGo Plus, ten sam obrys otwarty w LibreCAD oraz sprawdzenie jednostki i długości.\n\nPrzykład: prostokąt 4 × 3 m, jednostka metr i obwód 14 m. W CAD sprawdzamy geometrię, a nie tylko napisy wymiarów.\n\nEksport własnych szkiców do DXF wymaga Plus. LibreCAD jest osobnym programem. Film pokazuje rzeczywisty interfejs i eksport z danymi demonstracyjnymi. Uprawnienie Plus podczas nagrania było testowe; materiał nie dokumentuje zakupu.\n\nPobierz outlineGo na Androida: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nStrona aplikacji: https://outlinego-27ab5.web.app/pl/\n\nMusic: \"Life of Riley\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400054. Changes: 144-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.\n\n#outlineGo #DXF #LibreCAD",
+        "file": "media/www/video-v04/output/v04-dxf-to-cad-pl.mp4"
+      },
+      "en": {
+        "title": "Export DXF from your phone to LibreCAD — outlineGo Plus",
+        "thumbnail": "PHONE → DXF → CAD",
+        "body": "Take a phone sketch into CAD. Follow DXF export in outlineGo Plus, open the same outline in LibreCAD and check its unit and length.\n\nExample: a 4 × 3 m rectangle, metre units and a 14 m perimeter. In CAD, check the geometry rather than relying only on dimension labels.\n\nExporting your own sketches to DXF requires Plus. LibreCAD is separate software. The video shows the actual interface and export with demonstration data. A test Plus entitlement was used for recording; this is not a purchase demonstration.",
+        "hashtags": "#outlineGo #DXF #LibreCAD",
+        "tags": [
+          "outlineGo",
+          "DXF export",
+          "DXF Android",
+          "LibreCAD",
+          "CAD",
+          "phone to CAD",
+          "outlineGo Plus",
+          "CAD units"
+        ],
+        "comment": "Which program do you use to open DXF files? Tell us which import example would help you.",
+        "description": "Take a phone sketch into CAD. Follow DXF export in outlineGo Plus, open the same outline in LibreCAD and check its unit and length.\n\nExample: a 4 × 3 m rectangle, metre units and a 14 m perimeter. In CAD, check the geometry rather than relying only on dimension labels.\n\nExporting your own sketches to DXF requires Plus. LibreCAD is separate software. The video shows the actual interface and export with demonstration data. A test Plus entitlement was used for recording; this is not a purchase demonstration.\n\nGet outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nApp website: https://outlinego-27ab5.web.app/en/\n\nMusic: \"Life of Riley\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400054. Changes: 144-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.\n\n#outlineGo #DXF #LibreCAD",
+        "file": "media/www/video-v04/output/v04-dxf-to-cad-en.mp4"
+      }
+    },
+    {
+      "id": "05",
+      "duration": "1:12",
+      "stem": "room",
+      "music": "Dream Culture",
+      "pl": {
+        "title": "Plan pokoju 5 × 4 m na telefonie — szkic i PNG | outlineGo",
+        "thumbnail": "POKÓJ 5 × 4 m",
+        "body": "Zapisz wymiary pokoju i zachowaj jego obrys na telefonie. Przykład w outlineGo pokazuje kolejne boki, korektę długości, zamknięcie szkicu i eksport PNG.\n\nPokój 5 × 4 m: zmieniamy bok z 4,8 m na 5 m. Wynik to 18 m obwodu i 20 m² pola. Czwarty bok jest wyliczonym zamknięciem. PNG ze znakiem wodnym jest dostępny w Free.\n\nScena osoby mierzącej pokój jest wygenerowaną ilustracją i nie dokumentuje pomiaru tego wnętrza. Ekrany i PNG są rzeczywiste; kierunki oraz długości wpisano ręcznie. Przed zakupem mebli sprawdź potrzebne wymiary osobnym pomiarem.",
+        "hashtags": "#outlineGo #PlanPokoju #SzkicZWymiarami",
+        "tags": [
+          "outlineGo",
+          "plan pokoju",
+          "szkic pokoju",
+          "wymiary pokoju",
+          "pokój 5x4",
+          "korekta wymiarów",
+          "eksport PNG",
+          "Android"
+        ],
+        "comment": "Co najczęściej chcesz zachować w szkicu pokoju: obrys, wymiary czy notatkę?",
+        "description": "Zapisz wymiary pokoju i zachowaj jego obrys na telefonie. Przykład w outlineGo pokazuje kolejne boki, korektę długości, zamknięcie szkicu i eksport PNG.\n\nPokój 5 × 4 m: zmieniamy bok z 4,8 m na 5 m. Wynik to 18 m obwodu i 20 m² pola. Czwarty bok jest wyliczonym zamknięciem. PNG ze znakiem wodnym jest dostępny w Free.\n\nScena osoby mierzącej pokój jest wygenerowaną ilustracją i nie dokumentuje pomiaru tego wnętrza. Ekrany i PNG są rzeczywiste; kierunki oraz długości wpisano ręcznie. Przed zakupem mebli sprawdź potrzebne wymiary osobnym pomiarem.\n\nPobierz outlineGo na Androida: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nStrona aplikacji: https://outlinego-27ab5.web.app/pl/\n\nMusic: \"Dream Culture\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046. Changes: 72-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.\n\n#outlineGo #PlanPokoju #SzkicZWymiarami",
+        "file": "media/www/video-v05/output/v05-room-pl.mp4"
+      },
+      "en": {
+        "title": "Make a 5 × 4 m room plan on your phone — outlineGo",
+        "thumbnail": "5 × 4 m ROOM",
+        "body": "Record a room’s dimensions and keep its outline on your phone. This outlineGo example covers adding sides, correcting a length, closing the sketch and exporting a PNG.\n\nThe 5 × 4 m room corrects a side from 4.8 m to 5 m. The result is an 18 m perimeter and a 20 m² area. The fourth side is a calculated closure. Watermarked PNG export is available in Free.\n\nThe person measuring the room is a generated illustration, not a record of measuring this interior. App screens and the PNG are real; directions and lengths were entered manually. Check required dimensions separately before buying furniture.",
+        "hashtags": "#outlineGo #RoomPlan #DimensionedSketch",
+        "tags": [
+          "outlineGo",
+          "room plan",
+          "room sketch",
+          "room dimensions",
+          "5x4 room",
+          "edit dimensions",
+          "PNG export",
+          "Android"
+        ],
+        "comment": "What do you most want to keep in a room sketch: the outline, dimensions or a note?",
+        "description": "Record a room’s dimensions and keep its outline on your phone. This outlineGo example covers adding sides, correcting a length, closing the sketch and exporting a PNG.\n\nThe 5 × 4 m room corrects a side from 4.8 m to 5 m. The result is an 18 m perimeter and a 20 m² area. The fourth side is a calculated closure. Watermarked PNG export is available in Free.\n\nThe person measuring the room is a generated illustration, not a record of measuring this interior. App screens and the PNG are real; directions and lengths were entered manually. Check required dimensions separately before buying furniture.\n\nGet outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nApp website: https://outlinego-27ab5.web.app/en/\n\nMusic: \"Dream Culture\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046. Changes: 72-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.\n\n#outlineGo #RoomPlan #DimensionedSketch",
+        "file": "media/www/video-v05/output/v05-room-en.mp4"
+      }
+    },
+    {
+      "id": "06",
+      "duration": "1:48",
+      "stem": "camera-steps",
+      "music": "Montauk Point",
+      "pl": {
+        "title": "Kamera i krokomierz: szkic z czujników telefonu | outlineGo — demo",
+        "thumbnail": "WYCELUJ. PRZEJDŹ. ZAPISZ.",
+        "body": "Wyceluj kamerą, zapisz kierunek z czujników i oszacuj długość krokami. Zobacz najważniejszy sposób pracy w outlineGo: kierunek → Start → przejście → Stop → zapis punktu → szkic.\n\nTo demonstracja w emulatorze z symulowanymi odczytami kierunku i kroków. Obraz ogrodu w wirtualnej kamerze pochodzi z wygenerowanej ilustracji. Interfejs aplikacji, przeliczanie długości, zapis i eksport PNG są rzeczywiste. Film nie dokumentuje fizycznego pomiaru ani dokładności czujników.\n\nPrzykład: długość kroku 75 cm, odczyty 8 / 6 / 8 kroków, boki 6 / 4,5 / 6 m i wyliczone zamknięcie 4,5 m. Wynik: 21 m obwodu i 27 m² pola.\n\nKamera jest celownikiem, kierunek pochodzi z czujników orientacji, a długość z kroków jest szacunkowa. To nie jest skanowanie AR ani pomiar odległości samą kamerą. Ręczne wymiary możesz wykorzystać jako uzupełnienie.",
+        "hashtags": "#outlineGo #Krokomierz #Szkic2D",
+        "tags": [
+          "outlineGo",
+          "kamera i krokomierz",
+          "pomiar krokami",
+          "kierunek z czujników",
+          "szkic z czujników",
+          "Android",
+          "pomiar telefonem",
+          "demo outlineGo"
+        ],
+        "comment": "Jaką część pomiaru czujnikami pokazać dokładniej: celowanie, długość kroku czy Start/Stop?",
+        "description": "Wyceluj kamerą, zapisz kierunek z czujników i oszacuj długość krokami. Zobacz najważniejszy sposób pracy w outlineGo: kierunek → Start → przejście → Stop → zapis punktu → szkic.\n\nTo demonstracja w emulatorze z symulowanymi odczytami kierunku i kroków. Obraz ogrodu w wirtualnej kamerze pochodzi z wygenerowanej ilustracji. Interfejs aplikacji, przeliczanie długości, zapis i eksport PNG są rzeczywiste. Film nie dokumentuje fizycznego pomiaru ani dokładności czujników.\n\nPrzykład: długość kroku 75 cm, odczyty 8 / 6 / 8 kroków, boki 6 / 4,5 / 6 m i wyliczone zamknięcie 4,5 m. Wynik: 21 m obwodu i 27 m² pola.\n\nKamera jest celownikiem, kierunek pochodzi z czujników orientacji, a długość z kroków jest szacunkowa. To nie jest skanowanie AR ani pomiar odległości samą kamerą. Ręczne wymiary możesz wykorzystać jako uzupełnienie.\n\nPobierz outlineGo na Androida: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nStrona aplikacji: https://outlinego-27ab5.web.app/pl/\n\nMusic: \"Montauk Point\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400013. Changes: 108-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.\n\n#outlineGo #Krokomierz #Szkic2D",
+        "file": "media/www/video-v06/output/v06-camera-steps-pl.mp4"
+      },
+      "en": {
+        "title": "Camera + step counter: sketch with phone sensors | outlineGo demo",
+        "thumbnail": "AIM. WALK. SAVE.",
+        "body": "Aim the camera, capture direction with your phone’s sensors and estimate length from steps. See outlineGo’s core workflow: direction → Start → walk → Stop → save a point → sketch.\n\nThis is an emulator demonstration with simulated direction and step readings. The virtual camera garden scene comes from a generated illustration. The app interface, length calculation, saving and PNG export are real. The video does not document a physical measurement or sensor accuracy.\n\nExample: a 75 cm step length, counts of 8 / 6 / 8, sides of 6 / 4.5 / 6 m and a calculated 4.5 m closure. Result: a 21 m perimeter and a 27 m² area.\n\nThe camera is a viewfinder, direction comes from orientation sensors and step-based length is an estimate. This is not AR scanning or camera-only distance measurement. Manual dimensions are available as a supplement.",
+        "hashtags": "#outlineGo #StepCounter #2DSketch",
+        "tags": [
+          "outlineGo",
+          "camera and step counter",
+          "step measurement",
+          "sensor direction",
+          "sensor sketch",
+          "Android",
+          "phone measurement",
+          "outlineGo demo"
+        ],
+        "comment": "Which part of sensor measurement should we cover in more detail: aiming, step length or Start/Stop?",
+        "description": "Aim the camera, capture direction with your phone’s sensors and estimate length from steps. See outlineGo’s core workflow: direction → Start → walk → Stop → save a point → sketch.\n\nThis is an emulator demonstration with simulated direction and step readings. The virtual camera garden scene comes from a generated illustration. The app interface, length calculation, saving and PNG export are real. The video does not document a physical measurement or sensor accuracy.\n\nExample: a 75 cm step length, counts of 8 / 6 / 8, sides of 6 / 4.5 / 6 m and a calculated 4.5 m closure. Result: a 21 m perimeter and a 27 m² area.\n\nThe camera is a viewfinder, direction comes from orientation sensors and step-based length is an estimate. This is not AR scanning or camera-only distance measurement. Manual dimensions are available as a supplement.\n\nGet outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nApp website: https://outlinego-27ab5.web.app/en/\n\nMusic: \"Montauk Point\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400013. Changes: 108-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.\n\n#outlineGo #StepCounter #2DSketch",
+        "file": "media/www/video-v06/output/v06-camera-steps-en.mp4"
+      }
+    }
+  ]
+}

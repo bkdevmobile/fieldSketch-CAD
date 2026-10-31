@@ -1,0 +1,202 @@
+[
+  {
+    "clip": "",
+    "label": "New sketch",
+    "t": 1793429521.91
+  },
+  {
+    "clip": "",
+    "label": "Create sketch",
+    "t": 1793429533.244
+  },
+  {
+    "clip": "",
+    "label": "At the corner · save P1",
+    "t": 1793429538.358
+  },
+  {
+    "clip": "01-camera",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "01-camera",
+    "label": "end",
+    "t": 11.919
+  },
+  {
+    "clip": "02-direction",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "02-direction",
+    "label": "Save direction to corner",
+    "t": 7.713
+  },
+  {
+    "clip": "02-direction",
+    "label": "Direction ready · enter length",
+    "t": 12.536
+  },
+  {
+    "clip": "02-direction",
+    "label": "end",
+    "t": 16.162
+  },
+  {
+    "clip": "03-steps",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "03-steps",
+    "label": "Start step counter",
+    "t": 4.363
+  },
+  {
+    "clip": "03-steps",
+    "label": "Stop step counter",
+    "t": 18.06
+  },
+  {
+    "clip": "03-steps",
+    "label": "end",
+    "t": 21.236
+  },
+  {
+    "clip": "04-save",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "04-save",
+    "label": "Review side",
+    "t": 3.78
+  },
+  {
+    "clip": "04-save",
+    "label": "Save point",
+    "t": 7.954
+  },
+  {
+    "clip": "04-save",
+    "label": "end",
+    "t": 11.37
+  },
+  {
+    "clip": "05-camera-next",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "05-camera-next",
+    "label": "Save direction to corner",
+    "t": 8.318
+  },
+  {
+    "clip": "05-camera-next",
+    "label": "Direction ready · enter length",
+    "t": 12.597
+  },
+  {
+    "clip": "05-camera-next",
+    "label": "end",
+    "t": 16.012
+  },
+  {
+    "clip": "06-steps-next",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "06-steps-next",
+    "label": "Start step counter",
+    "t": 3.579
+  },
+  {
+    "clip": "06-steps-next",
+    "label": "Stop step counter",
+    "t": 15.744
+  },
+  {
+    "clip": "06-steps-next",
+    "label": "Review side",
+    "t": 19.667
+  },
+  {
+    "clip": "06-steps-next",
+    "label": "Save point",
+    "t": 23.61
+  },
+  {
+    "clip": "06-steps-next",
+    "label": "end",
+    "t": 26.932
+  },
+  {
+    "clip": "07-third-side",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "07-third-side",
+    "label": "Save direction to corner",
+    "t": 7.279
+  },
+  {
+    "clip": "07-third-side",
+    "label": "Direction ready · enter length",
+    "t": 10.682
+  },
+  {
+    "clip": "07-third-side",
+    "label": "Start step counter",
+    "t": 14.088
+  },
+  {
+    "clip": "07-third-side",
+    "label": "Stop step counter",
+    "t": 25.91
+  },
+  {
+    "clip": "07-third-side",
+    "label": "Review side",
+    "t": 28.62
+  },
+  {
+    "clip": "07-third-side",
+    "label": "Save point",
+    "t": 32.57
+  },
+  {
+    "clip": "07-third-side",
+    "label": "end",
+    "t": 35.885
+  },
+  {
+    "clip": "08-result",
+    "label": "start",
+    "t": 1.2
+  },
+  {
+    "clip": "08-result",
+    "label": "Finish",
+    "t": 4.205
+  },
+  {
+    "clip": "08-result",
+    "label": "Close outline",
+    "t": 7.625
+  },
+  {
+    "clip": "08-result",
+    "label": "Export PNG",
+    "t": 15.957
+  },
+  {
+    "clip": "08-result",
+    "label": "end",
+    "t": 23.132
+  }
+]

@@ -1,0 +1,217 @@
+[
+  {
+    "label": "start",
+    "clip": "01-create",
+    "t": 1.2
+  },
+  {
+    "label": "Nowy szkic",
+    "clip": "01-create",
+    "t": 4.646
+  },
+  {
+    "label": "Nazwa szkicu=Salon",
+    "clip": "01-create",
+    "t": 11.638
+  },
+  {
+    "label": "Utwórz szkic",
+    "clip": "01-create",
+    "t": 13.999
+  },
+  {
+    "label": "end",
+    "clip": "01-create",
+    "t": 18.897
+  },
+  {
+    "label": "start",
+    "clip": "02-first-side",
+    "t": 1.2
+  },
+  {
+    "label": "Stoję w narożniku · zapisz P1",
+    "clip": "02-first-side",
+    "t": 3.487
+  },
+  {
+    "label": "Ustaw kierunek",
+    "clip": "02-first-side",
+    "t": 5.942
+  },
+  {
+    "label": "Kierunek gotowy · podaj długość",
+    "clip": "02-first-side",
+    "t": 8.381
+  },
+  {
+    "label": "Długość boku (m)=5",
+    "clip": "02-first-side",
+    "t": 14.263
+  },
+  {
+    "label": "Sprawdź bok",
+    "clip": "02-first-side",
+    "t": 16.825
+  },
+  {
+    "label": "Zapisz punkt",
+    "clip": "02-first-side",
+    "t": 19.588
+  },
+  {
+    "label": "end",
+    "clip": "02-first-side",
+    "t": 21.397
+  },
+  {
+    "label": "start",
+    "clip": "03-next-sides",
+    "t": 1.2
+  },
+  {
+    "label": "Kąt skrętu od poprzedniego boku (°)=90",
+    "clip": "03-next-sides",
+    "t": 6.536
+  },
+  {
+    "label": "Ustaw kierunek",
+    "clip": "03-next-sides",
+    "t": 9.032
+  },
+  {
+    "label": "Kierunek gotowy · podaj długość",
+    "clip": "03-next-sides",
+    "t": 11.394
+  },
+  {
+    "label": "Długość boku (m)=4",
+    "clip": "03-next-sides",
+    "t": 17.189
+  },
+  {
+    "label": "Sprawdź bok",
+    "clip": "03-next-sides",
+    "t": 19.815
+  },
+  {
+    "label": "Zapisz punkt",
+    "clip": "03-next-sides",
+    "t": 22.239
+  },
+  {
+    "label": "Kąt skrętu od poprzedniego boku (°)=90",
+    "clip": "03-next-sides",
+    "t": 27.648
+  },
+  {
+    "label": "Ustaw kierunek",
+    "clip": "03-next-sides",
+    "t": 30.074
+  },
+  {
+    "label": "Kierunek gotowy · podaj długość",
+    "clip": "03-next-sides",
+    "t": 32.483
+  },
+  {
+    "label": "Długość boku (m)=4.8",
+    "clip": "03-next-sides",
+    "t": 38.411
+  },
+  {
+    "label": "Sprawdź bok",
+    "clip": "03-next-sides",
+    "t": 40.935
+  },
+  {
+    "label": "Zapisz punkt",
+    "clip": "03-next-sides",
+    "t": 43.328
+  },
+  {
+    "label": "Zakończ",
+    "clip": "03-next-sides",
+    "t": 45.899
+  },
+  {
+    "label": "Zostaw otwarty",
+    "clip": "03-next-sides",
+    "t": 48.332
+  },
+  {
+    "label": "end",
+    "clip": "03-next-sides",
+    "t": 50.706
+  },
+  {
+    "label": "start",
+    "clip": "04-correction",
+    "t": 1.2
+  },
+  {
+    "label": "Popraw ostatni bok",
+    "clip": "04-correction",
+    "t": 4.42
+  },
+  {
+    "label": "Długość boku (m)=5",
+    "clip": "04-correction",
+    "t": 10.694
+  },
+  {
+    "label": "Zapisz poprawki",
+    "clip": "04-correction",
+    "t": 13.628
+  },
+  {
+    "label": "end",
+    "clip": "04-correction",
+    "t": 15.439
+  },
+  {
+    "label": "start",
+    "clip": "05-close",
+    "t": 1.2
+  },
+  {
+    "label": "Kontynuuj pomiar",
+    "clip": "05-close",
+    "t": 3.509
+  },
+  {
+    "label": "Zakończ",
+    "clip": "05-close",
+    "t": 6.654
+  },
+  {
+    "label": "Zamknij obrys",
+    "clip": "05-close",
+    "t": 9.115
+  },
+  {
+    "label": "end",
+    "clip": "05-close",
+    "t": 11.445
+  },
+  {
+    "label": "start",
+    "clip": "06-export",
+    "t": 1.2
+  },
+  {
+    "label": "Eksportuj PNG",
+    "clip": "06-export",
+    "t": 3.53
+  },
+  {
+    "label": "Udostępnij PNG",
+    "clip": "06-export",
+    "t": 6.792
+  },
+  {
+    "label": "end",
+    "clip": "06-export",
+    "t": 9.013
+  }
+]

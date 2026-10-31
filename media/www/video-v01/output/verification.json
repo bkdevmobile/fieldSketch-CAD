@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-30",
+  "reports": [
+    {
+      "language": "pl",
+      "durationSeconds": 60,
+      "decodedFrames": 1800,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -23.5,
+      "videoStreamPreserved": true,
+      "sourceHashesVerified": true,
+      "pngAndDxfUnchanged": true,
+      "sha256": "cd1898d56e115ddf847c6989d58e05df664d5583856872567d9becc078493409",
+      "bytes": 2381535
+    },
+    {
+      "language": "en",
+      "durationSeconds": 60,
+      "decodedFrames": 1800,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -23.5,
+      "videoStreamPreserved": true,
+      "sourceHashesVerified": true,
+      "pngAndDxfUnchanged": true,
+      "sha256": "2ad282571f27ff9082613a37ab5170b6ef7a4f36100702f4b6098440d3f13715",
+      "bytes": 2374021
+    }
+  ],
+  "music": {
+    "title": "Easy Lemon (60 second)",
+    "artist": "Kevin MacLeod",
+    "license": "CC BY 4.0",
+    "source": "https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1200077",
+    "sha256": "8d5b0da76f50a7be45a7c896c5fe8743b7f83b555425dac30d0136b5205e31a1"
+  }
+}

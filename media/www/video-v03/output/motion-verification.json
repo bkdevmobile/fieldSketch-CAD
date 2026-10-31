@@ -1,0 +1,14 @@
+{
+  "frames": 360,
+  "comparedPairs": 359,
+  "meanLumaChange": 0.19752302798176752,
+  "maxLumaChange": 0.3921022727272727,
+  "p95LumaChange": 0.28556818181818183,
+  "centre": {
+    "x": 0.5,
+    "y": 0.5
+  },
+  "pan": false,
+  "zoomStart": 1.035,
+  "zoomEnd": 1
+}

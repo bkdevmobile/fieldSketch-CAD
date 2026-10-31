@@ -1,0 +1,24 @@
+{
+  "demonstrationDatabaseRestored": true,
+  "restoredFiles": [
+    {
+      "file": "fieldsketch.db",
+      "sha256": "63837e02f8f480f25ed366545cd1c7b3550203efb92a0495ac79cb90698ee9bc"
+    },
+    {
+      "file": "fieldsketch.db-wal",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "fieldsketch.db-shm",
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    }
+  ],
+  "locale": "en",
+  "touchIndicatorsOff": true,
+  "demoClockExited": true,
+  "productionApkUnchanged": true,
+  "productionApkSha256": "e383e3b4645dcd433b07fcce433102eb30a8a5cd3d6d3e5311a26c9398a8f0b6",
+  "appCodeModified": false,
+  "plusMockUsed": false
+}

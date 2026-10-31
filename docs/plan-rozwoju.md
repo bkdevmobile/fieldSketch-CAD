@@ -1,10 +1,17 @@
 # Ogólny plan rozwoju outlineGo
 
+**31.10.2026 — etap 2 WWW opublikowany:** 12 stron marketingowych PL/EN, w tym Plan pokoju i Pomoc, oraz wszystkie filmy V01–V06 na odpowiednich podstronach. Firebase Hosting `outlinego-27ab5`, wersja `3f872ac19f672a6e`; publikacja zakończona 31.10.2026 około 19:53 czasu Europe/Warsaw. Kontrola live przeszła: 12 stron, 137 zasobów ze zgodnymi SHA-256, 12 plików MP4 z odpowiedzią 206 dla zakresów bajtów, przekierowania 301 i strona 404. Strona: https://outlinego-27ab5.web.app/pl/ i /en/. Kod integracji: `4aa98e3`; wcześniejsza implementacja etapu 2: `3c3fc6e`. Log: `artifacts/firebase-www-stage2-deploy-2026-10-31.log`; raport: `artifacts/www-stage2-live-verification-2026-10-31.json`. **Odbiór w przeglądarce zakończony pozytywnie przez użytkownika 31.10.2026: „testy w przeglądarce ok”.** Punkt odbioru WWW zamknięty na podstawie tego potwierdzenia. Wcześniejsze wpisy o lokalnej integracji i braku deployu są historyczne.
+
+
 Stan po publikacji 30.10.2026: etap 1 WWW jest wdrożony na https://outlinego-27ab5.web.app/pl/ i /en/ — osiem stron marketingowych oraz sześć finalnych dokumentów prawnych PL/EN (obowiązują od 30.10.2026, temat redakcji zamknięty). Desktop sprawdzono w VS Code, telefon zaakceptował użytkownik. Wdrożono poprawki wizualne, oficjalne badge Google Play, aktualne ilustracje udostępniania, lżejsze obrazy, doprecyzowane leady i JSON-LD WebSite/BreadcrumbList. Commit SEO fdcc1f3; zapis wdrożenia 97e7e84; wersja Firebase 056f218e8640f749. Po publikacji 25 zasobów ma zgodne SHA-256 z plikami lokalnymi, 301 i 404 działają. Pozostają PageSpeed Insights/Core Web Vitals oraz kontrola przetworzenia mapy i indeksowania w Search Console; własna domena opcjonalnie. Nie zmieniano aplikacji ani APK/AAB. Filmy oraz etap 2 są poza zakończonym zakresem.
 
 Historyczny stan aplikacji na **23 października 2026** (bieżące potwierdzenia paczek: stan-projektu.md): aplikacja 0.1.0 / versionCode 2, kod APK 8365dca. TypeScript i 183 testy w 24 zestawach przeszły. APK z Sentry, ekranem akceptacji i automatycznym zapisem notatek zbudowano, zainstalowano i uruchomiono na Redmi; pozostał odbiór funkcjonalny. AAB jest starszy. WWW opublikowane, dokumenty robocze; brak potwierdzenia produkcji w Google Play. [Aktualny stan](stan-projektu.md), [historia](../MEMO.md).
 
 ## Główny sposób korzystania z aplikacji
+
+**Priorytet promocyjny ustalony przez użytkownika 31 października 2026:** największym atutem outlineGo jest pomiar przy użyciu czujników telefonu. Rozwój prezentacji produktu i materiały promocyjne mają przede wszystkim pokazywać celowanie kamerą, zapis kierunku z sensorów orientacji, krokomierz Start/Stop i tworzenie szkicu w czasie przechodzenia między narożnikami. Ręczne wpisywanie wymiarów i kierunków jest metodą uzupełniającą. Kamera pełni rolę celownika, a odległości z kroków są szacunkowe; komunikacja nie może sugerować skanowania AR ani automatycznego pomiaru odległości samą kamerą.
+
+**Materiały na 31.10.2026:** V01–V06 są gotowe lokalnie w PL/EN. Priorytetowy V06 pokazuje kamerę i krokomierz z zaakceptowaną przez użytkownika, ujawnioną w opisie symulacją odczytów. Aplikację i emulator przywrócono po nagraniu. V03 ma płynne oddalenie bez ruchu na boki, a V05 ilustrację pomiaru pokoju i długość 72 s. Wszystkie V01–V06 są zintegrowane z opublikowanym WWW PL/EN (`3c3fc6e`, `4aa98e3`), wersja Firebase `3f872ac19f672a6e`. Testy w przeglądarce zaakceptował użytkownik 31.10.2026. [Aktualny zestaw i zasady produkcji](media-strony-www.md).
 
 Ustalenie z **25 października 2026**: użytkownik wykonuje **szybki szkic w terenie na telefonie**, a następnie eksportuje go i **dopracowuje na komputerze**. Ten scenariusz stanowi punkt odniesienia przy planowaniu dalszego rozwoju aplikacji.
 
@@ -65,6 +72,10 @@ Dodane **25 października 2026**:
 1. **Kilka obiektów w jednym szkicu** — możliwość pomiaru i zapisania kilku niezależnych obiektów lub obrysów w ramach jednego szkicu.
 2. **Rysowanie i opisy na eksportowanym szkicu** — możliwość dorysowania linii, dodania napisów oraz swobodnego rysowania odręcznego. Dodane elementy mają być widoczne w wyeksportowanym szkicu.
 3. **Intuicyjny help wprowadzający** - opisy wraz z rysunkiem pokazujące jak realizować poszczególne kroki pomiaru. Pomoc w postaci okna dialogowego, chckebox "nie pokazuj pomocy"- możliwość przywrócenia w ustawieniach. Zawsze jest możliwość otworzenia okna dotyczącego danego kroku przez przycisk.
+
+Dodane **31 października 2026**:
+
+4. **Szybki szkic przez wskazywanie punktów palcem** — możliwość tworzenia obrysu przez dotykanie kolejnych punktów na ekranie i łączenie ich w szkic. Pomysł do dopracowania; nie został jeszcze zaimplementowany.
 
 ## Potwierdzony stan i instalacje
 

@@ -4,7 +4,7 @@ const crypto=require('node:crypto');
 const assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../public');
 const origin='https://outlinego-27ab5.web.app';
-const routes={pl:['/pl/','/pl/jak-to-dziala/','/pl/szkic-ogrodu/','/pl/eksport-dxf/'],en:['/en/','/en/how-it-works/','/en/garden-sketch/','/en/dxf-export/']};
+const routes={pl:['/pl/','/pl/jak-to-dziala/','/pl/szkic-ogrodu/','/pl/eksport-dxf/','/pl/plan-pokoju/','/pl/pomoc/'],en:['/en/','/en/how-it-works/','/en/garden-sketch/','/en/dxf-export/','/en/room-plan/','/en/help/']};
 const resolveFile=pathname=>path.join(root,pathname.endsWith('/')?pathname+'index.html':pathname);
 const attr=(tag,key)=>tag.match(new RegExp('(?:^|\\s)'+key+'="([^"]*)"'))?.[1];
 const hash=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
@@ -47,8 +47,8 @@ let preview;
     }
     for(const code of ['pl','en'])assert(html.includes(`<link rel="alternate" hreflang="${code}" href="${origin}${routes[code][i]}">`),'Reciprocal language links');
     const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(new Set(ids).size,ids.length,'Duplicate IDs '+route);
-    for(const tag of html.match(/<(?:a|img|source|link|script)\b[^>]*>/g)||[]){
-      const targets=[attr(tag,'href'),attr(tag,'src'),...(attr(tag,'srcset')||'').split(',').map(s=>s.trim().split(' ')[0])].filter(Boolean);
+    for(const tag of html.match(/<(?:a|img|source|link|script|video)\b[^>]*>/g)||[]){
+      const targets=[attr(tag,'href'),attr(tag,'src'),attr(tag,'poster'),...(attr(tag,'srcset')||'').split(',').map(s=>s.trim().split(' ')[0])].filter(Boolean);
       for(const target of targets){
         const u=new URL(target.replaceAll('&amp;','&'),origin+route);if(u.origin!==origin)continue;
         const file=resolveFile(decodeURIComponent(u.pathname));assert(fs.existsSync(file),'Missing local target: '+target+' on '+route);references.add(file);links++;
@@ -83,7 +83,7 @@ let preview;
   console.log('Verified 6 legal pages: PL/EN links, dates, no internal drafting notes, matching content structure and local links.');
   const sitemap=fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
   const locs=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
-  assert.deepEqual(locs,Object.values(routes).flat().map(r=>origin+r),'Sitemap covers exactly the eight pages');
+  assert.deepEqual(locs,Object.values(routes).flat().map(r=>origin+r),'Sitemap covers exactly the twelve pages');
   const hosting=require('../firebase.json').hosting;
   for(const old of ['/','/index.html'])assert(hosting.redirects.some(r=>r.source===old&&r.destination==='/en/'&&r.type===301),'Legacy homepage redirect');
   const manifest=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../media/www/stage1-completion/manifest.json'),'utf8'));
@@ -96,6 +96,38 @@ let preview;
     for(const old of ['/','/index.html']){const r=await fetch(local+old,{redirect:'manual'});assert.equal(r.status,301);assert.equal(r.headers.get('location'),'/en/');}
     assert.equal((await fetch(local+'/missing-page-test/')).status,404);
     for(const lang of ['pl','en'])for(const file of [`garden-${lang}.dxf`,`garden-${lang}-free.png`]){const r=await fetch(local+'/assets/stage1/downloads/'+file);assert.equal(r.status,200);const localFile=path.join(root,'assets/stage1/downloads',file);assert.equal(hash(Buffer.from(await r.arrayBuffer())),hash(fs.readFileSync(localFile)),'Download integrity');}
+    for(const lang of ['pl','en']){
+      const png=await fetch(`${local}/assets/stage2/${lang}/room-free.png`);
+      assert.equal(png.status,200);
+      assert.equal(hash(Buffer.from(await png.arrayBuffer())),hash(fs.readFileSync(path.join(root,`assets/stage2/${lang}/room-free.png`))),'Room PNG HTTP integrity');
+      for(const name of ['overview','first-sketch','garden','dxf-to-cad','room','camera-steps']){
+        const target=`${local}/assets/stage2/${lang}/${name}.mp4`;
+        const head=await fetch(target,{method:'HEAD'});
+        assert.equal(head.status,200);assert.equal(head.headers.get('content-type'),'video/mp4');
+        const clip=await fetch(target,{headers:{Range:'bytes=0-127'}});
+        assert.equal(clip.status,206,'Video seeking supported');
+        assert.equal(Number(clip.headers.get('content-length')),128);
+        assert.equal(hash(Buffer.from(await clip.arrayBuffer())),hash(fs.readFileSync(path.join(root,`assets/stage2/${lang}/${name}.mp4`)).subarray(0,128)),'Video range integrity');
+      }
+    }
   }
-  console.log(`Verified 8 pages, unique metadata, language pairs, ${links} local references, ${images} image elements and ${media} unchanged media files${checkHttp?'; HTTP 200/301/404 and four downloads verified':''}.`);
+  const stage2 = require('../media/www/stage2/manifest.json');
+  for (const entry of stage2.files) {
+    assert.equal(hash(fs.readFileSync(path.join(root,'assets/stage2',entry.file))),entry.sha256,'Stage 2 asset hash '+entry.file);
+    assert.equal(hash(fs.readFileSync(path.resolve(root,'..',entry.source))),entry.sourceSha256,'Stage 2 source hash '+entry.file);
+    if (entry.file.endsWith('.mp4') || entry.file.endsWith('/room-free.png')) assert.equal(entry.sha256,entry.sourceSha256,'Original video/PNG preserved');
+  }
+  const videoNames=['overview','first-sketch','garden','dxf-to-cad','room','camera-steps'];
+  for(const lang of ['pl','en'])for(const page of [0,1,2,3,4,5]){
+    const html=fs.readFileSync(resolveFile(routes[lang][page]),'utf8');
+    assert.equal((html.match(/<video /g)||[]).length,1,'One relevant video per page');
+    assert(html.includes(`<source src="/assets/stage2/${lang}/${videoNames[page]}.mp4" type="video/mp4">`),'Correct film and language on '+routes[lang][page]);
+    const video=html.match(/<video [^>]*>/)[0];
+    assert(video.includes('preload="none"') && video.includes('controls') && video.includes('playsinline') && !video.includes('autoplay'),'Video loads on request');
+    assert(html.includes('CC BY 4.0'),'Music credits');
+    if([2,4,5].includes(page)) assert(html.includes(lang==='pl'?(page===5?'symulowane':'wygenerowan'):(page===5?'simulated':'generated')),'Visible provenance disclosure');
+    if([1,2,3].includes(page))assert(html.includes(lang==='pl'?'osobny':'separate') || page===2,'Video example distinguished from the page example');
+    if(page===4)assert(html.includes('18 m')&&html.includes('20 m²'),'Room geometry');
+  }
+  console.log(`Verified 12 pages, unique metadata, language pairs, ${links} local references, ${images} image elements, ${media} stage 1 media and ${stage2.files.length} stage 2 assets${checkHttp?'; HTTP 200/301/404 and downloads verified':''}.`);
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>{if(preview)preview.kill();});

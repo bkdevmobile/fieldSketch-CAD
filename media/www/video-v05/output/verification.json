@@ -1,0 +1,130 @@
+{
+  "date": "2026-10-31",
+  "reports": [
+    {
+      "language": "pl",
+      "projectId": "mvvgyg2x-9q385xozk0",
+      "name": "Salon",
+      "mode": "manual",
+      "closed": true,
+      "points": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 4
+        },
+        {
+          "x": 0,
+          "y": 4.000000000000001
+        }
+      ],
+      "perimeterMetres": 18,
+      "areaSquareMetres": 20,
+      "closure": "calculated",
+      "savedCorrection": "4.8 -> 5 m",
+      "pngSha256": "4d6fb9860a85b17a898f4d002e8a653db826587ed7a34bfb3743067807dde416",
+      "databaseSha256": "ba74e1c6acf179e13228bda2a3dcb182db9b8d9880e8407f6d0fb94ae58ca320",
+      "durationSeconds": 72,
+      "decodedFrames": 2160,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -24.7,
+      "videoStreamPreserved": true,
+      "sourceHashesVerified": true,
+      "illustrationDisclosed": true,
+      "illustrationMotion": "centered-zoom-out",
+      "sha256": "4712033a827fbadad62ae43909806324544e8b98bcc9c16675d6dc94f9496f49",
+      "bytes": 7520738
+    },
+    {
+      "language": "en",
+      "projectId": "mvvh1slx-pj0ck8v9qx",
+      "name": "Room",
+      "mode": "manual",
+      "closed": true,
+      "points": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 4
+        },
+        {
+          "x": 0,
+          "y": 4.000000000000001
+        }
+      ],
+      "perimeterMetres": 18,
+      "areaSquareMetres": 20,
+      "closure": "calculated",
+      "savedCorrection": "4.8 -> 5 m",
+      "pngSha256": "3861c8c2cad1539d9b8104b5a35dbf9f3dd741e2a9eccbd21f8235fef289ca41",
+      "databaseSha256": "65f4a1554ff02a0b4a2c052a967d724a6f5b3ad42f2abc498c1ffa912bfb6b15",
+      "durationSeconds": 72,
+      "decodedFrames": 2160,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -24.7,
+      "videoStreamPreserved": true,
+      "sourceHashesVerified": true,
+      "illustrationDisclosed": true,
+      "illustrationMotion": "centered-zoom-out",
+      "sha256": "1880ec958a88093c719a67c8ff2ce3e882d270cd53f93e0a30913c079abc200a",
+      "bytes": 7416323
+    }
+  ],
+  "illustration": {
+    "generated": true,
+    "method": "Built-in ImageGen; gentle centered zoom out without lateral pan",
+    "sourceSha256": "9f4eb4db992fd8e6c995d2e8ba3e2c419084c6a32fc5198b8df40edaabea3180",
+    "prompt": "sources/image-prompt.txt"
+  },
+  "music": {
+    "title": "Dream Culture",
+    "artist": "Kevin MacLeod",
+    "license": "CC BY 4.0",
+    "source": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046",
+    "sha256": "f12cbb52bd4b92bd6cf8a343645567c119627e9cbf98108a3eb6ac2cc275ee46"
+  },
+  "restoration": {
+    "demonstrationDatabaseRestored": true,
+    "restoredFiles": [
+      {
+        "file": "fieldsketch.db",
+        "sha256": "63837e02f8f480f25ed366545cd1c7b3550203efb92a0495ac79cb90698ee9bc"
+      },
+      {
+        "file": "fieldsketch.db-wal",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "fieldsketch.db-shm",
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      }
+    ],
+    "locale": "en",
+    "touchIndicatorsOff": true,
+    "demoClockExited": true,
+    "productionApkUnchanged": true,
+    "productionApkSha256": "e383e3b4645dcd433b07fcce433102eb30a8a5cd3d6d3e5311a26c9398a8f0b6",
+    "appCodeModified": false,
+    "plusMockUsed": false
+  }
+}

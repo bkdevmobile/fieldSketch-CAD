@@ -1,0 +1,217 @@
+[
+  {
+    "label": "start",
+    "clip": "01-create",
+    "t": 1.201
+  },
+  {
+    "label": "Nowy szkic",
+    "clip": "01-create",
+    "t": 4.49
+  },
+  {
+    "label": "Nazwa szkicu=Taras",
+    "clip": "01-create",
+    "t": 11.259
+  },
+  {
+    "label": "Utwórz szkic",
+    "clip": "01-create",
+    "t": 13.574
+  },
+  {
+    "label": "end",
+    "clip": "01-create",
+    "t": 18.586
+  },
+  {
+    "label": "start",
+    "clip": "02-first-side",
+    "t": 1.2
+  },
+  {
+    "label": "Stoję w narożniku · zapisz P1",
+    "clip": "02-first-side",
+    "t": 3.501
+  },
+  {
+    "label": "Ustaw kierunek",
+    "clip": "02-first-side",
+    "t": 5.821
+  },
+  {
+    "label": "Kierunek gotowy · podaj długość",
+    "clip": "02-first-side",
+    "t": 8.183
+  },
+  {
+    "label": "Długość boku (m)=4",
+    "clip": "02-first-side",
+    "t": 13.847
+  },
+  {
+    "label": "Sprawdź bok",
+    "clip": "02-first-side",
+    "t": 16.256
+  },
+  {
+    "label": "Zapisz punkt",
+    "clip": "02-first-side",
+    "t": 19.015
+  },
+  {
+    "label": "end",
+    "clip": "02-first-side",
+    "t": 20.823
+  },
+  {
+    "label": "start",
+    "clip": "03-next-sides",
+    "t": 1.2
+  },
+  {
+    "label": "Kąt skrętu od poprzedniego boku (°)=90",
+    "clip": "03-next-sides",
+    "t": 6.523
+  },
+  {
+    "label": "Ustaw kierunek",
+    "clip": "03-next-sides",
+    "t": 8.859
+  },
+  {
+    "label": "Kierunek gotowy · podaj długość",
+    "clip": "03-next-sides",
+    "t": 11.244
+  },
+  {
+    "label": "Długość boku (m)=3",
+    "clip": "03-next-sides",
+    "t": 16.905
+  },
+  {
+    "label": "Sprawdź bok",
+    "clip": "03-next-sides",
+    "t": 19.398
+  },
+  {
+    "label": "Zapisz punkt",
+    "clip": "03-next-sides",
+    "t": 21.791
+  },
+  {
+    "label": "Kąt skrętu od poprzedniego boku (°)=90",
+    "clip": "03-next-sides",
+    "t": 27.243
+  },
+  {
+    "label": "Ustaw kierunek",
+    "clip": "03-next-sides",
+    "t": 29.595
+  },
+  {
+    "label": "Kierunek gotowy · podaj długość",
+    "clip": "03-next-sides",
+    "t": 31.978
+  },
+  {
+    "label": "Długość boku (m)=3.8",
+    "clip": "03-next-sides",
+    "t": 37.781
+  },
+  {
+    "label": "Sprawdź bok",
+    "clip": "03-next-sides",
+    "t": 40.179
+  },
+  {
+    "label": "Zapisz punkt",
+    "clip": "03-next-sides",
+    "t": 42.562
+  },
+  {
+    "label": "Zakończ",
+    "clip": "03-next-sides",
+    "t": 44.952
+  },
+  {
+    "label": "Zostaw otwarty",
+    "clip": "03-next-sides",
+    "t": 47.328
+  },
+  {
+    "label": "end",
+    "clip": "03-next-sides",
+    "t": 49.68
+  },
+  {
+    "label": "start",
+    "clip": "04-correction",
+    "t": 1.2
+  },
+  {
+    "label": "Popraw ostatni bok",
+    "clip": "04-correction",
+    "t": 4.253
+  },
+  {
+    "label": "Długość boku (m)=4",
+    "clip": "04-correction",
+    "t": 10.28
+  },
+  {
+    "label": "Zapisz poprawki",
+    "clip": "04-correction",
+    "t": 12.99
+  },
+  {
+    "label": "end",
+    "clip": "04-correction",
+    "t": 14.803
+  },
+  {
+    "label": "start",
+    "clip": "05-close",
+    "t": 1.2
+  },
+  {
+    "label": "Kontynuuj pomiar",
+    "clip": "05-close",
+    "t": 3.561
+  },
+  {
+    "label": "Zakończ",
+    "clip": "05-close",
+    "t": 6.637
+  },
+  {
+    "label": "Zamknij obrys",
+    "clip": "05-close",
+    "t": 9.155
+  },
+  {
+    "label": "end",
+    "clip": "05-close",
+    "t": 11.424
+  },
+  {
+    "label": "start",
+    "clip": "06-export",
+    "t": 1.2
+  },
+  {
+    "label": "Eksportuj PNG",
+    "clip": "06-export",
+    "t": 3.572
+  },
+  {
+    "label": "Udostępnij PNG",
+    "clip": "06-export",
+    "t": 6.658
+  },
+  {
+    "label": "end",
+    "clip": "06-export",
+    "t": 8.881
+  }
+]

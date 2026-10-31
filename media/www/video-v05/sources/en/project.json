@@ -1,0 +1,129 @@
+{
+  "id": "mvvh1slx-pj0ck8v9qx",
+  "schemaVersion": 1,
+  "name": "Room",
+  "createdAt": "2026-10-30T21:15:51.189Z",
+  "updatedAt": "2026-10-30T21:17:41.072Z",
+  "geometryRevision": 5,
+  "mode": "manual",
+  "points": [
+    {
+      "id": "mvvh1slx-ifbjliyil2",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "mvvh2crr-v5rmj58wrz",
+      "x": 5,
+      "y": 0
+    },
+    {
+      "id": "mvvh2w48-s3v0km1cmo",
+      "x": 5,
+      "y": 4
+    },
+    {
+      "id": "mvvh3dp2-q6949vc9gg",
+      "x": 0,
+      "y": 4.000000000000001
+    }
+  ],
+  "observations": [
+    {
+      "id": "mvvh2crr-nvgff9m6to",
+      "kind": "side",
+      "fromPointId": "mvvh1slx-ifbjliyil2",
+      "toPointId": "mvvh2crr-v5rmj58wrz",
+      "lengthSource": "manual",
+      "stepCount": null,
+      "stepLengthCm": null,
+      "lengthM": 5,
+      "lengthCm": 500,
+      "theta": 0,
+      "mode": "manual",
+      "capturedTheta": 0,
+      "referenceFrameId": "db3a39dd-8751-4743-9d84-a48a0d4c5356",
+      "capture": null,
+      "predictedEnd": {
+        "id": "mvvh2crr-v5rmj58wrz",
+        "x": 5,
+        "y": 0
+      },
+      "createdAt": "2026-10-30T21:16:17.319Z"
+    },
+    {
+      "id": "mvvh2w48-2jtzyytpkh",
+      "kind": "side",
+      "fromPointId": "mvvh2crr-v5rmj58wrz",
+      "toPointId": "mvvh2w48-s3v0km1cmo",
+      "lengthSource": "manual",
+      "stepCount": null,
+      "stepLengthCm": null,
+      "lengthM": 4,
+      "lengthCm": 400,
+      "theta": 1.5707963267948966,
+      "mode": "manual",
+      "capturedTheta": 1.5707963267948966,
+      "referenceFrameId": "db3a39dd-8751-4743-9d84-a48a0d4c5356",
+      "capture": null,
+      "predictedEnd": {
+        "id": "mvvh2w48-s3v0km1cmo",
+        "x": 5,
+        "y": 4
+      },
+      "createdAt": "2026-10-30T21:16:42.392Z"
+    },
+    {
+      "id": "mvvh3dp2-ny927tlyr8",
+      "kind": "side",
+      "fromPointId": "mvvh2w48-s3v0km1cmo",
+      "toPointId": "mvvh3dp2-q6949vc9gg",
+      "lengthSource": "manual",
+      "stepCount": null,
+      "stepLengthCm": null,
+      "lengthM": 4.8,
+      "lengthCm": 480,
+      "theta": 3.141592653589793,
+      "mode": "manual",
+      "capturedTheta": 3.141592653589793,
+      "referenceFrameId": "db3a39dd-8751-4743-9d84-a48a0d4c5356",
+      "capture": null,
+      "predictedEnd": {
+        "id": "mvvh3dp2-q6949vc9gg",
+        "x": 0.20000000000000018,
+        "y": 4.000000000000001
+      },
+      "createdAt": "2026-10-30T21:17:05.174Z"
+    },
+    {
+      "id": "mvvh3v6z-qwjif8il0b",
+      "kind": "side",
+      "fromPointId": "mvvh2w48-s3v0km1cmo",
+      "toPointId": "mvvh3dp2-q6949vc9gg",
+      "lengthSource": "manual",
+      "stepCount": null,
+      "stepLengthCm": null,
+      "lengthM": 5,
+      "lengthCm": 500,
+      "theta": 3.141592653589793,
+      "mode": "manual",
+      "capturedTheta": 3.141592653589793,
+      "referenceFrameId": "db3a39dd-8751-4743-9d84-a48a0d4c5356",
+      "capture": null,
+      "predictedEnd": {
+        "id": "mvvh3dp2-q6949vc9gg",
+        "x": 0,
+        "y": 4.000000000000001
+      },
+      "createdAt": "2026-10-30T21:17:27.851Z",
+      "supersedesId": "mvvh3dp2-ny927tlyr8"
+    }
+  ],
+  "activeObservationIds": [
+    "mvvh2crr-nvgff9m6to",
+    "mvvh2w48-2jtzyytpkh",
+    "mvvh3v6z-qwjif8il0b"
+  ],
+  "closed": true,
+  "closureObservationId": null
+}

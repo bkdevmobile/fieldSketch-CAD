@@ -1,0 +1,47 @@
+1
+00:00:00,000 --> 00:00:05,000
+Create “Patio” in manual mode.
+
+2
+00:00:05,000 --> 00:00:10,000
+Example: a rectangle measuring 4 × 3 m. Directions and lengths are entered manually.
+
+3
+00:00:10,000 --> 00:00:18,500
+Save P1 and set the first direction to 0°.
+
+4
+00:00:18,500 --> 00:00:27,000
+Enter 4 m, review the side and save P2. Follow the same three steps for each side.
+
+5
+00:00:27,000 --> 00:00:36,500
+Enter a 90° turn to the left.
+
+6
+00:00:36,500 --> 00:00:46,000
+Add 3 m and 3.8 m, saving each point. After the third side, choose Leave open.
+
+7
+00:00:46,000 --> 00:00:52,000
+Choose Edit last side in the summary.
+
+8
+00:00:52,000 --> 00:00:58,000
+Change 3.8 m to 4 m and save changes. The correction updates the saved sketch.
+
+9
+00:00:58,000 --> 00:01:03,000
+Continue → Finish → Close outline.
+
+10
+00:01:03,000 --> 00:01:08,000
+The side to P1 is calculated, not measured. Perimeter 14 m · area 12 m².
+
+11
+00:01:08,000 --> 00:01:14,000
+Choose Export PNG → Share PNG.
+
+12
+00:01:14,000 --> 00:01:20,000
+Free keeps the outlineGo watermark. The file is created; no recipient is selected.

@@ -1,5 +1,47 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
+**YouTube — potwierdzenie użytkownika 31.10.2026:** opublikowano sześć filmów i jeden Shorts. Wszystkie siedem adresów zapisano w [notatkach o promocji, sekcja 6](docs/promocja-aplikacji.md#6-filmy-opublikowane-na-youtube). Shorts: https://www.youtube.com/shorts/T12jpWwueGA. Przypisanie linków do V01–V06 i języków nie jest potwierdzone. Publikacja na YouTube jest niezależna od integracji WWW, którą opublikowano 31.10.2026; wcześniejsze wzmianki o braku publikacji filmów należy czytać z tym uzupełnieniem.
+
+**31.10.2026 — etap 2 WWW opublikowany:** 12 stron marketingowych PL/EN, w tym Plan pokoju i Pomoc, oraz wszystkie filmy V01–V06 na odpowiednich podstronach. Firebase Hosting `outlinego-27ab5`, wersja `3f872ac19f672a6e`; publikacja zakończona 31.10.2026 około 19:53 czasu Europe/Warsaw. Kontrola live przeszła: 12 stron, 137 zasobów ze zgodnymi SHA-256, 12 plików MP4 z odpowiedzią 206 dla zakresów bajtów, przekierowania 301 i strona 404. Strona: https://outlinego-27ab5.web.app/pl/ i /en/. Kod integracji: `4aa98e3`; wcześniejsza implementacja etapu 2: `3c3fc6e`. Log: `artifacts/firebase-www-stage2-deploy-2026-10-31.log`; raport: `artifacts/www-stage2-live-verification-2026-10-31.json`. **Odbiór w przeglądarce zakończony pozytywnie przez użytkownika 31.10.2026: „testy w przeglądarce ok”.** Punkt odbioru WWW zamknięty na podstawie tego potwierdzenia. Wcześniejsze wpisy o lokalnej integracji i braku deployu są historyczne.
+
+
+**Stan materiałów na 31.10.2026: V01–V06 gotowe lokalnie w PL i EN.** V01–V06 są podłączone do odpowiednich opublikowanych podstron WWW w PL/EN. Publikacja WWW: 31.10.2026, wersja Firebase `3f872ac19f672a6e`. Statyczny etap 1 WWW został opublikowany 30.10.2026; produkcja filmów jest osobnym zakresem.
+
+**Stała decyzja użytkownika: pomiar za pomocą czujników telefonu jest największym atutem outlineGo i głównym przekazem promocyjnym.** W materiałach WWW, Google Play, filmach, ilustracjach i tekstach pierwszeństwo ma celowanie kamerą → zapis kierunku z czujników orientacji → krokomierz Start → przejście → zatrzymanie → Stop → zapis punktu i szkic. Ręczne wpisywanie kierunków i wymiarów jest opcją uzupełniającą. Kamera jest celownikiem; odległość z kroków jest szacunkowa i zależy od długości kroku. Nie sugerować skanowania AR ani pomiaru odległości samą kamerą.
+
+| Film — dokumentacja, podglądy i raporty | Długość PL/EN | Aktualna zawartość | Muzyka — Kevin MacLeod, CC BY 4.0 |
+| --- | --- | --- | --- |
+| [V01 — Od szkicu do CAD](media/www/video-v01/README.md) | 60 s | Przegląd: bok → PNG → DXF → LibreCAD; poprawione kadrowanie CAD | Easy Lemon (60 second) |
+| [V02 — Pierwszy szkic](media/www/video-v02/README.md) | 224 s (3:44) | Ręczne wymiary, korekta 3,8 → 4 m, obrys 4 × 3 m, 14 m / 12 m² i PNG | Carefree |
+| [V03 — Od pomiaru do szkicu](media/www/video-v03/README.md) | 45 s | Ilustracja pomiaru ogrodu, rzeczywiste UI i PNG; płynne oddalenie bez ruchu na boki | Wallpaper |
+| [V04 — Eksport DXF do CAD](media/www/video-v04/README.md) | 144 s (2:24) | Eksport Plus, obrys 4 × 3 m w LibreCAD, jednostka Metr i obwód 14 m; bez okna plików | Life of Riley |
+| [V05 — Szkic pokoju](media/www/video-v05/README.md) | 72 s (1:12) | Ilustracja pomiaru pokoju oraz pełna instrukcja: 5 × 4 m, korekta 4,8 → 5 m, 18 m / 20 m² i PNG | Dream Culture |
+| [V06 — Kamera i krokomierz](media/www/video-v06/README.md) | 108 s (1:48) | Priorytet promocyjny: celownik, kierunek, Start/Stop, rosnący licznik, zapis boku i PNG | Montauk Point |
+
+Ostatnie wykonane poprawki:
+
+- **V01/V04 — prywatność:** usunięto okno wyboru pliku i wykadrowano CAD do potrzebnego rysunku, jednostek i odczytu długości. Lokalne pliki, ścieżki i historia nie pojawiają się w poprawionych filmach. Surowe nagrania są wyłącznie materiałem produkcyjnym; publikować pliki z katalogów `output`.
+- **V03 — ruch ilustracji:** pierwsze 12 s ma delikatne oddalenie 1,035 → 1,000 ze stałym środkiem i łagodnym początkiem/końcem. Transformacja zmiennoprzecinkowa zastąpiła zoompan powodujący wrażenie skakania. PL/EN, miniatury i podglądy odtworzono.
+- **V05 — ilustracja pokoju:** dodano 12 s otwarcia z takim samym spokojnym oddaleniem oraz obraz przy pierwszym wymiarze. Dotychczasowe 60 s instrukcji zachowano; aktualna długość to 72 s. Obrazy V03/V05 są wygenerowane, postacie nieruchome; nie dokumentują fizycznego pomiaru.
+- **V06 — zrealizowana symulacja zaakceptowana przez użytkownika:** emulator nie ma detektora kroków. Tymczasowy adapter dostarczał kierunki i kroki 8 / 6 / 8; rzeczywiste UI, przelicznik 75 cm, SQLite, geometria i PNG dają 6 × 4,5 m, 21 m / 27 m². Wirtualna kamera otrzymała wygenerowany obraz ogrodu z pliku. Symulację ujawniono pod odtwarzaczem i w metadanych MP4. Oryginalny kod, APK, bazę i profil emulatora przywrócono; testowy APK i wyniki builda usunięto. Pochodzenie i potwierdzenie przywrócenia zapisano w dokumentacji oraz `sources/restoration.json` zestawu V06.
+
+Stałe zasady kolejnych filmów:
+
+- Spokojne tempo, czytelne pauzy, bez przyspieszania kroków.
+- Bez dolnych napisów dublujących opis po lewej i bez technicznych podpisów o tempie, pauzach, emulatorze, montażu czy kodach Vxx. W obrazie tylko treść pomocna widzowi.
+- Bez prywatnych plików, folderów, ścieżek, historii, kont i zbędnych elementów pulpitu.
+- Ilustracje: delikatne oddalenie ze stałym środkiem, bez przesuwania na boki i skakania.
+- Cicha muzyka, inna melodia dla kolejnego filmu; kredyty i pochodzenie materiałów poza obrazem filmu. Zachować wersje bez dźwięku.
+- Symulacje i ilustracje jasno opisywać pod filmem i w metadanych. Demonstracja emulatora nie potwierdza fizycznej dokładności sensorów.
+
+Wszystkie wersje mają 1920 × 1080, 30 kl./s, H.264 i muzykę AAC stereo. Zaktualizowane zestawy przeszły kontrole obrazu, dźwięku, źródeł i geometrii; raporty oraz arkusze klatek znajdują się w katalogach filmów.
+
+**Zapis w Git:** V02/V04 — `7293534`; V01 — `d41f643`; pierwotny V03 — `1d8c2e9`. V05, V06 i późniejsze poprawki V01/V03/V04 — `88d89d7`; aktualizacja notatek — `1745118`; implementacja etapu 2 WWW — `3c3fc6e`. Tylko bieżące uzupełnienie notatek pozostaje bez nowego commita.
+
+**Następne prace:** publikacja etapu 2, kontrola HTTP/integralności i odbiór w przeglądarce przez użytkownika są zakończone. Obserwować przetworzenie aktualnej mapy i indeksowanie w Search Console; sprawdzić wydajność strony. Nagranie fizycznego pomiaru telefonem pozostaje opcjonalnym osobnym zadaniem. W promocji utrzymać pierwszeństwo sensorów.
+
+Poniższe wpisy zachowują historię i wcześniejsze założenia; aktualny stan filmów podano powyżej.
+
 Stan po publikacji 30.10.2026: etap 1 WWW jest wdrożony na https://outlinego-27ab5.web.app/pl/ i /en/ — osiem stron marketingowych oraz sześć finalnych dokumentów prawnych PL/EN (obowiązują od 30.10.2026, temat redakcji zamknięty). Desktop sprawdzono w VS Code, telefon zaakceptował użytkownik. Wdrożono poprawki wizualne, oficjalne badge Google Play, aktualne ilustracje udostępniania, lżejsze obrazy, doprecyzowane leady i JSON-LD WebSite/BreadcrumbList. Commit SEO fdcc1f3; zapis wdrożenia 97e7e84; wersja Firebase 056f218e8640f749. Po publikacji 25 zasobów ma zgodne SHA-256 z plikami lokalnymi, 301 i 404 działają. Pozostają PageSpeed Insights/Core Web Vitals oraz kontrola przetworzenia mapy i indeksowania w Search Console; własna domena opcjonalnie. Nie zmieniano aplikacji ani APK/AAB. Filmy oraz etap 2 są poza zakończonym zakresem. Poniższe wpisy są historią; starsze informacje o braku deployu nie opisują obecnego stanu.
 
 WWW — **30 października 2026, stan do wznowienia**: złożono lokalnie i zapisano w commicie `d0682b6` osiem stron etapu 1: `/pl/`, `/pl/jak-to-dziala/`, `/pl/szkic-ogrodu/`, `/pl/eksport-dxf/` i odpowiedniki `/en/`, `/en/how-it-works/`, `/en/garden-sketch/`, `/en/dxf-export/`. Wspólne menu, przełącznik do odpowiednika językowego, powiększanie obrazów, FAQ, PNG/DXF do pobrania, canonical/hreflang/Open Graph i mapa ośmiu adresów. W Firebase przygotowano 301 z `/` i `/index.html` do `/en/`; adresy dokumentów prawnych oraz weryfikacja Google zachowane. **Nowych stron nie wdrożono**. Generator: `scripts/build-www.cjs`; podgląd: `node scripts/preview-www.cjs` → `http://127.0.0.1:4173/pl/`. `node scripts/verify-www.cjs --serve` przeszedł: osiem stron, unikalne metadane i pary językowe, 374 lokalne odwołania, 56 obrazów z alt i wymiarami, 71 mediów HTML zgodnych z manifestem, HTTP 200/301/404 i zgodność czterech pobrań. **Odbiór wizualny desktop/mobile i interakcji pozostaje otwarty**: brak dostępnej przeglądarki sterowanej; natywny Chrome zwrócił „Computer Use app approval timed out”. Następnie poprawki, deploy do istniejącego Firebase `outlinego-27ab5` i kontrola live adresów/mapy. Użytkownik ograniczył zakres do etapu 1; pokój i pomoc pozostają poza bieżącą pracą. Szczegóły: [stan WWW etapu 1](docs/www-etap-1.md).
