@@ -1,0 +1,85 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "duration": 42,
+  "disclosure": "The opening room scene is an AI-generated illustration. App screens and the original PNG are real; directions and lengths were entered manually. The closing side is calculated. Check dimensions separately before buying furniture or materials.",
+  "segments": [
+    {
+      "file": "media/www/video-v05/sources/room-measurement.png",
+      "duration": 6,
+      "layout": "photo",
+      "title": [
+        "Keep the dimensions.",
+        "Sketch your room."
+      ],
+      "outputStart": 0,
+      "speed": 1,
+      "hold": 6,
+      "sourceSha256": "9f4eb4db992fd8e6c995d2e8ba3e2c419084c6a32fc5198b8df40edaabea3180"
+    },
+    {
+      "file": "media/www/video-v05/sources/en/02-first-side.mp4",
+      "start": 13.74,
+      "length": 6,
+      "duration": 10,
+      "layout": "phone",
+      "title": [
+        "Start with a side.",
+        "Enter 5 m."
+      ],
+      "outputStart": 6,
+      "speed": 1,
+      "hold": 4,
+      "sourceSha256": "2ac8ad6c550fbf887723121a5e529e02aba82c0c875066e09e84657776c592b2"
+    },
+    {
+      "file": "media/www/video-v05/sources/en/04-correction.mp4",
+      "start": 8.46,
+      "length": 6,
+      "duration": 10,
+      "layout": "phone",
+      "title": [
+        "Need a correction?",
+        "Change 4.8 m to 5 m."
+      ],
+      "outputStart": 16,
+      "speed": 1,
+      "hold": 4,
+      "sourceSha256": "efe7ae1c1e6f53ed39a667279caf689c2ac6d586924e4cca50e374a211a59270"
+    },
+    {
+      "file": "media/www/video-v05/sources/en/05-summary-stable.png",
+      "duration": 8,
+      "layout": "phone",
+      "title": [
+        "Check your room outline.",
+        "18 m perimeter · 20 m²"
+      ],
+      "outputStart": 26,
+      "speed": 1,
+      "hold": 8,
+      "sourceSha256": "4de7d2c415cb708ba56ffabe97b75be644af463acd00549464975b54f1188399"
+    },
+    {
+      "file": "media/www/video-v05/output/room-en-free.png",
+      "duration": 8,
+      "layout": "export",
+      "title": [
+        "Save it as a PNG.",
+        "Keep your plan handy."
+      ],
+      "outputStart": 34,
+      "speed": 1,
+      "hold": 8,
+      "sourceSha256": "3861c8c2cad1539d9b8104b5a35dbf9f3dd741e2a9eccbd21f8235fef289ca41"
+    }
+  ],
+  "music": {
+    "file": "media/www/video-v05/audio/Dream-Culture.mp3",
+    "title": "Dream Culture",
+    "source": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046",
+    "sha256": "f12cbb52bd4b92bd6cf8a343645567c119627e9cbf98108a3eb6ac2cc275ee46"
+  },
+  "credits": "Music: \"Dream Culture\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046. Changes: 42-second excerpt, quiet volume normalization, 1.5-second fade-in and 3-second fade-out, AAC encoding."
+}

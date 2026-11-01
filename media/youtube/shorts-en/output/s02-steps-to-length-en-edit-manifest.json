@@ -1,0 +1,46 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "duration": 30,
+  "disclosure": "Emulator demonstration with simulated direction and step readings. The virtual camera uses an AI-generated garden image. The app interface, length calculation, saving and PNG export are real. This is not a recording of physical measurement or sensor accuracy. The camera is a viewfinder; step-based lengths are estimates.",
+  "segments": [
+    {
+      "file": "media/www/video-v06/sources/en/03-steps.mp4",
+      "start": 0,
+      "length": 18,
+      "duration": 22,
+      "layout": "phone",
+      "title": [
+        "Walk the side.",
+        "Watch the count grow."
+      ],
+      "endStill": "media/www/video-v06/sources/en/03-steps-stopped.png",
+      "outputStart": 0,
+      "speed": 1,
+      "hold": 4,
+      "sourceSha256": "767dfb5c21c0d1d367cec13d7b4a35be626dd33d7ce0fa274626b422aadd743c",
+      "endStillSha256": "ec8ea03b0f1985c6b0bd036c5bc9850d3da2298e5681a36acc48acab0eecb659"
+    },
+    {
+      "file": "media/www/video-v06/sources/en/03-steps-stopped.png",
+      "duration": 8,
+      "layout": "phone",
+      "title": [
+        "8 steps × 75 cm",
+        "≈ 6 m estimated length"
+      ],
+      "outputStart": 22,
+      "speed": 1,
+      "hold": 8,
+      "sourceSha256": "ec8ea03b0f1985c6b0bd036c5bc9850d3da2298e5681a36acc48acab0eecb659"
+    }
+  ],
+  "music": {
+    "file": "googlePlay/promo-en/audio/Carefree.mp3",
+    "title": "Carefree",
+    "source": "https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400037",
+    "sha256": "8433b770a630d9b1594fd484442c677907ece899a4d149954cd2e74fd733e311"
+  },
+  "credits": "Music: \"Carefree\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400037. Changes: 30-second excerpt, quiet volume normalization, 1.5-second fade-in and 3-second fade-out, AAC encoding."
+}

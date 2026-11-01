@@ -1,0 +1,10 @@
+Aim at the next corner, capture direction, start the step counter, stand still and stop, then save the next point. See how outlineGo turns a direction and an estimated length into a 2D sketch.
+
+Emulator demonstration with simulated direction and step readings. The virtual camera uses an AI-generated garden image. The app interface, length calculation, saving and PNG export are real. This is not a recording of physical measurement or sensor accuracy. The camera is a viewfinder; step-based lengths are estimates.
+
+Get outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
+App website: https://outlinego-27ab5.web.app/en/
+
+Music: "Montauk Point" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400013. Changes: 54-second excerpt, quiet volume normalization, 1.5-second fade-in and 3-second fade-out, AAC encoding.
+
+#outlineGo #StepCounter #Shorts
