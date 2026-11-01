@@ -1,6 +1,14 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
-**Domena — 1.11.2026:** użytkownik zamówił `outlinego.com` w OVHcloud na 1 rok, z opcjami darmowymi. **Czekamy na realizację zamówienia.** Po jej potwierdzeniu podłączyć domenę do istniejącego Firebase Hosting, sprawdzić DNS/HTTPS i zaktualizować adres wszędzie, gdzie podawano `outlinego-27ab5.web.app` (WWW i SEO, aplikacja/dokumenty prawne, Google Play, YouTube, materiały promocyjne oraz Search Console), zachowując działanie dotychczasowych linków. Domena nie jest jeszcze potwierdzona jako aktywna ani podłączona. Szczegóły: [plan domeny](docs/promocja-aplikacji.md#3-własna-domena-dla-landing-page).
+**YouTube Shorts EN — 1.11.2026:** przygotowano cztery nowe pionowe filmy na podstawie źródeł V04/V05/V06: kamera i krokomierz 54 s, kroki → długość 30 s, pokój 42 s, DXF → CAD 44 s. Wszystkie 1080 × 1920 / 30 kl./s, cicha muzyka (inna dla każdego), bez przyspieszania; źródła, kadrowanie prywatności, dekodowanie i metadane zweryfikowane, klatki przejrzane. Gotowe opisy EN zawierają ujawnienie symulacji/ilustracji i kredyty. [Podgląd, pliki i metadane](media/youtube/shorts-en/README.md). **Te cztery materiały nie są jeszcze opublikowane**; wcześniejszy Shorts z 31.10 to osobny materiał. Adres Firebase pozostaje w opisach do czasu uruchomienia zamówionej domeny. Bez zmian WWW i aplikacji; zestaw lokalny bez commita.
+
+**Domena — aktualizacja 1.11.2026:** zamówienie `outlinego.com` w OVHcloud (1 rok, opcje darmowe) zostało zrealizowane i domena jest podłączona do Firebase Hosting. Użytkownik potwierdził działanie adresów `outlinego.com` i `www.outlinego.com`; brakuje jeszcze certyfikatu SSL dla `www.outlinego.com`. To potwierdzenie użytkownika, nie wynik nowej kontroli automatycznej.
+
+**Następne zadania — w tej kolejności:**
+
+1. Potwierdzić wystawienie certyfikatu SSL i działanie HTTPS, w szczególności dla `www.outlinego.com`.
+2. Ustawić adres e-mail we własnej domenie i sprawdzić wysyłanie oraz odbiór. Konkretny adres nie został jeszcze ustalony.
+3. Po potwierdzeniu HTTPS i działania poczty zaktualizować **adres strony i adres e-mail** na WWW, w Google Play oraz materiałach promocyjnych (w tym opisach YouTube i metadanych gotowych Shortsów). Uwzględnić dane kontaktowe i odnośniki dokumentów prawnych w aplikacji, metadane SEO, canonical/hreflang/Open Graph/JSON-LD, sitemap, robots.txt oraz Search Console. Zachować działanie dotychczasowych linków Firebase.
 
 **Google Play / ASO — 1.11.2026:** użytkownik potwierdził aktualizację nazwy i opisu w sklepie Google Play według przekazanych wskazówek. Tekstowa część zmian ASO wykonana; pozostaje ocena wpływu na odwiedziny karty i instalacje. Szczegóły: [notatki o promocji](docs/promocja-aplikacji.md#1-agresywne-aso-app-store-optimization-pod-długi-ogon).
 

@@ -71,9 +71,17 @@ Pomysł zapisany. W ramach tego wpisu nie zmieniono strony ani nie opublikowano 
 
 ## 3. Własna domena dla landing page
 
-Data dodania i pierwotnego sprawdzenia: **28 października 2026**. Aktualizacja **1 listopada 2026**: **zamówiono `outlinego.com` w OVHcloud na 1 rok, z opcjami darmowymi; oczekujemy na realizację zamówienia** — potwierdzenie użytkownika. Nie potwierdzono jeszcze aktywacji domeny.
+Data dodania i pierwotnego sprawdzenia: **28 października 2026**.
 
-Po realizacji zamówienia podłączyć domenę do istniejącego Firebase Hosting, sprawdzić DNS i HTTPS, a następnie zaktualizować miejsca, w których podawano adres `outlinego-27ab5.web.app`: stronę i jej metadane, mapę witryny i robots.txt, linki dokumentów prawnych używane w aplikacji oraz Google Play, opisy YouTube i pozostałe materiały promocyjne. Ustalić preferowany adres domeny, zachować działanie dotychczasowych linków i zaktualizować Search Console. Zmiany adresów wykonywać po potwierdzeniu działania nowej domeny. Poniższe porównania cen i rekomendacje dokumentują wcześniejszy etap wyboru; decyzja o domenie została podjęta.
+**Domena — aktualizacja 1.11.2026:** zamówienie `outlinego.com` w OVHcloud (1 rok, opcje darmowe) zostało zrealizowane i domena jest podłączona do Firebase Hosting. Użytkownik potwierdził działanie adresów `outlinego.com` i `www.outlinego.com`; brakuje jeszcze certyfikatu SSL dla `www.outlinego.com`. To potwierdzenie użytkownika, nie wynik nowej kontroli automatycznej.
+
+**Następne zadania — w tej kolejności:**
+
+1. Potwierdzić wystawienie certyfikatu SSL i działanie HTTPS, w szczególności dla `www.outlinego.com`.
+2. Ustawić adres e-mail we własnej domenie i sprawdzić wysyłanie oraz odbiór. Konkretny adres nie został jeszcze ustalony.
+3. Po potwierdzeniu HTTPS i działania poczty zaktualizować **adres strony i adres e-mail** na WWW, w Google Play oraz materiałach promocyjnych (w tym opisach YouTube i metadanych gotowych Shortsów). Uwzględnić dane kontaktowe i odnośniki dokumentów prawnych w aplikacji, metadane SEO, canonical/hreflang/Open Graph/JSON-LD, sitemap, robots.txt oraz Search Console. Zachować działanie dotychczasowych linków Firebase.
+
+Poniższe porównania cen i rekomendacje dokumentują etap wyboru sprzed zamówienia; domena została już wybrana i uruchomiona.
 
 ### Cel
 
@@ -143,6 +151,8 @@ Data dodania: **31 października 2026**. Status: **pierwszy Shorts opublikowany 
 ### Realizacja i wyniki
 
 Użytkownik potwierdził publikację pierwszego Shortsa: [YouTube Shorts — T12jpWwueGA](https://www.youtube.com/shorts/T12jpWwueGA). Data potwierdzenia: **31.10.2026**; dokładnej daty publikacji i wyników nie podano. Pozostałe adresy opublikowanych filmów zapisano poniżej.
+
+**1.11.2026 — przygotowano cztery kolejne Shortsy EN, bez publikacji:** S01 kamera i krokomierz (54 s), S02 przeliczanie kroków na długość (30 s), S03 szkic pokoju (42 s), S04 eksport DXF do CAD (44 s). Nowy montaż pionowy z istniejących źródeł V04/V05/V06, 1080 × 1920 / 30 kl./s, spokojne pauzy i cztery różne melodie. Gotowe tytuły, opisy, hashtagi, tagi i kredyty muzyczne; symulacja S01/S02 oraz ilustracja S03 ujawnione w opisach. Kontrola techniczna i przegląd klatek zakończone. [Filmy, podgląd i dokumentacja](../media/youtube/shorts-en/README.md) · [metadane do wklejenia](../media/youtube/shorts-en/output/METADATA.md). Następny krok: odbiór i przesłanie tych czterech materiałów na YouTube; nie utożsamiać ich ze Shortsem opublikowanym wcześniej.
 
 ## 6. Filmy opublikowane na YouTube
 

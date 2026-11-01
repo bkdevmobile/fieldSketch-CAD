@@ -1,6 +1,12 @@
 # Rozbudowa strony WWW outlineGo
 
-**Domena — aktualizacja 1.11.2026:** zamówiono `outlinego.com` w OVHcloud na 1 rok, z opcjami darmowymi. Oczekujemy na realizację zamówienia. Następnie podłączyć domenę do obecnego Firebase Hosting i po sprawdzeniu DNS/HTTPS zaktualizować wszystkie miejsca korzystające z adresu `outlinego-27ab5.web.app`: treści WWW, canonical/hreflang/Open Graph/JSON-LD, sitemap i robots.txt, odnośniki w aplikacji i Google Play, YouTube oraz materiały promocyjne. Ustalić preferowany adres, zachować stare linki i zaktualizować Search Console. Na tym etapie nie zmieniano konfiguracji ani adresów. Poniższe informacje o wyborze i dostępności domen opisują historię sprzed zamówienia.
+**Domena — aktualizacja 1.11.2026:** zamówienie `outlinego.com` w OVHcloud (1 rok, opcje darmowe) zostało zrealizowane i domena jest podłączona do Firebase Hosting. Użytkownik potwierdził działanie adresów `outlinego.com` i `www.outlinego.com`; brakuje jeszcze certyfikatu SSL dla `www.outlinego.com`. To potwierdzenie użytkownika, nie wynik nowej kontroli automatycznej.
+
+**Następne zadania — w tej kolejności:**
+
+1. Potwierdzić wystawienie certyfikatu SSL i działanie HTTPS, w szczególności dla `www.outlinego.com`.
+2. Ustawić adres e-mail we własnej domenie i sprawdzić wysyłanie oraz odbiór. Konkretny adres nie został jeszcze ustalony.
+3. Po potwierdzeniu HTTPS i działania poczty zaktualizować **adres strony i adres e-mail** na WWW, w Google Play oraz materiałach promocyjnych (w tym opisach YouTube i metadanych gotowych Shortsów). Uwzględnić dane kontaktowe i odnośniki dokumentów prawnych w aplikacji, metadane SEO, canonical/hreflang/Open Graph/JSON-LD, sitemap, robots.txt oraz Search Console. Zachować działanie dotychczasowych linków Firebase.
 
 **31.10.2026 — etap 2 WWW opublikowany:** 12 stron marketingowych PL/EN, w tym Plan pokoju i Pomoc, oraz wszystkie filmy V01–V06 na odpowiednich podstronach. Firebase Hosting `outlinego-27ab5`, wersja `3f872ac19f672a6e`; publikacja zakończona 31.10.2026 około 19:53 czasu Europe/Warsaw. Kontrola live przeszła: 12 stron, 137 zasobów ze zgodnymi SHA-256, 12 plików MP4 z odpowiedzią 206 dla zakresów bajtów, przekierowania 301 i strona 404. Strona: https://outlinego-27ab5.web.app/pl/ i /en/. Kod integracji: `4aa98e3`; wcześniejsza implementacja etapu 2: `3c3fc6e`. Log: `artifacts/firebase-www-stage2-deploy-2026-10-31.log`; raport: `artifacts/www-stage2-live-verification-2026-10-31.json`. **Odbiór w przeglądarce zakończony pozytywnie przez użytkownika 31.10.2026: „testy w przeglądarce ok”.** Punkt odbioru WWW zamknięty na podstawie tego potwierdzenia. Wcześniejsze wpisy o lokalnej integracji i braku deployu są historyczne.
 
