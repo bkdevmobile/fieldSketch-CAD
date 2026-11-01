@@ -71,7 +71,9 @@ Pomysł zapisany. W ramach tego wpisu nie zmieniono strony ani nie opublikowano 
 
 ## 3. Własna domena dla landing page
 
-Data dodania i sprawdzenia: **28 października 2026**. Status: **do decyzji; domeny nie kupiono**.
+Data dodania i pierwotnego sprawdzenia: **28 października 2026**. Aktualizacja **1 listopada 2026**: **zamówiono `outlinego.com` w OVHcloud na 1 rok, z opcjami darmowymi; oczekujemy na realizację zamówienia** — potwierdzenie użytkownika. Nie potwierdzono jeszcze aktywacji domeny.
+
+Po realizacji zamówienia podłączyć domenę do istniejącego Firebase Hosting, sprawdzić DNS i HTTPS, a następnie zaktualizować miejsca, w których podawano adres `outlinego-27ab5.web.app`: stronę i jej metadane, mapę witryny i robots.txt, linki dokumentów prawnych używane w aplikacji oraz Google Play, opisy YouTube i pozostałe materiały promocyjne. Ustalić preferowany adres domeny, zachować działanie dotychczasowych linków i zaktualizować Search Console. Zmiany adresów wykonywać po potwierdzeniu działania nowej domeny. Poniższe porównania cen i rekomendacje dokumentują wcześniejszy etap wyboru; decyzja o domenie została podjęta.
 
 ### Cel
 

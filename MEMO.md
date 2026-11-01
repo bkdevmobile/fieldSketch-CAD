@@ -1,5 +1,7 @@
 # Stan prac nad outlineGo (wcześniej FieldSketch CAD)
 
+**Domena — 1.11.2026:** użytkownik zamówił `outlinego.com` w OVHcloud na 1 rok, z opcjami darmowymi. **Czekamy na realizację zamówienia.** Po jej potwierdzeniu podłączyć domenę do istniejącego Firebase Hosting, sprawdzić DNS/HTTPS i zaktualizować adres wszędzie, gdzie podawano `outlinego-27ab5.web.app` (WWW i SEO, aplikacja/dokumenty prawne, Google Play, YouTube, materiały promocyjne oraz Search Console), zachowując działanie dotychczasowych linków. Domena nie jest jeszcze potwierdzona jako aktywna ani podłączona. Szczegóły: [plan domeny](docs/promocja-aplikacji.md#3-własna-domena-dla-landing-page).
+
 **Google Play / ASO — 1.11.2026:** użytkownik potwierdził aktualizację nazwy i opisu w sklepie Google Play według przekazanych wskazówek. Tekstowa część zmian ASO wykonana; pozostaje ocena wpływu na odwiedziny karty i instalacje. Szczegóły: [notatki o promocji](docs/promocja-aplikacji.md#1-agresywne-aso-app-store-optimization-pod-długi-ogon).
 
 **YouTube — potwierdzenie użytkownika 31.10.2026:** opublikowano sześć filmów i jeden Shorts. Wszystkie siedem adresów zapisano w [notatkach o promocji, sekcja 6](docs/promocja-aplikacji.md#6-filmy-opublikowane-na-youtube). Shorts: https://www.youtube.com/shorts/T12jpWwueGA. Przypisanie linków do V01–V06 i języków nie jest potwierdzone. Publikacja na YouTube jest niezależna od integracji WWW, którą opublikowano 31.10.2026; wcześniejsze wzmianki o braku publikacji filmów należy czytać z tym uzupełnieniem.
