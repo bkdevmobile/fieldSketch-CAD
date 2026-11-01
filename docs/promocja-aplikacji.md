@@ -6,7 +6,7 @@ Przy kolejnych wpisach zapisujemy datę, cel, proponowane działania, status ora
 
 ## 1. Agresywne ASO (App Store Optimization) pod „długi ogon”
 
-Data dodania: **28 października 2026**. Status: **pomysł do dopracowania**.
+Data dodania: **28 października 2026**. Status: **nazwa i opis w Google Play zaktualizowane według wskazówek — potwierdzenie użytkownika z 1 listopada 2026**. Ocena skuteczności pozostaje do wykonania.
 
 ### Cel i założenie
 
@@ -35,7 +35,9 @@ Dotrzeć do osób, które nie znają jeszcze nazwy „outlineGo”, ale wyszukuj
 
 ### Realizacja i wyniki
 
-Nie rozpoczęto. Nie zmieniono metadanych w Google Play.
+**1 listopada 2026:** użytkownik potwierdził zaktualizowanie nazwy i opisu w sklepie Google Play według przekazanych wskazówek. Zmiana realizuje tekstową część planu ASO, z naciskiem na pomiar za pomocą czujników, celowanie kamerą i szacowanie długości krokami.
+
+Potwierdzenie dotyczy nazwy i opisu; nie obejmuje aktualizacji grafik, filmu ani konkretnych wersji językowych. Kolejny krok: obserwować odwiedziny karty, pozyskania i konwersję na instalację oraz porównać wyniki z okresem przed zmianą. Wyników jeszcze nie podano.
 
 ## 2. Wykorzystanie efektu GEO / AIO (Generative Engine Optimization)
 
