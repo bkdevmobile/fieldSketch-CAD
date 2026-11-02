@@ -78,7 +78,7 @@ Data dodania i pierwotnego sprawdzenia: **28 października 2026**.
 **Następne zadania — w tej kolejności:**
 
 1. Potwierdzić wystawienie certyfikatu SSL i działanie HTTPS, w szczególności dla `www.outlinego.com`.
-2. Ustawić adres e-mail we własnej domenie i sprawdzić wysyłanie oraz odbiór. Konkretny adres nie został jeszcze ustalony.
+2. **Wykonane — 2.11.2026:** użytkownik potwierdził skonfigurowanie adresów e-mail we własnej domenie. Główna skrzynka: `support@outlinego.com`, OVHcloud Zimbra Starter. Przekazywanie do Gmaila działa (potwierdzenie użytkownika). Przekazano instrukcję dodania do filtra akcji „Przechowuj w skrzynce odbiorczej”, aby zachowywać kopię w Zimbrze. Wysyłanie jako `support@outlinego.com` z Gmaila nie zostało potwierdzone.
 3. Po potwierdzeniu HTTPS i działania poczty zaktualizować **adres strony i adres e-mail** na WWW, w Google Play oraz materiałach promocyjnych (w tym opisach YouTube i metadanych gotowych Shortsów). Uwzględnić dane kontaktowe i odnośniki dokumentów prawnych w aplikacji, metadane SEO, canonical/hreflang/Open Graph/JSON-LD, sitemap, robots.txt oraz Search Console. Zachować działanie dotychczasowych linków Firebase.
 
 Poniższe porównania cen i rekomendacje dokumentują etap wyboru sprzed zamówienia; domena została już wybrana i uruchomiona.
