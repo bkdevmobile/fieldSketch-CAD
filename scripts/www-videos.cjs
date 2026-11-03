@@ -28,8 +28,10 @@ const films = [
     transcript:['Celowanie tylną kamerą → zapis kierunku → Start → rosnący licznik kroków → zatrzymanie i Stop → sprawdzenie długości → zapis punktu → kolejne boki → zamknięcie i PNG. Przy długości kroku 75 cm odczyty 8, 6 i 8 kroków dają boki 6 m, 4,5 m i 6 m; zamknięcie 4,5 m jest wyliczone. Wynik: 21 m i 27 m².','Aim with the rear camera → capture direction → Start → increasing step count → stand still and Stop → check the length → save a point → next sides → close and export PNG. With a 75 cm step length, counts of 8, 6 and 8 give sides of 6 m, 4.5 m and 6 m; the 4.5 m closure is calculated. Result: 21 m and 27 m².'] }
 ];
 
+const watchUrl = (lang, name) => `/${lang}/${lang === 'pl' ? 'filmy' : 'videos'}/${name}/`;
+
 module.exports = function ({ esc, pick, sectionHead }) {
-  function video(lang, name) {
+  function video(lang, name, { watch = false } = {}) {
     const film = films.find(item => item.name === name);
     if (!film) throw Error('Unknown WWW film: ' + name);
     const i = lang === 'pl' ? 0 : 1;
@@ -39,7 +41,7 @@ module.exports = function ({ esc, pick, sectionHead }) {
       const link = raw.replace(/\.$/, '');
       return `<a href="${link}">${link}</a>${raw.endsWith('.') ? '.' : ''}`;
     });
-    return `<figure class="video-card"><video controls playsinline preload="none" width="1920" height="1080" poster="${base}-poster.webp" aria-label="${esc(film.title[i])}"><source src="${base}.mp4" type="video/mp4"><a href="${base}.mp4">${pick(lang,'Otwórz film MP4','Open the MP4 video')}</a></video><figcaption><strong>${esc(film.title[i])} · ${film.duration}</strong><p>${esc(film.disclosure[i])}</p><details><summary>${pick(lang,'Opis filmu i muzyka','Video description and music')}</summary><p>${esc(film.transcript[i])}</p><p>${linkedCredits}</p></details></figcaption></figure>`;
+    return `<figure class="video-card"><video controls playsinline preload="${watch ? 'metadata' : 'none'}" width="1920" height="1080" poster="${base}-poster.webp" aria-label="${esc(film.title[i])}"><source src="${base}.mp4" type="video/mp4"><a href="${base}.mp4">${pick(lang,'Otwórz film MP4','Open the MP4 video')}</a></video><figcaption><strong>${esc(film.title[i])} · ${film.duration}</strong><p>${esc(film.disclosure[i])}</p>${watch ? '' : `<p><a href="${watchUrl(lang,name)}">${pick(lang,'Oglądaj na stronie filmu','Watch on the video page')} →</a></p>`}<details${watch ? ' open' : ''}><summary>${pick(lang,'Opis filmu i muzyka','Video description and music')}</summary><p>${esc(film.transcript[i])}</p><p>${linkedCredits}</p></details></figcaption></figure>`;
   }
   function filmSection(lang, page) {
     const film = films[page];
@@ -48,3 +50,5 @@ module.exports = function ({ esc, pick, sectionHead }) {
   }
   return { video, filmSection };
 };
+module.exports.films = films;
+module.exports.watchUrl = watchUrl;

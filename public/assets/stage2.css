@@ -1,4 +1,9 @@
 /* Room guide and help share the established outlineGo palette and typography. */
+.watch-page{padding-top:16px!important;max-width:1040px;margin-inline:auto}
+.watch-page h1{font-size:clamp(26px,4vw,42px);line-height:1.15;margin:0 0 20px}
+.watch-page .video-card{margin:0}
+.watch-page .video-card video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#14271f}
+.watch-page .video-card figcaption{margin-top:18px}
 .room-opening{padding-top:0!important}
 .room-opening>figure>img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:24px}
 .room-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}

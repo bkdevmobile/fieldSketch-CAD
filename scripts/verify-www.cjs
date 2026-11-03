@@ -5,6 +5,10 @@ const assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../public');
 const origin='https://outlinego.com';
 const routes={pl:['/pl/','/pl/jak-to-dziala/','/pl/szkic-ogrodu/','/pl/eksport-dxf/','/pl/plan-pokoju/','/pl/pomoc/'],en:['/en/','/en/how-it-works/','/en/garden-sketch/','/en/dxf-export/','/en/room-plan/','/en/help/']};
+const {films,watchUrl}=require('./www-videos.cjs');
+const guideRoutes=Object.values(routes).flat();
+const watchRoutes=['pl','en'].flatMap(lang=>films.map(film=>watchUrl(lang,film.name)));
+for(const lang of ['pl','en'])routes[lang].push(...films.map(film=>watchUrl(lang,film.name)));
 const resolveFile=pathname=>path.join(root,pathname.endsWith('/')?pathname+'index.html':pathname);
 const attr=(tag,key)=>tag.match(new RegExp('(?:^|\\s)'+key+'="([^"]*)"'))?.[1];
 const hash=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
@@ -28,7 +32,23 @@ let preview;
     assert.equal(schemaBlocks.length,1,'One structured data block '+route);
     const schema=JSON.parse(schemaBlocks[0][1]);
     assert.equal(schema['@context'],'https://schema.org');
-    if(i===0){
+    if(i>=6){
+      const film=films[i-6],base=`${origin}/assets/stage2/${lang}/${film.name}`;
+      assert.equal(schema['@type'],'VideoObject');
+      assert.equal(schema.name,film.title[lang==='pl'?0:1]);
+      assert.equal(schema.url,origin+route);
+      assert.equal(schema.contentUrl,base+'.mp4');
+      assert.equal(schema.thumbnailUrl,base+'-poster.webp');
+      assert.equal(schema.inLanguage,lang);
+      assert(Number.isFinite(Date.parse(schema.uploadDate)),'Valid publication date');
+      assert(html.includes('preload="metadata"'),'Watch page media is discoverable without clicking');
+      assert.equal((html.match(/<video /g)||[]).length,1);
+      assert(html.indexOf('<h1>')<html.indexOf('<video '),'Video immediately follows its heading');
+      assert(html.includes(`poster="/assets/stage2/${lang}/${film.name}-poster.webp"`));
+      assert(html.includes(`href="${routes[lang][i-6]}"`),'Link back to guide');
+      const guide=fs.readFileSync(resolveFile(routes[lang][i-6]),'utf8');
+      assert(guide.includes(`href="${route}"`),'Guide links to watch page');
+    }else if(i===0){
       assert.equal(schema['@type'],'WebSite');
       assert.equal(schema.url,origin+'/');
       assert.equal(schema.name,'outlineGo');
@@ -83,7 +103,17 @@ let preview;
   console.log('Verified 6 legal pages: PL/EN links, dates, no internal drafting notes, matching content structure and local links.');
   const sitemap=fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
   const locs=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
-  assert.deepEqual(locs,Object.values(routes).flat().map(r=>origin+r),'Sitemap covers exactly the twelve pages');
+  assert.deepEqual(locs,[...guideRoutes,...watchRoutes].map(r=>origin+r),'Sitemap covers guides and watch pages');
+  const videoEntries=[...sitemap.matchAll(/<url><loc>([^<]+)<\/loc><video:video>(.*?)<\/video:video><\/url>/g)];
+  assert.equal(videoEntries.length,12,'Video sitemap entries');
+  for(const [,loc,entry] of videoEntries){
+    const html=fs.readFileSync(resolveFile(new URL(loc).pathname),'utf8');
+    const schema=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/)[1]);
+    assert(entry.includes(`<video:thumbnail_loc>${schema.thumbnailUrl}</video:thumbnail_loc>`));
+    assert(entry.includes(`<video:content_loc>${schema.contentUrl}</video:content_loc>`));
+    const [,minutes,seconds]=schema.duration.match(/^PT(\d+)M(\d+)S$/);
+    assert(entry.includes(`<video:duration>${Number(minutes)*60+Number(seconds)}</video:duration>`));
+  }
   const hosting=require('../firebase.json').hosting;
   for(const old of ['/','/index.html'])assert(hosting.redirects.some(r=>r.source===old&&r.destination==='/en/'&&r.type===301),'Legacy homepage redirect');
   const manifest=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../media/www/stage1-completion/manifest.json'),'utf8'));
@@ -129,5 +159,5 @@ let preview;
     if([1,2,3].includes(page))assert(html.includes(lang==='pl'?'osobny':'separate') || page===2,'Video example distinguished from the page example');
     if(page===4)assert(html.includes('18 m')&&html.includes('20 m²'),'Room geometry');
   }
-  console.log(`Verified 12 pages, unique metadata, language pairs, ${links} local references, ${images} image elements, ${media} stage 1 media and ${stage2.files.length} stage 2 assets${checkHttp?'; HTTP 200/301/404 and downloads verified':''}.`);
+  console.log(`Verified 24 pages, video schema and sitemap, unique metadata, language pairs, ${links} local references, ${images} image elements, ${media} stage 1 media and ${stage2.files.length} stage 2 assets${checkHttp?'; HTTP 200/301/404 and downloads verified':''}.`);
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>{if(preview)preview.kill();});

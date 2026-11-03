@@ -23,7 +23,7 @@ async function verify(route) {
 async function main() {
   const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
   const pages = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => new URL(match[1]).pathname);
-  assert.equal(pages.length, 12);
+  assert.equal(pages.length, 24);
   const resources = new Set([...pages, '/sitemap.xml', '/robots.txt',
     '/privacy.html', '/terms.html', '/measurement-notice.html',
     '/pl/prywatnosc/', '/pl/regulamin/', '/pl/ograniczenia-pomiarow/']);
@@ -61,7 +61,7 @@ async function main() {
   report.success = true;
   report.pages = pages.length;
   report.resources.sort((a, b) => a.route.localeCompare(b.route));
-  const output = path.resolve(__dirname, `../artifacts/www-live-verification-${report.checkedAt.slice(0, 10)}.json`);
+  const output = path.resolve(__dirname, `../artifacts/www-video-seo-live-verification-${report.checkedAt.slice(0, 10)}.json`);
   fs.mkdirSync(path.dirname(output), { recursive: true });
   fs.writeFileSync(output, JSON.stringify(report, null, 2) + '\n');
   console.log(`Live verified: ${pages.length} pages, ${resources.size} resources with matching SHA-256, 12 MP4 byte ranges, 301 redirects and 404.`);
