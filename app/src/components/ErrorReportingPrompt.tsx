@@ -3,6 +3,7 @@ import { Linking } from 'react-native';
 import { useStore } from '../infrastructure/store';
 import { useDialogs } from './overlays';
 import { t } from '../i18n';
+import { LEGAL_URLS } from '../domain/legal';
 
 export function ErrorReportingConsentPrompt() {
   const { errorReportRequest, answerErrorReportRequest } = useStore();
@@ -16,7 +17,7 @@ export function ErrorReportingConsentPrompt() {
       t('Czy włączyć wysyłanie tego i przyszłych raportów błędów do Sentry? Raport zawiera typ błędu, pozycję w kodzie oraz wersję aplikacji i Androida. Bez treści szkiców, zdjęć i nagrań sesji. Zgodę możesz wycofać w ustawieniach. Odmowa nie ogranicza funkcji aplikacji.'), [
         { text: t('Włącz i wyślij'), onPress: () => { void answerErrorReportRequest(id, true); } },
         { text: t('Polityka prywatności'), onPress: () => {
-          void Linking.openURL('https://outlinego-27ab5.web.app/privacy.html').catch(() => {}).finally(ask);
+          void Linking.openURL(LEGAL_URLS.privacy).catch(() => {}).finally(ask);
         } },
         { text: t('Nie wysyłaj'), style: 'cancel', onPress: () => { void answerErrorReportRequest(id, false); } },
       ]);

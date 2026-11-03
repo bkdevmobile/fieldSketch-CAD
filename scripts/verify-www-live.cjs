@@ -3,7 +3,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '../public');
-const origin = 'https://outlinego-27ab5.web.app';
+const origin = 'https://outlinego.com';
 const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const fileFor = route => path.join(root, route.endsWith('/') ? route + 'index.html' : route);
 const report = { origin, checkedAt: new Date().toISOString(), resources: [], videoRanges: [] };
@@ -24,7 +24,9 @@ async function main() {
   const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
   const pages = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => new URL(match[1]).pathname);
   assert.equal(pages.length, 12);
-  const resources = new Set([...pages, '/sitemap.xml', '/robots.txt']);
+  const resources = new Set([...pages, '/sitemap.xml', '/robots.txt',
+    '/privacy.html', '/terms.html', '/measurement-notice.html',
+    '/pl/prywatnosc/', '/pl/regulamin/', '/pl/ograniczenia-pomiarow/']);
   for (const route of pages) {
     const html = fs.readFileSync(fileFor(route), 'utf8');
     for (const tag of html.match(/<(?:a|img|source|link|script|video)\b[^>]*>/g) || []) {
@@ -59,7 +61,7 @@ async function main() {
   report.success = true;
   report.pages = pages.length;
   report.resources.sort((a, b) => a.route.localeCompare(b.route));
-  const output = path.resolve(__dirname, '../artifacts/www-stage2-live-verification-2026-10-31.json');
+  const output = path.resolve(__dirname, `../artifacts/www-live-verification-${report.checkedAt.slice(0, 10)}.json`);
   fs.mkdirSync(path.dirname(output), { recursive: true });
   fs.writeFileSync(output, JSON.stringify(report, null, 2) + '\n');
   console.log(`Live verified: ${pages.length} pages, ${resources.size} resources with matching SHA-256, 12 MP4 byte ranges, 301 redirects and 404.`);

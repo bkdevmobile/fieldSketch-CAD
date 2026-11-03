@@ -3,7 +3,7 @@ const path=require('node:path');
 const crypto=require('node:crypto');
 const assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../public');
-const origin='https://outlinego-27ab5.web.app';
+const origin='https://outlinego.com';
 const routes={pl:['/pl/','/pl/jak-to-dziala/','/pl/szkic-ogrodu/','/pl/eksport-dxf/','/pl/plan-pokoju/','/pl/pomoc/'],en:['/en/','/en/how-it-works/','/en/garden-sketch/','/en/dxf-export/','/en/room-plan/','/en/help/']};
 const resolveFile=pathname=>path.join(root,pathname.endsWith('/')?pathname+'index.html':pathname);
 const attr=(tag,key)=>tag.match(new RegExp('(?:^|\\s)'+key+'="([^"]*)"'))?.[1];

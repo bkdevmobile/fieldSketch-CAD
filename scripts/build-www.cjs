@@ -5,7 +5,7 @@ require('node:child_process').execFileSync(process.execPath, [path.join(__dirnam
 const out = path.join(root, 'public');
 const media = path.join(root, 'media/www/stage1-completion');
 const manifest = JSON.parse(fs.readFileSync(path.join(media, 'manifest.json'), 'utf8'));
-const origin = 'https://outlinego-27ab5.web.app';
+const origin = 'https://outlinego.com';
 const play = 'https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego';
 const routes = { pl: ['','jak-to-dziala/','szkic-ogrodu/','eksport-dxf/','plan-pokoju/','pomoc/'], en: ['','how-it-works/','garden-sketch/','dxf-export/','room-plan/','help/'] };
 const url = (lang, page=0) => `/${lang}/${routes[lang][page]}`;
