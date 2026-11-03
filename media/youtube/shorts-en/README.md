@@ -1,5 +1,7 @@
 # outlineGo — English YouTube Shorts
 
+**Publication update — 3 November 2026:** the user confirmed that S01, “Aim. Walk. Sketch. Phone sensors in action | outlineGo” (54 s), has been published on YouTube. Publication URL not provided. S02–S04 remain without publication confirmation. Earlier statements below that all four Shorts are unpublished are historical for S01.
+
 Prepared **1 November 2026** from the existing V04/V05/V06 source recordings. Four new vertical edits; **not uploaded**. The separately recorded YouTube Shorts publication from 31 October is an earlier material.
 
 [Open all four previews](output/preview.html) · [Titles, descriptions and tags](output/METADATA.md) · [Metadata JSON](output/metadata.json) · [Verification report](output/verification.json)
