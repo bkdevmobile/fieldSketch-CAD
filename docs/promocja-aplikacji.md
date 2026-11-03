@@ -6,7 +6,7 @@ Przy kolejnych wpisach zapisujemy datę, cel, proponowane działania, status ora
 
 ## 1. Agresywne ASO (App Store Optimization) pod „długi ogon”
 
-Data dodania: **28 października 2026**. Status: **pomysł do dopracowania**.
+Data dodania: **28 października 2026**. Status: **nazwa i opis w Google Play zaktualizowane według wskazówek — potwierdzenie użytkownika z 1 listopada 2026**. Ocena skuteczności pozostaje do wykonania.
 
 ### Cel i założenie
 
@@ -35,7 +35,9 @@ Dotrzeć do osób, które nie znają jeszcze nazwy „outlineGo”, ale wyszukuj
 
 ### Realizacja i wyniki
 
-Nie rozpoczęto. Nie zmieniono metadanych w Google Play.
+**1 listopada 2026:** użytkownik potwierdził zaktualizowanie nazwy i opisu w sklepie Google Play według przekazanych wskazówek. Zmiana realizuje tekstową część planu ASO, z naciskiem na pomiar za pomocą czujników, celowanie kamerą i szacowanie długości krokami.
+
+Potwierdzenie dotyczy nazwy i opisu; nie obejmuje aktualizacji grafik, filmu ani konkretnych wersji językowych. Kolejny krok: obserwować odwiedziny karty, pozyskania i konwersję na instalację oraz porównać wyniki z okresem przed zmianą. Wyników jeszcze nie podano.
 
 ## 2. Wykorzystanie efektu GEO / AIO (Generative Engine Optimization)
 
@@ -69,7 +71,17 @@ Pomysł zapisany. W ramach tego wpisu nie zmieniono strony ani nie opublikowano 
 
 ## 3. Własna domena dla landing page
 
-Data dodania i sprawdzenia: **28 października 2026**. Status: **do decyzji; domeny nie kupiono**.
+Data dodania i pierwotnego sprawdzenia: **28 października 2026**.
+
+**Domena — aktualizacja 1.11.2026:** zamówienie `outlinego.com` w OVHcloud (1 rok, opcje darmowe) zostało zrealizowane i domena jest podłączona do Firebase Hosting. Użytkownik potwierdził działanie adresów `outlinego.com` i `www.outlinego.com`; brakuje jeszcze certyfikatu SSL dla `www.outlinego.com`. To potwierdzenie użytkownika, nie wynik nowej kontroli automatycznej.
+
+**Następne zadania — w tej kolejności:**
+
+1. Potwierdzić wystawienie certyfikatu SSL i działanie HTTPS, w szczególności dla `www.outlinego.com`.
+2. **Wykonane — 2.11.2026:** użytkownik potwierdził skonfigurowanie adresów e-mail we własnej domenie. Główna skrzynka: `support@outlinego.com`, OVHcloud Zimbra Starter. Przekazywanie do Gmaila działa (potwierdzenie użytkownika). Przekazano instrukcję dodania do filtra akcji „Przechowuj w skrzynce odbiorczej”, aby zachowywać kopię w Zimbrze. Wysyłanie jako `support@outlinego.com` z Gmaila nie zostało potwierdzone.
+3. Po potwierdzeniu HTTPS i działania poczty zaktualizować **adres strony i adres e-mail** na WWW, w Google Play oraz materiałach promocyjnych (w tym opisach YouTube i metadanych gotowych Shortsów). Uwzględnić dane kontaktowe i odnośniki dokumentów prawnych w aplikacji, metadane SEO, canonical/hreflang/Open Graph/JSON-LD, sitemap, robots.txt oraz Search Console. Zachować działanie dotychczasowych linków Firebase.
+
+Poniższe porównania cen i rekomendacje dokumentują etap wyboru sprzed zamówienia; domena została już wybrana i uruchomiona.
 
 ### Cel
 
@@ -139,6 +151,8 @@ Data dodania: **31 października 2026**. Status: **pierwszy Shorts opublikowany 
 ### Realizacja i wyniki
 
 Użytkownik potwierdził publikację pierwszego Shortsa: [YouTube Shorts — T12jpWwueGA](https://www.youtube.com/shorts/T12jpWwueGA). Data potwierdzenia: **31.10.2026**; dokładnej daty publikacji i wyników nie podano. Pozostałe adresy opublikowanych filmów zapisano poniżej.
+
+**1.11.2026 — przygotowano cztery kolejne Shortsy EN, bez publikacji:** S01 kamera i krokomierz (54 s), S02 przeliczanie kroków na długość (30 s), S03 szkic pokoju (42 s), S04 eksport DXF do CAD (44 s). Nowy montaż pionowy z istniejących źródeł V04/V05/V06, 1080 × 1920 / 30 kl./s, spokojne pauzy i cztery różne melodie. Gotowe tytuły, opisy, hashtagi, tagi i kredyty muzyczne; symulacja S01/S02 oraz ilustracja S03 ujawnione w opisach. Kontrola techniczna i przegląd klatek zakończone. [Filmy, podgląd i dokumentacja](../media/youtube/shorts-en/README.md) · [metadane do wklejenia](../media/youtube/shorts-en/output/METADATA.md). Następny krok: odbiór i przesłanie tych czterech materiałów na YouTube; nie utożsamiać ich ze Shortsem opublikowanym wcześniej.
 
 ## 6. Filmy opublikowane na YouTube
 

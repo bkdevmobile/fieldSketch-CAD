@@ -1,0 +1,78 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "duration": 54,
+  "disclosure": "Emulator demonstration with simulated direction and step readings. The virtual camera uses an AI-generated garden image. The app interface, length calculation, saving and PNG export are real. This is not a recording of physical measurement or sensor accuracy. The camera is a viewfinder; step-based lengths are estimates.",
+  "segments": [
+    {
+      "file": "media/www/video-v06/sources/en/02-direction.mp4",
+      "start": 0,
+      "length": 10,
+      "duration": 14,
+      "layout": "phone",
+      "title": [
+        "Aim at a corner.",
+        "Save the direction."
+      ],
+      "endStill": "media/www/video-v06/sources/en/02-direction.png",
+      "outputStart": 0,
+      "speed": 1,
+      "hold": 4,
+      "sourceSha256": "3819d73f81ce111ff9b1e93b7c9d039dd4a3de1b5bdd2f1322795b5ef7b4122d",
+      "endStillSha256": "79d1762e88183796a017b4c3a5db66dd3a250730fc064cf9017b38e8bda00392"
+    },
+    {
+      "file": "media/www/video-v06/sources/en/03-steps.mp4",
+      "start": 0,
+      "length": 18,
+      "duration": 22,
+      "layout": "phone",
+      "title": [
+        "Start. Walk.",
+        "Stand still. Stop."
+      ],
+      "endStill": "media/www/video-v06/sources/en/03-steps-stopped.png",
+      "outputStart": 14,
+      "speed": 1,
+      "hold": 4,
+      "sourceSha256": "767dfb5c21c0d1d367cec13d7b4a35be626dd33d7ce0fa274626b422aadd743c",
+      "endStillSha256": "ec8ea03b0f1985c6b0bd036c5bc9850d3da2298e5681a36acc48acab0eecb659"
+    },
+    {
+      "file": "media/www/video-v06/sources/en/04-save.mp4",
+      "start": 2,
+      "length": 8,
+      "duration": 12,
+      "layout": "phone",
+      "title": [
+        "Check the length.",
+        "Save the next point."
+      ],
+      "outputStart": 36,
+      "speed": 1,
+      "hold": 4,
+      "sourceSha256": "1a3b602f466172d80bab601e6f12e3e25050b2ae8eca9da44b16b7ea50362740"
+    },
+    {
+      "file": "media/www/video-v06/output/camera-steps-en-free.png",
+      "duration": 6,
+      "layout": "export",
+      "title": [
+        "Keep the outline.",
+        "Take your sketch along."
+      ],
+      "outputStart": 48,
+      "speed": 1,
+      "hold": 6,
+      "sourceSha256": "ac9de3d0d3dde36803793b2f1f0f97e43f9945a9aab770ecf15565d01354a2b9"
+    }
+  ],
+  "music": {
+    "file": "media/www/video-v06/audio/Montauk-Point.mp3",
+    "title": "Montauk Point",
+    "source": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400013",
+    "sha256": "bba425149807011f6a9cfd1db38bb06cab3d0e82e8a1d9ecaf280f71e5fc2b1b"
+  },
+  "credits": "Music: \"Montauk Point\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400013. Changes: 54-second excerpt, quiet volume normalization, 1.5-second fade-in and 3-second fade-out, AAC encoding."
+}

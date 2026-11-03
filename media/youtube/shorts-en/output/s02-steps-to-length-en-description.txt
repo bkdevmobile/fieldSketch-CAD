@@ -1,0 +1,10 @@
+Start at the corner, walk the side, stand still and press Stop. With a 75 cm step length, 8 counted steps give an estimated 6 m side. Set the step length to suit your own stride.
+
+Emulator demonstration with simulated direction and step readings. The virtual camera uses an AI-generated garden image. The app interface, length calculation, saving and PNG export are real. This is not a recording of physical measurement or sensor accuracy. The camera is a viewfinder; step-based lengths are estimates.
+
+Get outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
+App website: https://outlinego.com/en/
+
+Music: "Carefree" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400037. Changes: 30-second excerpt, quiet volume normalization, 1.5-second fade-in and 3-second fade-out, AAC encoding.
+
+#outlineGo #StepCounter #Shorts

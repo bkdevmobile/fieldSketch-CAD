@@ -1,0 +1,73 @@
+{
+  "date": "2026-11-01",
+  "reports": [
+    {
+      "id": "s01",
+      "file": "s01-camera-and-steps-en.mp4",
+      "durationSeconds": 54,
+      "frames": 1620,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -23.2,
+      "sourcesVerified": true,
+      "videoStreamPreserved": true,
+      "privacyCropsVerified": true,
+      "disclosuresVerified": true,
+      "sha256": "267a831fe5ea15a5c514ecb0e8b72c3a1e96e6a96d16cf9f17c5c86842bae508",
+      "bytes": 2653741
+    },
+    {
+      "id": "s02",
+      "file": "s02-steps-to-length-en.mp4",
+      "durationSeconds": 30,
+      "frames": 900,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -24.2,
+      "sourcesVerified": true,
+      "videoStreamPreserved": true,
+      "privacyCropsVerified": true,
+      "disclosuresVerified": true,
+      "sha256": "070acfef6c5cd16b375fd40f3ee06572e0f3810570590264330868dcfd337c45",
+      "bytes": 1285728
+    },
+    {
+      "id": "s03",
+      "file": "s03-room-sketch-en.mp4",
+      "durationSeconds": 42,
+      "frames": 1260,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -25.3,
+      "sourcesVerified": true,
+      "videoStreamPreserved": true,
+      "privacyCropsVerified": true,
+      "disclosuresVerified": true,
+      "sha256": "d34dc317031ca996b975b96e2c2e20016ac79136bca2b1bfc5fde61c465cc8a8",
+      "bytes": 3237437
+    },
+    {
+      "id": "s04",
+      "file": "s04-sketch-to-cad-en.mp4",
+      "durationSeconds": 44,
+      "frames": 1320,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "audio": "AAC stereo 48 kHz",
+      "integratedLufs": -24,
+      "sourcesVerified": true,
+      "videoStreamPreserved": true,
+      "privacyCropsVerified": true,
+      "disclosuresVerified": true,
+      "sha256": "d78dda2d534d61c813233556f2ad58c95bd6347b40eceae202af9f5aa702bc71",
+      "bytes": 1633416
+    }
+  ]
+}

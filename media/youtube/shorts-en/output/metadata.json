@@ -1,0 +1,78 @@
+[
+  {
+    "id": "s01",
+    "file": "s01-camera-and-steps-en.mp4",
+    "title": "Aim. Walk. Sketch. Phone sensors in action | outlineGo",
+    "description": "Aim at the next corner, capture direction, start the step counter, stand still and stop, then save the next point. See how outlineGo turns a direction and an estimated length into a 2D sketch.\n\nEmulator demonstration with simulated direction and step readings. The virtual camera uses an AI-generated garden image. The app interface, length calculation, saving and PNG export are real. This is not a recording of physical measurement or sensor accuracy. The camera is a viewfinder; step-based lengths are estimates.\n\nGet outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nApp website: https://outlinego.com/en/\n\nMusic: \"Montauk Point\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400013. Changes: 54-second excerpt, quiet volume normalization, 1.5-second fade-in and 3-second fade-out, AAC encoding.\n\n#outlineGo #StepCounter #Shorts",
+    "tags": [
+      "outlineGo",
+      "phone sensors",
+      "camera and step counter",
+      "2D sketch",
+      "Android app",
+      "step measurement",
+      "garden sketch"
+    ],
+    "language": "en",
+    "durationSeconds": 54,
+    "hasGeneratedScene": true,
+    "publicationStatus": "prepared-not-uploaded"
+  },
+  {
+    "id": "s02",
+    "file": "s02-steps-to-length-en.mp4",
+    "title": "8 steps to an estimated length — outlineGo step counter",
+    "description": "Start at the corner, walk the side, stand still and press Stop. With a 75 cm step length, 8 counted steps give an estimated 6 m side. Set the step length to suit your own stride.\n\nEmulator demonstration with simulated direction and step readings. The virtual camera uses an AI-generated garden image. The app interface, length calculation, saving and PNG export are real. This is not a recording of physical measurement or sensor accuracy. The camera is a viewfinder; step-based lengths are estimates.\n\nGet outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nApp website: https://outlinego.com/en/\n\nMusic: \"Carefree\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400037. Changes: 30-second excerpt, quiet volume normalization, 1.5-second fade-in and 3-second fade-out, AAC encoding.\n\n#outlineGo #StepCounter #Shorts",
+    "tags": [
+      "outlineGo",
+      "step counter",
+      "step length",
+      "estimate distance",
+      "measure with steps",
+      "Android app",
+      "2D sketch"
+    ],
+    "language": "en",
+    "durationSeconds": 30,
+    "hasGeneratedScene": true,
+    "publicationStatus": "prepared-not-uploaded"
+  },
+  {
+    "id": "s03",
+    "file": "s03-room-sketch-en.mp4",
+    "title": "A 5 × 4 m room sketch on your phone | outlineGo",
+    "description": "Keep a room outline on your phone: enter a side, correct 4.8 m to 5 m, review the 18 m perimeter and 20 m² area, then export a PNG. Watermarked PNG export is included in Free.\n\nThe opening room scene is an AI-generated illustration. App screens and the original PNG are real; directions and lengths were entered manually. The closing side is calculated. Check dimensions separately before buying furniture or materials.\n\nGet outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nApp website: https://outlinego.com/en/\n\nMusic: \"Dream Culture\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046. Changes: 42-second excerpt, quiet volume normalization, 1.5-second fade-in and 3-second fade-out, AAC encoding.\n\n#outlineGo #RoomPlan #Shorts",
+    "tags": [
+      "outlineGo",
+      "room sketch",
+      "room plan",
+      "5x4 room",
+      "edit dimensions",
+      "PNG export",
+      "Android app"
+    ],
+    "language": "en",
+    "durationSeconds": 42,
+    "hasGeneratedScene": true,
+    "publicationStatus": "prepared-not-uploaded"
+  },
+  {
+    "id": "s04",
+    "file": "s04-sketch-to-cad-en.mp4",
+    "title": "From phone sketch to DXF and CAD | outlineGo Plus",
+    "description": "Export a sketch as DXF with outlineGo Plus, open the same file in LibreCAD and check the drawing unit and geometry. This example is a 4 × 3 m rectangle with a 14 m perimeter. LibreCAD is separate software.\n\nActual app export and CAD screens with demonstration data. A temporary test Plus entitlement was used for the source recording; this is not a purchase demonstration. DXF export requires Plus. No private file browser or computer history is shown.\n\nGet outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nApp website: https://outlinego.com/en/\n\nMusic: \"Life of Riley\" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400054. Changes: 44-second excerpt, quiet volume normalization, 1.5-second fade-in and 3-second fade-out, AAC encoding.\n\n#outlineGo #DXF #Shorts",
+    "tags": [
+      "outlineGo",
+      "DXF export",
+      "LibreCAD",
+      "CAD",
+      "Android app",
+      "phone to CAD",
+      "outlineGo Plus"
+    ],
+    "language": "en",
+    "durationSeconds": 44,
+    "hasGeneratedScene": false,
+    "publicationStatus": "prepared-not-uploaded"
+  }
+]

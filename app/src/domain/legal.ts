@@ -3,9 +3,9 @@ import { t } from '../i18n';
 // Increase only for material changes requiring a renewed acknowledgement.
 export const LEGAL_NOTICE_VERSION = '2026-10-22.1';
 export const LEGAL_URLS = {
-  terms: 'https://outlinego-27ab5.web.app/terms.html',
-  privacy: 'https://outlinego-27ab5.web.app/privacy.html',
-  measurement: 'https://outlinego-27ab5.web.app/measurement-notice.html',
+  terms: 'https://outlinego.com/terms.html',
+  privacy: 'https://outlinego.com/privacy.html',
+  measurement: 'https://outlinego.com/measurement-notice.html',
 } as const;
 
 export interface LegalAcceptance { version: string; acceptedAt: string }
