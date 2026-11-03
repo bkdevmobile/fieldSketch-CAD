@@ -1,5 +1,9 @@
 # Rozbudowa strony WWW outlineGo
 
+**Stan aktualny — potwierdzenie użytkownika 3.11.2026:** Search Console dla nowej domeny i mapa https://outlinego.com/sitemap.xml skonfigurowane. HTTPS działa; konfiguracja Firebase Hosting dla obu wariantów domeny i przekierowania na wybrany adres główny zakończona. Poczta skonfigurowana i sprawdzona dla `support@outlinego.com`, `hello@outlinego.com` oraz `contact@outlinego.com`; ustawienia nadawcy, odpowiedzi i podpisu objęte potwierdzeniem. Typ adresów (skrzynki/aliasy) nie został określony. Poniższe historyczne zadania potwierdzenia SSL i konfiguracji poczty są zamknięte. Google Play oraz profil i opisy YouTube również zakończone. Pozostają zmiany domeny i kontaktu w źródłach WWW, publikacja tych zmian oraz aktualizacja linków w aplikacji. Status indeksowania i zawartość mapy po migracji wymagają odrębnej kontroli.
+
+**Google Play i YouTube — aktualizacja 3.11.2026:** użytkownik potwierdził zakończenie konfiguracji Google Play, skonfigurowanie profilu kanału YouTube twórcy aplikacji i aktualizację domeny w opisach filmów. Lokalne metadane filmów i Shortsów wskazują już https://outlinego.com. Te elementy migracji są wykonane; poniższy punkt 3 pozostaje aktualny dla WWW, aplikacji i Search Console. Potwierdzenie nie dotyczy publikacji czterech przygotowanych Shortsów EN ani nowej kontroli HTTPS.
+
 **Domena — aktualizacja 1.11.2026:** zamówienie `outlinego.com` w OVHcloud (1 rok, opcje darmowe) zostało zrealizowane i domena jest podłączona do Firebase Hosting. Użytkownik potwierdził działanie adresów `outlinego.com` i `www.outlinego.com`; brakuje jeszcze certyfikatu SSL dla `www.outlinego.com`. To potwierdzenie użytkownika, nie wynik nowej kontroli automatycznej.
 
 **Następne zadania — w tej kolejności:**

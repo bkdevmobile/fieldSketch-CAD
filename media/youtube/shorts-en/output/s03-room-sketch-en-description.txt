@@ -3,7 +3,7 @@ Keep a room outline on your phone: enter a side, correct 4.8 m to 5 m, review th
 The opening room scene is an AI-generated illustration. App screens and the original PNG are real; directions and lengths were entered manually. The closing side is calculated. Check dimensions separately before buying furniture or materials.
 
 Get outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-App website: https://outlinego-27ab5.web.app/en/
+App website: https://outlinego.com/en/
 
 Music: "Dream Culture" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046. Changes: 42-second excerpt, quiet volume normalization, 1.5-second fade-in and 3-second fade-out, AAC encoding.
 

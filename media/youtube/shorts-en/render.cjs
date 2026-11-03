@@ -58,7 +58,7 @@ async function render(film){
  run(['-i',silent,'-i',path.join(root,film.music.file),'-map','0:v:0','-map','1:a:0','-c:v','copy','-af',`atrim=0:${offset},asetpts=PTS-STARTPTS,loudnorm=I=-24:TP=-3:LRA=7,afade=t=in:st=0:d=1.5,afade=t=out:st=${offset-3}:d=3`,'-t',String(offset),'-c:a','aac','-b:a','192k','-ar','48000','-ac','2','-metadata','title='+film.title,'-metadata','comment='+film.disclosure+' '+attribution,'-movflags','+faststart',video],path.join(work,film.id+'-music.log'));
  run(['-ss','2','-i',video,'-frames:v','1',path.join(output,base+'-cover.png')]);
  await sharp(path.join(output,base+'-cover.png')).webp({quality:90}).toFile(path.join(output,base+'-cover.webp'));
- const description=film.summary+'\n\n'+film.disclosure+'\n\nGet outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nApp website: https://outlinego-27ab5.web.app/en/\n\n'+attribution+'\n\n'+film.hashtags.map(tag=>'#'+tag).join(' ');
+ const description=film.summary+'\n\n'+film.disclosure+'\n\nGet outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego\nApp website: https://outlinego.com/en/\n\n'+attribution+'\n\n'+film.hashtags.map(tag=>'#'+tag).join(' ');
  const metadata={id:film.id,file:base+'.mp4',title:film.title,description,tags:film.tags,language:'en',durationSeconds:offset,hasGeneratedScene:!!(film.simulated||film.generatedIllustration),publicationStatus:'prepared-not-uploaded'};
  fs.writeFileSync(path.join(output,base+'-description.txt'),description+'\n');
  fs.writeFileSync(path.join(output,base+'-metadata.json'),JSON.stringify(metadata,null,2)+'\n');

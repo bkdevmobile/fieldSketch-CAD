@@ -41,7 +41,7 @@ Zapisz obrys na telefonie i zabierz go do dalszej pracy na komputerze. Zobacz ou
 PNG jest dostępny w Free. Eksport własnych szkiców do DXF wymaga Plus. Film pokazuje rzeczywiste ekrany aplikacji i CAD z danymi demonstracyjnymi; ten przykład wykorzystuje ręczne wprowadzanie wymiarów.
 
 Pobierz outlineGo na Androida: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-Strona aplikacji: https://outlinego-27ab5.web.app/pl/
+Strona aplikacji: https://outlinego.com/pl/
 
 Music: "Easy Lemon (60 second)" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1200077. Changes: 60-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.
 
@@ -68,7 +68,7 @@ Capture an outline on your phone and take it into your next step on a computer. 
 PNG export is available in Free. Exporting your own sketches to DXF requires Plus. The video shows actual app and CAD screens with demonstration data; this example uses manually entered dimensions.
 
 Get outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-App website: https://outlinego-27ab5.web.app/en/
+App website: https://outlinego.com/en/
 
 Music: "Easy Lemon (60 second)" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1200077. Changes: 60-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.
 
@@ -99,7 +99,7 @@ Przykład 4 × 3 m: poprawiamy bok z 3,8 m na 4 m, otrzymując obwód 14 m i pol
 Rzeczywisty interfejs aplikacji, ręcznie wpisane dane demonstracyjne. Ten film uczy ręcznego wariantu pracy; kamera i krokomierz są pokazane w osobnym filmie. PNG ze znakiem wodnym jest dostępny w Free.
 
 Pobierz outlineGo na Androida: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-Strona aplikacji: https://outlinego-27ab5.web.app/pl/
+Strona aplikacji: https://outlinego.com/pl/
 
 Music: "Carefree" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400037. Changes: excerpted, repeated with a 2.5-second crossfade, normalized to quiet background level, 2-second fade-in, 4-second fade-out, encoded to AAC.
 
@@ -128,7 +128,7 @@ The 4 × 3 m example corrects a side from 3.8 m to 4 m, giving a 14 m perimeter 
 Actual app interface with manually entered demonstration data. This video teaches the manual workflow; camera and step counting are covered in a separate video. Watermarked PNG export is available in Free.
 
 Get outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-App website: https://outlinego-27ab5.web.app/en/
+App website: https://outlinego.com/en/
 
 Music: "Carefree" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400037. Changes: excerpted, repeated with a 2.5-second crossfade, normalized to quiet background level, 2-second fade-in, 4-second fade-out, encoded to AAC.
 
@@ -159,7 +159,7 @@ Scena osoby mierzącej ogród jest wygenerowaną ilustracją, animowaną delikat
 Szkic pomaga we wstępnym planowaniu. Wymiary potrzebne do zakupu materiałów lub wykonania prac sprawdź odpowiednim narzędziem.
 
 Pobierz outlineGo na Androida: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-Strona aplikacji: https://outlinego-27ab5.web.app/pl/
+Strona aplikacji: https://outlinego.com/pl/
 
 Music: "Wallpaper" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100843. Changes: 45-second excerpt, quiet volume normalization, 2-second fade-in and 3-second fade-out, AAC encoding.
 
@@ -188,7 +188,7 @@ The person measuring the garden is a generated illustration animated with a gent
 The sketch supports early planning. Verify dimensions needed for buying materials or construction with appropriate equipment.
 
 Get outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-App website: https://outlinego-27ab5.web.app/en/
+App website: https://outlinego.com/en/
 
 Music: "Wallpaper" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100843. Changes: 45-second excerpt, quiet volume normalization, 2-second fade-in and 3-second fade-out, AAC encoding.
 
@@ -219,7 +219,7 @@ Przykład: prostokąt 4 × 3 m, jednostka metr i obwód 14 m. W CAD sprawdzamy g
 Eksport własnych szkiców do DXF wymaga Plus. LibreCAD jest osobnym programem. Film pokazuje rzeczywisty interfejs i eksport z danymi demonstracyjnymi. Uprawnienie Plus podczas nagrania było testowe; materiał nie dokumentuje zakupu.
 
 Pobierz outlineGo na Androida: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-Strona aplikacji: https://outlinego-27ab5.web.app/pl/
+Strona aplikacji: https://outlinego.com/pl/
 
 Music: "Life of Riley" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400054. Changes: 144-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.
 
@@ -248,7 +248,7 @@ Example: a 4 × 3 m rectangle, metre units and a 14 m perimeter. In CAD, check t
 Exporting your own sketches to DXF requires Plus. LibreCAD is separate software. The video shows the actual interface and export with demonstration data. A test Plus entitlement was used for recording; this is not a purchase demonstration.
 
 Get outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-App website: https://outlinego-27ab5.web.app/en/
+App website: https://outlinego.com/en/
 
 Music: "Life of Riley" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://remote.incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1400054. Changes: 144-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.
 
@@ -279,7 +279,7 @@ Pokój 5 × 4 m: zmieniamy bok z 4,8 m na 5 m. Wynik to 18 m obwodu i 20 m² pol
 Scena osoby mierzącej pokój jest wygenerowaną ilustracją i nie dokumentuje pomiaru tego wnętrza. Ekrany i PNG są rzeczywiste; kierunki oraz długości wpisano ręcznie. Przed zakupem mebli sprawdź potrzebne wymiary osobnym pomiarem.
 
 Pobierz outlineGo na Androida: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-Strona aplikacji: https://outlinego-27ab5.web.app/pl/
+Strona aplikacji: https://outlinego.com/pl/
 
 Music: "Dream Culture" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046. Changes: 72-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.
 
@@ -308,7 +308,7 @@ The 5 × 4 m room corrects a side from 4.8 m to 5 m. The result is an 18 m perim
 The person measuring the room is a generated illustration, not a record of measuring this interior. App screens and the PNG are real; directions and lengths were entered manually. Check required dimensions separately before buying furniture.
 
 Get outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-App website: https://outlinego-27ab5.web.app/en/
+App website: https://outlinego.com/en/
 
 Music: "Dream Culture" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046. Changes: 72-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.
 
@@ -341,7 +341,7 @@ Przykład: długość kroku 75 cm, odczyty 8 / 6 / 8 kroków, boki 6 / 4,5 / 6 m
 Kamera jest celownikiem, kierunek pochodzi z czujników orientacji, a długość z kroków jest szacunkowa. To nie jest skanowanie AR ani pomiar odległości samą kamerą. Ręczne wymiary możesz wykorzystać jako uzupełnienie.
 
 Pobierz outlineGo na Androida: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-Strona aplikacji: https://outlinego-27ab5.web.app/pl/
+Strona aplikacji: https://outlinego.com/pl/
 
 Music: "Montauk Point" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400013. Changes: 108-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.
 
@@ -372,7 +372,7 @@ Example: a 75 cm step length, counts of 8 / 6 / 8, sides of 6 / 4.5 / 6 m and a 
 The camera is a viewfinder, direction comes from orientation sensors and step-based length is an estimate. This is not AR scanning or camera-only distance measurement. Manual dimensions are available as a supplement.
 
 Get outlineGo for Android: https://play.google.com/store/apps/details?id=com.bk.dev.mobile.outlinego
-App website: https://outlinego-27ab5.web.app/en/
+App website: https://outlinego.com/en/
 
 Music: "Montauk Point" by Kevin MacLeod (incompetech.com). Licensed under Creative Commons Attribution 4.0: https://creativecommons.org/licenses/by/4.0/. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400013. Changes: 108-second excerpt, quiet volume normalization, 2-second fade-in and 4-second fade-out, AAC encoding.
 
